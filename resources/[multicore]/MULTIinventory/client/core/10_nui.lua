@@ -321,7 +321,7 @@ RegisterCommand(MIC.Cfg('CloseCommand', 'closeinv'), function()
 end, false)
 
 CreateThread(function()
-    local openKey = MIC.Cfg('OpenKey', 0x4CC0E2FE) -- INPUT_OPEN_SATCHEL_MENU (B), Controls.cs
+    local openKey = MIC.Cfg('OpenKey', 0xC1989F95) -- I (INPUT_QUICK_USE_ITEM in Controls.cs; the game's own use is kept shut)
     while true do
         local sleep = 250
         if MIC.LoggedIn() and not MIC.IsOpen then

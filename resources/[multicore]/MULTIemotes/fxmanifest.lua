@@ -24,6 +24,7 @@ shared_scripts {
 
 client_scripts {
     'client/main.lua',
+    'client/gestures.lua',
     'client/walk.lua',
     'client/menu.lua',
     'client/compat.lua',

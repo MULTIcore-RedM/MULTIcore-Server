@@ -170,6 +170,10 @@ CreateThread(function()
         Wait(Config.Search.StateCheckMs)
         local ped = PlayerPedId()
         local up = IsEntityPlayingAnim(ped, Config.Search.HandsUpDict, Config.Search.HandsUpAnim, 3) == true
+        for _, a in ipairs(Config.Search.HandsUpAlso or {}) do
+            if up then break end
+            up = IsEntityPlayingAnim(ped, a[1], a[2], 3) == true
+        end
         local tied = (IsPedHogtied(ped) == 1 or IsPedHogtied(ped) == true) or (IsPedLassoed(ped) == 1 or IsPedLassoed(ped) == true)
         if up ~= lastUp then LocalPlayer.state:set('multilaw_handsup', up, true) lastUp = up end
         if tied ~= lastTied then LocalPlayer.state:set('multilaw_restrained', tied, true) lastTied = tied end

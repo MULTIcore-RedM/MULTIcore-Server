@@ -5,8 +5,13 @@
 ## 2026-11-20 (later)
 
 ### New
+- **Hands up and point.** Hold **X** to put your hands up (the weapon goes away and you can't shoot; lawmen can search you) and hold **B** to point. You can still walk while doing either. While an emote, eating or crafting is running, X stops that instead. Settings in MULTIemotes `config.lua`.
 - **Base-game map.** The buildings, interiors and furniture that RedM leaves out are now loaded: shops, banks, saloons, the Saint Denis buildings and more. This comes from **redm-ipls**, included unchanged in `resources/[standalone]` under its own MIT licence.
   Already installed? Copy `resources/[standalone]/redm-ipls` into your server and add `ensure redm-ipls` after `ensure ox_lib`.
+
+### Changed
+- **Inventory** opens with **I** (was B).
+- **Voice range** changes with the **`` ` ``** key, left of 1 (was U). Players can also change this key in the game's own key settings.
 
 ## 2026-11-20
 

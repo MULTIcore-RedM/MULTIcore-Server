@@ -5,4 +5,5 @@ Locales['tr'] = {
     ['range_shout'] = "Bağırma",
     ['range_custom'] = "Ses",
     ['range_now'] = "Ses: %s (%s m)",
+    ['key_range'] = "Ses mesafesi",
 }

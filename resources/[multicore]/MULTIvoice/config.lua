@@ -19,7 +19,8 @@ Config.Ranges = {
 }
 Config.DefaultRange = 2           -- which range a player starts in (2 = normal)
 
-Config.CycleKey = 0xD8F73058      -- U: next voice range (any hash from MULTIcore shared/keybinds.lua; false = command only)
+Config.CycleKey = 'GRAVE'         -- ` (the key left of 1): next voice range. A key name for the game's key settings (players can change it
+                                  -- there), or a control hash from MULTIcore shared/keybinds.lua; false = command only
 Config.Command = 'voice'          -- /voice cycles the range too; /voice 1, 2 or 3 picks one ('' = no command)
 Config.Notify = true              -- show the new range in a notification when it changes
 Config.UpdateMs = 250             -- how often the list of players in range is rebuilt (ms)

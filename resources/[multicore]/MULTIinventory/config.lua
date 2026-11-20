@@ -114,7 +114,7 @@ Config.ImagePaths = {                    -- nui:// item picture folders tried in
     'nui://MULTIimages/images/',         --   put yours in MULTIimages/images, named as each item's image field, e.g. bread.png)
 }                                        -- (more folders: add 'nui://<started resource>/<folder>/' lines;
                                          --             MULTIstores reads these too through exports.MULTIinventory:GetImagePaths())
-Config.OpenKey = 0x4CC0E2FE              -- default 0x4CC0E2FE (B)
+Config.OpenKey = 0xC1989F95              -- default 0xC1989F95 (I)
 Config.OpenCommand = 'inventory'         -- default 'inventory'
 Config.CloseCommand = 'closeinv'         -- default 'closeinv'
 Config.GiveItemCommand = 'giveitem'     -- default 'giveitem' (admin: /giveitem [id] [item] [amount])

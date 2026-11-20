@@ -81,8 +81,11 @@ Config.Search = {
     AllowHandsUp = true,            -- search a player with hands up (the game's hands-up loop)
     AllowRestrained = true,         -- search a hogtied or lassoed player
     AllowDead = true,               -- search a downed player
-    HandsUpDict = 'script_proc@robberies@homestead@lonnies_shack@deception', -- hands-up animation (rsg-essentials)
-    HandsUpAnim = 'hands_up_loop',
+    HandsUpDict = 'mech_loco_f@generic@reaction@handsup@unarmed@normal', -- hands-up animation (MULTIemotes' X key)
+    HandsUpAnim = 'loop',
+    HandsUpAlso = {                 -- other hands-up animations that count too
+        { 'script_proc@robberies@homestead@lonnies_shack@deception', 'hands_up_loop' }, -- rsg-essentials
+    },
     StateCheckMs = 500,             -- how often a player's own client reports hands up / hogtied
 }
 Config.Evidence = {

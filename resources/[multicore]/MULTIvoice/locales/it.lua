@@ -5,4 +5,5 @@ Locales['it'] = {
     ['range_shout'] = "Gridare",
     ['range_custom'] = "Voce",
     ['range_now'] = "Voce: %s (%s m)",
+    ['key_range'] = "Portata della voce",
 }

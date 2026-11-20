@@ -14,6 +14,7 @@ GPL v3, like MULTIcore. See `CREDITS.md`.
 - **Search** across every category, by name in the player's language.
 - **Favourites:** the star on a row. Kept on the player's own PC (client KVP), so they follow the player across characters on that server.
 - **Stop:** the cancel key (default X), `/emotecancel`, or X while the menu is open.
+- **Hands up (X)** and **point (B):** hold the key; let go to stop. Upper body only, so the player can still walk. Hands up puts the weapon away and blocks shooting; lawmen running MULTIlaw can search a player with hands up. While an emote, eating or crafting is running, X stops that instead. Settings: `Config.HandsUp` and `Config.Point` (key, hold or press-to-toggle, animation). B is also the game's own satchel key; MULTIemotes keeps that shut. Exports for other scripts: `exports.MULTIemotes:IsHandsUp()`, `exports.MULTIemotes:IsPointing()`.
 - **Walk styles:** 20 styles (7 from RSG v2 rsg-radialmenu with the same ids, 13 locomotion archetypes the game's own scripts use). The choice is saved in the character's metadata (`walkstyle`, the same key rsg-radialmenu uses), shared through the player's `walkstyle` state bag so everyone nearby sees it, and put back on after spawn, respawn and every look reload. "Reset walk style" goes back to the game's own walk.
 - No two-player (shared) emotes: no proven pair of animations is available in the reference data, so none are shipped.
 

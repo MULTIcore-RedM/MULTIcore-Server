@@ -57,6 +57,7 @@ function MEM.Stop()
         ClearPedSecondaryTask(ped)
     end
     dbg('stop', playing and playing.id)
+    if playing then MEM.StoppedAt = GetGameTimer() end -- client/gestures.lua: the X that stopped it doesn't also raise the hands
     playing = nil
 end
 

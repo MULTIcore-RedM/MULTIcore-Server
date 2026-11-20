@@ -21,7 +21,7 @@ Both `setr` lines are already in `server.cfg.example`. Do **not** run pma-voice 
 | | |
 |---|---|
 | **N** (hold) | Talk. This is the game's own push-to-talk key; players can change it or turn on voice activation in the game's settings |
-| **U** | Next range: Whisper (2 m) → Talk (6 m) → Shout (15 m) |
+| **`` ` ``** (left of 1) | Next range: Whisper (2 m) → Talk (6 m) → Shout (15 m) |
 | `/voice` | The same; `/voice 1`, `/voice 2` or `/voice 3` picks one |
 | **F6** → Settings → Voice range | The same, from the radial menu |
 | **[** (hold) | Talk on the radio, only while a script has put you on a radio channel |
@@ -36,7 +36,7 @@ Players in another routing bucket (character select, instances) never hear each 
 |---|---|---|
 | `Config.Ranges` | 2 / 6 / 15 m | The ranges, in order (add or remove as you like) |
 | `Config.DefaultRange` | `2` | Range a player starts in |
-| `Config.CycleKey` | `0xD8F73058` (U) | Key for the next range; `false` = command only |
+| `Config.CycleKey` | `'GRAVE'` (the `` ` `` key, left of 1) | Key for the next range. A key name puts it in the game's key settings, where each player can change it; a control hash works too; `false` = command only |
 | `Config.Command` | `'voice'` | Command for the next range (`''` = none) |
 | `Config.Notify` | `true` | Show the new range in a notification |
 | `Config.UpdateMs` | `250` | How often the list of players in range is rebuilt |

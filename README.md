@@ -44,13 +44,15 @@ You need:
 |---|---|
 | **T** | Chat. `/me` (white on black), `/do` (blue on black), `/try`, `/ooc` |
 | **N** (hold) | Talk (proximity voice; the game's own push-to-talk key) |
-| **U** | Voice range: whisper, talk, shout (also `/voice`) |
+| **`` ` ``** (left of 1) | Voice range: whisper, talk, shout (also `/voice`) |
 | **Left Alt** (hold) | Target: look at a person, horse, wagon, door or counter to see its options |
-| **B** | Inventory |
+| **I** | Inventory |
+| **X** (hold) | Hands up |
+| **B** (hold) | Point |
 | **F6** | Radial menu |
 | **F5** | Emote menu (**X** stops an emote) |
 
-Every key can be changed in the script's `config.lua`.
+Every key can be changed in the script's `config.lua`. The voice range key is also in the game's own key settings, so each player can change it.
 
 ## Adding your own scripts
 

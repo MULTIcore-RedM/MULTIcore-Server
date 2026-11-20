@@ -5,4 +5,5 @@ Locales['de'] = {
     ['range_shout'] = "Rufen",
     ['range_custom'] = "Stimme",
     ['range_now'] = "Stimme: %s (%s m)",
+    ['key_range'] = "Sprechreichweite",
 }

@@ -24,6 +24,32 @@ Config.CancelKey = 'X'              -- key that stops the current emote (name fr
 Config.CloseOnPlay = false          -- true = the menu closes when an emote starts
 
 ---------------------------------
+-- hands up and point keys (client/gestures.lua)
+-- Upper body only, so the player can still walk. Not used while typing or in a menu,
+-- in an emote, seated or lying, mounted, in a wagon, swimming, cuffed, hogtied or dead.
+-- Key = a name from MULTIcore's shared/keybinds.lua ('X', 'B' ...) or a control hash.
+---------------------------------
+Config.HandsUp = {
+    Enabled = true,                 -- false = no hands-up key
+    Key = 'X',                      -- default 'X' (while an emote plays, X stops the emote instead)
+    Hold = true,                    -- true = hands up while the key is held; false = press to raise, press again to lower
+    Holster = true,                 -- put the weapon away first
+    -- MULTIlaw looks for this same animation when a lawman searches a player with hands up
+    Dict = 'mech_loco_f@generic@reaction@handsup@unarmed@normal',
+    Anim = 'loop',
+    Flag = 31,                      -- upper body + loop + the player can move
+}
+Config.Point = {
+    Enabled = true,                 -- false = no point key
+    Key = 'B',                      -- default 'B'
+    Hold = true,                    -- true = point while the key is held; false = press to toggle
+    BlockGameKey = true,            -- B is also the game's own satchel key: true keeps the game's satchel shut
+    Dict = 'script_common@other@unapproved',
+    Anim = 'loop_0',
+    Flag = 31,
+}
+
+---------------------------------
 -- when emotes may be played
 ---------------------------------
 Config.UpperBodyOnMount = true      -- on a horse or in a wagon, game emotes play upper body only; false = not at all

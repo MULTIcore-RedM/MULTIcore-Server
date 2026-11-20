@@ -110,7 +110,7 @@ end
 CreateThread(function()
     while true do
         local wait = 250
-        if Config.CycleKey then
+        if type(Config.CycleKey) == 'number' then
             wait = 0
             if pressed(Config.CycleKey) and not IsPauseMenuActive() then setRange(rangeIndex + 1) end
         end
@@ -134,6 +134,14 @@ if Config.Command and Config.Command ~= '' then
         local n = tonumber(args[1])
         if n and Config.Ranges[n] then setRange(n) else setRange(rangeIndex + 1) end
     end, false)
+end
+
+-- a key name ('GRAVE' ...) goes into the game's key settings, where each player can change it
+if type(Config.CycleKey) == 'string' and Config.CycleKey ~= '' then
+    RegisterCommand('multivoice_range', function()
+        if not IsPauseMenuActive() and not IsNuiFocused() then setRange(rangeIndex + 1) end
+    end, false)
+    RegisterKeyMapping('multivoice_range', _L('key_range'), 'keyboard', Config.CycleKey)
 end
 
 -- ---------------------------------------------------------------
