@@ -1,5 +1,5 @@
 -- ============================================================
--- MULTIstores settings (part of MULTIcore, GPL v3)
+-- MULTIstores settings (part of MULTIcore by RINGO (RINGOscripting), GPL v3)
 -- The store list is in config/stores.lua, what each store sells and buys
 -- in config/products.lua, weapon and ammo prices in config/gunsmith.lua.
 -- Prices are dollars with cents, at 1899 level (RDR2 store prices where known,

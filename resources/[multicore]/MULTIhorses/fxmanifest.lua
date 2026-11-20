@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIhorses'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'Basic horses and stables for MULTIcore: buy, name, call, care, saddlebags, simple tack. Answers as rsg-horses. GPL v3.'
 version '0.1.0'
 license 'GPL-3.0'

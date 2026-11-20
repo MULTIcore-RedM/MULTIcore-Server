@@ -4,7 +4,7 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 lua54 'yes'
 
 name 'MULTIstores'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'Stores for MULTIcore: general stores, gunsmiths, butchers, trappers, doctors, saloons. Answers as rsg-shops. GPL v3.'
 version '0.1.0'
 license 'GPL-3.0'

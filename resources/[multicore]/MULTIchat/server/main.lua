@@ -2,7 +2,7 @@
 -- MULTIchat :: server
 -- Plain text, /me, /do, /try, command suggestions, and the standard chat
 -- resource's server events and exports (it provides 'chat').
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local lastSent = {}   -- [src] = GetGameTimer() of the last message

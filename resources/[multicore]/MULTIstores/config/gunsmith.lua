@@ -3,7 +3,7 @@
 -- A gunsmith sells every weapon in MULTIinventory's weapon data
 -- (exports.MULTIinventory:GetWeaponData()), every ammo box / bundle, a round
 -- item for any ammo type that has no box, and the extra items below.
--- Prices are 1899-level (owner decision, 2026-11-18): RDR2's own story-mode gunsmith
+-- Prices are 1899-level (RINGO's decision, 2026-11-18): RDR2's own story-mode gunsmith
 -- prices where they are known (Cattleman $50, Schofield $84, Springfield $120, Carcano $190 ...),
 -- otherwise close to them or to historical 1899 catalogue prices. The old economy SPEC
 -- is no longer the price source. A weapon not named in Weapons gets its group's price;

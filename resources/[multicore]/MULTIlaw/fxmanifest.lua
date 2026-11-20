@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIlaw'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore basic law: handcuffs, escort, search, evidence, jail and Sisika, fines, bounties, records, law alerts. GPL v3.'
 version '0.1.0'
 

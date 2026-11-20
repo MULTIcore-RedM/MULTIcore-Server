@@ -5,6 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIcreator'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore character creator and barber'
 version '0.1.0'
 license 'GPL-3.0-or-later'

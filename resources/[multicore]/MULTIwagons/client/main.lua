@@ -7,7 +7,7 @@
 -- the answer.
 -- Spawn steps follow RSG v2's rsg-wagons client (GPL v3, Phil and mack /
 -- Rexshack-RedM, see CREDITS.md).
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local RSGCore = exports['rsg-core']:GetCoreObject()

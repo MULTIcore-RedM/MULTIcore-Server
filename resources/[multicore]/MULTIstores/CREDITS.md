@@ -1,6 +1,6 @@
 # Credits for MULTIstores
 
-MULTIstores is GPL v3, part of MULTIcore. Parts of it are based on RSG v2 resources by
+MULTIstores is GPL v3, part of MULTIcore by RINGO (RINGOscripting). Parts of it are based on RSG v2 resources by
 **Rexshack-RedM, RexShack and their contributors**, who keep their copyright. Each of those
 resources ships a GPL v3 `LICENSE` file. MULTIstores is not affiliated with or endorsed by the RSG team.
 No VORP code and no code from any paid store script is used.

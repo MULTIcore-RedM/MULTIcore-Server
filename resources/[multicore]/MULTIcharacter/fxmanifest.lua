@@ -6,7 +6,7 @@ lua54 'yes'
 
 name 'MULTIcharacter'
 description 'MULTIcore character select: up to 5 characters, delete, spawn picker, first-spawn flow.'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 version '0.1.0'
 license 'GPL-3.0'
 

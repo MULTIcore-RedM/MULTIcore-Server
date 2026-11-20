@@ -8,7 +8,7 @@
 -- The spawn sequence (config flags, ownership, personality, companion
 -- decorator, gender expression, care interactions) follows rsg-horses
 -- client/client.lua (RSG v2 framework, GPL v3; see CREDITS.md).
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local RSGCore = exports['rsg-core']:GetCoreObject()

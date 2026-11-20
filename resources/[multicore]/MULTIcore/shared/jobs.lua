@@ -9,7 +9,7 @@
 --   offDutyPay  true = paid even when off duty (leave false: no idle pay)
 --   grades      ['0'] .. ['n'] = { name, payment, isboss }
 --               payment = dollars per paycheck (config.lua RSGConfig.Money.PayCheckTimeOut, 10 min).
---               Wage jobs are paid at 1899 levels per 10-minute paycheck (Ben, 2026-11-18): business jobs $0.20 - $0.40
+--               Wage jobs are paid at 1899 levels per 10-minute paycheck (RINGO, 2026-11-18): business jobs $0.20 - $0.40
 --               ($1.20 - $2.40 an hour), law, medical and justice $0.30 - $0.50 ($1.80 - $3.00 an hour); no pay for idling.
 --               Trade jobs (farmer, miner, hunter ...) pay 0: they earn by selling what they make.
 -- Which jobs the job centre offers is set in MULTIjobs' config.lua (Config.PublicJobs).

@@ -1,5 +1,7 @@
 # MULTIcore server owner guide
 
+*MULTIcore was founded and created by RINGO (RINGOscripting).*
+
 How to set up the everyday things on a MULTIcore server: item pictures, items, jobs, gangs, stores, staff and money. No coding needed: everything is in commented files you edit with any text editor.
 
 **After editing a file in `MULTIcore/shared/` (items, jobs, gangs), do a full server restart.** Every script reads those lists when it starts, so restarting one script on its own is not enough.

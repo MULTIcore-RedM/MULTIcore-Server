@@ -1,6 +1,6 @@
 # Credits for MULTIgathering
 
-MULTIgathering is GPL v3, part of MULTIcore. Parts of it are based on RSG v2 resources by
+MULTIgathering is GPL v3, part of MULTIcore by RINGO (RINGOscripting). Parts of it are based on RSG v2 resources by
 **Rexshack-RedM, RexShack and their contributors**, who keep their copyright. Those resources ship under GPL v3.
 MULTIgathering is not affiliated with or endorsed by the RSG team. No VORP code and no code from any paid script is used.
 

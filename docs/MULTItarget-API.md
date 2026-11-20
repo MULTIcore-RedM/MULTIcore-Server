@@ -1,5 +1,7 @@
 # MULTItarget
 
+*MULTIcore was founded and created by RINGO (RINGOscripting).*
+
 MULTIcore's own target system. Hold **Left Alt**, look at a person, animal, wagon, object or counter, and its options are listed beside the middle of the screen. Every MULTI script uses it and lists it as a dependency.
 
 It answers **ox_target**, **rsg-target** and **qb-target** calls, so scripts written for any of them work unchanged. No other target script is needed.

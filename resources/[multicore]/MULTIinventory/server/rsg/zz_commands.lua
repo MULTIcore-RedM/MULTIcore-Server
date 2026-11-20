@@ -1,7 +1,7 @@
 -- ============================================================
 -- MULTIinventory :: admin commands
 --   /giveitem [id] [item] [amount]   give a player any item or weapon (admin)
--- Same name and arguments as rsg-inventory's /giveitem. GPL v3, part of MULTIcore.
+-- Same name and arguments as rsg-inventory's /giveitem. GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local Inv = MULTIInv

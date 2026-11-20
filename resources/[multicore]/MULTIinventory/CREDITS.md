@@ -1,6 +1,6 @@
 # Credits for MULTIinventory
 
-MULTIinventory is GPL v3, part of MULTIcore. Parts of it are based on RSG v2 resources by
+MULTIinventory is GPL v3, part of MULTIcore by RINGO (RINGOscripting). Parts of it are based on RSG v2 resources by
 **Rexshack-RedM, RexShack and their contributors**, who keep their copyright. Each of those
 resources ships a GPL v3 `LICENSE` file; the RSG v2 framework's NOTICE.md lists them as LGPL.
 Either way they may be reused in a GPL v3 work. MULTIinventory is not affiliated with or
@@ -29,7 +29,7 @@ Reused (adapted to MULTIinventory's engine; marked in each file's header):
 - `server/core/80_give.lua`: give-to-player checks and rollback (`rsg-inventory:server:giveItem`).
 - `server/rsg/face.lua`: every export's argument and return shape (the shop exports are passed on to MULTIstores), Player.Functions item methods
   (`registerPlayerMethods`), the server events.
-- From the UI builder (client / html, written fresh): HasItem rules, give animation, isInMelee
+- Client and page (client / html, written fresh): HasItem rules, give animation, isInMelee
   callback, event names.
 
 ## rsg-ammo

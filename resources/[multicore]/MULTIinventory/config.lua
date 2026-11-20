@@ -247,6 +247,6 @@ Config.Vorp = {
 }
 
 ------------------------------------------------------------------
--- UI builder: further client keys go here.
+-- Further client keys go here.
 ------------------------------------------------------------------
 Config.UI = Config.UI or {}

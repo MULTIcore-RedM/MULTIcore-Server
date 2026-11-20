@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIemotes'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore emotes: emote menu (game emotes, scenarios, animations), favourites, walk styles. GPL v3.'
 version '0.1.0'
 

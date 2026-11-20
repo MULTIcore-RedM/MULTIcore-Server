@@ -4,6 +4,7 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 lua54 'yes'
 
 name 'MULTIinventory'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'One inventory for RSG and VORP scripts side by side (part of MULTIcore)'
 version '0.1.0'
 license 'GPL-3.0'

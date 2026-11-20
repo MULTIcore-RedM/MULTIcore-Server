@@ -6,7 +6,7 @@ lua54 'yes'
 
 name 'MULTIadmin'
 description 'MULTIcore admin menu: players, self tools, weather and time, notifications, bans'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 version '0.1.0'
 license 'GPL-3.0-or-later'
 

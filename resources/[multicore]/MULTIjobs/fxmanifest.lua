@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIjobs'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore jobs and gangs: job centre, multi-job, boss menu, gang menu, duty. GPL v3.'
 version '0.1.0'
 

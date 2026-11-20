@@ -4,7 +4,7 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 lua54 'yes'
 
 name 'MULTIcamps'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'Basic player camps for MULTIcore: a tent kit pitched in the wild, bedroll, campfire, storage chest, optional hitching post, gang sharing, decay. GPL v3.'
 version '0.1.0'
 license 'GPL-3.0'

@@ -1,6 +1,6 @@
 -- ============================================================
 -- MULTIstores :: store engine (server)
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 --
 -- A store is a list of items with prices and stock, kept here (not in the
 -- inventory). Every purchase and sale is checked on the server: the store

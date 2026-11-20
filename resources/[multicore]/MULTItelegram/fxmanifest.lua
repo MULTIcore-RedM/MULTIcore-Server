@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTItelegram'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore telegrams: send at the post office, inbox, address book, optional parcels. GPL v3.'
 version '0.1.0'
 

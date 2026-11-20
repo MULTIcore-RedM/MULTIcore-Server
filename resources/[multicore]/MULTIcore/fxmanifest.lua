@@ -5,6 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'One core for RSG and VORP scripts side by side. Built on rsg-core 2.4.1 (see CREDITS.md).'
 version '0.1.0'
 

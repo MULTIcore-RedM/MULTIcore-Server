@@ -4,7 +4,7 @@
 -- (see lib/interact.lua) and sends the answers to the server, which
 -- prints one line per script in the server console. Anyone may use it:
 -- it only reads counts.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local COMMAND = 'mcinteract'

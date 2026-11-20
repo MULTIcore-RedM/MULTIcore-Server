@@ -1,6 +1,6 @@
 # Credits for MULTIcamps
 
-MULTIcamps is GPL v3, part of MULTIcore. It is MULTIcore's own code.
+MULTIcamps is GPL v3, part of MULTIcore by RINGO (RINGOscripting). It is MULTIcore's own code.
 
 Ideas and game facts taken from other GPL v3 work:
 - The placement preview (a see-through prop in front of the player, turned with the arrow keys,

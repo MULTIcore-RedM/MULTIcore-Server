@@ -42,7 +42,7 @@ Config.Commands = {
     Duty = 'duty',                  -- go on / off duty (see Duty.CommandAnywhere)
 }
 -- Optional key for "My jobs" (players can change it in the game's key settings). '' = no key.
--- Never PageDown (owner rule). Example: 'F6'.
+-- Never PageDown (RINGO's rule). Example: 'F6'.
 Config.MyJobsKey = ''
 
 ---------------------------------

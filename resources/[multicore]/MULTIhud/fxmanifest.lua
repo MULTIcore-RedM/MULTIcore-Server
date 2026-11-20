@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIhud'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore HUD and needs: health, stamina, hunger, thirst, stress, cleanliness, temperature, horse, money, voice. Stands in for vorp_metabolism and answers the rsg-hud events.'
 version '0.1.0'
 license 'GPL-3.0-or-later'

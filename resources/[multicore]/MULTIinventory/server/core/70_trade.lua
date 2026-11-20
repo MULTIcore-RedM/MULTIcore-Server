@@ -1,6 +1,6 @@
 -- ============================================================
 -- MULTIinventory :: trading between two players (server)
--- GPL v3, part of MULTIcore. Written fresh for MULTIinventory.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting). Written fresh for MULTIinventory.
 --
 -- Flow: A asks B (TradeRequest) -> B says yes (TradeAnswer) -> both see the trade
 -- window. Each puts satchel stacks (TradeSetItem) and cash (TradeSetCash) in;

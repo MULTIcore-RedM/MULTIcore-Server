@@ -1,6 +1,6 @@
 -- ============================================================
 -- MULTIinventory :: items on the ground (server, memory only)
--- A drop is an inventory 'drop:<n>' with coords. The UI builder's client
+-- A drop is an inventory 'drop:<n>' with coords. The client
 -- shows the bag prop and the open prompt (docs/INVENTORY_CLIENT.md):
 --   client MULTIinventory:client:drops ({ [dropId] = coords })   full list (sent on login)
 --   client MULTIinventory:client:dropAdded (dropId, coords)

@@ -11,7 +11,7 @@
 -- base-game look (client/multi/ui.lua). lib.notify goes to MULTIcore's
 -- notifications. lib.skillCheck stays ox_lib's.
 -- When MULTIcore is not running, ox_lib draws as before.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 if IsDuplicityVersion() or type(lib) ~= 'table' then return end
 

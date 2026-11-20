@@ -14,7 +14,7 @@
 -- mode is known and builds them again when MULTItarget starts or stops
 -- later. Everything made through MCI is counted, and the script answers
 -- exports.<script>:GetInteractStats() for MULTIcore's /mcinteract.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 if IsDuplicityVersion() then return end
 

@@ -1,6 +1,6 @@
 # Credits for MULTIcrafting
 
-MULTIcrafting is GPL v3, part of MULTIcore. Its code is written fresh for MULTIcore.
+MULTIcrafting is GPL v3, part of MULTIcore by RINGO (RINGOscripting). Its code is written fresh for MULTIcore.
 
 ## RSG v2 (GPL v3), by Rexshack-RedM, RexShack and their contributors
 Used for game facts only; no code is copied:

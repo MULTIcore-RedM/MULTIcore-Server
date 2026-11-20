@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIbank'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore banks: deposit, withdraw, transfer, gold exchange, passbook history. GPL v3.'
 version '0.1.0'
 

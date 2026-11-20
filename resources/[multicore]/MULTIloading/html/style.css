@@ -128,3 +128,11 @@ html, body {
 /* thin white progress line */
 .bar { height: 2px; background: rgba(255, 255, 255, 0.2); border: 0; border-radius: 0; }
 .fill { height: 100%; width: 0%; background: var(--mc-ink); transition: width 0.4s ease-out; }
+
+/* ---------- founder credit, bottom right ---------- */
+.credit {
+    position: fixed; right: 2vw; bottom: 2vh;
+    font-family: var(--mc-font-ui, sans-serif); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55); text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+}

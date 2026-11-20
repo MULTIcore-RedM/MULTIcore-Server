@@ -3,7 +3,7 @@
 -- Prompts or MULTItarget at fixed stations, at world campfires / anvils and at
 -- placed campfires; the props of placed campfires; /craft; putting a campfire
 -- down. The client never changes items: the server checks everything.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local RSGCore = exports['rsg-core']:GetCoreObject()

@@ -15,7 +15,7 @@
 --   event    rsg-wagons:sellWagon(model, custom) -> sells at a dealer (custom.name)
 --   event    rsg-wagons:removeWagon(netId)      -> puts the sender's wagon away
 --   event    rsg-wagons:toggleWagonActive(model, custom) -> takes that wagon out at the nearest dealer / call point
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local C = {}

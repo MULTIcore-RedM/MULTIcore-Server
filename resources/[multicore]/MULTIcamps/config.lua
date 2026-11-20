@@ -1,5 +1,5 @@
 -- ============================================================
--- MULTIcamps settings (part of MULTIcore, GPL v3)
+-- MULTIcamps settings (part of MULTIcore by RINGO (RINGOscripting), GPL v3)
 -- A basic camp a character pitches in the wild with a tent kit.
 -- Places where camps are not allowed (towns) are in config/towns.lua.
 -- Prices are dollars with cents at 1899 level.

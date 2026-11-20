@@ -5,7 +5,7 @@
 -- (distance with OneSync), the job, the inputs, the tool and the room for the
 -- output, and at the end takes the inputs and gives the output in one step.
 -- Also the campfires players put down with the campfire item.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local MI = exports.MULTIinventory

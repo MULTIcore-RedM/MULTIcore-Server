@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTImedic'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore death and medic system: death screen, hospital respawn, medic revive, optional injuries. GPL v3.'
 version '0.1.0'
 

@@ -1,8 +1,10 @@
 # MULTIcore UI guide
 
+*MULTIcore was founded and created by RINGO (RINGOscripting).*
+
 How to make a MULTI script's screens look like every other MULTI script. Follow it to the letter and the result will match without any design work.
 
-**Hand this file and `MULTIcore-UI-Kit.zip` to whoever writes your script, or to your coding tools, together with `MULTIcore-Script-Rules.md`.** The kit holds the theme, a complete working example menu and three real MULTI pages to copy from.
+**Hand this file and `MULTIcore-UI-Kit.zip` to whoever writes your script, together with `MULTIcore-Script-Rules.md`.** The kit holds the theme, a complete working example menu and three real MULTI pages to copy from.
 
 ## What's in the kit
 

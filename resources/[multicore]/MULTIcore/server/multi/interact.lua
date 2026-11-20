@@ -4,7 +4,7 @@
 -- interaction mode, MULTItarget targets, hold-key prompts and NPCs.
 -- The numbers come from the player's client and are only printed;
 -- nothing is changed. One report per player every few seconds.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local COOLDOWN_MS = 5000        -- least time between two reports from one player

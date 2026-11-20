@@ -3,7 +3,7 @@
 -- Prompts or MULTItarget at each counter, blips, clerks and the store
 -- screen. The client never changes money or items: it asks the server
 -- (lib.callback) and shows the answer.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local RSGCore = exports['rsg-core']:GetCoreObject()

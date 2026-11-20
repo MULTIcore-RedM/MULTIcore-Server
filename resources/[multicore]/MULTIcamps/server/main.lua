@@ -14,7 +14,7 @@
 -- The functions here are server-trusted (exports for other scripts and the
 -- self-test). What a game client may ask goes through server/net.lua, which
 -- checks distance, ownership and the rate limit first.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local RSGCore = exports['rsg-core']:GetCoreObject()

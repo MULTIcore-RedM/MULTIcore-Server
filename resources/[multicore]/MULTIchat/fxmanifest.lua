@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIchat'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore chat: black chat box, /me, /do and /try. Answers every chat call, so no other chat resource is needed.'
 version '1.0.0'
 license 'GPL-3.0-or-later'

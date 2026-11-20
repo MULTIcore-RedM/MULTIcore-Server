@@ -1,5 +1,7 @@
 # MULTIcore Server
 
+**MULTIcore was founded and created by RINGO (RINGOscripting).**
+
 A ready-to-run RedM base server on **MULTIcore**: one core that runs **RSG v2 scripts and VORP scripts side by side**, with its own full set of base scripts in the game's own look (black panels, white text).
 
 > **Test release.** Everything starts cleanly and passes its self-tests, but it still needs in-game testing. Please try it and report what you find (see [Reporting problems](#reporting-problems)).
@@ -74,4 +76,6 @@ Open an issue on this repository. Include:
 
 ## Licence and credits
 
-GPL-3.0 (see `LICENSE`). MULTIcore is built on **rsg-core 2.4.1** and other RSG v2 framework code (GPL v3); see each script's `CREDITS.md`, and `resources/[multicore]/MULTIcore/CREDITS.md` and `MULTICORE_CHANGES.md`. **ox_lib** and **oxmysql** are by Overextended, under their own licences (included in their folders).
+**Founder and creator: RINGO (RINGOscripting).** MULTIcore, the MULTI scripts, MULTItarget, MULTIchat and the MULTIcore look are RINGO's work. Copyright (C) 2026 RINGO (RINGOscripting). See `NOTICE.md`.
+
+GPL-3.0 (see `LICENSE`). If you share a changed copy, keep the credits and licence notices. MULTIcore is built on **rsg-core 2.4.1** and other RSG v2 framework code (GPL v3); see each script's `CREDITS.md`, and `resources/[multicore]/MULTIcore/CREDITS.md` and `MULTICORE_CHANGES.md`. **ox_lib** and **oxmysql** are by Overextended, under their own licences (included in their folders).

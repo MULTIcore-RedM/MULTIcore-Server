@@ -1,4 +1,4 @@
-/* MULTIinventory satchel page (GPL v3, part of MULTIcore).
+/* MULTIinventory satchel page (GPL v3, part of MULTIcore by RINGO (RINGOscripting)).
    Lua owns the data: this page draws what the server sent and asks Lua to
    move, use, give, drop and split. It never changes an inventory itself;
    the next server push redraws it. */

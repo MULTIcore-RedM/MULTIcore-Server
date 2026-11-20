@@ -1,6 +1,6 @@
 -- ============================================================
--- MULTIinventory :: client state and helpers  (UI builder)
--- GPL v3, part of MULTIcore.
+-- MULTIinventory :: client state and helpers
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 --
 -- Shared table MIC for every client file of this resource:
 --   MIC.Cfg(path, default)   read config.lua defensively

@@ -1,5 +1,5 @@
 -- ============================================================
--- MULTIhorses settings (part of MULTIcore, GPL v3)
+-- MULTIhorses settings (part of MULTIcore by RINGO (RINGOscripting), GPL v3)
 -- Stables are in config/stables.lua, the horses for sale in
 -- config/horses.lua, saddles and blankets in config/tack.lua.
 -- Prices are dollars with cents at 1899 level (RDR2's stable prices).

@@ -6,7 +6,7 @@ lua54 'yes'
 
 name 'MULTIloading'
 description 'MULTIcore loading screen: server name, rotating tips, load progress.'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 version '0.1.0'
 license 'GPL-3.0'
 

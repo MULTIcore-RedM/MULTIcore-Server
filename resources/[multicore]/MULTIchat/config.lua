@@ -32,9 +32,9 @@ Config.Range = {
 
 -- Command names (without the /). Set one to false to turn that command off.
 Config.Commands = {
-    Me    = 'me',                 -- /me tips his hat      -> * Ben Johnson tips his hat
-    Do    = 'do',                 -- /do the door is locked -> * The door is locked (( Ben Johnson ))
-    Try   = 'try',                -- /try to pick the lock  -> * Ben Johnson tries to pick the lock and succeeds / fails
+    Me    = 'me',                 -- /me tips his hat      -> * Jack Hale tips his hat
+    Do    = 'do',                 -- /do the door is locked -> * The door is locked (( Jack Hale ))
+    Try   = 'try',                -- /try to pick the lock  -> * Jack Hale tries to pick the lock and succeeds / fails
     Clear = 'clear',              -- clears your own chat
     Hide  = 'togglechat',         -- hides or shows the chat
 }

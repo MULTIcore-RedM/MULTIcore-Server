@@ -142,9 +142,9 @@ local function signature()
     local n = 0
     local wd = V.WeaponDataTable()
     if type(wd) == 'table' then for _ in pairs(wd) do n = n + 1 end end
-    local ai = engineAmmoItems()
+    local ammoItems = engineAmmoItems()
     local m = 0
-    if ai then for _ in pairs(ai) do m = m + 1 end end
+    if ammoItems then for _ in pairs(ammoItems) do m = m + 1 end end
     return n .. ':' .. m .. ':' .. tostring(V.Cfg('AmmoItems', nil) ~= nil)
 end
 
@@ -175,9 +175,9 @@ local function build()
     end
 
     -- 3. the engine: ammo items -> type (rounds items; ammo boxes are not rounds)
-    local ai = engineAmmoItems()
-    if ai then
-        for item, t in pairs(ai) do
+    local ammoItems = engineAmmoItems()
+    if ammoItems then
+        for item, t in pairs(ammoItems) do
             if type(item) == 'string' and type(t) == 'string' and not isBoxItem(item) then
                 t = t:upper()
                 if not thrownType[t] then typeToItem[t] = item end
@@ -215,8 +215,8 @@ function V.AmmoType(given)
     local t = itemToType[given] or itemToType[given:lower()]
     if t then return t end
     -- an ammo box item the engine maps (counts as its type for lookups only)
-    local ai = engineAmmoItems()
-    if ai and type(ai[given]) == 'string' then return ai[given]:upper() end
+    local ammoItems = engineAmmoItems()
+    if ammoItems and type(ammoItems[given]) == 'string' then return ammoItems[given]:upper() end
     return nil
 end
 

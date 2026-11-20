@@ -1,6 +1,6 @@
 -- ============================================================
--- MULTIinventory :: item box pop-ups  (UI builder)
--- GPL v3, part of MULTIcore.
+-- MULTIinventory :: item box pop-ups
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 --
 -- Small black tiles near the bottom of the screen when items come or go.
 -- Engine event (contract): MULTIinventory:client:itembox (itemDef, amount, 'add' | 'remove' | 'use')

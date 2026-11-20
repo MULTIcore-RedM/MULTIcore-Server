@@ -1,6 +1,6 @@
 # Credits for MULTIwagons
 
-MULTIwagons is GPL v3, part of MULTIcore. Parts of it are based on RSG v2's **rsg-wagons**
+MULTIwagons is GPL v3, part of MULTIcore by RINGO (RINGOscripting). Parts of it are based on RSG v2's **rsg-wagons**
 (GPL v3, original project https://github.com/Rexshack-RedM/rsg-wagons, authors **Phil and mack**,
 with the Rexshack-RedM team and contributors), who keep their copyright. MULTIwagons is not
 affiliated with or endorsed by the RSG team.

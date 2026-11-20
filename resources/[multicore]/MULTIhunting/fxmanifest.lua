@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIhunting'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore basic hunting: skinning gives pelts, meat and animal parts that the stores buy. GPL v3.'
 version '0.1.0'
 

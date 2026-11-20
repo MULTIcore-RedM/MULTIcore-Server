@@ -1,13 +1,13 @@
 -- ============================================================
--- MULTIinventory :: satchel NUI  (UI builder)
--- GPL v3, part of MULTIcore.
+-- MULTIinventory :: satchel NUI
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 --
 -- Opens / updates / closes the page and turns what the player does on it
 -- into requests to the server. Nothing moves until the server says so:
 -- every move, split, give and drop is a server call, and the page
 -- only redraws from what the server pushes back.
 --
--- Client -> server (the engine builder implements the server side):
+-- Client -> server (handled by server/core):
 --   net   MULTIinventory:server:openSelf ()                      open my satchel (alone)
 --   net   MULTIinventory:server:openInventory (invId)           open my satchel + invId (drop / other); server checks access
 --   net   MULTIinventory:server:refresh ()                       push my satchel again (MULTIinventory:client:update)

@@ -4,7 +4,7 @@
 -- animal, wagon, object or counter and its options are listed beside them. Mouse wheel or
 -- arrow keys move through the list, left mouse / E / Enter picks. Right mouse frees the
 -- cursor to click an option instead (Esc or right mouse gives the camera back).
--- No marker dots are ever drawn in the world (owner rule).
+-- No marker dots are ever drawn in the world (RINGO's rule).
 -- Written for MULTIcore (GPL v3).
 -- ============================================================
 

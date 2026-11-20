@@ -28,10 +28,10 @@ Do **not** start the standard `chat` resource as well. MULTIchat `provide`s the 
 
 | Command | Looks like | Who sees it |
 |---|---|---|
-| `/me tips his hat` | *\* Ben Johnson tips his hat*: white on black | Players within 20 m |
-| `/do the door is locked` | *\* The door is locked (( Ben Johnson ))*: blue on black | Players within 20 m |
-| `/try to pick the lock` | *\* Ben Johnson tries to pick the lock* **and succeeds** / **and fails** | Players within 20 m |
-| plain text | **Ben Johnson:** hello | Players within 20 m (see `Config.PlainText`) |
+| `/me tips his hat` | *\* Jack Hale tips his hat*: white on black | Players within 20 m |
+| `/do the door is locked` | *\* The door is locked (( Jack Hale ))*: blue on black | Players within 20 m |
+| `/try to pick the lock` | *\* Jack Hale tries to pick the lock* **and succeeds** / **and fails** | Players within 20 m |
+| plain text | **Jack Hale:** hello | Players within 20 m (see `Config.PlainText`) |
 | `/clear` | Clears your own chat | You |
 | `/togglechat` | Hides or shows the chat lines | You |
 
@@ -75,4 +75,4 @@ A message can carry `mc = 'me' | 'do' | 'try' | 'say' | 'system'` to use that li
 
 ## Licence
 
-GPL-3.0-or-later, part of MULTIcore.
+GPL-3.0-or-later, part of MULTIcore by RINGO (RINGOscripting).

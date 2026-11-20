@@ -1,6 +1,6 @@
 -- ============================================================
--- MULTIinventory :: drops in the world  (UI builder)
--- GPL v3, part of MULTIcore.
+-- MULTIinventory :: drops in the world
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 --
 -- The engine keeps drops (memory only). Each client draws a local bag prop
 -- where a drop lies and offers "open" through MULTItarget, or a key prompt

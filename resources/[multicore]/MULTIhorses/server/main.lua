@@ -1,5 +1,5 @@
 -- ============================================================
--- MULTIhorses :: server (part of MULTIcore, GPL v3)
+-- MULTIhorses :: server (part of MULTIcore by RINGO (RINGOscripting), GPL v3)
 -- Every change to money, items and horses is decided here. The client
 -- only asks (lib.callback / events) and plays animations.
 --

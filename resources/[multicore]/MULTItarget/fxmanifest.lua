@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTItarget'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore target system (hold Left Alt). Answers ox_target, rsg-target and qb-target calls, so no other target script is needed.'
 version '1.0.0'
 license 'GPL-3.0-or-later'

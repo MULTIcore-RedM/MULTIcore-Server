@@ -3,7 +3,7 @@
 Basic owned wagons for MULTIcore servers: wagon dealers in six towns, buy / name / rename / sell back,
 take out and put away (one wagon out at a time), a storage inventory in every wagon, health that is
 kept between take-outs, and repair with a kit or at the dealer. It answers as **rsg-wagons**
-(`provide 'rsg-wagons'`, same table, same event and callback names). GPL v3, part of MULTIcore
+(`provide 'rsg-wagons'`, same table, same event and callback names). GPL v3, part of MULTIcore by RINGO (RINGOscripting)
 (see `CREDITS.md`).
 
 Deliberately simple: no customisation (tints, liveries, lanterns), no carcass storage, no chop shop,

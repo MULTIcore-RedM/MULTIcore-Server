@@ -1,7 +1,7 @@
 -- ============================================================
 -- MULTIserver :: server helpers
 -- Staff check, identifiers, notifications and the database table.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 RSGCore = exports['rsg-core']:GetCoreObject()

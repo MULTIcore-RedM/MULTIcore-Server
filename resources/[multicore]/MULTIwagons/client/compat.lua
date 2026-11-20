@@ -6,7 +6,7 @@
 --   rsg-wagons:client:callwagon -> "my wagons" at the dealer / call point here
 --                                  (or anywhere with Config.CallAnywhere)
 --   rsg-wagons:client:dellwagon -> puts the own wagon away (server rules apply)
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 RegisterNetEvent('rsg-wagons:client:callwagon', function()

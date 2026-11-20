@@ -3,7 +3,7 @@
 -- Stable hands, blips, the prompt or MULTItarget at each stable, and the
 -- stable menus (ox_lib). The client never changes money or horses: it
 -- asks the server (lib.callback 'MULTIhorses:action') and shows the menus.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local RSGCore = exports['rsg-core']:GetCoreObject()

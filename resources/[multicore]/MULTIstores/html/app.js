@@ -1,4 +1,4 @@
-/* MULTIstores store screen (GPL v3, part of MULTIcore).
+/* MULTIstores store screen (GPL v3, part of MULTIcore by RINGO (RINGOscripting)).
    Lua owns the data: this page draws what the server sent and asks Lua to
    buy or sell. It never changes money or stock itself; the server's answer
    (a fresh state) redraws it. */

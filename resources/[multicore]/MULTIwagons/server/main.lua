@@ -15,7 +15,7 @@
 -- The functions here are server-trusted (exports for other scripts and the
 -- self-test). What a game client may ask goes through server/net.lua, which
 -- checks distance, ownership and the rate limit first.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local RSGCore = exports['rsg-core']:GetCoreObject()
@@ -29,7 +29,7 @@ MW = {
     Points = {},    -- [name] = { def = dealer / call point, dealer = bool }
 }
 
-local MAX_BUYBACK = 0.5          -- builder rule: a buy-back never pays more than half the price
+local MAX_BUYBACK = 0.5          -- MULTIcore rule: a buy-back never pays more than half the price
 local FULL_HEALTH = 100          -- health is a percentage
 local RSG_STASH = 'Wagon_Stash_' -- rsg-wagons' stash name prefix (+ row id)
 

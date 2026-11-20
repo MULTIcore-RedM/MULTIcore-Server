@@ -11,7 +11,7 @@
 --   category    tab on the store screen (default: from the item; locale key cat_<category>)
 --   info        item info given with each one bought
 --
--- Prices are 1899-level (owner decision, 2026-11-18): RDR2's own store prices where they
+-- Prices are 1899-level (RINGO's decision, 2026-11-18): RDR2's own store prices where they
 -- are known (the game is set in 1899), otherwise historical prices of the late 1890s
 -- (a loaf of bread 5-10 cents, a glass of beer 5 cents, a bottle of whiskey about $1,
 -- a cigar 5-10 cents). The old economy SPEC is no longer the price source for MULTIcore.

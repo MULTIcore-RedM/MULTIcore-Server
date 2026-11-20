@@ -1,6 +1,6 @@
 -- ============================================================
--- MULTIinventory :: hotbar  (UI builder)
--- GPL v3, part of MULTIcore.
+-- MULTIinventory :: hotbar
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 --
 -- Satchel slots 1..Config.Hotbar.Size are the hotbar. Keys 1-5 use them
 -- (the game's quick-select keys, Controls.cs; never PageDown). The bar shows

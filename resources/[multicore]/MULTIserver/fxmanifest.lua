@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIserver'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore basic server tools: Discord logs (answers rsg-log), whitelist, connect queue, player list, server info. GPL v3.'
 version '0.1.0'
 

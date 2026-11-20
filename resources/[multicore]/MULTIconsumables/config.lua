@@ -1,5 +1,5 @@
 -- ============================================================
--- MULTIconsumables settings (part of MULTIcore, GPL v3)
+-- MULTIconsumables settings (part of MULTIcore by RINGO (RINGOscripting), GPL v3)
 -- What each item does is in config/consumables.lua, the animations and props
 -- in config/anims.lua, the items this resource adds in config/items.lua.
 -- Needs (hunger, thirst, stress) are 0-100 like MULTIhud / RSG: 100 hunger = full,

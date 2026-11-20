@@ -5,6 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIappearance'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore stand-in for rsg-appearance: RSG v2 scripts keep working on the MULTIcore look library'
 version '0.1.0'
 license 'GPL-3.0-or-later'

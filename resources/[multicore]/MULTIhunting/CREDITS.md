@@ -1,6 +1,6 @@
 # Credits for MULTIhunting
 
-MULTIhunting is GPL v3, part of MULTIcore. Parts of it are based on an RSG v2 resource by
+MULTIhunting is GPL v3, part of MULTIcore by RINGO (RINGOscripting). Parts of it are based on an RSG v2 resource by
 **Rexshack-RedM, RexShack and their contributors**, who keep their copyright. That resource ships under GPL v3.
 MULTIhunting is not affiliated with or endorsed by the RSG team. No VORP code and no code from any paid script is used.
 

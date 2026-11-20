@@ -1,3 +1,11 @@
+# MULTIcore
+
+**Founder and creator: RINGO (RINGOscripting).** MULTIcore, its own scripts (the MULTI resources), MULTItarget, MULTIchat and the MULTIcore look were founded and created by RINGO.
+
+Copyright (C) 2026 RINGO (RINGOscripting). Licensed GPL-3.0-or-later. Parts are based on the work listed below; their authors keep their copyright.
+
+---
+
 # Credits for rsg-core
 
 This resource comes from the project and commit listed in the repository's NOTICE.md. Its original authors keep their copyright. The text below is carried over from the original project.

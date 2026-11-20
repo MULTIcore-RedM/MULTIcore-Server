@@ -1,5 +1,5 @@
 -- ============================================================
--- MULTIwagons settings (part of MULTIcore, GPL v3)
+-- MULTIwagons settings (part of MULTIcore by RINGO (RINGOscripting), GPL v3)
 -- The dealers and call points are in config/dealers.lua, the wagons for sale
 -- (price, storage slots and weight) in config/wagons.lua.
 -- Prices are dollars with cents at 1899 level. A dealer never pays back more

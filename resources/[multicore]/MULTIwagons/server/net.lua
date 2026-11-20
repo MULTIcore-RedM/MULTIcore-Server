@@ -3,7 +3,7 @@
 -- Every request is rate limited, and checked for ownership and distance
 -- (OneSync) before the engine in server/main.lua runs it. The server
 -- answers with { ok, err } and tells the player itself.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local calls = {}

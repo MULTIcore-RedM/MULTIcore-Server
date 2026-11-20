@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIhelpers'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore stand-ins for vorp_menu, vorp_inputs and vorp_progressbar (own code, GPL v3).'
 version '0.1.0'
 

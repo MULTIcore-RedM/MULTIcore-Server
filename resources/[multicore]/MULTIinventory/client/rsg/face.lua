@@ -1,6 +1,6 @@
 -- ============================================================
--- MULTIinventory :: rsg-inventory client face  (UI builder)
--- GPL v3, part of MULTIcore.
+-- MULTIinventory :: rsg-inventory client face
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 --
 -- The client exports and events RSG v2 scripts use, answered by MULTIinventory.
 -- Reused from RSG v2 rsg-inventory (GPL v3, Copyright (C) RSG Framework contributors):

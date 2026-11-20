@@ -1,5 +1,7 @@
 # Making a MULTIcore script: the rules
 
+*MULTIcore was founded and created by RINGO (RINGOscripting).*
+
 Follow these and your script will look and behave like every other MULTI script, and it will be safe on a live server. The API itself is in `MULTIcore-API.md`, the target system in `MULTItarget-API.md`, and a working example in `MULTIstarter.zip`.
 
 ## The manifest

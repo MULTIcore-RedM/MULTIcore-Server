@@ -1,5 +1,5 @@
 -- ============================================================
--- MULTIcrafting settings (part of MULTIcore, GPL v3)
+-- MULTIcrafting settings (part of MULTIcore by RINGO (RINGOscripting), GPL v3)
 -- Recipes are in config/recipes.lua, fixed stations (kitchens, workbenches) in
 -- config/stations.lua, the items this resource adds in config/items.lua.
 -- Times are real seconds unless the name says Ms. Distances are metres.

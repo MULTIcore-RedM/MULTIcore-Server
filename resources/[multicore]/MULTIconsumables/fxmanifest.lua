@@ -4,7 +4,7 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 lua54 'yes'
 
 name 'MULTIconsumables'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore food, drink, tobacco and medicine: usable items with animations, a drunk system and addictions. GPL v3.'
 version '0.1.0'
 license 'GPL-3.0'

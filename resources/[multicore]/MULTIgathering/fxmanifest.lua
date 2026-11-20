@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIgathering'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore basic gathering: fishing, mining, gold panning, lumber and herb picking give items the stores buy. GPL v3.'
 version '0.1.0'
 

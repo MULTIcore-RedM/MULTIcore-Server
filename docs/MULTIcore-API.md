@@ -1,5 +1,7 @@
 # MULTIcore API: making scripts for MULTIcore
 
+*MULTIcore was founded and created by RINGO (RINGOscripting).*
+
 MULTIcore runs RSG and VORP scripts unchanged. It also has its own short API for scripts made **only for MULTIcore**. A MULTIcore script:
 
 - needs no SQL file (items register themselves at start),

@@ -8,7 +8,7 @@
 -- (lib.callback) and shows the answer.
 -- The preview follows the idea of RSG v2's rsg-goldclaim prop placer
 -- (GPL v3, see CREDITS.md); the code is MULTIcore's own.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local RSGCore = exports['rsg-core']:GetCoreObject()

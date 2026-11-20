@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIradial'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore quick menu (F6): clothing, emotes, walk styles, satchel, horse and wagon, telegram, crafting, HUD settings. Stands in for rsg-radialmenu.'
 version '0.1.0'
 license 'GPL-3.0-or-later'

@@ -1,6 +1,6 @@
 -- ============================================================
 -- MULTIstores :: drop-in answers for RSG v2 scripts (server)
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 --
 -- 1. rsg-inventory's shop exports, in rsg-inventory's shapes. MULTIinventory's
 --    rsg-inventory face passes exports['rsg-inventory']:CreateShop / OpenShop /

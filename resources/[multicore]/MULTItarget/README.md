@@ -102,4 +102,4 @@ Do a full server restart after changing MULTItarget. Scripts add their targets w
 
 ## Licence
 
-GPL-3.0-or-later, part of MULTIcore.
+GPL-3.0-or-later, part of MULTIcore by RINGO (RINGOscripting).

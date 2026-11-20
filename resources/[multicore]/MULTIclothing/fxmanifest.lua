@@ -5,6 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIclothing'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore clothing stores, wardrobes, saved outfits and quick clothing toggles'
 version '0.1.0'
 license 'GPL-3.0-or-later'

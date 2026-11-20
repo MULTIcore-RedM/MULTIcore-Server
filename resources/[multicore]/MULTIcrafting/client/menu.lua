@@ -4,7 +4,7 @@
 -- plays the station's animation with a progress bar, then asks the server to
 -- finish. Stopping early (cancel key, moving away, death) costs nothing:
 -- inputs are only taken by the server when crafting finishes.
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local RSGCore = exports['rsg-core']:GetCoreObject()

@@ -1,6 +1,6 @@
 -- ============================================================
--- MULTIinventory :: weapons and ammo on the ped  (UI builder)
--- GPL v3, part of MULTIcore.
+-- MULTIinventory :: weapons and ammo on the ped
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 --
 -- Parts reused from RSG v2 (GPL v3, Copyright (C) RSG Framework contributors):
 --   * rsg-weapons  client/client.lua  : give + select flow, weapon degradation
@@ -22,7 +22,7 @@
 --     count is the throw count; every throw removes one item on the server.
 --   * Used rounds / throws go to the server in batches (throttled).
 --
--- Client -> server (engine builder implements):
+-- Client -> server (handled by server/core):
 --   net MULTIinventory:server:ammoUsed ({ [ammoItemName] = itemsUsed })
 --   net MULTIinventory:server:thrown ({ [weaponItemName] = throws })
 --   net MULTIinventory:server:weaponAmmo ({ { id = info.id|info.serie, slot = n, ammo = rounds, ammoType = 'AMMO_*' }, ... })

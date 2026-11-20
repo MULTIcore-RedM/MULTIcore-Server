@@ -4,7 +4,7 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 lua54 'yes'
 
 name 'MULTIwagons'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'Owned wagons for MULTIcore: dealers, buy / name / sell, take out and put away, storage, damage and repair. Answers as rsg-wagons. GPL v3.'
 version '0.1.0'
 license 'GPL-3.0'

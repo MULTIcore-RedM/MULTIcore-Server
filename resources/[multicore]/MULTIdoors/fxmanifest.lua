@@ -5,7 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIdoors'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore door locks: every game door known, lock rules per job / gang / character / key item, lockpicking, admin door tool. GPL v3.'
 version '0.1.0'
 license 'GPL-3.0'

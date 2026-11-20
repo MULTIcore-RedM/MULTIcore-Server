@@ -1,6 +1,6 @@
 -- ============================================================
 -- MULTIinventory :: trading between two players (client)
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 --
 -- Ways to offer a trade: /trade (nearest player, or /trade <server id>),
 -- the Trade button on the satchel page, and "Offer a trade" on a player

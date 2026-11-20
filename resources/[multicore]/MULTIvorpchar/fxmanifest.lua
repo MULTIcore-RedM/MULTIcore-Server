@@ -5,6 +5,7 @@ game 'rdr3'
 lua54 'yes'
 
 name 'MULTIvorpchar'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'Optional MULTIcore stand-in for vorp_character: VORP scripts that read or change clothes keep working on the MULTIcore look'
 version '0.1.0'
 license 'GPL-3.0-or-later'

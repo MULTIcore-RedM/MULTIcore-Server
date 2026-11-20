@@ -4,7 +4,7 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 lua54 'yes'
 
 name 'MULTIcrafting'
-author 'MULTIcore'
+author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore basic crafting: campfires, kitchens, workbenches and hand crafting from the satchel. GPL v3.'
 version '0.1.0'
 license 'GPL-3.0'

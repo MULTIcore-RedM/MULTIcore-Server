@@ -2,7 +2,7 @@
 -- MULTIchat :: client
 -- Opens the chat box (T), sends what the player types, and answers the
 -- standard chat resource's events and exports (it provides 'chat').
--- GPL v3, part of MULTIcore.
+-- GPL v3, part of MULTIcore by RINGO (RINGOscripting).
 -- ============================================================
 
 local open = false
