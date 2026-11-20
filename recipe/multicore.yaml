@@ -1,0 +1,48 @@
+# MULTIcore by RINGO (RINGOscripting) - txAdmin recipe.
+# In txAdmin's setup choose "Remote URL Template" and paste:
+#   https://raw.githubusercontent.com/RINGOBenny/MULTIcore-Server/main/recipe/multicore.yaml
+$engine: 3
+$onesync: on
+name: MULTIcore Server
+version: 1.0.0
+author: RINGO (RINGOscripting)
+description: MULTIcore by RINGO (RINGOscripting). One core where RSG v2, VORP and RedEM:RP scripts run side by side, with 33 base scripts in the game's own look. Free and open source (GPL v3).
+
+tasks:
+  # Download the server
+  - action: download_github
+    src: https://github.com/RINGOBenny/MULTIcore-Server
+    ref: main
+    dest: ./tmp/multicore
+
+  - action: move_path
+    src: ./tmp/multicore/resources
+    dest: ./resources
+
+  - action: move_path
+    src: ./tmp/multicore/recipe/server.cfg
+    dest: ./server.cfg
+
+  - action: move_path
+    src: ./tmp/multicore/multicore-icon-96.png
+    dest: ./multicore-icon-96.png
+
+  # Licence and credits stay with the server (GPL v3)
+  - action: move_path
+    src: ./tmp/multicore/LICENSE
+    dest: ./LICENSE
+
+  - action: move_path
+    src: ./tmp/multicore/NOTICE.md
+    dest: ./NOTICE.md
+
+  - action: move_path
+    src: ./tmp/multicore/docs
+    dest: ./docs
+
+  # Database: txAdmin makes it; the scripts create their own tables on first start
+  - action: connect_database
+
+  # Clean up
+  - action: remove_path
+    path: ./tmp

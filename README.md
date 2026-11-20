@@ -17,9 +17,20 @@ A ready-to-run RedM base server on **MULTIcore**: one core that runs **RSG v2, V
 You need:
 - a recent RedM server build (FXServer for Windows or Linux) from the Cfx.re artifacts;
 - a free licence key from [portal.cfx.re](https://portal.cfx.re);
-- MariaDB or MySQL with an **empty** database. The scripts create their own tables on first start.
+- MariaDB or MySQL. The scripts create their own tables on first start, so there is no SQL to run.
 
-Then:
+### With txAdmin (easiest)
+
+1. Start FXServer and open txAdmin's setup page.
+2. At "Deployment Type" choose **Remote URL Template** and paste:
+   ```
+   https://raw.githubusercontent.com/RINGOBenny/MULTIcore-Server/main/recipe/multicore.yaml
+   ```
+3. Give it your licence key and database details when it asks. txAdmin downloads everything, makes the database and writes `server.cfg` with your key, your database and you as admin.
+4. Start the server, join, make a character, and play.
+
+### By hand
+
 1. Download this repository (Code → Download ZIP, or `git clone`) and use it as your server-data folder.
 2. Copy `server.cfg.example` to `server.cfg` and fill in the three lines marked `CHANGE`: your licence key, your database, and your own licence as admin.
 3. Start the server from this folder: `FXServer +exec server.cfg`. With txAdmin, point it at this folder and this `server.cfg`, and turn OneSync on in txAdmin's settings.

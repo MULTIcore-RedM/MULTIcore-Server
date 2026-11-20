@@ -11,7 +11,7 @@ set mysql_connection_string "mysql://USER:PASSWORD@127.0.0.1/multicore?charset=u
 
 sv_hostname "MULTIcore Test Server"
 sets sv_projectName "MULTIcore Test Server"
-sets sv_projectDesc "One core for RSG and VORP scripts side by side"
+sets sv_projectDesc "One core for RSG, VORP and RedEM:RP scripts side by side"
 load_server_icon multicore-icon-96.png
 sv_maxclients 32
 set gamename rdr3
@@ -83,4 +83,4 @@ ensure MULTIwagons
 ensure MULTIvoice       # proximity voice (N to talk, U for range); answers pma-voice
 ensure MULTIweather     # one clock and one sky for everyone; weather changes by itself
 
-# Your own scripts go below this line. RSG v2 and VORP scripts work side by side.
+# Your own scripts go below this line. RSG v2, VORP and RedEM:RP scripts work side by side.
