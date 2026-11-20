@@ -26,6 +26,7 @@ server_scripts {
 }
 
 client_scripts {
+    '@MULTIcore/lib/ui.lua',   -- ox_lib menus and dialogs in the MULTI look
     '@MULTIcore/lib/interact.lua',  -- MULTItarget / prompt helper (Config.Interact)
     'client/main.lua',     -- placement preview, camp props near the player, camp prompt and menu, sleeping
 }

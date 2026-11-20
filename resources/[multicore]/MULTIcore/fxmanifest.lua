@@ -38,6 +38,7 @@ shared_scripts {
 }
 
 client_scripts {
+    'lib/ui.lua',               -- ox_lib menus and dialogs in the MULTI look (client/multi/ui.lua)
     'client/main.lua',
     'client/functions.lua',
     'client/loops.lua',
@@ -80,12 +81,14 @@ server_scripts {
 files {
     'shared/i18n.lua',         -- language helper every MULTI script includes (@MULTIcore/shared/i18n.lua)
     'lib/api.lua',             -- MC.* shortcut for MULTIcore's own API (@MULTIcore/lib/api.lua)
+    'lib/ui.lua',              -- ox_lib menus in the MULTI look every MULTI script with menus includes (@MULTIcore/lib/ui.lua)
     'lib/interact.lua',        -- MULTItarget / prompt helper every MULTI script with world points includes (@MULTIcore/lib/interact.lua)
     'sql/*.sql',
     'html/theme/*',
     'html/theme/fonts/*',      -- game fonts when present (see html/theme/fonts/README.md)
     'html/theme/img/*',        -- MULTIcore brand mark and logo
     'html/notify/*',
+    'html/ui/*',               -- menus and dialogs (client/multi/ui.lua)
 }
 
 dependencies {

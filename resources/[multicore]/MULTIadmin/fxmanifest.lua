@@ -18,6 +18,7 @@ shared_scripts {
 }
 
 client_scripts {
+    '@MULTIcore/lib/ui.lua',   -- ox_lib menus and dialogs in the MULTI look
     'client/main.lua',
     'client/self.lua',
     'client/target.lua',

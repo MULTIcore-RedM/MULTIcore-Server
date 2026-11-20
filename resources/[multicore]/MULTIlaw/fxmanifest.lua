@@ -23,6 +23,7 @@ shared_scripts {
 }
 
 client_scripts {
+    '@MULTIcore/lib/ui.lua',   -- ox_lib menus and dialogs in the MULTI look
     '@MULTIcore/lib/interact.lua',  -- MULTItarget / prompt helper (Config.Interact)
     'client/main.lua',
     'client/actions.lua',

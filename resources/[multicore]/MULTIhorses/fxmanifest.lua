@@ -30,6 +30,7 @@ server_scripts {
 }
 
 client_scripts {
+    '@MULTIcore/lib/ui.lua',   -- ox_lib menus and dialogs in the MULTI look
     '@MULTIcore/lib/interact.lua',  -- MULTItarget / prompt helper (Config.Interact)
     'client/stable.lua',    -- stable hands, blips, prompts / targets, stable menus
     'client/horse.lua',     -- calling, following, sending away, care animations, death, saving state

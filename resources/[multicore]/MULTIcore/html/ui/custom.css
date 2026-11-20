@@ -1,0 +1,6 @@
+/* MULTIcore menus and dialogs: your own styles. Loaded last, so anything here wins.
+   Examples:
+   .mu-ctx { left: auto; right: 5vw; }            context menus on the right
+   .mu-dlg { width: 520px; }                      wider input boxes
+   .mu-text { bottom: 12vh; }                      text prompt higher up
+*/

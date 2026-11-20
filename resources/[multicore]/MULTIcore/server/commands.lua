@@ -3,7 +3,7 @@ RSGCore.Commands.List = {}
 
 local function notify(src, title, notifyType)
     if not src or src == 0 then return print(title) end -- console
-    TriggerClientEvent('ox_lib:notify', src, { title = title, type = notifyType or 'inform', duration = 5000 })
+    TriggerClientEvent('MULTIcore:notify', src, { text = title, type = notifyType or 'inform', duration = 5000 })
 end
 RSGCore.Commands.IgnoreList = { -- Ignore old perm levels while keeping backwards compatibility
     ['god'] = true,            -- We don't need to create an ace because god is allowed all commands

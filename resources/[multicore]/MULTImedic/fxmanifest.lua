@@ -21,6 +21,7 @@ shared_scripts {
 }
 
 client_scripts {
+    '@MULTIcore/lib/ui.lua',   -- ox_lib menus and dialogs in the MULTI look
     '@MULTIcore/lib/interact.lua',  -- MULTItarget helper (player options, /mcinteract)
     'client/death.lua',
     'client/medic.lua',

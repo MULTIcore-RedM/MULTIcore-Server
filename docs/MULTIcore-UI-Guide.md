@@ -15,6 +15,7 @@ How to make a MULTI script's screens look like every other MULTI script. Follow 
 | `reference/MULTIstores/` | The real store menu |
 | `reference/MULTItarget/` | The target list (a small card beside the middle of the screen) |
 | `reference/MULTIchat/` | The chat (black lines, black text box) |
+| `reference/MULTIcore-menus/` | How MULTIcore draws ox_lib menus, input boxes, confirm boxes, progress bars and text prompts |
 
 ## The look in one paragraph
 
@@ -44,7 +45,7 @@ Red Dead Redemption 2's own menus: **black see-through panels, white lettering, 
     - the HUD: centre bottom;
     - notifications: use `exports.MULTIcore:Notify`, never your own.
 12. **No marker dots, markers, sprites or floating 3D text in the world, ever.** World interaction is MULTItarget (hold Left Alt).
-13. **Small menus and dialogs:** use ox_lib (`lib.registerContext`, `lib.inputDialog`, `lib.alertDialog`, `lib.progressBar`) instead of building a page. Set `setr ox:primaryColor gray` in server.cfg so their highlights are grey, not blue.
+13. **Small menus and dialogs:** use ox_lib's calls (`lib.registerContext`, `lib.showContext`, `lib.inputDialog`, `lib.alertDialog`, `lib.progressBar`, `lib.showTextUI`, `lib.notify`) and load `'@MULTIcore/lib/ui.lua'` first in `client_scripts`. MULTIcore then draws them in the base-game look (black column, white frame on the selected row, black dialogs) and sends `lib.notify` to MULTIcore's notifications. Your code stays plain ox_lib. Only `lib.skillCheck` stays ox_lib's own.
 14. **Font Awesome icons** are fine (cdnjs link, as in `reference/MULTItarget/index.html`). Keep icons white.
 
 ## Theme classes

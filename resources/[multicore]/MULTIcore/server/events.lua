@@ -180,7 +180,7 @@ RegisterNetEvent('RSGCore:ToggleDuty', function()
     if not Player then return end
     local onDuty = not Player.PlayerData.job.onduty
     Player.Functions.SetJobDuty(onDuty)
-    TriggerClientEvent('ox_lib:notify', src, { title = Lang:t(onDuty and 'info.on_duty' or 'info.off_duty'), type = 'inform', duration = 5000 })
+    TriggerClientEvent('MULTIcore:notify', src, { text = Lang:t(onDuty and 'info.on_duty' or 'info.off_duty'), type = 'inform', duration = 5000 })
     TriggerEvent('RSGCore:Server:SetDuty', src, onDuty)
     TriggerClientEvent('RSGCore:Client:SetDuty', src, onDuty)
 end)
@@ -196,10 +196,10 @@ RegisterNetEvent('RSGCore:CallCommand', function(command, args)
     args = type(args) == 'table' and args or {}
 
     if not RSGCore.Functions.HasPermission(src, 'command.' .. cmd.name) then
-        return TriggerClientEvent('ox_lib:notify', src, { title = Lang:t('error.no_access'), type = 'error', duration = 5000 })
+        return TriggerClientEvent('MULTIcore:notify', src, { text = Lang:t('error.no_access'), type = 'error', duration = 5000 })
     end
     if cmd.argsrequired and #cmd.arguments ~= 0 and not args[#cmd.arguments] then
-        return TriggerClientEvent('ox_lib:notify', src, { title = Lang:t('error.missing_args2'), type = 'error', duration = 5000 })
+        return TriggerClientEvent('MULTIcore:notify', src, { text = Lang:t('error.missing_args2'), type = 'error', duration = 5000 })
     end
     cmd.callback(src, args)
 end)

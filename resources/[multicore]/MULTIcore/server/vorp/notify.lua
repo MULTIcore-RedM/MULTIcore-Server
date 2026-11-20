@@ -23,5 +23,5 @@ for _, kind in ipairs(KINDS) do
 end
 -- Plain text notice in the style the rest of the core uses
 V.Notify.Notify = function(src, text, ntype, duration)
-    TriggerClientEvent('ox_lib:notify', src, { description = tostring(text), type = ntype or 'inform', duration = duration or 5000 })
+    TriggerClientEvent('MULTIcore:notify', src, { text = tostring(text), type = ntype or 'inform', duration = duration or 5000 })
 end

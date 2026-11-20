@@ -12,7 +12,7 @@ shared_scripts {
     'config.lua',
     'locales/*.lua',
 }
-client_scripts { '@MULTIcore/lib/interact.lua', 'client/main.lua' }   -- MCI.*
+client_scripts { '@MULTIcore/lib/ui.lua', '@MULTIcore/lib/interact.lua', 'client/main.lua' }   -- ox_lib menus in the MULTI look, MCI.*
 server_scripts { 'server/main.lua' }
 dependencies { 'MULTIcore', 'MULTItarget', 'MULTIinventory', 'ox_lib' }
 ```
@@ -26,7 +26,7 @@ The full UI rules, every theme class and a working example menu are in `MULTIcor
 - **Base-game look:** black see-through panels, white text, a white frame on the selected row, game-style key prompts.
 - For your own NUI page, link `nui://MULTIcore/html/theme/multi.css` first and use its classes and variables. Don't hard-code colours or fonts.
 - Ship an empty, commented `html/custom.css`, loaded last, so server owners can restyle without touching your files.
-- For small menus use ox_lib (`lib.registerContext`, `lib.inputDialog`, `lib.progressBar`).
+- For small menus use ox_lib (`lib.registerContext`, `lib.inputDialog`, `lib.alertDialog`, `lib.progressBar`, `lib.showTextUI`) with `'@MULTIcore/lib/ui.lua'` loaded first: MULTIcore draws them in the base-game look.
 - **No white marker dots, markers or sprites** on interaction points, ever. No floating 3D text.
 - World interaction goes through MULTItarget (hold Left Alt). Use `MCI.AddZone` / `MCI.AddEntity` from `@MULTIcore/lib/interact.lua`; it falls back to hold-key prompts by itself.
 - Never bind PageDown.

@@ -30,6 +30,7 @@ server_scripts {
 }
 
 client_scripts {
+    '@MULTIcore/lib/ui.lua',   -- ox_lib menus and dialogs in the MULTI look
     '@MULTIcore/lib/interact.lua',  -- MULTItarget / prompt helper (drops, trade on players)
     'client/core/*.lua',   -- satchel UI, hotbar, weapons on the ped
     'client/rsg/*.lua',    -- rsg-inventory client face

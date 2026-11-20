@@ -29,6 +29,7 @@ server_scripts {
 }
 
 client_scripts {
+    '@MULTIcore/lib/ui.lua',   -- ox_lib menus and dialogs in the MULTI look
     '@MULTIcore/lib/interact.lua',  -- MULTItarget / prompt helper (Config.Interact)
     'client/main.lua',     -- dealers, menus, spawning, storage prompt, repair
     'client/compat.lua',   -- rsg-wagons client events
