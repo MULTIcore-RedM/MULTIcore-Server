@@ -1,0 +1,9 @@
+/* ============================================================
+   MULTIadmin - your own styles
+   This file loads last, so anything here wins over the theme and
+   style.css. Empty by default. Examples:
+
+   .ma-window { width: 1000px; }                 narrower menu
+   :root { --mc-scale: 1.1; }                    bigger text (theme variable)
+   .ma-tag.admin { color: #e0b44a; }             admin tag colour
+   ============================================================ */

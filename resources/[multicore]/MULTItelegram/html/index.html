@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MULTItelegram</title>
+    <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+<!-- Every label comes from locales/*.lua (data-l = text, data-lp = placeholder). -->
+<div id="tg" class="mc-root mc-hidden">
+    <section class="desk mc-panel mc-fade">
+        <img class="mc-brand mc-brand-corner" src="nui://MULTIcore/html/theme/img/mc-mark.png" alt="">
+        <header class="head">
+            <h1 class="mc-title" data-l="title"></h1>
+            <div class="where mc-note">
+                <span id="office"></span>
+                <span id="myNumber"></span>
+            </div>
+        </header>
+
+        <nav class="mc-tabs" id="tabs">
+            <button class="mc-tab" data-tab="inbox"><span data-l="ui_tab_inbox"></span> <span class="count" id="unread"></span></button>
+            <button class="mc-tab" data-tab="compose" data-l="ui_tab_write"></button>
+            <button class="mc-tab" data-tab="contacts" data-l="ui_tab_contacts"></button>
+        </nav>
+
+        <!-- inbox: list on the left, the telegram on the right -->
+        <div class="pane" data-pane="inbox">
+            <div class="col list-col">
+                <div class="mc-list mc-scroll" id="inboxList"></div>
+            </div>
+            <div class="col">
+                <div class="blank" id="reader">
+                    <div class="empty" id="readerEmpty"></div>
+                    <div id="readerBody" class="mc-hidden">
+                        <div class="blank-title" data-l="ui_telegram"></div>
+                        <div class="line"><span class="lbl" data-l="ui_from"></span><span id="rFrom"></span></div>
+                        <div class="line"><span class="lbl" data-l="ui_to"></span><span id="rTo"></span></div>
+                        <div class="line"><span class="lbl" data-l="ui_date"></span><span id="rDate"></span></div>
+                        <div class="line"><span class="lbl" data-l="ui_subject"></span><span id="rSubject"></span></div>
+                        <div class="text mc-scroll" id="rText"></div>
+                        <div class="parcel-line" id="rParcel"></div>
+                    </div>
+                </div>
+                <div class="mc-btn-row actions" id="readerActions">
+                    <button class="mc-btn primary" id="btnReply" data-l="ui_reply"></button>
+                    <button class="mc-btn" id="btnCollect" data-l="ui_collect"></button>
+                    <button class="mc-btn danger" id="btnDelete" data-l="ui_delete"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- compose: recipient and contacts on the left, the blank on the right -->
+        <div class="pane mc-hidden" data-pane="compose">
+            <div class="col list-col">
+                <div class="mc-field">
+                    <label for="cTo" data-l="ui_to"></label>
+                    <div class="inline">
+                        <input class="mc-input" id="cTo" data-lp="ui_to_ph">
+                        <button class="mc-btn small" id="cLookup" data-l="ui_lookup"></button>
+                    </div>
+                    <div class="mc-hand found" id="cFound"></div>
+                </div>
+                <h2 class="mc-heading small-head" data-l="ui_tab_contacts"></h2>
+                <div class="mc-list mc-scroll" id="pickList"></div>
+            </div>
+            <div class="col">
+                <div class="blank">
+                    <div class="blank-title" data-l="ui_telegram"></div>
+                    <div class="mc-field">
+                        <label for="cSubject" data-l="ui_subject"></label>
+                        <input class="mc-input" id="cSubject" data-lp="ui_subject_ph">
+                    </div>
+                    <div class="mc-field grow">
+                        <label for="cMessage"><span data-l="ui_message"></span> <span class="chars" id="cChars"></span></label>
+                        <textarea class="mc-textarea" id="cMessage" data-lp="ui_message_ph"></textarea>
+                    </div>
+                    <div class="parcel-pick mc-hidden" id="cParcelBox">
+                        <div class="mc-field">
+                            <label for="cParcel" data-l="ui_parcel"></label>
+                            <select class="mc-select" id="cParcel"></select>
+                        </div>
+                        <div class="mc-field amt">
+                            <label for="cAmount" data-l="ui_amount"></label>
+                            <input class="mc-input" id="cAmount" inputmode="numeric" value="1" maxlength="3">
+                        </div>
+                    </div>
+                    <div class="mc-note" id="cAway"></div>
+                </div>
+                <div class="mc-btn-row actions">
+                    <span class="mc-note price" id="cPrice"></span>
+                    <button class="mc-btn primary" id="btnSend" data-l="ui_send"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- address book -->
+        <div class="pane mc-hidden" data-pane="contacts">
+            <div class="col list-col">
+                <div class="mc-list mc-scroll" id="contactList"></div>
+            </div>
+            <div class="col">
+                <div class="blank">
+                    <div class="blank-title" data-l="ui_tab_contacts"></div>
+                    <div class="mc-field">
+                        <label for="aTo" data-l="ui_contact_to"></label>
+                        <input class="mc-input" id="aTo">
+                    </div>
+                    <div class="mc-field">
+                        <label for="aName" data-l="ui_contact_name"></label>
+                        <input class="mc-input" id="aName" data-lp="ui_contact_name_ph">
+                    </div>
+                    <div class="mc-btn-row"><button class="mc-btn primary" id="btnAdd" data-l="ui_add"></button></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="msg" id="msg"></div>
+        <footer class="foot">
+            <span class="mc-note" id="cash"></span>
+            <span class="mc-note leave"><span class="mc-key">Esc</span><span data-l="ui_leave"></span></span>
+            <button class="mc-btn small" id="close" data-l="ui_close"></button>
+        </footer>
+    </section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+/* ============================================================
+   MULTIcrafting: your own styles (loaded last, after the theme and style.css)
+   Empty on purpose. Examples:
+
+   .mcr-col { left: auto; right: 5vw; }         column on the right
+   .mcr-col { width: 560px; }                   wider column
+   .mcr-progress { bottom: 20vh; }              progress bar higher up
+   .mcr-prompts { display: none; }              hide the key prompts
+   ============================================================ */

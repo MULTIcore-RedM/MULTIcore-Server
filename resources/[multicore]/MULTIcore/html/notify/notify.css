@@ -1,0 +1,172 @@
+/* ============================================================
+   MULTIcore notifications, in the base-game look
+   Colours and fonts come from the shared theme (../theme/multi.css).
+   Black see-through boxes that fade out at the edges, white words.
+   Each notification gets --mn-accent (its type colour, set from
+   config_notify.lua); it is only used as a small accent: the icon
+   and a thin edge, never as a panel colour. Restyle in custom.css.
+   No endless animations: each notification fades in once and out once.
+   ============================================================ */
+
+html, body { margin: 0; padding: 0; height: 100%; background: transparent; overflow: hidden; }
+
+#mn-root {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    --mn-fade: 0.3s;
+}
+
+.mn-stack { position: absolute; display: flex; gap: 6px; }
+#mn-banner { z-index: 1; }
+#mn-objective, #mn-tip { z-index: 2; }
+#mn-toast { z-index: 3; }
+
+/* ---------- shared pieces ---------- */
+.mn-item {
+    --mn-accent: var(--mc-ink);
+    opacity: 0;
+    transition: opacity var(--mn-fade) ease-out, transform var(--mn-fade) ease-out;
+}
+.mn-item.mn-in { opacity: 1; transform: none !important; }
+.mn-item.mn-out { opacity: 0; }
+
+/* small icon: just the sign in the type's colour */
+.mn-icon {
+    flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    width: 26px; height: 26px; border-radius: 0;
+    color: var(--mn-accent);
+    border: 0;
+    background: none;
+    font-family: var(--mc-font-ui), 'Segoe UI Symbol', sans-serif;
+    font-size: calc(18px * var(--mc-scale)); line-height: 1; font-weight: 700;
+    text-shadow: 0 1px 2px #000;
+}
+.mn-icon:empty { display: none; }
+.mn-icon img { width: 26px; height: 26px; object-fit: contain; }
+
+.mn-title {
+    font-family: var(--mc-font-ui);
+    font-weight: 700;
+    font-size: var(--mc-size-ui);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--mc-ink);
+}
+.mn-text {
+    font-family: var(--mc-font-body);
+    font-size: var(--mc-size-body);
+    color: var(--mc-ink);
+    line-height: 1.35;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+.mn-title + .mn-text { margin-top: 2px; color: var(--mc-ink-dim); }
+
+/* x2, x3 for repeated messages: plain white, like the game's counters */
+.mn-count {
+    display: inline-block; margin-left: 8px; padding: 0;
+    border-radius: 0; background: none; color: var(--mc-ink-dim);
+    font-family: var(--mc-font-ui); font-weight: 700; font-size: var(--mc-size-small); line-height: 1;
+    vertical-align: baseline; text-transform: none;
+}
+.mn-count:empty { display: none; }
+@keyframes mn-bump { 0% { transform: scale(1.25); } 100% { transform: scale(1); } }
+.mn-count.mn-bump { animation: mn-bump 0.25s ease-out 1; }
+
+/* ---------- toast: like the game's feed, a black box fading out away from the screen edge ---------- */
+#mn-toast { flex-direction: column; }
+.mn-toast {
+    position: relative;
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 11px 26px 12px 14px;
+    background: linear-gradient(270deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.78) 65%, rgba(0, 0, 0, 0) 100%);
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    text-shadow: var(--mc-text-shadow);
+    transform: translateX(16px);
+}
+/* thin type-coloured edge on the screen side */
+.mn-toast::before {
+    content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: 2px;
+    background: var(--mn-accent); opacity: 0.9;
+}
+.mn-toast .mn-body { flex: 1 1 auto; min-width: 0; padding-top: 1px; }
+.mn-toast .mn-text:only-child { padding-top: 3px; }
+/* right-hand stack: fade towards the middle of the screen */
+#mn-toast:not(.mn-left) .mn-toast { flex-direction: row-reverse; text-align: right; padding: 11px 14px 12px 26px; }
+#mn-toast:not(.mn-left) .mn-toast .mn-body { text-align: right; }
+/* left-hand stack (the game's own side) */
+.mn-left .mn-toast {
+    transform: translateX(-16px);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.78) 65%, rgba(0, 0, 0, 0) 100%);
+}
+.mn-left .mn-toast::before { right: auto; left: 0; }
+
+/* ---------- tip: like the game's help text, one soft black line at the bottom ---------- */
+#mn-tip { left: 50%; transform: translateX(-50%); flex-direction: column; align-items: center; }
+.mn-tip {
+    display: flex; align-items: center; gap: 10px;
+    max-width: 640px;
+    padding: 9px 44px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.78) 18%, rgba(0, 0, 0, 0.78) 82%, rgba(0, 0, 0, 0) 100%);
+    border: 0;
+    border-radius: 0;
+    text-shadow: var(--mc-text-shadow);
+    transform: translateY(8px);
+}
+.mn-tip .mn-icon { width: 20px; height: 20px; font-size: calc(14px * var(--mc-scale)); }
+.mn-tip .mn-text { color: var(--mc-ink); }
+.mn-tip .mn-title { font-size: var(--mc-size-small); color: var(--mc-ink); }
+
+/* ---------- objective: the game's white objective line, no box ---------- */
+#mn-objective { left: 50%; transform: translateX(-50%); flex-direction: column; align-items: center; }
+.mn-objective {
+    text-align: center; max-width: 760px;
+    padding: 8px 60px 10px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.12) 45%, transparent 68%);
+    transform: translateY(-8px);
+}
+.mn-objective .mn-title {
+    font-size: var(--mc-size-small); font-weight: 500; color: var(--mc-ink-dim); letter-spacing: 0.16em;
+    text-shadow: 0 1px 2px #000;
+}
+.mn-objective .mn-title + .mn-text { color: var(--mc-ink); }
+.mn-objective .mn-text {
+    font-family: var(--mc-font-body); font-style: normal;
+    font-size: calc(21px * var(--mc-scale)); color: var(--mc-ink);
+    text-shadow: 0 1px 2px #000, 0 0 6px rgba(0, 0, 0, 0.8);
+}
+.mn-objective .mn-rule {
+    height: 1px; width: 60%; margin: 7px auto 0;
+    background: linear-gradient(90deg, transparent, var(--mc-line-strong), transparent);
+}
+
+/* ---------- banner: the game's big centred mission title between thin white rules ---------- */
+#mn-banner { left: 50%; transform: translateX(-50%); width: min(1100px, 80vw); flex-direction: column; align-items: center; }
+.mn-banner {
+    width: 100%; text-align: center;
+    padding: 16px 0 18px;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.6) 25%, rgba(0, 0, 0, 0.6) 75%, transparent 100%);
+    transform: scale(0.97);
+}
+.mn-banner .mn-rule {
+    height: 1px; width: 52%; margin: 0 auto;
+    background: linear-gradient(90deg, transparent, var(--mc-ink) 20%, var(--mc-ink) 80%, transparent);
+    opacity: 0.8;
+}
+.mn-banner .mn-title {
+    font-family: var(--mc-font-title); font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em;
+    font-size: calc(58px * var(--mc-scale)); color: var(--mc-ink); line-height: 1.05;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    margin: 12px 0 2px;
+}
+.mn-banner .mn-text {
+    font-family: var(--mc-font-ui); font-style: normal; text-transform: uppercase; letter-spacing: 0.14em;
+    font-size: calc(17px * var(--mc-scale)); color: var(--mc-ink);
+    text-shadow: 0 1px 2px #000;
+    margin: 0 auto 12px; max-width: 760px;
+}
+.mn-banner .mn-title + .mn-text { color: var(--mc-ink-dim); }
+.mn-banner .mn-text:first-of-type:not(.mn-title + .mn-text) { margin-top: 12px; }
+.mn-banner .mn-icon { margin: 10px auto 0; width: 30px; height: 30px; }

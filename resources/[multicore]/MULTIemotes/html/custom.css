@@ -1,0 +1,9 @@
+/* ============================================================
+   MULTIemotes: your own styles (loaded last, after the theme and style.css)
+   Empty on purpose. Examples:
+
+   #em { justify-content: center; padding-right: 0; }   menu in the middle
+   #em { justify-content: flex-start; padding-left: 6vw; } menu on the left
+   .menu { height: 560px; }                              shorter menu
+   .list .names .mc-sub { display: none; }               no "Once / Until stopped" line
+   ============================================================ */

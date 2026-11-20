@@ -1,0 +1,8 @@
+/* MULTIloading: your own styles.
+   This file loads last, so anything here wins over style.css.
+   Examples:
+
+   :root { --mc-scale: 1.1; }                   bigger text
+   :root { --ml-name-size: 110px; }             bigger server name
+   .bottom { bottom: 10vh; }                    move tip and bar up
+*/

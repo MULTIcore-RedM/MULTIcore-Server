@@ -1,0 +1,11 @@
+/* ============================================================
+   MULTIcore notifications :: your own styles
+   This file is loaded last and is empty on purpose, so updates never
+   overwrite your changes. Examples:
+
+   .mn-toast { background: rgba(0,0,0,0.9); }         toast background
+   .mn-toast .mn-title { color: #f0d9a0; }            toast titles
+   .mn-banner .mn-title { font-size: 56px; }          bigger banner title
+   .mn-type-police { --mn-accent: #5577aa; }          one type's colour
+   #mn-root { --mc-scale: 1.1; }                      bigger text for notifications only
+   ============================================================ */

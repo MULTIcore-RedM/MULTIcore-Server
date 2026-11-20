@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['tr'] = {
+    ['placeholder'] = "Bir mesaj ya da /komut yaz",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s şunu dener: %s",
+    ['try_ok'] = "ve başarır",
+    ['try_fail'] = "ve başaramaz",
+    ['need_text'] = "Komuttan sonra ne olduğunu yaz.",
+    ['too_fast'] = "Biraz yavaş.",
+    ['plain_off'] = "Düz yazı burada kapalı. /me, /do ya da /ooc kullan.",
+    ['unknown_command'] = "Bilinmeyen komut: /%s",
+    ['chat_shown'] = "Sohbet gösteriliyor.",
+    ['help_me'] = "Karakterinin ne yaptığını anlat",
+    ['help_do'] = "Karakterinin çevresini anlat",
+    ['help_try'] = "Bir şey dene: şansa göre başarır ya da başaramaz",
+    ['help_clear'] = "Sohbetini temizle",
+    ['help_hide'] = "Sohbeti gizle ya da göster",
+    ['param_action'] = "eylem",
+    ['param_text'] = "metin",
+}

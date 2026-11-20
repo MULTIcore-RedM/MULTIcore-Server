@@ -1,0 +1,8 @@
+/* ============================================================
+   MULTIserver: your own styles (loaded last, after the theme and style.css)
+   Empty on purpose. Examples:
+
+   .board { width: 1100px; }                        wider player list
+   .rows .row:nth-child(even) { background: rgba(255,255,255,0.03); }   striped rows
+   .info { width: 640px; }                          wider info panel
+   ============================================================ */

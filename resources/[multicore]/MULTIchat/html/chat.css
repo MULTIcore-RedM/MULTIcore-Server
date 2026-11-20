@@ -1,0 +1,105 @@
+/* MULTIchat: the base-game look. Black bands, white letters, no brown.
+   Colours for each kind of line come from Config.Styles (set as the --mch-* variables below);
+   html/custom.css can override any of them. */
+
+html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+
+.mch-chat {
+    --mch-scale: 1;
+    --mch-width: calc(560px * var(--mch-scale));
+
+    --mch-me-text: #ffffff;   --mch-me-bg: rgba(0, 0, 0, 0.88);
+    --mch-do-text: #5fa8ff;   --mch-do-bg: rgba(0, 0, 0, 0.88);
+    --mch-try-text: #ffffff;  --mch-try-bg: rgba(0, 0, 0, 0.88);
+    --mch-try-good: #8fbf6a;  --mch-try-bad: #d04a3c;
+    --mch-say-text: #ffffff;  --mch-say-bg: rgba(0, 0, 0, 0.55);
+    --mch-system-text: #ffffff; --mch-system-bg: rgba(0, 0, 0, 0.55);
+
+    position: fixed;
+    top: calc(24px * var(--mch-scale));
+    left: calc(24px * var(--mch-scale));
+    width: var(--mch-width);
+    font-size: calc(16px * var(--mch-scale));
+}
+
+/* ---------- the lines ---------- */
+.mch-feed {
+    max-height: calc(300px * var(--mch-scale));
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: opacity 0.6s ease;
+    scrollbar-width: none;
+}
+.mch-feed::-webkit-scrollbar { width: 0; }
+.mch-feed.mch-faded { opacity: 0; }
+.mch-chat.mch-off .mch-feed { display: none; }
+.mch-chat.mch-open .mch-feed { opacity: 1; }
+
+.mch-lines { display: flex; flex-direction: column; gap: 2px; }
+
+.mch-line {
+    display: block;
+    padding: 3px 10px 4px;
+    line-height: 1.35;
+    color: var(--mch-system-text);
+    background: var(--mch-system-bg);
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    text-shadow: none;
+}
+.mch-line b { font-weight: 700; }
+
+.mch-me     { color: var(--mch-me-text);  background: var(--mch-me-bg); }
+.mch-do     { color: var(--mch-do-text);  background: var(--mch-do-bg); }
+.mch-try    { color: var(--mch-try-text); background: var(--mch-try-bg); }
+.mch-try .mch-good { color: var(--mch-try-good); }
+.mch-try .mch-bad  { color: var(--mch-try-bad); }
+.mch-say    { color: var(--mch-say-text); background: var(--mch-say-bg); }
+.mch-say b  { margin-right: 4px; }
+.mch-me, .mch-do, .mch-try { font-style: italic; }
+
+/* ^0 - ^9 colour codes from other scripts */
+.mch-c0, .mch-c7 { color: #ffffff; }
+.mch-c1 { color: #d04a3c; }
+.mch-c2 { color: #8fbf6a; }
+.mch-c3 { color: #e8c547; }
+.mch-c4 { color: #5f8cff; }
+.mch-c5 { color: #5fa8ff; }
+.mch-c6 { color: #b07ad8; }
+.mch-c8 { color: #a8322a; }
+.mch-c9 { color: #e07aa8; }
+
+/* ---------- the text box: black, white letters, a thin white frame ---------- */
+.mch-box { margin-top: 6px; position: relative; }
+.mch-input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px 10px;
+    font: inherit;
+    font-family: var(--mc-font-ui, serif);
+    color: #ffffff;
+    caret-color: #ffffff;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 0;
+    outline: none;
+}
+.mch-input::placeholder { color: rgba(255, 255, 255, 0.42); }
+.mch-input:focus { border-color: #ffffff; }
+
+/* ---------- command suggestions ---------- */
+.mch-suggest {
+    margin-top: 2px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    max-height: calc(220px * var(--mch-scale));
+    overflow: hidden;
+}
+.mch-sug { padding: 4px 10px; color: rgba(255, 255, 255, 0.72); }
+.mch-sug.on { color: #ffffff; outline: 1px solid #ffffff; outline-offset: -1px; }
+.mch-sug .mch-name { color: #ffffff; font-weight: 700; }
+.mch-sug .mch-param { margin-left: 6px; color: rgba(255, 255, 255, 0.6); }
+.mch-sug .mch-param.on { color: #ffffff; text-decoration: underline; }
+.mch-sug .mch-help { display: block; font-size: 0.85em; color: rgba(255, 255, 255, 0.55); }

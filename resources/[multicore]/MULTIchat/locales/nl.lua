@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['nl'] = {
+    ['placeholder'] = "Typ een bericht of /commando",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s probeert %s",
+    ['try_ok'] = "en het lukt",
+    ['try_fail'] = "en het mislukt",
+    ['need_text'] = "Schrijf na het commando wat er gebeurt.",
+    ['too_fast'] = "Rustig aan.",
+    ['plain_off'] = "Gewone tekst staat hier uit. Gebruik /me, /do of /ooc.",
+    ['unknown_command'] = "Onbekend commando: /%s",
+    ['chat_shown'] = "Chat zichtbaar.",
+    ['help_me'] = "Beschrijf wat je personage doet",
+    ['help_do'] = "Beschrijf wat er rond je personage is",
+    ['help_try'] = "Iets proberen: lukt of mislukt bij toeval",
+    ['help_clear'] = "Je chat leegmaken",
+    ['help_hide'] = "Chat verbergen of tonen",
+    ['param_action'] = "actie",
+    ['param_text'] = "tekst",
+}

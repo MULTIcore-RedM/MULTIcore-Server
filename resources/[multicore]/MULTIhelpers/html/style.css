@@ -1,0 +1,191 @@
+/* MULTIhelpers: menu, input box, progress bar in the base-game look (RDR2's own menus).
+   Black see-through column, white lettering, the selected row framed in white, key prompts
+   bottom right. Colours and fonts come from multi.css; restyle in custom.css. */
+html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; width: 100vw; height: 100vh; }
+
+/* ---------------------------------------------------------------- menu */
+.mh-menu {
+    position: absolute; top: var(--mh-menu-top, 8vh); width: var(--mh-menu-width, 25vw); min-width: 340px; max-width: 460px;
+    display: flex; flex-direction: column; padding: 22px 18px 14px;
+}
+.mh-menu.align-top-left { left: var(--mh-menu-side, 3vw); }
+.mh-menu.align-top-right { right: var(--mh-menu-side, 3vw); }
+.mh-menu.align-top-center { left: 0; right: 0; margin: 0 auto; }
+.mh-menu.grid { width: 34vw; max-width: 620px; }
+
+.mh-head { text-align: center; padding: 0 6px; }
+.mh-head .mc-title { margin: 0; line-height: 1; }
+.mh-subtext {
+    font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--mc-ink-dim); margin-top: 4px;
+}
+.mh-subtext:empty { display: none; }
+.mh-head + .mc-rule { margin: 12px 0 10px; }
+
+/* rows: plain white words on the black column; the selected one gets the theme's white frame */
+.mh-list { display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
+.mh-list .mc-row { min-height: 2.4em; background: transparent; padding: 8px 12px; }
+.mh-list .mc-row:hover { background: var(--mc-paper-3); }
+.mh-list .mc-row.active { background: rgba(255, 255, 255, 0.06); }
+.mh-list.divider .mc-row:not(:last-child) { box-shadow: inset 0 -1px 0 var(--mc-line); }
+.mh-list.grid { display: grid; grid-template-columns: repeat(var(--mh-grid-cols, 4), 1fr); gap: 6px; }
+
+.mh-list .mc-row.center .mh-label { text-align: center; flex: 1; }
+.mh-list .mc-row.disabled { color: var(--mc-ink-faint); }
+.mh-list .mc-row.unselectable {
+    cursor: default; background: transparent; justify-content: center; min-height: 0; padding: 10px 12px 4px;
+    color: var(--mc-ink-dim); font-size: var(--mc-size-small); text-transform: uppercase; letter-spacing: 0.12em;
+}
+.mh-list .mc-row.unselectable .mh-label { flex: 0 1 auto; }
+.mh-list .mc-row.unselectable::before, .mh-list .mc-row.unselectable::after {
+    content: ''; position: static; inset: auto; border: 0; flex: 1; height: 1px; margin: 0 10px;
+}
+.mh-list .mc-row.unselectable::before { background: linear-gradient(90deg, transparent, var(--mc-line-strong)); }
+.mh-list .mc-row.unselectable::after { background: linear-gradient(90deg, var(--mc-line-strong), transparent); }
+.mh-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mh-right { display: flex; align-items: center; gap: 6px; color: var(--mc-ink-dim); white-space: nowrap; }
+.mc-row.active .mh-right { color: var(--mc-ink); }
+
+/* ‹ value › like the game's selectors */
+.mh-arrow {
+    font-family: var(--mc-font-ui); color: var(--mc-ink-faint); padding: 0 4px; cursor: pointer;
+    font-size: calc(var(--mc-size-ui) * 1.45); line-height: 0.8; font-weight: 700;
+}
+.mc-row.active .mh-arrow { color: var(--mc-ink); }
+.mh-arrow.off { visibility: hidden; }
+.mh-val { min-width: 2.6em; text-align: center; font-family: var(--mc-font-ui); }
+
+/* thin white slider bar */
+.mh-bar { width: 6.5em; height: 3px; background: rgba(255, 255, 255, 0.25); border: 0; border-radius: 0; overflow: hidden; }
+.mh-bar > div { height: 100%; background: var(--mc-ink); }
+
+/* square white tick box */
+.mh-tick {
+    width: 15px; height: 15px; border: 1px solid var(--mc-line-strong); border-radius: 0;
+    background: rgba(0, 0, 0, 0.4); display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--mc-ink); line-height: 1;
+}
+.mc-row.active .mh-tick { border-color: var(--mc-ink); }
+.mh-tick.on::after { content: '\2714'; }
+
+/* grid tiles */
+.mh-tile {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 4px;
+    background: rgba(0, 0, 0, 0.35); border: 0; border-radius: 0; cursor: pointer;
+    font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-align: center;
+}
+.mh-tile img { width: 64px; height: 64px; object-fit: contain; }
+.mh-tile.active { background: rgba(255, 255, 255, 0.06); }
+.mh-tile.active::after { content: ''; position: absolute; inset: 0; border: 2px solid var(--mc-ink); pointer-events: none; }
+.mh-tile.disabled { color: var(--mc-ink-faint); }
+
+.mh-count { text-align: right; font-family: var(--mc-font-ui); font-size: var(--mc-size-small); color: var(--mc-ink-dim); margin-top: 6px; min-height: 1em; padding-right: 4px; }
+
+/* description under the list, like the game: a thin rule, then plain text */
+.mh-desc {
+    position: relative;
+    margin-top: 6px; padding: 12px 6px 4px; background: none; border: 0; border-radius: 0;
+    color: var(--mc-ink); font-size: var(--mc-size-body); line-height: 1.35;
+}
+.mh-desc::before {
+    content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--mc-line-strong) 15%, var(--mc-line-strong) 85%, transparent);
+}
+.mh-desc .mh-price { margin-top: 8px; display: flex; align-items: center; gap: 8px; font-family: var(--mc-font-ui); font-weight: 700; color: var(--mc-ink); }
+.mh-desc .mh-coin { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.mh-coin.money { background: transparent; box-shadow: inset 0 0 0 2px var(--mc-ink); }
+.mh-coin.gold { background: var(--mc-gold); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5); }
+.mh-desc .mh-footer { margin-top: 8px; font-size: var(--mc-size-small); color: var(--mc-ink-dim); }
+.mh-desc .mh-sub { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; margin-top: 8px; padding: 5px 8px; border: 0; border-radius: 0; color: var(--mc-ink-dim); }
+.mh-desc .mh-sub.active { color: var(--mc-ink); }
+.mh-desc .mh-sub.active::after { content: ''; position: absolute; inset: 0; border: 1px solid var(--mc-ink); pointer-events: none; }
+.mh-desc .mh-sub .mh-bar { grid-column: 1 / -1; width: 100%; }
+.mh-desc .mh-boxes { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 8px; }
+.mh-desc .mh-box { display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 2px 6px; border: 1px solid transparent; border-radius: 0; color: var(--mc-ink-dim); }
+.mh-desc .mh-box.active { border-color: var(--mc-ink); color: var(--mc-ink); }
+
+.mh-buttons { margin-top: 12px; justify-content: flex-end; }
+
+/* key prompts: bottom right of the screen, like the game's  [Enter] Select */
+.mh-keys {
+    position: fixed; right: var(--mh-keys-right, 3vw); bottom: var(--mh-keys-bottom, 4vh);
+    display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: flex-end; align-items: center;
+    font-family: var(--mc-font-ui); font-size: var(--mc-size-small); color: var(--mc-ink); text-transform: uppercase; letter-spacing: 0.05em;
+    text-shadow: 0 1px 2px #000, 0 0 4px rgba(0, 0, 0, 0.8);
+}
+.mh-keys > span { display: inline-flex; align-items: center; }
+.mh-key {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 24px; height: 24px; padding: 0 6px; margin-right: 7px;
+    border: 1px solid var(--mc-ink); border-radius: 3px; background: rgba(0, 0, 0, 0.55);
+    font-weight: 700; color: var(--mc-ink); letter-spacing: 0.02em; text-shadow: none;
+}
+
+/* ---------------------------------------------------------------- dialog (the game's on-screen keyboard box) */
+.mh-dialog-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.3); }
+.mh-dialog { width: var(--mh-dialog-width, 26vw); min-width: 360px; max-width: 520px; padding: 22px 24px 18px; }
+.mh-dialog-title { text-align: center; font-size: calc(var(--mc-size-title) * 0.8); margin-bottom: 6px; }
+.mh-dialog .mc-note { text-align: center; margin-bottom: 14px; color: var(--mc-ink-dim); }
+.mh-dialog .mc-note:empty { display: none; }
+.mh-dialog .mc-input, .mh-dialog .mc-textarea {
+    width: 100%; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--mc-ink); color: var(--mc-ink);
+    font-size: var(--mc-size-ui); padding: 10px 12px;
+}
+.mh-dialog .mc-input:focus, .mh-dialog .mc-textarea:focus { box-shadow: inset 0 0 0 1px var(--mc-ink); }
+.mh-dialog .mc-input::placeholder, .mh-dialog .mc-textarea::placeholder { color: var(--mc-ink-faint); }
+.mh-error { color: var(--mc-red); font-size: var(--mc-size-small); min-height: 1.2em; margin: -4px 0 6px; }
+.mh-dialog-buttons { justify-content: flex-end; margin-top: 6px; }
+
+/* ---------------------------------------------------------------- progress (thin white bar on dark, white text above) */
+.mh-progress { position: absolute; left: 50%; bottom: var(--mh-progress-bottom, 9vh); transform: translateX(-50%); }
+.mh-linear { width: var(--mh-progress-width, 24vw); min-width: 260px; }
+.mh-linear-label {
+    text-align: center; font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-ui); text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--mc-ink); text-shadow: 0 1px 2px #000, 0 0 4px rgba(0, 0, 0, 0.8); margin-bottom: 7px;
+}
+.mh-linear-track {
+    height: 5px; padding: 0; background: var(--mh-progress-track, rgba(0, 0, 0, 0.6));
+    border: 0; outline: 0; border-radius: 0; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+.mh-linear-fill { height: 100%; width: 0; background: var(--mh-progress-color, var(--mc-ink)); border-radius: 0; }
+
+.mh-circle { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.mh-ring {
+    --p: 0; --c: var(--mh-progress-color, var(--mc-ink));
+    width: var(--mh-circle-size, 84px); height: var(--mh-circle-size, 84px); border-radius: 50%; padding: 4px;
+    background: conic-gradient(var(--c) calc(var(--p) * 1%), var(--mh-progress-track, rgba(255, 255, 255, 0.22)) 0);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+.mh-ring-hole {
+    width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    background: rgba(0, 0, 0, 0.7); box-shadow: none;
+    font-family: var(--mc-font-ui); font-weight: 700; font-size: var(--mc-size-ui); color: var(--mc-ink);
+}
+/* inner circle: a soft white fill sweeping round inside a thin white frame */
+.mh-circle.inner .mh-ring { padding: 0; position: relative; background: rgba(0, 0, 0, 0.65); box-shadow: inset 0 0 0 2px var(--mc-ink), 0 0 0 1px rgba(0, 0, 0, 0.35); }
+.mh-circle.inner .mh-ring::before {
+    content: ''; position: absolute; inset: 6px; border-radius: 50%;
+    background: conic-gradient(var(--c) calc(var(--p) * 1%), transparent 0);
+    opacity: 0.3;
+}
+.mh-circle.inner .mh-ring-hole { position: relative; background: transparent; }
+.mh-circle-label {
+    font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-ui); text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--mc-ink); text-shadow: 0 1px 2px #000, 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+/* keep tall menus on screen and clear of the key prompts: the description scrolls instead */
+.mh-menu { max-height: calc(100vh - var(--mh-menu-top, 8vh) - var(--mh-keys-bottom, 4vh) - 6vh); }
+.mh-list, .mh-head, .mh-count, .mh-buttons, .mh-keys { flex-shrink: 0; }
+.mh-desc { flex-shrink: 1; min-height: 3em; overflow-y: auto; }
+.mh-dialog .mc-field:empty { display: none; }
+.mh-dialog .mc-btn:focus { outline: 1px solid var(--mc-ink); outline-offset: 2px; }
+.mh-desc::-webkit-scrollbar { width: 3px; }
+.mh-desc::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.6); }
+.mh-desc::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.12); }
+
+/* MULTIcore brand mark sits in the panel's top-left corner (theme class mc-brand-corner) */
+/* (the menu is already absolutely placed); the title keeps clear of the mark */
+.mh-menu > .mc-brand-corner { --mc-brand-size: 30px; }
+.mh-menu .mh-head { padding: 0 34px; }

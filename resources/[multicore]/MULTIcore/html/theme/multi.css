@@ -1,0 +1,271 @@
+/* ============================================================================
+   MULTIcore shared UI theme: the base-game look
+   Every MULTI page links this file:
+     <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
+
+   Looks like Red Dead Redemption 2's own menus: black see-through panels,
+   white lettering, a white frame round the selected row, thin white rules
+   that fade at the ends, key prompts in small white boxes. No paper, no
+   brown, no textures, no endless animations.
+
+   Change the look of every MULTI script here:
+     --mc-scale   text size for everything (1 = normal, 1.15 = bigger)
+     --mc-zoom    zoom whole panels (1 = normal)
+     --mc-panel   panel darkness (0.0 - 1.0)
+   Game fonts: put them in html/theme/fonts/ (see the README there).
+   Without them, close free fonts are used.
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Zilla+Slab:ital,wght@0,400;0,500;0,600;0,700;1,400&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* game-style fonts, used when the files are in html/theme/fonts/ */
+@font-face { font-family: 'MC Title'; src: url('fonts/title.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'MC Body'; src: url('fonts/body.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'MC Body'; src: url('fonts/body-medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'MC Body'; src: url('fonts/body-bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
+
+:root {
+    --mc-scale: 1;
+    --mc-zoom: 1;
+    --mc-panel: 0.82;
+
+    --mc-font-title: 'MC Title', 'Oswald', 'Arial Narrow', sans-serif;
+    --mc-font-ui: 'MC Body', 'Zilla Slab', 'PT Serif', serif;
+    --mc-font-body: 'MC Body', 'Zilla Slab', 'PT Serif', serif;
+    --mc-font-hand: 'MC Body', 'Zilla Slab', serif;
+
+    --mc-size-title: calc(40px * var(--mc-scale));
+    --mc-size-heading: calc(19px * var(--mc-scale));
+    --mc-size-ui: calc(17px * var(--mc-scale));
+    --mc-size-body: calc(16px * var(--mc-scale));
+    --mc-size-small: calc(14px * var(--mc-scale));
+
+    --mc-ink: #ffffff;                       /* main text */
+    --mc-ink-dim: rgba(255, 255, 255, 0.72); /* secondary text */
+    --mc-ink-faint: rgba(255, 255, 255, 0.42);
+    --mc-paper: rgba(0, 0, 0, var(--mc-panel));   /* panel */
+    --mc-paper-2: rgba(0, 0, 0, 0.55);            /* row / raised */
+    --mc-paper-3: rgba(255, 255, 255, 0.08);      /* hover */
+    --mc-line: rgba(255, 255, 255, 0.18);
+    --mc-line-strong: rgba(255, 255, 255, 0.55);
+    --mc-accent: #ffffff;                    /* the game highlights in white */
+    --mc-accent-ink: #000000;
+    --mc-red: #c0281e;                       /* game red: danger, can't afford */
+    --mc-gold: #d6b25e;
+    --mc-good: #8fbf6a;
+    --mc-bad: #d04a3c;
+    --mc-shadow: none;
+    --mc-radius: 0;
+    --mc-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+/* ---------- base ---------- */
+.mc-root, .mc-root * { box-sizing: border-box; }
+.mc-root {
+    font-family: var(--mc-font-body);
+    font-size: var(--mc-size-body);
+    color: var(--mc-ink);
+    text-shadow: var(--mc-text-shadow);
+    zoom: var(--mc-zoom);
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+}
+.mc-hidden { display: none !important; }
+
+/* ---------- panel: black, fading softly at the edges like the game's menus ---------- */
+.mc-panel {
+    background: linear-gradient(180deg, rgba(0, 0, 0, calc(var(--mc-panel) - 0.08)) 0%, rgba(0, 0, 0, var(--mc-panel)) 12%, rgba(0, 0, 0, var(--mc-panel)) 88%, rgba(0, 0, 0, calc(var(--mc-panel) - 0.08)) 100%);
+    border: 0;
+    outline: 0;
+    border-radius: 0;
+    box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.35);
+    padding: 20px 24px;
+}
+/* big centred title, as on store and camp menus */
+.mc-title {
+    font-family: var(--mc-font-title);
+    font-size: var(--mc-size-title);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    text-align: center;
+    margin: 0 0 4px;
+    color: var(--mc-ink);
+    line-height: 1.05;
+}
+.mc-subtitle {
+    font-family: var(--mc-font-ui);
+    font-size: var(--mc-size-small);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    color: var(--mc-ink-dim);
+}
+.mc-heading {
+    font-family: var(--mc-font-ui);
+    font-weight: 500;
+    font-size: var(--mc-size-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--mc-ink);
+    margin: 16px 0 8px;
+}
+/* thin white rule that fades out at both ends */
+.mc-rule {
+    height: 1px; border: 0; margin: 10px 0;
+    background: linear-gradient(90deg, transparent, var(--mc-line-strong) 15%, var(--mc-line-strong) 85%, transparent);
+}
+.mc-note { color: var(--mc-ink-dim); font-size: var(--mc-size-small); }
+.mc-hand { font-family: var(--mc-font-hand); font-style: italic; }
+
+/* ---------- tabs: white words, the active one underlined ---------- */
+.mc-tabs { display: flex; justify-content: center; gap: 4px; margin-bottom: 12px; flex-wrap: wrap; position: relative; }
+.mc-tabs::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--mc-line-strong) 15%, var(--mc-line-strong) 85%, transparent); }
+.mc-tab {
+    font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-ui);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    padding: 8px 12px; color: var(--mc-ink-faint); cursor: pointer;
+    background: none; border: 0; border-bottom: 2px solid transparent;
+    text-shadow: var(--mc-text-shadow);
+}
+.mc-tab:hover { color: var(--mc-ink-dim); }
+.mc-tab.active { color: var(--mc-ink); border-bottom-color: var(--mc-ink); }
+
+/* ---------- list rows: the selected one gets a white frame ---------- */
+.mc-list { display: flex; flex-direction: column; gap: 2px; }
+.mc-row {
+    position: relative;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 9px 14px; background: var(--mc-paper-2);
+    border: 0; border-radius: 0; cursor: pointer;
+    font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-ui);
+    color: var(--mc-ink);
+}
+.mc-row:hover { background: var(--mc-paper-3); }
+.mc-row.active { background: rgba(0, 0, 0, 0.75); }
+.mc-row.active::after { content: ''; position: absolute; inset: 0; border: 2px solid var(--mc-ink); pointer-events: none; }
+.mc-row .mc-sub { color: var(--mc-ink-dim); font-family: var(--mc-font-body); font-weight: 400; font-size: var(--mc-size-small); }
+.mc-row.disabled { color: var(--mc-ink-faint); cursor: default; }
+
+/* ---------- buttons: plain white words in a thin frame; primary is white with black text ---------- */
+.mc-btn {
+    font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-ui);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    padding: 9px 20px; cursor: pointer; color: var(--mc-ink);
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--mc-line-strong); border-radius: 0;
+    box-shadow: none; text-shadow: var(--mc-text-shadow);
+}
+.mc-btn:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--mc-ink); }
+.mc-btn:disabled { opacity: 0.35; cursor: default; }
+.mc-btn.primary { background: var(--mc-ink); border-color: var(--mc-ink); color: #000; text-shadow: none; }
+.mc-btn.primary:hover { background: rgba(255, 255, 255, 0.85); }
+.mc-btn.danger { border-color: var(--mc-red); color: #fff; }
+.mc-btn.danger:hover { background: var(--mc-red); }
+.mc-btn.small { padding: 5px 10px; font-size: var(--mc-size-small); }
+.mc-btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ---------- form fields ---------- */
+.mc-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+.mc-field label { font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-transform: uppercase; letter-spacing: 0.06em; color: var(--mc-ink-dim); }
+.mc-input, .mc-select, .mc-textarea {
+    font-family: var(--mc-font-body); font-size: var(--mc-size-body); color: var(--mc-ink);
+    background: rgba(0, 0, 0, 0.6); border: 1px solid var(--mc-line); border-radius: 0;
+    padding: 8px 10px; outline: none;
+}
+.mc-input:focus, .mc-select:focus, .mc-textarea:focus { border-color: var(--mc-ink); }
+.mc-textarea { resize: vertical; min-height: 70px; }
+.mc-select { -webkit-appearance: none; appearance: none; padding-right: 28px; background-image: linear-gradient(45deg, transparent 50%, #fff 50%), linear-gradient(135deg, #fff 50%, transparent 50%); background-position: calc(100% - 15px) 55%, calc(100% - 10px) 55%; background-size: 5px 5px; background-repeat: no-repeat; }
+.mc-select option { background: #000; color: #fff; }
+
+/* slider with label and value */
+.mc-slider { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; margin-bottom: 10px; }
+.mc-slider .mc-slider-label { font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-transform: uppercase; letter-spacing: 0.05em; color: var(--mc-ink-dim); }
+.mc-slider .mc-slider-value { font-family: var(--mc-font-ui); font-size: var(--mc-size-small); color: var(--mc-ink); text-align: right; min-width: 3em; }
+.mc-slider input[type=range] { grid-column: 1 / -1; width: 100%; -webkit-appearance: none; appearance: none; height: 3px; background: rgba(255, 255, 255, 0.25); border-radius: 0; outline: none; }
+.mc-slider input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 18px; border-radius: 0; background: var(--mc-ink); border: 0; cursor: pointer; }
+
+/* left / right selector, like the game's  ‹ Value ›  rows */
+.mc-stepper { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 6px; margin-bottom: 8px; }
+.mc-stepper button { width: 30px; height: 30px; cursor: pointer; color: var(--mc-ink); background: transparent; border: 0; font-size: 20px; line-height: 1; text-shadow: var(--mc-text-shadow); }
+.mc-stepper button:hover { color: var(--mc-ink-dim); }
+.mc-stepper .mc-stepper-text { text-align: center; font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-ui); }
+.mc-stepper .mc-stepper-text small { display: block; color: var(--mc-ink-dim); font-size: var(--mc-size-small); font-weight: 400; }
+
+/* colour swatches */
+.mc-swatches { display: flex; flex-wrap: wrap; gap: 5px; }
+.mc-swatch { width: 24px; height: 24px; border-radius: 0; border: 1px solid rgba(0, 0, 0, 0.8); cursor: pointer; }
+.mc-swatch.active { outline: 2px solid var(--mc-ink); outline-offset: 1px; }
+
+/* money, game style: $12 with small raised cents */
+.mc-money { font-family: var(--mc-font-ui); font-weight: 700; color: var(--mc-ink); font-variant-numeric: tabular-nums; }
+.mc-money .mc-cents { font-size: 0.62em; vertical-align: super; margin-left: 1px; }
+.mc-gold { color: var(--mc-gold); }
+.mc-red, .mc-cant { color: var(--mc-red); }
+
+/* key prompt, like the game's:  [E] Rotate */
+.mc-key {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 24px; height: 24px; padding: 0 6px; margin-right: 6px;
+    border: 1px solid var(--mc-ink); border-radius: 3px; background: rgba(0, 0, 0, 0.55);
+    font-family: var(--mc-font-ui); font-weight: 700; font-size: var(--mc-size-small); color: var(--mc-ink);
+}
+.mc-prompts { display: flex; gap: 18px; align-items: center; font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* scroll bars: a thin white line */
+.mc-scroll { overflow-y: auto; }
+.mc-scroll::-webkit-scrollbar { width: 3px; }
+.mc-scroll::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.6); }
+.mc-scroll::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.12); }
+
+/* ---------- MULTIcore brand mark ----------
+   Every full MULTI menu carries the small MC mark next to / above its title:
+     <img class="mc-brand mc-brand-above" src="nui://MULTIcore/html/theme/img/mc-mark.png" alt="">
+   img/mc-mark.png is the monogram, cream on a transparent square (512x512). The box
+   below is cut to the monogram's shape (object-fit: cover trims the empty band above
+   and below it), so --mc-brand-size is the height of the letters themselves.
+   Placement:  mc-brand-above   centred above a centred title (adds one line)
+               mc-brand-left    first item of a flex header row, left of the title
+               mc-brand-corner  pinned to the top-left corner of a panel (no layout change;
+                                the panel needs position: relative / absolute / fixed)
+   The full logo (img/mc-logo.png, monogram + "MULTIcore", 1600x1000 transparent) is for
+   big screens only: character select (class mc-logo; the loading screen has its own copy).
+   Never on the HUD or notifications. */
+:root {
+    --mc-brand-size: 36px;        /* height of the small mark's letters */
+    --mc-brand-opacity: 0.85;     /* slightly see-through, like the game's own crests */
+    --mc-logo-size: 120px;        /* height of the full logo's artwork */
+}
+.mc-brand {
+    display: block; flex: 0 0 auto;
+    height: var(--mc-brand-size); width: calc(var(--mc-brand-size) * 1.9);
+    object-fit: cover; object-position: 50% 50%;
+    opacity: var(--mc-brand-opacity);
+    border: 0; box-shadow: none; filter: none; background: none;
+    pointer-events: none; user-select: none; -webkit-user-drag: none;
+}
+.mc-brand.mc-brand-above { margin: 0 auto 6px; }
+.mc-brand.mc-brand-left { margin: 0 12px 0 0; align-self: center; }
+.mc-brand.mc-brand-corner { position: absolute; top: 12px; left: 10px; z-index: 1; }
+.mc-brand.mc-brand-sm { --mc-brand-size: 28px; }
+/* full logo: the box is cut to the artwork's height (the file has wide empty margins) */
+.mc-logo {
+    display: block; max-width: 100%;
+    height: var(--mc-logo-size); width: calc(var(--mc-logo-size) * 2.28);
+    object-fit: cover; object-position: 50% 53%; margin: 0 auto;
+    opacity: 0.95; pointer-events: none; user-select: none; -webkit-user-drag: none;
+}
+
+/* fade in once (never endless) */
+@keyframes mc-fade { from { opacity: 0; } to { opacity: 1; } }
+.mc-fade { animation: mc-fade 0.2s ease-out 1; }
+
+/* ---------- Cyrillic preset (Russian etc.) ----------
+   Pages add class "mc-cyrillic" to their root when the language is 'ru'.
+   The game title font has no Cyrillic letters, so these swap in. */
+.mc-cyrillic {
+    --mc-font-title: 'Oswald', sans-serif;
+    --mc-font-ui: 'PT Serif', serif;
+    --mc-font-body: 'PT Serif', serif;
+    --mc-font-hand: 'PT Serif', serif;
+}

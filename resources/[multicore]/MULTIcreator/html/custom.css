@@ -1,0 +1,10 @@
+/* ============================================================
+   MULTIcreator :: your own styles
+   This file loads last, so anything here wins over style.css and the
+   MULTIcore theme. Empty by default. Examples:
+
+   #panel { width: 480px; }                 wider menu
+   #panel { left: auto; right: 2vw; }       menu on the right
+   #camerabar { display: none; }            hide the camera buttons
+   :root { --mc-panel: 0.9; }              darker panel (this page only)
+   ============================================================ */

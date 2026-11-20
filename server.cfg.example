@@ -1,0 +1,81 @@
+# ============================================================
+# MULTIcore base server: copy this file to server.cfg and fill in the three
+# lines marked CHANGE. Everything else works as it is.
+# ============================================================
+
+endpoint_add_tcp "0.0.0.0:30120"
+endpoint_add_udp "0.0.0.0:30120"
+
+sv_licenseKey "CHANGE_ME"                     # CHANGE: your key from https://portal.cfx.re
+set mysql_connection_string "mysql://USER:PASSWORD@127.0.0.1/multicore?charset=utf8mb4"   # CHANGE: your database (an empty one is fine; the scripts make their tables)
+
+sv_hostname "MULTIcore Test Server"
+sets sv_projectName "MULTIcore Test Server"
+sets sv_projectDesc "One core for RSG and VORP scripts side by side"
+load_server_icon multicore-icon-96.png
+sv_maxclients 32
+set gamename rdr3
+sv_enforceGameBuild 1491
+set onesync on                                  # with txAdmin, set OneSync in its settings page and remove this line
+sv_lan 0
+
+# language for every MULTI script: en, de, fr, es, pt-br, it, pl, ru, nl, tr
+setr multicore_locale en
+
+# ox_lib menus and dialogs: grey highlights instead of blue (closest to the black-and-white look)
+setr ox:primaryColor gray
+setr ox:primaryShade 6
+
+# ---------- staff ----------
+# CHANGE: put your own license here (txAdmin shows it on your player page). Add one line per admin.
+# add_principal identifier.license:0000000000000000000000000000000000000000 group.admin
+
+add_ace group.admin command allow
+add_ace group.admin admin allow
+add_ace group.admin god allow
+add_ace group.mod mod allow
+add_principal group.admin group.mod
+add_ace group.admin multiadmin.admin allow
+add_ace group.mod multiadmin.mod allow
+add_ace group.admin multidoors.admin allow
+add_ace group.admin multiserver.whitelist allow
+add_ace group.admin multiserver.whitelist.bypass allow
+
+# ---------- optional: Discord logs (MULTIserver) ----------
+# set multiserver_webhook "https://discord.com/api/webhooks/..."
+
+# ---------- resources (keep this order) ----------
+ensure oxmysql
+ensure ox_lib
+ensure MULTIcore
+ensure MULTItarget      # target system (hold Left Alt); answers ox_target, rsg-target and qb-target
+ensure MULTIchat        # chat (T); answers every standard chat call
+ensure MULTIhelpers
+ensure MULTIloading
+ensure MULTIcreator
+ensure MULTIappearance
+ensure MULTIcharacter
+ensure MULTIinventory
+ensure MULTIstores
+ensure MULTIclothing
+ensure MULTIvorpchar
+ensure MULTIhud
+ensure MULTIconsumables
+ensure MULTIbank
+ensure MULTIjobs
+ensure MULTImedic
+ensure MULTIadmin
+ensure MULTIcamps
+ensure MULTIcrafting
+ensure MULTIdoors
+ensure MULTIemotes
+ensure MULTIgathering
+ensure MULTIhorses
+ensure MULTIhunting
+ensure MULTIlaw
+ensure MULTIserver
+ensure MULTIradial
+ensure MULTItelegram
+ensure MULTIwagons
+
+# Your own scripts go below this line. RSG v2 and VORP scripts work side by side.

@@ -1,0 +1,68 @@
+-- ============================================================
+-- MULTIcore settings (the RSG settings are in config.lua)
+-- ============================================================
+MULTIConfig = {}
+
+MULTIConfig.Vorp = {
+    -- Which player identifier VORP scripts see as user / character "identifier".
+    -- 'steam' is what most VORP servers use; players without Steam fall back to 'license'.
+    Identifier = 'steam',
+    DefaultGroup = 'user',      -- account group for new players
+    MaxCharacters = 5,          -- per account (users.char)
+    MaxJobs = 3,                -- multi-jobs per account (users.max_jobs)
+    DefaultInvCapacity = 200,   -- default 200 (VORP-style item count a character's satchel holds; weapons and ammo don't count)
+    SkillLevelXp = 1000,        -- skill experience per level (setSkills)
+    -- Where Core.Player.Respawn puts a player when no spot is given: the nearest of these.
+    RespawnPoints = {
+        vector4(-169.47, 629.38, 114.03, 236.72),    -- Valentine
+        vector4(2694.69, -1448.48, 46.27, 23.27),    -- Saint Denis
+        vector4(1291.85, -1236.22, 80.93, 210.67),   -- Rhodes
+        vector4(-733.28, -1242.97, 44.73, 87.64),    -- Blackwater
+        vector4(-1801.98, -366.95, 161.66, 236.04),  -- Strawberry
+        vector4(3016.71, 1345.64, 42.69, 67.85),     -- Annesburg
+        vector4(3033.01, 433.82, 63.81, 65.9),       -- Van Horn
+        vector4(-3613.85, -2640.1, -11.73, 47.92),   -- Armadillo
+        vector4(-5436.5, -2930.96, 0.69, 182.25),    -- Tumbleweed
+    },
+    -- When an account's group is one of these, the player also gets the matching
+    -- ACE principal, so RSG permission checks (HasPermission 'admin') agree with VORP's group.
+    GroupPrincipals = { admin = 'group.admin', superadmin = 'group.admin', mod = 'group.mod' },
+}
+
+-- Gold and role tokens may have cents (VORP stores them with 2 decimals).
+MULTIConfig.DecimalCurrencies = { cash = true, bank = true, gold = true, rol = true }
+
+
+-- Looks made by MULTIcore's own creator (format 'multi')
+MULTIConfig.Look = {
+    MinHeight = 0.9,            -- smallest character scale the creator allows
+    MaxHeight = 1.1,            -- largest character scale
+    DefaultBirthdate = '1870-01-01',
+    DefaultNationality = 'American',
+    ReadyTimeoutMs = 3000,      -- longest wait (ms) for body and clothing pieces to stream in
+    CompReadyTimeoutMs = 2000,  -- same, after a single clothing piece
+    TextureTimeoutMs = 3000,    -- longest wait for a face overlay texture
+    ModelTimeoutMs = 10000,     -- longest wait for mp_male / mp_female to load
+    RespawnDelayMs = 1500,      -- wait after a respawn / revive before re-dressing the character
+    TextureCleanupMs = 10000,   -- how often overlay textures of removed peds are given back
+}
+-- When no spawn script (MULTIcharacter) runs, RSG's player-loaded events fire this long after a character is selected.
+MULTIConfig.SpawnFallbackMs = 2000
+
+-- Tables that scripts read and write with SQL directly (server/multi/compat_*.lua, docs/COMPAT_SURVEY.md)
+MULTIConfig.Compat = {
+    CharactersTable = true,     -- keep VORP's `characters` table in step with every character (false = leave it alone)
+    CharactersSyncSeconds = 60, -- how often online characters pick up script writes to characters.money/gold/rol/job (0 = only on login and save)
+    CharactersBackfill = true,  -- on start, write a `characters` row for every character that has none yet (offline pay-outs need one)
+    PlayerskinsMirror = true,   -- keep an RSG `playerskins` row per character, filled from the MULTIcore look (best effort)
+    VorpSetJobEvent = true,     -- send the client event vorp:setjob (job, grade) when a character's job or grade changes
+}
+
+MULTIConfig.Debug = false
+
+-- Wages. Business jobs are paid from their own bank account (RSGConfig.Money.PayCheckSociety in config.lua).
+-- These job types / jobs are paid straight by the server instead, with no account: law, medical, justice.
+MULTIConfig.ServerPaid = {
+    Types = { leo = true, medic = true, doj = true },
+    Jobs = {},          -- extra job names, e.g. { telegraph = true }
+}

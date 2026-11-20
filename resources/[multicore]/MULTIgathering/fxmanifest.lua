@@ -1,0 +1,48 @@
+fx_version 'cerulean'
+rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aware my resources *will* become incompatible once RedM ships.'
+game 'rdr3'
+
+lua54 'yes'
+
+name 'MULTIgathering'
+author 'MULTIcore'
+description 'MULTIcore basic gathering: fishing, mining, gold panning, lumber and herb picking give items the stores buy. GPL v3.'
+version '0.1.0'
+
+-- No `provide` for rsg-fishing / rsg-goldclaim / rsg-lumberjack / rsg-herbalist: no RSG v2 or
+-- RINGO script calls their events or exports (see README "Compatibility"). If one of them (or
+-- another listed gathering script) runs, MULTIgathering stands down for that activity by itself.
+
+shared_scripts {
+    '@ox_lib/init.lua',
+    '@MULTIcore/shared/i18n.lua',
+    'config.lua',
+    'config/*.lua',
+    'locales/*.lua',
+    'shared/util.lua',
+}
+
+client_scripts {
+    '@MULTIcore/lib/interact.lua',  -- MULTItarget / prompt helper (Interaction settings)
+    'client/fishing.js',
+    'client/herbs.js',
+    'client/main.lua',
+    'client/work.lua',
+    'client/fishing.lua',
+    'client/herbs.lua',
+}
+
+server_scripts {
+    'server/main.lua',
+    'server/work.lua',
+    'server/fishing.lua',
+    'server/herbs.lua',
+    'server/exports.lua',
+}
+
+dependencies {
+    'MULTItarget',   -- MULTIcore's target system (every MULTI script needs it)
+    'ox_lib',
+    'MULTIcore',
+    'MULTIinventory',
+}

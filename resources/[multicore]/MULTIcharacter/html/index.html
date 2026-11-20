@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>MULTIcharacter</title>
+    <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+<div id="app" class="mc-root mc-hidden">
+    <!-- drag anywhere on the open area to turn the preview character -->
+    <div id="drag" class="drag-area"></div>
+
+    <!-- character list -->
+    <section id="select" class="side mc-panel mc-fade">
+        <img class="mc-logo side-logo" src="nui://MULTIcore/html/theme/img/mc-logo.png" alt="">
+        <h1 class="mc-title" data-t="title"></h1>
+        <div class="mc-note" id="slots"></div>
+        <hr class="mc-rule">
+        <div id="cards" class="cards mc-scroll"></div>
+        <hr class="mc-rule">
+        <div class="mc-btn-row actions">
+            <button class="mc-btn" id="btnNew" data-t="new"></button>
+            <button class="mc-btn danger" id="btnDelete" data-t="delete"></button>
+        </div>
+    </section>
+
+    <!-- spawn picker -->
+    <section id="spawn" class="side mc-panel mc-fade mc-hidden">
+        <img class="mc-logo side-logo" src="nui://MULTIcore/html/theme/img/mc-logo.png" alt="">
+        <h1 class="mc-title" data-t="spawn_title"></h1>
+        <div class="mc-note" data-t="spawn_hint"></div>
+        <hr class="mc-rule">
+        <div id="places" class="mc-list cards mc-scroll"></div>
+        <hr class="mc-rule">
+        <div class="mc-btn-row actions">
+            <button class="mc-btn primary wide" id="btnSpawn" data-t="spawn"></button>
+        </div>
+    </section>
+
+    <!-- play -->
+    <div id="playBar" class="play-bar">
+        <button class="mc-btn primary play" id="btnPlay" data-t="play"></button>
+        <div class="mc-note hint"><span class="mc-key" data-t="mouse_left"></span><span data-t="rotate_hint"></span></div>
+    </div>
+
+    <!-- delete confirmation -->
+    <div id="delModal" class="modal mc-hidden">
+        <div class="mc-panel modal-box mc-fade">
+            <h2 class="mc-title small" data-t="delete_title"></h2>
+            <p class="mc-note" id="delHint"></p>
+            <div class="mc-field">
+                <input class="mc-input" id="delInput" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="mc-btn-row end">
+                <button class="mc-btn" id="delCancel" data-t="cancel"></button>
+                <button class="mc-btn primary" id="delOk" data-t="delete" disabled></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

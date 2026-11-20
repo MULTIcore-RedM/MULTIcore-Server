@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>MULTIloading</title>
+    <!-- The shared theme (nui://MULTIcore/...) is not linked here: the loading screen shows
+         before resources start, so nui:// links to other resources may not resolve yet.
+         style.css carries its own copy of the theme values instead. -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+<div id="bg" class="bg"></div>
+<div id="shade" class="shade"></div>
+<div class="vignette"></div>
+
+<main class="center">
+    <img id="logo" class="logo" src="img/mc-logo.png" alt="">
+    <div class="rule top"></div>
+    <h1 id="name" class="name"></h1>
+    <div id="subtitle" class="subtitle"></div>
+    <div class="rule"></div>
+</main>
+
+<footer class="bottom">
+    <div id="tipBox" class="tip panel">
+        <span id="tipLabel" class="tip-label"></span>
+        <span id="tip" class="tip-text"></span>
+    </div>
+
+    <div class="progress-row">
+        <span id="status" class="status"></span>
+        <span id="percent" class="percent">0%</span>
+    </div>
+    <div class="bar"><div id="fill" class="fill"></div></div>
+</footer>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

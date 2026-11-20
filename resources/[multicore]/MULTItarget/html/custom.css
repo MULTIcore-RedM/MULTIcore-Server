@@ -1,0 +1,5 @@
+/* MULTItarget: your own styles. Loaded last, so anything here wins.
+   Examples:
+   .mt-target { --mt-bracket: 40px; --mt-line: rgba(255, 255, 255, 0.4); }
+   .mt-card { min-width: 260px; }
+*/

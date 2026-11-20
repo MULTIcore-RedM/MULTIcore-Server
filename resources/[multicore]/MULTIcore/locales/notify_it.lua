@@ -1,0 +1,13 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['it'] or {}
+Locales['it'] = t
+t['notify_title_info']    = 'Avviso'
+t['notify_title_success'] = 'Fatto'
+t['notify_title_error']   = 'Fallito'
+t['notify_title_warning'] = 'Attenzione'
+t['notify_title_money']   = 'Denaro'
+t['notify_title_gold']    = 'Oro'
+t['notify_title_job']     = 'Lavoro'
+t['notify_title_police']  = 'Sceriffo'
+t['notify_title_medic']   = 'Medico'

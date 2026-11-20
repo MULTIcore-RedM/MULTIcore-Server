@@ -1,0 +1,87 @@
+/* MULTIradial: the quick menu in the base-game look - black see-through plates with a thin white
+   edge, white lettering, the hovered button lit white with black text. MC crest in the middle. */
+html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: transparent; overflow: hidden; }
+body { user-select: none; }
+
+.mr-radial {
+    --mr-scale: 1;
+    --mr-w: 226px;           /* button width */
+    --mr-h: 38px;            /* button height */
+    --mr-tip: 13px;          /* how far the pointed ends reach in */
+    --mr-gap: 9px;           /* space between buttons */
+    --mr-hub: 128px;         /* crest circle size */
+    --mr-edge: rgba(255, 255, 255, 0.55);
+    --mr-plate: rgba(0, 0, 0, 0.88);
+    --mr-lit: #ffffff;
+    position: fixed; left: 50%; top: 50%;
+    transform: translate(-50%, -50%) scale(var(--mr-scale));
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    font-family: var(--mc-font-title);
+    color: var(--mc-ink);
+    text-shadow: var(--mc-text-shadow);
+    animation: mr-in 0.12s ease-out;
+}
+@keyframes mr-in { from { opacity: 0; transform: translate(-50%, -50%) scale(calc(var(--mr-scale) * 0.96)); } }
+
+.mr-title {
+    min-height: 20px;
+    font-size: calc(var(--mc-size-heading) * 1.0);
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--mc-ink-dim);
+}
+.mr-body { display: flex; align-items: center; gap: 0; }
+.mr-side { display: flex; flex-direction: column; gap: var(--mr-gap); width: var(--mr-w); }
+.mr-left { align-items: flex-end; margin-right: -6px; }
+.mr-right { align-items: flex-start; margin-left: -6px; }
+
+/* button: two stacked plates with the same pointed shape give a thin edge line */
+.mr-btn {
+    position: relative; display: block;
+    width: var(--mr-w); height: var(--mr-h);
+    padding: 0; border: 0; background: var(--mr-edge); cursor: pointer;
+    clip-path: polygon(var(--mr-tip) 0, calc(100% - var(--mr-tip)) 0, 100% 50%, calc(100% - var(--mr-tip)) 100%, var(--mr-tip) 100%, 0 50%);
+    font: inherit; color: inherit; text-shadow: inherit;
+    transition: background 0.08s, transform 0.08s;
+    outline: none;
+}
+.mr-in {
+    position: absolute; inset: 1px;
+    display: flex; align-items: center; gap: 14px;
+    padding: 0 calc(var(--mr-tip) + 10px);
+    background: var(--mr-plate);
+    clip-path: inherit;
+    transition: background 0.08s, color 0.08s;
+}
+.mr-in i { width: 22px; text-align: center; font-size: 17px; }
+.mr-in b {
+    font-weight: 400; font-size: calc(var(--mc-size-ui) * 1.05);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.mr-in b { flex: 1 1 auto; min-width: 0; text-align: left; }
+.mr-btn.mr-sub .mr-in::after { content: '\f054'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 11px; opacity: 0.6; flex: none; }
+.mr-btn:hover, .mr-btn:focus-visible { background: #fff; }
+.mr-btn:hover .mr-in, .mr-btn:focus-visible .mr-in { background: var(--mr-lit); color: #111; text-shadow: none; }
+.mr-btn:active { transform: scale(0.98); }
+
+/* crest in the middle: a dark disc with a double ring and thin spikes above and below */
+.mr-hub { position: relative; width: calc(var(--mr-hub) + 24px); display: flex; flex-direction: column; align-items: center; z-index: 1; }
+.mr-ring {
+    width: var(--mr-hub); height: var(--mr-hub); border-radius: 50%;
+    background: rgba(0, 0, 0, 0.88);
+    box-shadow: 0 0 0 1px var(--mr-edge), 0 0 0 6px rgba(0, 0, 0, 0.75), 0 0 0 7px rgba(255, 255, 255, 0.3), 0 0 18px rgba(0, 0, 0, 0.6);
+    display: flex; align-items: center; justify-content: center;
+}
+.mr-ring img { width: 62%; opacity: 0.92; filter: grayscale(1) brightness(1.6) drop-shadow(0 1px 2px #000); }
+.mr-spike { width: 2px; height: 46px; background: linear-gradient(to top, var(--mr-edge), transparent); position: relative; }
+.mr-spike-down { background: linear-gradient(to bottom, var(--mr-edge), transparent); }
+.mr-spike::after {
+    content: ''; position: absolute; left: 50%; width: 7px; height: 7px; background: var(--mr-edge);
+    transform: translateX(-50%) rotate(45deg);
+}
+.mr-spike-up::after { bottom: 6px; }
+.mr-spike-down::after { top: 6px; }
+
+/* Cancel / Back under the crest */
+.mr-cancel { --mr-w: 150px; --mr-h: 32px; --mr-tip: 11px; }
+.mr-cancel .mr-in { justify-content: center; gap: 10px; }
+.mr-cancel .mr-in i { width: auto; font-size: 15px; }

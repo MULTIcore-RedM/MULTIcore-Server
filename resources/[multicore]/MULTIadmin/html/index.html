@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>MULTIadmin</title>
+    <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+<!-- Every visible word comes from locales/<lang>.lua: data-l = text, data-lp = placeholder, data-lt = title -->
+<div id="app" class="mc-root mc-hidden">
+    <div class="ma-window mc-panel mc-fade">
+        <img class="mc-brand mc-brand-corner" src="nui://MULTIcore/html/theme/img/mc-mark.png" alt="">
+        <header class="ma-head">
+            <h1 class="mc-title" data-l="ui_title"></h1>
+            <span class="ma-level" id="level"></span>
+            <button class="mc-btn small ma-close" id="close" data-l="ui_close"></button>
+        </header>
+        <nav class="mc-tabs">
+            <button class="mc-tab active" data-tab="players" data-l="tab_players"></button>
+            <button class="mc-tab" data-tab="self" data-l="tab_self"></button>
+            <button class="mc-tab" data-tab="server" data-l="tab_server"></button>
+        </nav>
+
+        <!-- ================= PLAYERS ================= -->
+        <section class="ma-tab" id="tab-players">
+            <aside class="ma-side">
+                <div class="ma-search">
+                    <input class="mc-input" id="search" data-lp="ui_search">
+                    <button class="mc-btn small" id="refresh" data-lt="ui_refresh">&#8635;</button>
+                </div>
+                <div class="mc-list mc-scroll ma-plist" id="plist"></div>
+                <div class="mc-note ma-count" id="pcount"></div>
+            </aside>
+            <div class="ma-detail mc-scroll" id="detail"></div>
+        </section>
+
+        <!-- ================= SELF ================= -->
+        <section class="ma-tab mc-hidden mc-scroll" id="tab-self">
+            <div class="ma-cols">
+                <div>
+                    <h2 class="mc-heading" data-l="h_movement"></h2>
+                    <div class="ma-toggles">
+                        <button class="ma-toggle" data-self="noclip" data-perm="noclip"><span class="ma-dot"></span><span data-l="t_noclip"></span> <small id="nc-speed"></small></button>
+                        <button class="ma-toggle" data-self="god" data-perm="god"><span class="ma-dot"></span><span data-l="t_god"></span></button>
+                        <button class="ma-toggle" data-self="invisible" data-perm="invisible"><span class="ma-dot"></span><span data-l="t_invisible"></span></button>
+                    </div>
+                    <p class="mc-note" data-l="noclip_help"></p>
+                    <div class="mc-btn-row">
+                        <button class="mc-btn" data-selfbtn="waypoint" data-perm="waypoint" data-l="btn_waypoint"></button>
+                        <button class="mc-btn" data-selfbtn="heal" data-perm="selfheal" data-l="btn_selfheal"></button>
+                        <button class="mc-btn" data-selfbtn="revive" data-perm="selfheal" data-l="btn_selfrevive"></button>
+                    </div>
+
+                    <div data-perm="coords">
+                        <h2 class="mc-heading" data-l="h_position"></h2>
+                        <div class="ma-coords" id="coords">
+                            <span>X <b id="cx">-</b></span><span>Y <b id="cy">-</b></span>
+                            <span>Z <b id="cz">-</b></span><span>H <b id="cw">-</b></span>
+                        </div>
+                        <div class="mc-btn-row">
+                            <button class="mc-btn small" data-selfbtn="coords" data-l="ui_refresh"></button>
+                            <button class="mc-btn small" data-copy="vector3" data-l="btn_copy_v3"></button>
+                            <button class="mc-btn small" data-copy="vector4" data-l="btn_copy_v4"></button>
+                            <button class="mc-btn small" data-copy="table" data-l="btn_copy_table"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div data-perm="spawn">
+                        <h2 class="mc-heading" data-l="h_spawn"></h2>
+                        <div class="mc-field">
+                            <label data-l="lbl_horse"></label>
+                            <div class="ma-inline">
+                                <input class="mc-input" id="horse-model" placeholder="a_c_horse_arabian_white">
+                                <button class="mc-btn small primary" data-spawn="horse" data-l="btn_spawn"></button>
+                            </div>
+                            <div class="ma-chips" id="horse-presets"></div>
+                        </div>
+                        <div class="mc-field">
+                            <label data-l="lbl_wagon"></label>
+                            <div class="ma-inline">
+                                <input class="mc-input" id="wagon-model" placeholder="wagon02x">
+                                <button class="mc-btn small primary" data-spawn="wagon" data-l="btn_spawn"></button>
+                            </div>
+                            <div class="ma-chips" id="wagon-presets"></div>
+                        </div>
+                    </div>
+
+                    <div data-perm="weather">
+                        <h2 class="mc-heading"><span data-l="h_weather"></span> <small class="mc-note" id="cur-weather"></small></h2>
+                        <div class="ma-inline">
+                            <select class="mc-select" id="weather"></select>
+                            <button class="mc-btn small primary" id="set-weather" data-l="btn_set"></button>
+                            <button class="mc-btn small" id="reset-weather" data-l="btn_natural"></button>
+                        </div>
+                    </div>
+
+                    <div data-perm="time">
+                        <h2 class="mc-heading"><span data-l="h_time"></span> <small class="mc-note" id="cur-time"></small></h2>
+                        <div class="ma-inline">
+                            <input class="mc-input ma-num" id="hour" type="number" min="0" max="23" value="12">
+                            <span>:</span>
+                            <input class="mc-input ma-num" id="minute" type="number" min="0" max="59" value="0">
+                            <label class="ma-check"><input type="checkbox" id="freeze-time"> <span data-l="lbl_freeze"></span></label>
+                            <button class="mc-btn small primary" id="set-time" data-l="btn_set"></button>
+                            <button class="mc-btn small" id="reset-time" data-l="btn_natural"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SERVER ================= -->
+        <section class="ma-tab mc-hidden mc-scroll" id="tab-server">
+            <div class="ma-cols">
+                <div data-perm="announce">
+                    <h2 class="mc-heading" data-l="h_announce"></h2>
+                    <textarea class="mc-textarea" id="announce" data-lp="ph_announce"></textarea>
+                    <div class="mc-btn-row"><button class="mc-btn primary" id="send-announce" data-l="btn_announce"></button></div>
+                </div>
+                <div data-perm="notify">
+                    <h2 class="mc-heading" data-l="h_notify"></h2>
+                    <div class="ma-inline">
+                        <select class="mc-select" id="sn-target"></select>
+                        <select class="mc-select" id="sn-type"></select>
+                        <select class="mc-select" id="sn-style"></select>
+                    </div>
+                    <textarea class="mc-textarea" id="sn-text" data-lp="ph_message"></textarea>
+                    <div class="mc-btn-row"><button class="mc-btn primary" id="sn-send" data-l="btn_send"></button></div>
+                </div>
+            </div>
+            <div data-perm="bans">
+                <h2 class="mc-heading"><span data-l="h_bans"></span> <button class="mc-btn small" id="load-bans" data-l="btn_load"></button></h2>
+                <div class="ma-table-wrap">
+                    <table class="ma-table">
+                        <thead><tr><th data-l="col_id"></th><th data-l="col_name"></th><th data-l="col_reason"></th><th data-l="col_until"></th><th data-l="col_by"></th><th data-l="col_when"></th><th></th></tr></thead>
+                        <tbody id="bans"><tr><td colspan="7" class="mc-note" data-l="press_load"></td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

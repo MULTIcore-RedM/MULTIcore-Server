@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MULTIclothing</title>
+    <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+<!-- every visible word comes from the locale table Lua sends (data-l = key) -->
+<div id="app" class="mc-root mc-hidden">
+
+    <!-- left: categories -->
+    <aside class="mc-panel mcl-side mc-fade">
+        <img class="mc-brand mc-brand-above" src="nui://MULTIcore/html/theme/img/mc-mark.png" alt="">
+        <h1 class="mc-title" id="storeName"></h1>
+        <div class="mc-note mc-hand" data-l="ui_tagline"></div>
+        <hr class="mc-rule">
+        <div id="catList" class="mc-scroll mcl-cats"></div>
+    </aside>
+
+    <!-- right: piece editor and basket -->
+    <aside class="mc-panel mcl-edit mc-fade">
+        <div class="mcl-edit-head">
+            <h2 class="mc-heading" id="catTitle"></h2>
+            <span class="mc-money mcl-price" id="catPrice"></span>
+        </div>
+
+        <div class="mc-stepper">
+            <button id="pieceDown" data-l-title="ui_prev">&#8249;</button>
+            <div class="mc-stepper-text"><span id="pieceName"></span><small id="pieceCount"></small></div>
+            <button id="pieceUp" data-l-title="ui_next">&#8250;</button>
+        </div>
+        <div class="mcl-jump">
+            <input id="pieceJump" class="mc-input" type="number" min="0" data-l-placeholder="ui_goto">
+            <button id="pieceNone" class="mc-btn small" data-l="ui_take_off"></button>
+            <button id="pieceReset" class="mc-btn small" data-l="ui_as_bought"></button>
+        </div>
+
+        <div id="colourBox">
+            <h3 class="mc-heading" data-l="ui_colour"></h3>
+            <div class="mc-stepper">
+                <button id="palDown" data-l-title="ui_prev">&#8249;</button>
+                <div class="mc-stepper-text"><span id="palName"></span><small data-l="ui_palette"></small></div>
+                <button id="palUp" data-l-title="ui_next">&#8250;</button>
+            </div>
+            <div id="tints">
+                <div class="mc-slider"><span class="mc-slider-label" data-l="ui_tint1"></span><span class="mc-slider-value" id="t0v">0</span><input type="range" id="t0" min="0" max="254" value="0"></div>
+                <div class="mc-slider"><span class="mc-slider-label" data-l="ui_tint2"></span><span class="mc-slider-value" id="t1v">0</span><input type="range" id="t1" min="0" max="254" value="0"></div>
+                <div class="mc-slider"><span class="mc-slider-label" data-l="ui_tint3"></span><span class="mc-slider-value" id="t2v">0</span><input type="range" id="t2" min="0" max="254" value="0"></div>
+            </div>
+        </div>
+
+        <hr class="mc-rule">
+        <h3 class="mc-heading" data-l="ui_basket"></h3>
+        <div id="basket" class="mc-list mc-scroll mcl-basket"></div>
+        <div class="mcl-total">
+            <span data-l="ui_total"></span><span class="mc-money" id="total"></span>
+        </div>
+        <div class="mcl-cash mc-note"><span data-l="ui_cash"></span><span class="mc-money" id="cash"></span></div>
+        <div id="msg" class="mcl-msg mc-hidden"></div>
+        <div class="mc-btn-row mcl-actions">
+            <button id="btnCancel" class="mc-btn danger" data-l="ui_leave"></button>
+            <button id="btnBuy" class="mc-btn primary"></button>
+        </div>
+    </aside>
+
+    <!-- bottom: camera and rotate -->
+    <div class="mcl-bar mc-panel">
+        <button class="mc-btn small" data-rot="-1">&#8634; <span data-l="ui_turn"></span></button>
+        <div class="mc-tabs mcl-cams" id="cams">
+            <button class="mc-tab" data-cam="head" data-l="ui_cam_head"></button>
+            <button class="mc-tab" data-cam="torso" data-l="ui_cam_torso"></button>
+            <button class="mc-tab" data-cam="legs" data-l="ui_cam_legs"></button>
+            <button class="mc-tab" data-cam="feet" data-l="ui_cam_feet"></button>
+            <button class="mc-tab" data-cam="full" data-l="ui_cam_full"></button>
+        </div>
+        <button class="mc-btn small" data-rot="1"><span data-l="ui_turn"></span> &#8635;</button>
+        <span class="mc-note mcl-keys"><span class="mc-key">A</span><span class="mc-key">D</span><span data-l="ui_key_turn"></span> <span class="mc-key">&larr;</span><span class="mc-key">&rarr;</span><span data-l="ui_key_style"></span> <span class="mc-key">Esc</span><span data-l="ui_key_leave"></span></span>
+    </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['en'] = {
+    ['placeholder'] = "Type a message or /command",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s tries to %s",
+    ['try_ok'] = "and succeeds",
+    ['try_fail'] = "and fails",
+    ['need_text'] = "Write what happens after the command.",
+    ['too_fast'] = "Slow down a little.",
+    ['plain_off'] = "Plain text is off here. Use /me, /do or /ooc.",
+    ['unknown_command'] = "Unknown command: /%s",
+    ['chat_shown'] = "Chat shown.",
+    ['help_me'] = "Describe what your character does",
+    ['help_do'] = "Describe what is around your character",
+    ['help_try'] = "Try something: succeeds or fails by chance",
+    ['help_clear'] = "Clear your chat",
+    ['help_hide'] = "Hide or show the chat",
+    ['param_action'] = "action",
+    ['param_text'] = "text",
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MULTIcrafting</title>
+    <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+<!-- MULTIcrafting screen (GPL v3, part of MULTIcore).
+     Every visible word comes from the locale table Lua sends (data-l = key). -->
+<div id="app" class="mc-root">
+    <div id="menu" class="mcr-menu mc-hidden">
+        <section class="mc-panel mcr-col mc-fade">
+            <img class="mc-brand mc-brand-above" src="nui://MULTIcore/html/theme/img/mc-mark.png" alt="">
+            <header class="mcr-head">
+                <div class="mc-subtitle" data-l="ui_crafting"></div>
+                <h1 class="mc-title" id="title"></h1>
+            </header>
+
+            <nav class="mc-tabs mcr-tabs" id="tabs"></nav>
+
+            <div class="mcr-list mc-scroll" id="list"></div>
+
+            <footer class="mcr-detail" id="detail">
+                <hr class="mc-rule">
+                <div class="mcr-dname" id="dName"></div>
+                <div class="mcr-ddesc mc-hand" id="dDesc"></div>
+                <div class="mcr-needs-head" data-l="ui_needs"></div>
+                <div class="mcr-needs" id="dNeeds"></div>
+                <div class="mcr-line mcr-job mc-hidden" id="dJob"></div>
+                <div class="mcr-line">
+                    <span data-l="ui_time"></span><span class="mcr-val" id="dTime"></span>
+                </div>
+                <div class="mcr-line mcr-amount">
+                    <span data-l="ui_amount"></span>
+                    <div class="mcr-stepper">
+                        <button class="mcr-step" id="dMinus" type="button">&#8249;</button>
+                        <input id="dAmount" class="mc-input" type="number" min="1" value="1">
+                        <button class="mcr-step" id="dPlus" type="button">&#8250;</button>
+                    </div>
+                </div>
+                <div class="mcr-act">
+                    <span class="mcr-err" id="dErr"></span>
+                    <button class="mc-btn primary mcr-go" id="dGo" type="button" data-l="ui_craft"></button>
+                </div>
+                <div class="mcr-fire mc-hidden" id="fireRow">
+                    <button class="mc-btn small danger" id="fireOut" type="button" data-l="ui_put_out"></button>
+                </div>
+            </footer>
+        </section>
+
+        <div class="mc-prompts mcr-prompts">
+            <span><span class="mc-key">Enter</span><span data-l="ui_craft"></span></span>
+            <span><span class="mc-key">&#8597;</span><span data-l="ui_select"></span></span>
+            <span><span class="mc-key">&#8596;</span><span data-l="ui_amount"></span></span>
+            <span><span class="mc-key">Tab</span><span data-l="ui_category"></span></span>
+            <span><span class="mc-key">Esc</span><span data-l="ui_close"></span></span>
+        </div>
+    </div>
+
+    <div id="progress" class="mcr-progress mc-hidden">
+        <div class="mcr-plabel" id="pLabel"></div>
+        <div class="mcr-pbar"><div class="mcr-pfill" id="pFill"></div></div>
+        <div class="mc-prompts mcr-pprompt"><span><span class="mc-key" id="pKey">X</span><span data-l="ui_stop"></span></span></div>
+    </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

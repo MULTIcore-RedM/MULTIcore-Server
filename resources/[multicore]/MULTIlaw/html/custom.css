@@ -1,0 +1,8 @@
+/* ============================================================
+   MULTIlaw: your own styles (loaded last, after the theme and style.css)
+   Empty on purpose. Examples:
+
+   .sheet { zoom: 1.1; }                                     bigger board / records
+   .posters { grid-template-columns: repeat(3, 1fr); }       three posters per row
+   .timer { top: auto; bottom: 120px; }                      jail time lower on the screen
+   ============================================================ */

@@ -1,0 +1,11 @@
+/* ============================================================================
+   MULTIhelpers :: custom.css  (loaded last - your changes win)
+   Restyle the menu, input box and progress bar here; this file is never
+   overwritten by updates. Shared colours and fonts live in MULTIcore's theme
+   (MULTIcore/html/theme/multi.css). Examples:
+
+   .mh-menu { width: 30vw; }                         wider menus
+   .mh-menu .mc-row.active::after { border-color: #d6b25e; } gold frame instead of white
+   .mh-linear-track { height: 8px; }                  thicker progress bar
+   .mh-keys { display: none; }                        hide the key hints
+   ========================================================================= */

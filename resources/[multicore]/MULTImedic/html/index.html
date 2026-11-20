@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MULTImedic</title>
+    <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+<!-- Every label comes from locales/*.lua (data-l = text). -->
+<div id="death" class="mc-root mc-hidden">
+    <div class="shade"></div>
+    <div class="center mc-fade">
+        <img class="mc-brand mc-brand-above medic-brand" src="nui://MULTIcore/html/theme/img/mc-mark.png" alt="">
+        <h1 class="mc-title big" data-l="ui_title"></h1>
+        <div class="mc-subtitle" id="sub" data-l="ui_sub"></div>
+        <hr class="mc-rule">
+
+        <div class="timer" id="timerBox">
+            <div class="mc-note" data-l="ui_wait"></div>
+            <div class="clock" id="clock">05:00</div>
+        </div>
+
+        <div class="respawn mc-hidden" id="respawnBox">
+            <div class="mc-prompts">
+                <span><span class="mc-key" id="keyRespawn">E</span><span data-l="ui_hold_respawn"></span></span>
+            </div>
+            <div class="bar"><div class="fill" id="holdFill"></div></div>
+        </div>
+
+        <div class="fee mc-note" id="feeLine"></div>
+
+        <div class="call" id="callBox">
+            <button class="mc-btn small" id="callBtn"><span class="mc-key" id="keyCall">G</span><span data-l="ui_call"></span></button>
+            <div class="mc-note status" id="callStatus"></div>
+            <div class="mc-note medics" id="medics"></div>
+        </div>
+    </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

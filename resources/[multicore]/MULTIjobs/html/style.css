@@ -1,0 +1,63 @@
+/* MULTIjobs: one black game menu with a list on the left and the chosen entry on the right.
+   Colours, fonts and sizes come from MULTIcore's multi.css (theme variables only). */
+html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: transparent; overflow: hidden; }
+
+#app { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+.sheet { width: 960px; max-width: calc(100vw - 40px); height: 640px; max-height: calc(100vh - 40px); display: flex; flex-direction: column; }
+
+.head { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-bottom: 8px; }
+.head .mc-title { margin: 0; }
+#tabs { margin-top: 2px; }
+
+.body { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 380px 1fr; gap: 22px; }
+.col { min-height: 0; display: flex; flex-direction: column; }
+.list-col .mc-list { flex: 1 1 auto; min-height: 0; padding-right: 4px; }
+.list-head { font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-transform: uppercase; letter-spacing: 0.06em; color: var(--mc-ink-dim); padding: 0 4px 6px; }
+.list-head:empty { display: none; }
+
+/* list rows: name left, small detail right */
+.mc-row .main { display: flex; flex-direction: column; min-width: 0; }
+.mc-row .main b { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mc-row .side { text-align: right; flex: 0 0 auto; }
+.pill { display: inline-block; padding: 1px 7px; margin-left: 6px; border: 1px solid var(--mc-line-strong); font-family: var(--mc-font-ui); font-size: calc(12px * var(--mc-scale)); text-transform: uppercase; letter-spacing: 0.06em; color: var(--mc-ink); vertical-align: middle; }
+.pill.solid { background: var(--mc-ink); color: var(--mc-accent-ink); border-color: var(--mc-ink); text-shadow: none; }
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: var(--mc-ink-faint); vertical-align: middle; }
+.dot.on { background: var(--mc-good); }
+.dot.duty { background: var(--mc-ink); }
+.faint { color: var(--mc-ink-faint); }
+
+/* detail column */
+.detail-col { padding-right: 4px; }
+.detail-col h2 { font-family: var(--mc-font-title); font-weight: 400; font-size: calc(30px * var(--mc-scale)); text-transform: uppercase; margin: 0 0 2px; line-height: 1.05; }
+.detail-col .lead { color: var(--mc-ink-dim); margin: 0 0 10px; line-height: 1.4; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 8px 0 12px; font-family: var(--mc-font-ui); }
+.facts span { color: var(--mc-ink-dim); text-transform: uppercase; letter-spacing: 0.05em; font-size: var(--mc-size-small); align-self: baseline; }
+.facts b { font-weight: 500; }
+.grades { display: flex; flex-direction: column; gap: 2px; margin: 4px 0 14px; }
+.grades .g { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 6px 12px; background: var(--mc-paper-2); font-family: var(--mc-font-ui); }
+.grades .g.me { outline: 1px solid var(--mc-line-strong); }
+.grades .g .mc-money { font-weight: 500; }
+.pay-row { display: grid; grid-template-columns: 1fr 90px auto; gap: 8px; align-items: center; padding: 5px 12px; background: var(--mc-paper-2); }
+.pay-row .mc-input { padding: 5px 8px; width: 100%; }
+.pay-row .name { font-family: var(--mc-font-ui); }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.actions .mc-select { min-width: 170px; }
+.block { margin-top: 16px; padding-top: 12px; background: linear-gradient(90deg, transparent, var(--mc-line-strong) 15%, var(--mc-line-strong) 85%, transparent) top left / 100% 1px no-repeat; }
+.block h3 { font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-heading); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 6px; }
+.big { font-size: calc(40px * var(--mc-scale)); text-align: center; margin: 6px 0 2px; }
+.center { text-align: center; }
+.money-inputs { display: flex; gap: 8px; align-items: flex-end; margin-top: 12px; }
+.money-inputs .mc-field { flex: 1; margin: 0; }
+.empty { padding: 24px 4px; text-align: center; color: var(--mc-ink-faint); }
+
+.msg { min-height: 1.5em; font-family: var(--mc-font-ui); font-size: var(--mc-size-ui); margin: 6px 0 0; text-align: center; }
+.msg.ok { color: var(--mc-ink); }
+.msg.bad { color: var(--mc-red); }
+
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding-top: 10px; margin-top: 6px;
+    background: linear-gradient(90deg, transparent, var(--mc-line-strong) 15%, var(--mc-line-strong) 85%, transparent) top left / 100% 1px no-repeat; }
+.foot .mc-note { text-transform: uppercase; letter-spacing: 0.04em; color: var(--mc-ink); font-family: var(--mc-font-ui); }
+.foot-left { display: flex; gap: 8px; align-items: center; }
+
+/* MULTIcore brand mark sits in the panel's top-left corner (theme class mc-brand-corner) */
+.sheet { position: relative; }

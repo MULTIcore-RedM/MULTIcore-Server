@@ -1,0 +1,8 @@
+/* MULTIcharacter: your own styles.
+   This file loads last, so anything here wins over the theme and style.css.
+   Prefer changing the theme variables, for example:
+
+   :root { --mc-scale: 1.1; }                 bigger text
+   .side { left: auto; right: 4vw; }          character list on the right
+   .play { min-width: 280px; }                wider Play button
+*/

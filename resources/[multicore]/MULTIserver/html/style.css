@@ -1,0 +1,43 @@
+/* MULTIserver: player list and server info, base-game look.
+   Colours, fonts and sizes come from MULTIcore's multi.css (theme variables only). */
+html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: transparent; overflow: hidden; }
+
+#ms { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+
+.head { display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; margin-bottom: 10px; }
+.head .mc-title { margin: 0; }
+.foot { display: flex; justify-content: center; margin-top: 12px; color: var(--mc-ink-dim); }
+
+/* ---------- player list ---------- */
+.board { width: 900px; max-width: calc(100vw - 40px); height: 640px; max-height: calc(100vh - 40px); display: flex; flex-direction: column; min-height: 0; }
+.board.staff { width: 1120px; }
+.tools { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.tools .mc-input { width: 280px; }
+.tools .mc-note { text-transform: uppercase; letter-spacing: 0.08em; font-family: var(--mc-font-ui); }
+.table { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+.rows { flex: 1 1 auto; min-height: 0; padding-right: 4px; }
+
+.row { display: grid; grid-template-columns: var(--cols); gap: 12px; align-items: center; padding: 7px 12px; position: relative; }
+.thead { font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-transform: uppercase; letter-spacing: 0.08em; color: var(--mc-ink-dim); border-bottom: 1px solid var(--mc-line); padding-bottom: 6px; margin-bottom: 4px; }
+.rows .row { cursor: default; background: var(--mc-paper-2); }
+.rows .row:hover { background: var(--mc-paper-3); }
+.rows .row.me::after { content: ''; position: absolute; inset: 0; border: 2px solid var(--mc-ink); pointer-events: none; }
+.row span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row .c-id, .row .c-ping { font-family: var(--mc-font-ui); font-variant-numeric: tabular-nums; }
+.row .c-id { color: var(--mc-ink-dim); }
+.row .c-ping { text-align: right; }
+.row .c-citizenid, .row .c-license { font-family: var(--mc-font-ui); font-size: var(--mc-size-small); color: var(--mc-ink-dim); }
+.ping-bad { color: var(--mc-bad); }
+.ping-mid { color: var(--mc-gold); }
+.empty { padding: 20px; text-align: center; color: var(--mc-ink-dim); }
+
+/* ---------- server info ---------- */
+.info { width: 560px; max-width: calc(100vw - 40px); max-height: calc(100vh - 40px); display: flex; flex-direction: column; }
+.desc { white-space: pre-line; line-height: 1.45; margin: 12px 0 14px; max-height: 300px; color: var(--mc-ink); }
+.links .mc-row { display: grid; grid-template-columns: 110px 1fr auto; gap: 12px; align-items: center; }
+.links .lbl { font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-transform: uppercase; letter-spacing: 0.08em; color: var(--mc-ink-dim); }
+.links .url { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; user-select: text; }
+.msg { text-align: center; min-height: 1.2em; margin-top: 8px; }
+
+/* MULTIcore brand mark sits in the panel's top-left corner (theme class mc-brand-corner) */
+.board { position: relative; }

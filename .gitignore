@@ -1,0 +1,7 @@
+server.cfg
+cache/
+txData/
+*.log
+# game fonts are not redistributed (see resources/[multicore]/MULTIcore/html/theme/fonts/README.md)
+resources/[[]multicore]/MULTIcore/html/theme/fonts/*.ttf
+resources/[[]multicore]/MULTIloading/html/fonts/*.ttf

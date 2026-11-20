@@ -1,0 +1,81 @@
+-- MULTIserver: English (master file, every key lives here first)
+Locales = Locales or {}
+Locales['en'] = {
+    -- general
+    ['title'] = 'Server',
+    ['no_permission'] = 'You may not do that.',
+    ['pagedown_refused'] = 'PageDown is never bound. Pick another key in config.lua.',
+    ['key_players'] = 'Player list',
+    ['key_info'] = 'Server info',
+
+    -- logs
+    ['log_queue_full'] = 'Log queue full, oldest log dropped (%s).',
+    ['log_gave_up'] = 'Log "%s" could not be sent to Discord (status %s), dropped.',
+    ['log_refused'] = 'Discord refused log "%s" (status %s). Check the webhook in convar %s.',
+    ['log_from_client'] = 'Sent by the game of %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'nobody',
+    ['log_char_created_title'] = 'Character created',
+    ['log_char_created'] = '%s made a new character, citizen id **%s**.',
+    ['log_jailed_title'] = 'Jailed',
+    ['log_jailed'] = '%s was jailed for %s minutes (%s) by %s.',
+    ['log_released_title'] = 'Released',
+    ['log_released'] = '%s was released (citizen id %s).',
+    ['log_test_title'] = 'Test log',
+    ['log_test_message'] = 'This is a test of the log "%s".',
+    ['log_test_sent'] = 'Test log "%s" sent (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Checking the whitelist...',
+    ['wl_refused'] = 'You are not on the whitelist of this server. Ask the staff to add you.',
+    ['wl_db_error'] = 'The whitelist could not be checked. Try again in a minute.',
+    ['wl_usage_add'] = 'Use: /%s <server id or identifier> [note]',
+    ['wl_usage_remove'] = 'Use: /%s <server id or identifier>',
+    ['wl_usage_check'] = 'Use: /%s <server id or identifier>',
+    ['wl_added'] = '%s added to the whitelist.',
+    ['wl_removed'] = '%s removed from the whitelist.',
+    ['wl_bad_identifier'] = '"%s" is not an identifier the whitelist takes (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s is already on the whitelist.',
+    ['wl_missing'] = '%s is not on the whitelist.',
+    ['wl_is_listed'] = '%s is on the whitelist. Note: %s',
+    ['wl_not_listed'] = '%s is not on the whitelist.',
+    ['wl_log_title'] = 'Whitelist',
+    ['wl_log_added'] = '**%s** added by %s.',
+    ['wl_log_removed'] = '**%s** removed by %s.',
+
+    -- queue
+    ['queue_checking'] = 'Looking for a free place...',
+    ['queue_title'] = 'The server is full',
+    ['queue_text'] = 'The server is full. You are number %s of %s in the queue.',
+    ['queue_position'] = 'You are number %s of %s in the queue.',
+    ['queue_priority'] = 'Priority %s.',
+    ['queue_wait'] = 'Please wait, you will be let in as soon as a place is free.',
+
+    -- server info
+    ['info_default_desc'] = 'Welcome to the server. Be kind to other players and enjoy your stay.',
+
+    -- page
+    ['ui_players_title'] = 'Players',
+    ['ui_search'] = 'Search',
+    ['ui_refresh'] = 'Refresh',
+    ['ui_close'] = 'Close',
+    ['ui_count'] = '%s / %s online',
+    ['ui_count_only'] = '%s online',
+    ['ui_staff_view'] = 'Staff view',
+    ['ui_no_match'] = 'Nobody matches.',
+    ['ui_nobody'] = 'Nobody is online.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Name',
+    ['ui_col_char'] = 'Character',
+    ['ui_col_job'] = 'Job',
+    ['ui_col_citizenid'] = 'Citizen ID',
+    ['ui_col_license'] = 'Licence',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Rules',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Website',
+    ['ui_copy'] = 'Copy',
+    ['ui_copied'] = 'Copied.',
+    ['ui_copy_failed'] = 'Could not copy. Write it down from the screen.',
+}

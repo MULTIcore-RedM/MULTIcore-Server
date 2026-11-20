@@ -1,0 +1,8 @@
+/* MULTIhud: your own styles. This file loads last, so anything here wins.
+   Empty by default. Examples:
+
+   (gauge size, gap and colours are in config.lua: Config.Hud.GaugeSize / Gap / Colors)
+   .mh-g::before { display: none; }              no thin dark edge round the rings
+   .mh-label { display: none; }                  no text under the gauges
+   .mh-money b { font-size: 30px; }              bigger money readout
+*/

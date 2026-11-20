@@ -1,0 +1,63 @@
+/* MULTIcharacter: layout only. The look (black see-through panels, white lettering, the
+   white frame on the selected card) comes from MULTIcore's theme (multi.css). */
+html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: transparent; }
+
+.drag-area { position: fixed; inset: 0; cursor: grab; }
+.drag-area.dragging { cursor: grabbing; }
+
+/* left column: a black see-through column, like the game's store and camp menus */
+.side {
+    position: fixed; top: 6vh; left: 4vw; width: 380px; max-height: 88vh;
+    display: flex; flex-direction: column;
+}
+.side .mc-title { margin-bottom: 2px; }
+/* MULTIcore logo heading the column (the theme's mc-logo class; size here) */
+.side-logo { --mc-logo-size: clamp(64px, 12vh, 104px); margin-bottom: 6px; flex: none; }
+.side > .mc-note { text-align: center; text-transform: uppercase; letter-spacing: 0.08em; }
+.cards { display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-height: 0; max-height: 56vh; padding-right: 2px; }
+.actions { justify-content: space-between; }
+.actions .mc-btn { flex: 1; padding: 9px 10px; font-size: var(--mc-size-small); white-space: nowrap; }
+.wide { width: 100%; }
+
+/* character card: a list row; the selected one is framed in white */
+.card {
+    position: relative; padding: 10px 14px; cursor: pointer;
+    background: var(--mc-paper-2); border: 0; border-radius: 0;
+}
+.card:hover { background: var(--mc-paper-3); }
+.card.active { background: rgba(0, 0, 0, 0.75); }
+.card.active::after { content: ''; position: absolute; inset: 0; border: 2px solid var(--mc-ink); pointer-events: none; }
+.card .name { font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-heading); color: var(--mc-ink); }
+.card .job { font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-transform: uppercase; letter-spacing: 0.08em; color: var(--mc-ink-dim); }
+.card .meta { display: flex; justify-content: space-between; align-items: baseline; margin-top: 6px; font-size: var(--mc-size-small); color: var(--mc-ink-dim); }
+.card .money { display: flex; gap: 12px; }
+.card.empty {
+    background: rgba(0, 0, 0, 0.35); color: var(--mc-ink-faint); text-align: center;
+    font-family: var(--mc-font-ui); text-transform: uppercase; letter-spacing: 0.08em; font-size: var(--mc-size-small); padding: 12px;
+}
+.card.empty:hover { color: var(--mc-ink); background: var(--mc-paper-3); }
+.card.empty.locked { cursor: default; opacity: 0.5; }
+.card.empty.locked:hover { color: var(--mc-ink-faint); background: rgba(0, 0, 0, 0.35); }
+
+/* spawn rows */
+.place .mc-sub { display: block; }
+.place .pin { color: var(--mc-ink); font-family: var(--mc-font-ui); font-size: var(--mc-size-small); }
+
+/* play button under the character: white with black lettering */
+.play-bar {
+    position: fixed; left: 50%; bottom: 7vh; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.play { min-width: 220px; padding: 12px 30px; font-size: var(--mc-size-heading); }
+.hint {
+    display: flex; align-items: center; color: var(--mc-ink);
+    font-family: var(--mc-font-ui); text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+/* delete confirmation */
+.modal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.55); }
+.modal-box { width: 420px; }
+.modal-box .mc-note { text-align: center; }
+.mc-title.small { font-size: calc(30px * var(--mc-scale)); }
+.end { justify-content: flex-end; }
+#delHint b { color: var(--mc-ink); }

@@ -1,0 +1,208 @@
+/* MULTIhud: gauges in the base-game look (like RDR2's own cores next to the radar).
+   Small round white rings, white fill for the value, a dark centre, red when critically low.
+   No panels or boxes behind the gauges. CSS only, no endless animations.
+   Colours, gauge size and gap come from config.lua (Config.Hud.Colors / GaugeSize / Gap) as the
+   --mh-* variables below; restyle anything else in custom.css. */
+
+html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: transparent; overflow: hidden; }
+
+.mh-hud {
+    /* defaults (white, like the game); hud.js overwrites them from config.lua */
+    --mh-size: 40px;
+    --mh-gap: 5px;
+    --mh-ring: calc(var(--mh-size) / 13 + 0.5px);   /* ring thickness */
+    --mh-c-health: var(--mc-ink);
+    --mh-c-stamina: var(--mc-ink);
+    --mh-c-hunger: var(--mc-ink);
+    --mh-c-thirst: var(--mc-ink);
+    --mh-c-stress: var(--mc-ink);
+    --mh-c-cleanliness: var(--mc-ink);
+    --mh-c-temperature: var(--mc-ink);
+    --mh-c-cold: #9cc4e4;
+    --mh-c-hot: #e08a4a;
+    --mh-c-horseHealth: var(--mc-ink);
+    --mh-c-horseStamina: var(--mc-ink);
+    --mh-c-voice: rgba(255, 255, 255, 0.35);
+    --mh-c-talking: var(--mc-ink);
+    --mh-c-radio: var(--mc-gold);
+    --mh-c-low: var(--mc-red);
+
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--mh-gap) + 3px);
+    transition: opacity 0.3s ease-out;
+    opacity: 1;
+    text-shadow: var(--mc-text-shadow);
+}
+.mh-hud.mh-off { opacity: 0; }
+
+/* corner anchoring: left / right / top / bottom are set from config in hud.js */
+.mh-hud.pos-bottom-left  { align-items: flex-start; transform-origin: left bottom; }
+.mh-hud.pos-bottom-right { align-items: flex-end;   transform-origin: right bottom; }
+.mh-hud.pos-top-left     { align-items: flex-start; transform-origin: left top; flex-direction: column-reverse; }
+.mh-hud.pos-top-right    { align-items: flex-end;   transform-origin: right top; flex-direction: column-reverse; }
+.mh-hud.pos-bottom-center { align-items: center; transform-origin: center bottom; }
+.mh-hud.pos-top-center    { align-items: center; transform-origin: center top; flex-direction: column-reverse; }
+/* placed by the player with /hudedit: x / y are the top-left corner */
+.mh-hud.pos-custom        { align-items: center; transform-origin: left top; }
+
+.mh-row { display: flex; gap: var(--mh-gap); align-items: flex-start; flex-wrap: nowrap; }
+.pos-bottom-right .mh-row, .pos-top-right .mh-row { flex-direction: row-reverse; }
+
+/* per-gauge colour */
+.mh-item {
+    --c: var(--mc-ink); --p: 0; --core: 0;
+    display: flex; flex-direction: column; align-items: center;
+    min-width: calc(var(--mh-size) + 4px);
+}
+.mh-item.k-health       { --c: var(--mh-c-health); }
+.mh-item.k-stamina      { --c: var(--mh-c-stamina); }
+.mh-item.k-hunger       { --c: var(--mh-c-hunger); }
+.mh-item.k-thirst       { --c: var(--mh-c-thirst); }
+.mh-item.k-stress       { --c: var(--mh-c-stress); }
+.mh-item.k-cleanliness  { --c: var(--mh-c-cleanliness); }
+.mh-item.k-temperature  { --c: var(--mh-c-temperature); }
+.mh-item.k-temperature.t-cold { --c: var(--mh-c-cold); }
+.mh-item.k-temperature.t-hot  { --c: var(--mh-c-hot); }
+.mh-item.k-horseHealth  { --c: var(--mh-c-horseHealth); }
+.mh-item.k-horseStamina { --c: var(--mh-c-horseStamina); }
+.mh-item.k-voice        { --c: var(--mh-c-voice); }
+.mh-item.k-voice.talking { --c: var(--mh-c-talking); }
+.mh-item.k-voice.radio   { --c: var(--mh-c-radio); }
+.mh-item.low            { --c: var(--mh-c-low); }
+
+/* ---------- ring style (default): the game's core ---------- */
+.mh-g {
+    position: relative;
+    width: var(--mh-size); height: var(--mh-size);
+    border-radius: 50%;
+    background: transparent;
+}
+/* outer ring: white fill for the value over a faint track */
+.mh-g::after {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(var(--c) calc(var(--p) * 1%), rgba(255, 255, 255, 0.22) 0);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--mh-ring) - 0.5px), #000 calc(100% - var(--mh-ring)));
+            mask: radial-gradient(farthest-side, transparent calc(100% - var(--mh-ring) - 0.5px), #000 calc(100% - var(--mh-ring)));
+}
+/* thin dark edge so the white ring reads on snow and sky */
+.mh-g::before {
+    content: '';
+    position: absolute; inset: -1px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+}
+/* dark centre; the inner "core" value shows as a thin white inner ring, as in the game */
+.mh-fill {
+    position: absolute; inset: calc(var(--mh-ring) + var(--mh-size) / 22);
+    border-radius: 50%; overflow: hidden;
+    background: rgba(0, 0, 0, 0.62);
+}
+.mh-lvl {
+    position: absolute; inset: 1px;
+    border-radius: 50%;
+    background: conic-gradient(var(--c) calc(var(--core) * 1%), transparent 0);
+    opacity: 0.85;
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
+}
+.mh-num {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mc-font-ui);
+    font-size: calc(var(--mh-size) * 0.32);
+    font-weight: 700;
+    color: var(--mc-ink);
+    text-shadow: 0 1px 2px #000;
+    letter-spacing: 0;
+    z-index: 1;
+}
+.mh-hidenum .mh-num { display: none; }
+.mh-item.low .mh-num { color: var(--mh-c-low); text-shadow: 0 0 2px #000, 0 1px 2px #000; }
+.mh-label {
+    margin-top: 3px;
+    font-family: var(--mc-font-ui);
+    font-size: calc(var(--mc-size-small) * 0.74);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--mc-ink);
+    text-shadow: 0 1px 2px #000, 0 0 3px rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
+}
+
+.mh-horse .mh-tag {
+    align-self: center;
+    font-family: var(--mc-font-title);
+    font-size: calc(var(--mc-size-ui) * 1.05);
+    text-transform: uppercase;
+    color: var(--mc-ink);
+    text-shadow: 0 1px 2px #000, 0 0 3px rgba(0, 0, 0, 0.8);
+    padding: 0 6px 0 2px;
+    margin-top: -14px;
+}
+
+/* ---------- bar style: thin white bars, label left, value right ---------- */
+.style-bar .mh-row { flex-direction: column !important; gap: 4px; align-items: stretch; }
+.style-bar .mh-item { flex-direction: row-reverse; justify-content: flex-end; align-items: center; gap: 8px; }
+.style-bar .mh-g {
+    width: calc(var(--mh-size) * 2.75); height: calc(var(--mh-size) / 8 + 1px); border-radius: 0; flex: none;
+    background: linear-gradient(90deg, var(--c) calc(var(--p) * 1%), rgba(255, 255, 255, 0.22) 0);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45);
+    margin: 0 36px 0 0;
+}
+.style-bar .mh-g::before, .style-bar .mh-g::after, .style-bar .mh-fill { display: none; }
+.style-bar .mh-num { left: auto; right: -36px; width: 32px; justify-content: flex-start; font-size: calc(var(--mc-size-small) * 0.85); font-weight: 500; }
+.style-bar .mh-item.low .mh-num { color: var(--mh-c-low); }
+.style-bar .mh-label { margin: 0; width: 66px; text-align: right; overflow: hidden; text-overflow: ellipsis; }
+.style-bar .mh-horse .mh-tag { align-self: flex-start; padding: 0; margin: 4px 0 0; font-size: var(--mc-size-ui); }
+
+/* ---------- money: like the game's readout, $12 with small raised cents, no box ---------- */
+.mh-money {
+    display: flex; gap: 18px; align-items: flex-end;
+    padding: 0 2px 2px;
+    background: none; border: 0; box-shadow: none;
+    font-family: var(--mc-font-ui);
+    color: var(--mc-ink);
+    text-shadow: 0 1px 2px #000, 0 0 4px rgba(0, 0, 0, 0.7);
+}
+.mh-money .mh-m { display: flex; flex-direction: column; align-items: flex-start; line-height: 1; }
+.mh-money .mh-m small {
+    font-size: calc(var(--mc-size-small) * 0.72); font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--mc-ink-dim); margin-bottom: 2px;
+}
+.mh-money b {
+    font-weight: 700; font-size: calc(var(--mc-size-ui) * 1.4);
+    font-variant-numeric: tabular-nums; color: var(--mc-ink);
+}
+.mh-money .mc-cents { font-size: 0.6em; vertical-align: 0.62em; margin-left: 1px; line-height: 0; }
+.mh-money .mh-m.bank b { color: var(--mc-ink-dim); font-size: calc(var(--mc-size-ui) * 1.15); }
+.mh-money .mh-m.gold b { color: var(--mc-gold); }
+.mh-money .mh-m.blood b { color: var(--mc-red); }
+
+/* every gauge is at least wide enough for its label, so the first label never runs off the screen edge */
+.mh-item { min-width: calc(var(--mh-size) * 1.7); }
+
+/* ---------- /hudedit: drag to move, mouse wheel to resize ---------- */
+.mh-hud.mh-editing {
+    opacity: 1 !important;
+    cursor: move;
+    outline: 1px dashed rgba(255, 255, 255, 0.7);
+    outline-offset: 8px;
+    background: rgba(0, 0, 0, 0.25);
+}
+.mh-hud.mh-editing.mh-dragging { outline-style: solid; }
+.mh-edit-bar {
+    position: fixed; top: 6vh; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    padding: 12px 18px;
+    background: var(--mc-panel, rgba(0, 0, 0, 0.78));
+    color: var(--mc-ink);
+    font-family: var(--mc-font-ui);
+    text-shadow: var(--mc-text-shadow);
+}
+.mh-edit-hint { font-size: var(--mc-size-ui); text-align: center; }
+.mh-edit-btns { display: flex; gap: 10px; }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>MULTIhud</title>
+    <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
+    <link rel="stylesheet" href="hud.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+    <div id="hud" class="mc-root mh-hud mh-off pos-bottom-center style-ring">
+        <div id="money" class="mh-money mc-hidden"></div>
+        <div id="horse" class="mh-row mh-horse mc-hidden"></div>
+        <div id="player" class="mh-row"></div>
+    </div>
+    <div id="edit" class="mc-root mh-edit-bar mc-hidden">
+        <div class="mh-edit-hint" id="editHint"></div>
+        <div class="mh-edit-btns">
+            <button type="button" class="mc-btn" data-act="save" id="editSave"></button>
+            <button type="button" class="mc-btn" data-act="reset" id="editReset"></button>
+            <button type="button" class="mc-btn" data-act="cancel" id="editCancel"></button>
+        </div>
+    </div>
+    <script src="hud.js"></script>
+</body>
+</html>

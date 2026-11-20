@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>MULTIcreator</title>
+    <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+    <div id="app" class="mc-root mc-hidden">
+        <img class="mcc-watermark" src="nui://MULTIcore/html/theme/img/mc-logo.png" alt="">
+        <!-- the area right of the panel: drag to turn the character, wheel to zoom -->
+        <div id="stage"></div>
+
+        <aside id="panel" class="mc-panel mc-fade">
+            <img class="mc-brand mc-brand-above" src="nui://MULTIcore/html/theme/img/mc-mark.png" alt="">
+            <header>
+                <h1 class="mc-title" id="title"></h1>
+                <div class="mc-note mc-hand" id="subtitle"></div>
+            </header>
+            <nav class="mc-tabs" id="tabs"></nav>
+            <section id="content" class="mc-scroll"></section>
+            <div class="mc-note" id="error"></div>
+            <footer class="mc-btn-row">
+                <button class="mc-btn" id="btn-random"></button>
+                <span class="grow"></span>
+                <button class="mc-btn danger" id="btn-cancel"></button>
+                <button class="mc-btn primary" id="btn-finish"></button>
+            </footer>
+        </aside>
+
+        <div id="camerabar" class="mc-panel">
+            <div class="mc-btn-row" id="cams"></div>
+            <div class="mc-note" id="hints"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

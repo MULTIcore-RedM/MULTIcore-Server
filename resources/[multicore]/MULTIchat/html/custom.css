@@ -1,0 +1,6 @@
+/* MULTIchat: your own styles. Loaded last, so anything here wins.
+   Examples:
+   .mch-chat { --mch-width: 640px; top: 40px; left: 40px; }
+   .mch-chat { --mch-do-text: #7fc4ff; --mch-me-bg: rgba(0, 0, 0, 0.95); }
+   .mch-input { border-color: rgba(255, 255, 255, 0.3); }
+*/

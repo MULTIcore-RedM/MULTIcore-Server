@@ -1,0 +1,57 @@
+-- MULTIgathering: English (master file, every key lives here first)
+Locales = Locales or {}
+Locales['en'] = {
+    -- results
+    ['found'] = "You gathered: %s",
+    ['found_nothing_mining'] = "Nothing but dust this time.",
+    ['found_nothing_lumber'] = "The wood split badly. Nothing worth keeping.",
+    ['found_nothing_panning'] = "Only sand and gravel in the pan.",
+    ['caught'] = "You kept a %s (%.2f kg).",
+    ['picked'] = "You picked: %s",
+    -- refusals
+    ['need_tool'] = "You need a %s for that.",
+    ['need_bait'] = "You have no %s left.",
+    ['need_rod'] = "Take your fishing rod in hand first.",
+    ['no_cast'] = "That fish was not on your bait.",
+    ['inventory_full'] = "Your satchel is full.",
+    ['depleted'] = "This spot is worked out. Come back later.",
+    ['too_far'] = "You moved away from your work.",
+    ['cooldown'] = "Catch your breath first.",
+    ['no_zone'] = "Nothing worth taking here.",
+    ['busy'] = "You are already working.",
+    ['tool_broke'] = "Your %s broke.",
+    ['already_picked'] = "Someone picked this plant already.",
+    ['already_fishing'] = "You are already fishing.",
+    ['on_foot'] = "Get down and stand on your own feet first.",
+    ['need_water'] = "Stand in a river or creek to pan for gold.",
+    -- work
+    ['work_mining'] = "Breaking rock...",
+    ['work_lumber'] = "Chopping wood...",
+    ['work_panning'] = "Washing gravel...",
+    ['prompt_mine'] = "Mine",
+    ['prompt_chop'] = "Chop wood",
+    ['target_chop'] = "Chop wood",
+    -- fishing prompts
+    ['fish_ready'] = "Ready to fish",
+    ['fish_waiting'] = "Fishing",
+    ['fish_hooked'] = "Bring the fish in",
+    ['fish_caught'] = "Fish on the line (%.2f kg)",
+    ['fish_prepare'] = "Ready the rod",
+    ['fish_cast'] = "Cast",
+    ['fish_hook'] = "Set the hook",
+    ['fish_reset'] = "Reel in the line",
+    ['fish_reel_lure'] = "Reel the lure",
+    ['fish_reel_in'] = "Reel in",
+    ['fish_keep'] = "Keep",
+    ['fish_throw'] = "Throw back",
+    -- places
+    ['mine_annesburg'] = "Annesburg Mine",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Strawberry Timberland",
+    ['zone_bigvalley'] = "Big Valley Timberland",
+    ['zone_scarlett'] = "Scarlett Meadows Timberland",
+    ['zone_roanoke'] = "Roanoke Timberland",
+    -- admin
+    ['cmd_gatherspot'] = "Print a gathering spot line for where you stand",
+    ['spot_line'] = "Spot line (also in F8): %s",
+}

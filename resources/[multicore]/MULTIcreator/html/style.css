@@ -1,0 +1,65 @@
+/* MULTIcreator page. Colours, fonts and sizes come from MULTIcore's theme (multi.css):
+   a black see-through column, white lettering, tabs underlined in white, thin white sliders.
+   Owners restyle in custom.css, which loads after this file. */
+
+html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: transparent; }
+
+#app { position: fixed; inset: 0; }
+#stage { position: absolute; inset: 0; cursor: grab; }
+#stage.dragging { cursor: grabbing; }
+
+#panel {
+    position: absolute; top: 3vh; left: 2vw; bottom: 3vh;
+    width: 430px; display: flex; flex-direction: column;
+}
+#panel header { margin-bottom: 6px; }
+#subtitle { text-align: center; font-family: var(--mc-font-ui); font-style: normal; text-transform: uppercase; letter-spacing: 0.08em; }
+#content { flex: 1; padding-right: 8px; min-height: 0; }
+#panel footer { margin-top: 10px; padding-top: 12px; align-items: center; flex-wrap: wrap; row-gap: 8px; position: relative; }
+#panel footer::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--mc-line-strong) 15%, var(--mc-line-strong) 85%, transparent); }
+#panel footer .mc-btn { padding: 9px 12px; font-size: var(--mc-size-small); white-space: nowrap; }
+#panel footer .grow { flex: 1; }
+#error { color: var(--mc-red); min-height: 1.2em; margin-top: 6px; }
+
+#camerabar {
+    position: absolute; right: 2vw; bottom: 3vh; padding: 10px 14px;
+    display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
+}
+#cams .mc-btn.active { background: var(--mc-ink); border-color: var(--mc-ink); color: var(--mc-accent-ink); text-shadow: none; }
+#hints { color: var(--mc-ink); font-family: var(--mc-font-ui); text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* two-way choice (sex): the chosen one is white with black lettering */
+.mc-choice { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+.mc-choice .mc-btn.active { background: var(--mc-ink); border-color: var(--mc-ink); color: var(--mc-accent-ink); text-shadow: none; }
+
+/* section blocks inside a tab */
+.block { margin-bottom: 6px; }
+.block .mc-heading { margin-top: 10px; }
+.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; }
+.field-grid > * { min-width: 0; }
+.field-grid .mc-input { width: 100%; }
+
+/* stepper label above the control */
+.step-label { font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-transform: uppercase; letter-spacing: 0.06em; color: var(--mc-ink-dim); margin-bottom: 2px; }
+
+/* "no colour" swatch: black with a white slash */
+.mc-swatch.none { background: linear-gradient(135deg, transparent 44%, var(--mc-ink-dim) 44%, var(--mc-ink-dim) 56%, transparent 56%), #000; }
+
+/* overlay list + editor */
+.ov-list .mc-row { padding: 6px 10px; }
+.ov-state { font-size: var(--mc-size-small); color: var(--mc-ink-faint); text-transform: uppercase; letter-spacing: 0.06em; }
+.ov-state.on { color: var(--mc-ink); }
+.ov-editor { margin-top: 10px; padding: 10px 12px; border: 1px solid var(--mc-line); border-radius: 0; background: rgba(0, 0, 0, 0.35); }
+
+/* clothing rows */
+.cloth { padding: 6px 0 4px; border-bottom: 1px solid var(--mc-line); }
+.cloth:last-child { border-bottom: 0; }
+.cloth .tints { padding: 4px 0 0 10px; }
+
+.toggle { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-transform: uppercase; letter-spacing: 0.06em; color: var(--mc-ink-dim); cursor: pointer; }
+.toggle input { accent-color: var(--mc-ink); width: 16px; height: 16px; }
+
+.price { color: var(--mc-ink); font-family: var(--mc-font-ui); font-weight: 700; }
+
+/* faint MULTIcore logo in the top-right corner, behind everything, never clickable */
+.mcc-watermark { position: fixed; top: 4vh; right: 2.5vw; height: min(170px, 20vh); width: calc(min(170px, 20vh) * 2.28); object-fit: cover; object-position: 50% 53%; opacity: 0.12; pointer-events: none; user-select: none; -webkit-user-drag: none; z-index: 0; }
