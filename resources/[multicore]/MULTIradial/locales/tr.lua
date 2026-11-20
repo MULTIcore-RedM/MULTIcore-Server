@@ -28,6 +28,7 @@ Locales['tr'] = {
     ['s_hud'] = "HUD göster / gizle",
     ['s_hudedit'] = "HUD'u taşı",
     ['s_hudreset'] = "HUD'u sıfırla",
+    ['s_voice'] = "Ses mesafesi",
     ['s_emotestop'] = "İfadeyi durdur",
     ['more'] = "Daha fazla",
     ['cancel'] = "İptal",

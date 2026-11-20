@@ -106,7 +106,7 @@ Config.Hud = {
     LowWarning = 20,               -- a gauge at or below this % turns red
     UpdateMs = 300,                -- how often the HUD reads the game (lower = smoother, more CPU)
     ActivityCheckMs = 1000,        -- how often the client checks running / sprinting / swimming
-    VoiceCheckMs = 5000,           -- how often the client checks whether pma-voice is running
+    VoiceCheckMs = 5000,           -- how often the client checks whether MULTIvoice / pma-voice is running
     NotifyToggle = true,           -- show a notification when /hud hides or shows the HUD
     GaugeSize = 40,                -- ring diameter in pixels (bars scale with it)
     Gap = 5,                       -- space between gauges in pixels
@@ -140,7 +140,7 @@ Config.Hud = {
         cleanliness = true,
         temperature = true,
         horse = true,              -- horse health and stamina while mounted
-        voice = true,              -- only when pma-voice is running
+        voice = true,              -- only when MULTIvoice (or pma-voice) is running
     },
     Order = { 'health', 'stamina', 'hunger', 'thirst', 'stress', 'cleanliness', 'temperature' },
     -- the text under each gauge is in locales/<lang>.lua

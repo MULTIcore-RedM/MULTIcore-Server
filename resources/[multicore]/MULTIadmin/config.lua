@@ -137,7 +137,7 @@ Config.SpawnPresets = {
 -- ---------------------------------------------------------------
 -- Weather and time (one server-wide state in GlobalState; off if another script owns weather)
 -- ---------------------------------------------------------------
-Config.WorldSync = true               -- false when weathersync or similar runs
+Config.WorldSync = true               -- false when weathersync or similar runs (keep true with MULTIweather: the menu then drives it)
 Config.WeatherTransition = 15.0       -- seconds to blend into new weather
 Config.TimeTransitionMs = 3000        -- ms to blend to a new time
 Config.WorldApplyDelayMs = 2000       -- wait after joining before applying the stored weather / time

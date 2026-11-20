@@ -15,6 +15,8 @@ local N = {
 local applied = {}
 
 local function apply(world, instant)
+    -- MULTIweather carries out the menu's weather and time when it runs
+    if GetResourceState('MULTIweather') == 'started' then return end
     world = type(world) == 'table' and world or {}
 
     if world.weather ~= applied.weather then

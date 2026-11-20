@@ -59,6 +59,7 @@ Config.Menu = {
         { label = 's_hud',       icon = 'eye',            resource = 'MULTIhud', command = 'hud' },
         { label = 's_hudedit',   icon = 'up-down-left-right', resource = 'MULTIhud', command = 'hudedit' },
         { label = 's_hudreset',  icon = 'rotate-left',    resource = 'MULTIhud', command = 'hudreset' },
+        { label = 's_voice',     icon = 'microphone',     resource = 'MULTIvoice', command = 'voice' },
         { label = 's_emotestop', icon = 'hand',           resource = 'MULTIemotes', command = 'emotecancel' },
     } },
 }

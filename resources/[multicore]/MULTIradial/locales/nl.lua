@@ -28,6 +28,7 @@ Locales['nl'] = {
     ['s_hud'] = "HUD aan / uit",
     ['s_hudedit'] = "HUD verplaatsen",
     ['s_hudreset'] = "HUD herstellen",
+    ['s_voice'] = "Stembereik",
     ['s_emotestop'] = "Emote stoppen",
     ['more'] = "Meer",
     ['cancel'] = "Annuleren",

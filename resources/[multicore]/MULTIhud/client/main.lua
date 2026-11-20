@@ -236,7 +236,7 @@ local voiceRunning = false
 
 CreateThread(function()
     while true do
-        voiceRunning = Config.Hud.Show.voice and GetResourceState('pma-voice') == 'started'
+        voiceRunning = Config.Hud.Show.voice and (GetResourceState('MULTIvoice') == 'started' or GetResourceState('pma-voice') == 'started')
         Wait(Config.Hud.VoiceCheckMs)
     end
 end)

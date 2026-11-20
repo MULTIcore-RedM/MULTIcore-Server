@@ -5,7 +5,7 @@ The HUD and needs system for MULTIcore. GPL v3.
 - Compact gauges (rings or bars) for health, stamina, hunger, thirst, stress, cleanliness and the temperature where the player stands.
 - Horse health and stamina while riding.
 - Cash, gold and bank: always, while the game's "reveal HUD" key is held, or off. It also shows for a moment when money changes.
-- Voice indicator when pma-voice is running (talking, voice range, radio).
+- Voice indicator when MULTIvoice (or pma-voice) is running (talking, voice range, radio).
 - Hidden in the pause menu, in cutscenes, during fades and loading screens, and before a character is loaded. `/hud` hides or shows it for that player.
 - Server-side needs: hunger, thirst and cleanliness drop over time, faster when running, sprinting or swimming, and faster in cold or heat. At 0 hunger or thirst the player loses health. Shooting raises stress, which goes down again after a quiet spell.
 - Stands in for **vorp_metabolism** (`provide 'vorp_metabolism'`), so VORP food and drink scripts work.

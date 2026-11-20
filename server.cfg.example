@@ -25,6 +25,8 @@ setr multicore_locale en
 # ox_lib menus and dialogs: grey highlights instead of blue (closest to the black-and-white look)
 setr ox:primaryColor gray
 setr ox:primaryShade 6
+setr voice_use3dAudio true             # MULTIvoice: voices are heard in 3D
+setr voice_useSendingRangeOnly true     # MULTIvoice: only players in range hear you
 
 # ---------- staff ----------
 # CHANGE: put your own license here (txAdmin shows it on your player page). Add one line per admin.
@@ -78,5 +80,7 @@ ensure MULTIserver
 ensure MULTIradial
 ensure MULTItelegram
 ensure MULTIwagons
+ensure MULTIvoice       # proximity voice (N to talk, U for range); answers pma-voice
+ensure MULTIweather     # one clock and one sky for everyone; weather changes by itself
 
 # Your own scripts go below this line. RSG v2 and VORP scripts work side by side.

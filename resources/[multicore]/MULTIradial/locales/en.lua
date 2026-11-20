@@ -28,6 +28,7 @@ Locales['en'] = {
     ['s_hud'] = "Show / hide HUD",
     ['s_hudedit'] = "Move the HUD",
     ['s_hudreset'] = "Reset the HUD",
+    ['s_voice'] = "Voice range",
     ['s_emotestop'] = "Stop emote",
     ['more'] = "More",
     ['cancel'] = "Cancel",

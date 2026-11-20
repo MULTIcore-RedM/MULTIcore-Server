@@ -9,7 +9,7 @@ A ready-to-run RedM base server on **MULTIcore**: one core that runs **RSG v2 sc
 ## What you get
 
 - **MULTIcore**: the core. It answers to both `rsg-core` and `vorp_core`, so scripts written for either framework find their core and share the same players, money, jobs and items.
-- **31 MULTI scripts** (`resources/[multicore]`): login and character select, character creator, inventory, stores, clothing, HUD, food and drink, bank, jobs, medic, admin, camps, crafting, doors, emotes, gathering, horses, hunting, law, telegrams, wagons, a radial menu, Discord logs and whitelist, its own **target system** (MULTItarget), its own **chat** (MULTIchat) and a picture folder for items (MULTIimages).
+- **33 MULTI scripts** (`resources/[multicore]`): login and character select, character creator, inventory, stores, clothing, HUD, food and drink, bank, jobs, medic, admin, camps, crafting, doors, emotes, gathering, horses, hunting, law, telegrams, wagons, a radial menu, Discord logs and whitelist, its own **target system** (MULTItarget), its own **chat** (MULTIchat), **proximity voice** (MULTIvoice), **one clock and weather for everyone** (MULTIweather) and a picture folder for items (MULTIimages).
 - **ox_lib** and **oxmysql** (`resources/[standalone]`), unchanged, with their own licences.
 - 10 languages: English, German, French, Spanish, Brazilian Portuguese, Italian, Polish, Russian, Dutch and Turkish.
 - 1899 prices.
@@ -34,6 +34,8 @@ Then:
 | Key | What it does |
 |---|---|
 | **T** | Chat. `/me` (white on black), `/do` (blue on black), `/try`, `/ooc` |
+| **N** (hold) | Talk (proximity voice; the game's own push-to-talk key) |
+| **U** | Voice range: whisper, talk, shout (also `/voice`) |
 | **Left Alt** (hold) | Target: look at a person, horse, wagon, door or counter to see its options |
 | **B** | Inventory |
 | **F6** | Radial menu |
@@ -43,7 +45,7 @@ Every key can be changed in the script's `config.lua`.
 
 ## Adding your own scripts
 
-Put them in `resources/` and `ensure` them **below** the MULTI scripts in `server.cfg`. RSG v2 and VORP scripts work without edits. Do not also start `rsg-core`, `vorp_core`, `ox_target`, `rsg-target`, `chat`, `rsg-inventory` or `vorp_inventory`: MULTIcore and its scripts already answer as those.
+Put them in `resources/` and `ensure` them **below** the MULTI scripts in `server.cfg`. RSG v2 and VORP scripts work without edits. Do not also start `rsg-core`, `vorp_core`, `ox_target`, `rsg-target`, `chat`, `rsg-inventory`, `vorp_inventory`, `pma-voice` or `weathersync`: MULTIcore and its scripts already answer as those (or do the same job).
 
 ## Making MULTI scripts
 

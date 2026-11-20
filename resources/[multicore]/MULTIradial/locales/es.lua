@@ -28,6 +28,7 @@ Locales['es'] = {
     ['s_hud'] = "Mostrar / ocultar HUD",
     ['s_hudedit'] = "Mover el HUD",
     ['s_hudreset'] = "Restablecer el HUD",
+    ['s_voice'] = "Alcance de voz",
     ['s_emotestop'] = "Parar gesto",
     ['more'] = "Más",
     ['cancel'] = "Cancelar",

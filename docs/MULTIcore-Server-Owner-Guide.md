@@ -205,6 +205,8 @@ Moderators: use `group.mod` instead. The `add_ace` lines in `server.cfg.example`
 | `/setmoney [id] [cash/bank/gold] [amount]` | Set money |
 | `/setjob`, `/setgang` | Jobs and gangs |
 | `/tp [x] [y] [z]` or `/tp [id]`, `/tpm` | Teleport (`/tpm` goes to your map marker) |
+| `/weather [type]`, `/weather auto` | Hold a weather, or let it change by itself again |
+| `/time [hour] [minute]`, `/freezetime` | Set the time, stop or restart the clock |
 
 ---
 
@@ -215,6 +217,8 @@ Moderators: use `group.mod` instead. The `add_ace` lines in `server.cfg.example`
 | Language for every MULTI script | `setr multicore_locale en` in `server.cfg` (en, de, fr, es, pt-br, it, pl, ru, nl, tr) |
 | Starting money | `RSGConfig.Money.MoneyTypes` in `MULTIcore/config.lua` |
 | Paycheck interval | `RSGConfig.Money.PayCheckTimeOut` in `MULTIcore/config.lua` |
+| Day length, night length, real-time clock, how often the weather changes | `MULTIweather/config.lua` |
+| Voice ranges (whisper, talk, shout) and the range key | `MULTIvoice/config.lua` |
 | Notifications (position, sounds, colours) | `MULTIcore/config_notify.lua` |
 | Discord logs, whitelist, connect queue | `MULTIserver/config.lua` and its README |
 | Doors and locks | `MULTIdoors/config/locks.lua`, or in game with `/doors` |
@@ -230,7 +234,7 @@ Every script has a README with all of its settings and commands.
 
 ## 7. Adding RSG and VORP scripts
 
-Put them in `resources/` and `ensure` them **below** the MULTI scripts. Do not start `rsg-core`, `vorp_core`, `rsg-inventory`, `vorp_inventory`, `ox_target`, `rsg-target` or `chat`: MULTIcore and its scripts answer as those already.
+Put them in `resources/` and `ensure` them **below** the MULTI scripts. Do not start `rsg-core`, `vorp_core`, `rsg-inventory`, `vorp_inventory`, `ox_target`, `rsg-target`, `chat`, `pma-voice` or `weathersync`: MULTIcore and its scripts answer as those already (or do the same job).
 
 If a script needs items:
 - **RSG scripts** usually ship an items block: paste it into `MULTIcore/shared/items.lua`.
