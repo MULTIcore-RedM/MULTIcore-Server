@@ -4,8 +4,6 @@
 
 A ready-to-run RedM base server on **MULTIcore**: one core that runs **RSG v2 scripts and VORP scripts side by side**, with its own full set of base scripts in the game's own look (black panels, white text).
 
-> **Test release.** Everything starts cleanly and passes its self-tests, but it still needs in-game testing. Please try it and report what you find (see [Reporting problems](#reporting-problems)).
-
 ## What you get
 
 - **MULTIcore**: the core. It answers to both `rsg-core` and `vorp_core`, so scripts written for either framework find their core and share the same players, money, jobs and items.
