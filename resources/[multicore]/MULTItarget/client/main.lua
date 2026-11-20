@@ -199,11 +199,18 @@ CreateThread(function()
                 local now = GetGameTimer()
                 if not cursor and now >= nextRay then
                     nextRay = now + Config.RayIntervalMs
-                    local ok, entity, coords = lib.raycast.fromCamera(Config.RayFlags, 4, Config.RayDistance)
+                    -- as ox_target on RedM: first a ray that sees only people, animals, wagons and
+                    -- objects (grass, bushes and the like never block it), then the world for zones
+                    local me = GetEntityCoords(PlayerPedId())
+                    local ok, entity, coords = lib.raycast.fromCamera(Config.EntityRayFlags or 30, 4, Config.RayDistance)
+                    if not (ok and coords and entity and entity ~= 0 and GetEntityType(entity) ~= 0) then
+                        local wok, _, wcoords = lib.raycast.fromCamera(Config.RayFlags, 4, Config.RayDistance)
+                        ok, entity, coords = wok, 0, wcoords
+                    end
                     if ok and coords then
                         hit.entity = entity or 0
                         hit.coords = coords
-                        hit.distance = #(GetEntityCoords(PlayerPedId()) - coords)
+                        hit.distance = #(me - coords)
                     else
                         hit.entity, hit.distance = 0, 999.0
                     end

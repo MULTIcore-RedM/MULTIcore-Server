@@ -35,9 +35,10 @@ MULTItarget never draws a dot, marker or sprite in the world.
 | `Config.Debug` | `false` | Print rsg-target calls, failed `canInteract` checks and unsupported calls (F8) |
 | `Config.Mode` | `'hold'` | `'hold'` = hold Left Alt, `'toggle'` = press to switch on / off |
 | `Config.DefaultDistance` | `2.5` | Reach (metres) when neither the option nor its zone sets one |
-| `Config.RayDistance` | `8.0` | How far the look ray reaches |
+| `Config.RayDistance` | `20.0` | How far the look ray reaches from the camera (each option still has its own distance) |
 | `Config.RayIntervalMs` | `60` | How often the look ray is cast while targeting |
-| `Config.RayFlags` | `511` | What the ray can hit (511 = everything) |
+| `Config.EntityRayFlags` | `30` | First ray: people, animals, wagons and objects only, so grass and bushes never block it |
+| `Config.RayFlags` | `511` | Second ray, when the first finds nothing: the world, for zones (511 = everything) |
 | `Config.BoneDistance` | `1.2` | Options tied to bones show within this distance of the bone |
 | `Config.Scale` | `1.0` | Size of the eye and the list |
 | `Config.Keys` | see file | Control hashes for target (Left Alt), click (left mouse) and the controls turned off while targeting |

@@ -12,9 +12,10 @@ Config.Debug = false              -- print rsg-target calls, failed canInteract 
 Config.Mode = 'hold'
 
 Config.DefaultDistance = 2.5      -- interaction distance (metres) when neither the option nor its zone sets one
-Config.RayDistance = 8.0          -- how far the look ray reaches (metres)
+Config.RayDistance = 20.0         -- how far the look ray reaches from the camera (metres; each option's own distance still applies)
 Config.RayIntervalMs = 60         -- how often (ms) the look ray is cast while targeting
-Config.RayFlags = 511             -- what the ray can hit (511 = everything: map, wagons, peds, objects ...)
+Config.EntityRayFlags = 30        -- first ray: people, animals, wagons and objects only (2 + 4 + 8 + 16), so grass and bushes never block it
+Config.RayFlags = 511             -- second ray, used when the first finds nothing: the world, for zones (511 = everything)
 Config.BoneDistance = 1.2         -- options tied to bones (wagon doors, wheels ...) show within this many metres of the bone
 Config.Scale = 1.0                -- size of the eye and the option list (1 = normal, 1.2 = 20% bigger)
 

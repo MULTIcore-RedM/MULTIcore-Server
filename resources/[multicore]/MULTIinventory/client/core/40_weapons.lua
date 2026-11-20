@@ -14,8 +14,8 @@
 -- Model:
 --   * A weapon item (type 'weapon', unique) is put on the ped when used and taken
 --     off when used again or when it leaves the satchel. info.ammo = rounds loaded
---     in the gun; anything above one clip rides along on top of the pool and is
---     written back to the gun item.
+--     in the gun, remembered on the gun item. Loaded rounds are still satchel
+--     rounds: every shot takes one round item, a reload takes none.
 --   * Ammo items fill the ped's ammo pool by their exact AMMO_* type. Rounds per
 --     item: def.ammoPer, Config.Ammo.PerItem[name], 'ammo_box_*' = Config.Ammo.BoxRounds, else 1.
 --   * Thrown weapons (dynamite, molotov, knives, tomahawks, bolas, ...): the item
@@ -138,6 +138,40 @@ local owed = {}       -- [itemName] = items reported used, not yet gone from the
 local lastCount = {}  -- [itemName] = count at the last satchel push
 local queueAmmo, queueThrown, queueWeapon = {}, {}, {}
 local busy = false
+-- Does the ped's ammo pool count the rounds loaded in the gun? Learned from the first shot or
+-- reload (nil until then, treated as yes). Every round, loaded or not, is a satchel item: a
+-- shot takes one, a reload takes none.
+local poolHasClip = nil
+local quietUntil = 0  -- ammo type switch running: the watcher only takes new baselines
+
+local function clipOf(ped, hash)
+    local _, ammo = Citizen.InvokeNative(N.GET_AMMO_IN_CLIP, ped, Citizen.PointerValueInt(), hash, Citizen.ResultAsInteger())
+    return tonumber(ammo) or 0
+end
+
+--- Rounds loaded in the carried guns of ammo type t (each weapon model once).
+local function clipsOf(ped, t)
+    local n, seen = 0, {}
+    for _, w in pairs(equipped) do
+        if not w.thrown and w.ammoTypeName == t and not seen[w.hash] then
+            seen[w.hash] = true
+            n = n + clipOf(ped, w.hash)
+        end
+    end
+    return n
+end
+
+--- Loaded rounds that sit outside the pool (0 when the pool counts them).
+local function outsidePool(ped, t)
+    if poolHasClip == false then return clipsOf(ped, t) end
+    return 0
+end
+
+local function rebaseClips(ped)
+    for _, w in pairs(equipped) do
+        if not w.thrown then w.lastClip = clipOf(ped, w.hash) end
+    end
+end
 
 local function keyOf(it)
     local info = it.info or {}
@@ -211,7 +245,7 @@ local function applyPools()
         for name, s in pairs(items) do
             rounds = rounds + math.max(0, s.count - (owed[name] or 0)) * s.per
         end
-        local target = math.max(0, rounds - (spent[t] or 0) + extraFor(t))
+        local target = math.max(0, rounds - (spent[t] or 0) + extraFor(t) - outsidePool(ped, t))
         seen[t] = true
         if lastSet[t] ~= target then
             Citizen.InvokeNative(N.SET_PED_AMMO_BY_TYPE, ped, joaat(t), target)
@@ -225,6 +259,8 @@ local function applyPools()
             if target == 0 then lastSet[t] = nil; spent[t] = nil else lastSet[t] = target end
         end
     end
+    -- setting a pool can empty a clip too: new clip baselines, so that is not taken as shots
+    rebaseClips(ped)
 end
 MIC.ApplyAmmoPools = applyPools
 
@@ -319,11 +355,6 @@ local function applyQuality(ped, info)
     end
 end
 
-local function clipOf(ped, hash)
-    local _, ammo = Citizen.InvokeNative(N.GET_AMMO_IN_CLIP, ped, Citizen.PointerValueInt(), hash, Citizen.ResultAsInteger())
-    return tonumber(ammo) or 0
-end
-
 local function queueWeaponAmmo(w)
     if w.thrown then return end
     local ped = PlayerPedId()
@@ -386,18 +417,28 @@ local function equipGun(it, hash)
         Citizen.InvokeNative(N.SET_AMMO_TYPE_FOR_PED_WEAPON, ped, hash, joaat(typeName))
     end
 
-    -- rounds in the gun: one clip loaded, the rest rides on the pool as "extra"
+    -- rounds in the gun: what was loaded last time (info.ammo), one clip at most, and never
+    -- more than the satchel holds (loaded rounds are satchel rounds too; a shot takes one)
     local ammo = math.max(0, math.floor(tonumber(info.ammo) or 0))
     local maxClip = int(N.GET_MAX_AMMO_IN_CLIP, ped, hash, true)
     local clip = maxClip > 0 and math.min(ammo, maxClip) or ammo
+    local have = 0
+    for name, s in pairs(typeName and poolSources()[typeName] or {}) do
+        have = have + math.max(0, s.count - (owed[name] or 0)) * s.per
+    end
+    have = math.max(0, have - (typeName and spent[typeName] or 0))
+    for _, o in pairs(equipped) do
+        if not o.thrown and o.ammoTypeName == typeName and o.hash ~= hash then have = have - clipOf(ped, o.hash) end
+    end
+    clip = math.max(0, math.min(clip, have))
     local w = {
         serie = info.serie or info.serial,
         key = key, id = info.id or info.serie or info.serial, name = it.name, slot = it.slot, hash = hash,
-        attach = attach, ammoTypeName = typeName, extra = ammo - clip, lastTotal = ammo,
+        attach = attach, ammoTypeName = typeName, extra = 0, lastTotal = clip,
     }
     equipped[key] = w
-    applyPools()
     Citizen.InvokeNative(N.SET_AMMO_IN_CLIP, ped, hash, clip)
+    applyPools()
     applyComponents(ped, hash, info)
     applyQuality(ped, info)
     -- the VORP face turns this into vorp_inventory:onWeaponEquipped and the equipped-weapon state bag
@@ -529,10 +570,17 @@ function MIC.SelectAmmo(it)
         end
     end
     if not target then return MIC.Notify(_L('ammo_no_weapon'), 'error') end
+    quietUntil = GetGameTimer() + 750
     applyPools()
     Citizen.InvokeNative(N.SET_AMMO_TYPE_FOR_PED_WEAPON, ped, target.hash, joaat(t))
     target.ammoTypeName = t
     target.dirty = true
+    -- the switch reloads the gun: new baselines once it settled (not counted as shots)
+    CreateThread(function()
+        Wait(600)
+        applyPools()
+        for at in pairs(lastSet) do lastSet[at] = int(N.GET_PED_AMMO_BY_TYPE, PlayerPedId(), joaat(at)) end
+    end)
     local d = MIC.Def(it.name) or {}
     MIC.Notify(_L('ammo_loaded', d.label or it.name), 'success')
 end
@@ -616,15 +664,56 @@ CreateThread(function()
         if MIC.LoggedIn() and cfg('Enabled', true) and next(lastSet) then
             local ped = PlayerPedId()
             if not IsEntityDead(ped) then
+                -- clips of the carried guns now, and how each changed since the last look
+                local clipNow, clipBefore, typeOfHash = {}, {}, {}
+                for _, w in pairs(equipped) do
+                    if not w.thrown and not clipNow[w.hash] then
+                        clipNow[w.hash] = clipOf(ped, w.hash)
+                        clipBefore[w.hash] = w.lastClip or clipNow[w.hash]
+                        typeOfHash[w.hash] = w.ammoTypeName
+                    end
+                end
+                local quiet = GetGameTimer() < quietUntil
                 for t, set in pairs(lastSet) do
                     local now = int(N.GET_PED_AMMO_BY_TYPE, ped, joaat(t))
-                    if now < set then
-                        lastSet[t] = now
-                        consume(t, set - now)
-                    elseif now > set and MIC.Cfg('Ammo.BlockWorldAmmo', true) then
-                        -- ammo picked up in the world is not in the satchel: put the pool back
-                        Citizen.InvokeNative(N.SET_PED_AMMO_BY_TYPE, ped, joaat(t), set)
+                    local cNow, cBefore = 0, 0
+                    for h, c in pairs(clipNow) do
+                        if typeOfHash[h] == t then cNow, cBefore = cNow + c, cBefore + clipBefore[h] end
                     end
+                    -- learn once whether the pool counts loaded rounds:
+                    -- shot   (clip down): pool down as well = yes, pool unchanged = no
+                    -- reload (clip up)  : pool unchanged = yes, pool down by the same = no
+                    local dc, dp = cNow - cBefore, now - set
+                    if poolHasClip == nil and not quiet and dc ~= 0 then
+                        if dc < 0 then
+                            if dp == dc then poolHasClip = true elseif dp == 0 then poolHasClip = false end
+                        else
+                            if dp == 0 then poolHasClip = true elseif dp == -dc then poolHasClip = false end
+                        end
+                        if poolHasClip ~= nil and MIC.Cfg('Debug', false) then
+                            print(('[MULTIinventory] ammo pool counts loaded rounds: %s'):format(tostring(poolHasClip)))
+                        end
+                    end
+                    local extraNow = poolHasClip == false and cNow or 0
+                    local extraBefore = poolHasClip == false and cBefore or 0
+                    local totalNow, totalBefore = now + extraNow, set + extraBefore
+                    if quiet then
+                        lastSet[t] = now
+                    elseif totalNow < totalBefore then
+                        -- rounds fired (or thrown): one satchel round each
+                        lastSet[t] = now
+                        consume(t, totalBefore - totalNow)
+                    elseif totalNow > totalBefore and MIC.Cfg('Ammo.BlockWorldAmmo', true) then
+                        -- ammo picked up in the world is not in the satchel: put the pool back
+                        local back = math.max(0, now - (totalNow - totalBefore))
+                        Citizen.InvokeNative(N.SET_PED_AMMO_BY_TYPE, ped, joaat(t), back)
+                        lastSet[t] = back
+                    else
+                        lastSet[t] = now
+                    end
+                end
+                for _, w in pairs(equipped) do
+                    if not w.thrown and clipNow[w.hash] then w.lastClip = clipNow[w.hash] end
                 end
             end
         end
