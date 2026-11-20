@@ -1,7 +1,8 @@
-// MULTItarget page. Messages from client/main.lua:
+// MULTItarget page (works like rsg-target). Messages from client/main.lua:
 //   { action: 'on', scale, text }  { action: 'off' }
-//   { action: 'list', items: [ { label, icon, description, iconColor, sub, back } ], index, title, sub, found }
-//   { action: 'index', index }     { action: 'cursor', on }
+//   { action: 'list', items: [ { label, icon, description, iconColor, sub, back } ], title, sub, found }
+//   { action: 'cursor', on }
+// With the cursor out, click an option; right mouse or Esc cancels.
 (function () {
     'use strict';
     var root = document.getElementById('target');
@@ -9,8 +10,6 @@
     var list = document.getElementById('list');
     var title = document.getElementById('title');
     var sub = document.getElementById('sub');
-    var hint = document.getElementById('hint');
-    var text = {};
     var cursor = false;
 
     function post(name, body) {
@@ -23,11 +22,6 @@
         if (!/^[a-z0-9 -]+$/i.test(i)) return 'fa-solid fa-circle-dot';
         if (!/\bfa-(solid|regular|brands)\b|\bfa[srb]\b/.test(i)) i = 'fa-solid ' + (i.indexOf('fa-') === 0 ? i : 'fa-' + i);
         return i;
-    }
-
-    function setIndex(n) {
-        var rows = list.children;
-        for (var i = 0; i < rows.length; i++) rows[i].classList.toggle('on', i === n - 1);
     }
 
     function render(m) {
@@ -56,28 +50,25 @@
                 mo.className = 'fa-solid fa-chevron-right mt-more';
                 row.appendChild(mo);
             }
-            row.addEventListener('mouseenter', function () { if (cursor) { setIndex(i + 1); post('hover', { index: i + 1 }); } });
             row.addEventListener('click', function () { if (cursor) post('pick', { index: i + 1 }); });
             list.appendChild(row);
         });
-        setIndex(m.index || 1);
         var found = !!m.found;
         root.classList.toggle('mt-found', found);
         card.classList.toggle('mc-hidden', !found);
-        hint.textContent = cursor ? '' : (text.free_cursor || '');
     }
 
-    function release() { post('release'); }
+    function cancel() { post('release'); }
 
-    window.addEventListener('contextmenu', function (e) { e.preventDefault(); if (cursor) release(); });
+    window.addEventListener('contextmenu', function (e) { e.preventDefault(); if (cursor) cancel(); });
+    window.addEventListener('mousedown', function (e) { if (cursor && e.button === 2) { e.preventDefault(); cancel(); } });
     window.addEventListener('keydown', function (e) {
-        if (cursor && (e.key === 'Escape' || e.key === 'Backspace')) { e.preventDefault(); release(); }
+        if (cursor && (e.key === 'Escape' || e.key === 'Backspace')) { e.preventDefault(); cancel(); }
     });
 
     window.addEventListener('message', function (e) {
         var m = e.data || {};
         if (m.action === 'on') {
-            if (m.text) text = m.text;
             root.style.setProperty('--mt-scale', Number(m.scale) || 1);
             cursor = false;
             root.classList.remove('mt-cursor', 'mt-found');
@@ -90,12 +81,9 @@
             list.innerHTML = '';
         } else if (m.action === 'list') {
             render(m);
-        } else if (m.action === 'index') {
-            setIndex(m.index);
         } else if (m.action === 'cursor') {
             cursor = !!m.on;
             root.classList.toggle('mt-cursor', cursor);
-            hint.textContent = cursor ? '' : (text.free_cursor || '');
         }
     });
 })();

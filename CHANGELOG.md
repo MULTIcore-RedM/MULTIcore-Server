@@ -7,6 +7,7 @@
 - **Respawn:** the "You are unconscious" screen no longer stays up after you respawn at the doctor.
 - **Calling your horse:** it now appears about 10 feet (3 m) in front of you, on your own ground level. It no longer appears on roofs or inside buildings. If a wall is in the way, it appears beside or behind you instead. Setting: `Config.SpawnDistance` in MULTIhorses.
 - **Last location:** "Last location" in the spawn picker is now where you actually were when you logged out or closed the game. It used to be where you had logged in.
+- **Targeting (MULTItarget)** now works like rsg-target. Hold **Left Alt** and an eye shows in the middle of the screen; it lights up when what you look at has options, and the options appear beside it. **Left-click** to bring out the cursor, then click the option you want. **Right-click** or **Esc** cancels. There is no more scrolling. Nothing is drawn in the world: no dots or sprites.
 
 ## 2026-11-20 (later)
 

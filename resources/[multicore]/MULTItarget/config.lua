@@ -1,6 +1,6 @@
 -- ============================================================
 -- MULTItarget :: config
--- MULTIcore's own target system (hold Left Alt). Every option has a one-line comment.
+-- MULTIcore's own target system. Works like rsg-target: hold Left Alt, left mouse, click an option. Every option has a one-line comment.
 -- ============================================================
 
 Config = {}
@@ -16,16 +16,13 @@ Config.RayDistance = 8.0          -- how far the look ray reaches (metres)
 Config.RayIntervalMs = 60         -- how often (ms) the look ray is cast while targeting
 Config.RayFlags = 511             -- what the ray can hit (511 = everything: map, wagons, peds, objects ...)
 Config.BoneDistance = 1.2         -- options tied to bones (wagon doors, wheels ...) show within this many metres of the bone
-Config.Scale = 1.0                -- size of the brackets and the option list (1 = normal, 1.2 = 20% bigger)
+Config.Scale = 1.0                -- size of the eye and the option list (1 = normal, 1.2 = 20% bigger)
 
 -- Keys (control hashes from the game's control list; see README to change them)
 Config.Keys = {
     Target = 0x8AAA0AD4,          -- PcFreeLook (Left Alt): hold to target
-    Select = { 0x07CE1E61, 0xCEFD9220, 0xC7B5340A }, -- Attack (left mouse), E, FrontendAccept (Enter)
-    Down   = { 0xCC1075A7, 0xD0842EDF, 0x05CA7C52 }, -- mouse wheel (PrevWeapon / SelectNextWeapon), FrontendDown (arrow down)
-    Up     = { 0xFD0F0C2C, 0xF78D7337, 0x6319DB71 }, -- mouse wheel (NextWeapon / SelectPrevWeapon), FrontendUp (arrow up)
-    Cursor = { 0xF84FA74F },                         -- Aim (right mouse): free the cursor to click an option
-    LookLr = 0xA987235F,          -- camera left / right (held still while the cursor is free)
+    Click  = { 0x07CE1E61, 0x07B8BEAF },             -- Attack / ContextRt (left mouse): bring the cursor out to click an option
+    LookLr = 0xA987235F,          -- camera left / right (held still while the cursor is out)
     LookUd = 0xD2047988,          -- camera up / down
     -- turned off while targeting, so picking an option does not shoot, punch or swap weapons
     Block = { 0x07CE1E61, 0xF84FA74F, 0xAC4BD4F1, 0xB2F377E8, 0xADEAF48C, 0x73846677, 0x0AF99998,

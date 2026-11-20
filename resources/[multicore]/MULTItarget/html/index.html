@@ -10,13 +10,13 @@
 </head>
 <body>
     <div id="target" class="mc-root mt-target mc-hidden">
-        <!-- four thin corner brackets in the middle of the screen; never a dot -->
-        <div class="mt-brackets" id="brackets"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></div>
+        <!-- the eye in the middle of the screen (as rsg-target); it lights up when something has options.
+             Nothing is ever drawn in the world: no dots, no sprites. -->
+        <div class="mt-eye" id="eye"><i class="fa-solid fa-eye"></i></div>
         <div class="mt-card mc-hidden" id="card">
             <div class="mt-title" id="title"></div>
             <div class="mt-sub" id="sub"></div>
             <div class="mt-list" id="list"></div>
-            <div class="mt-hint" id="hint"></div>
         </div>
     </div>
     <script src="target.js"></script>

@@ -1,32 +1,26 @@
-/* MULTItarget: base-game look - black see-through card, white text, white frame on the chosen row.
-   Thin white corner brackets in the middle of the screen. No dots anywhere. */
+/* MULTItarget: base-game look, laid out like rsg-target - an eye in the middle of the screen,
+   the options beside it on a black see-through card, white text, a white frame on the row under
+   the mouse. Nothing is drawn in the world: no dots, no sprites. */
 html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: transparent; overflow: hidden; }
 body { user-select: none; }
 
 .mt-target {
     --mt-scale: 1;
-    --mt-bracket: 34px;        /* size of the bracket square */
-    --mt-arm: 9px;             /* length of each bracket arm */
-    --mt-line: rgba(255, 255, 255, 0.55);
-    --mt-line-on: #ffffff;
+    --mt-eye: 22px;            /* size of the eye */
+    --mt-eye-off: rgba(255, 255, 255, 0.45);
+    --mt-eye-on: #ffffff;
     position: fixed; inset: 0; pointer-events: none;
     font-family: var(--mc-font-ui); color: var(--mc-ink); text-shadow: var(--mc-text-shadow);
 }
 .mt-target.mt-cursor { pointer-events: auto; }
 
-.mt-brackets {
+.mt-eye {
     position: absolute; left: 50%; top: 50%;
-    width: var(--mt-bracket); height: var(--mt-bracket);
     transform: translate(-50%, -50%) scale(var(--mt-scale));
-    transition: width 0.1s, height 0.1s;
+    font-size: var(--mt-eye); line-height: 1; color: var(--mt-eye-off);
+    transition: color 0.1s, transform 0.1s;
 }
-.mt-brackets i { position: absolute; width: var(--mt-arm); height: var(--mt-arm); border: 0 solid var(--mt-line); transition: border-color 0.1s; }
-.mt-brackets .tl { left: 0; top: 0; border-left-width: 2px; border-top-width: 2px; }
-.mt-brackets .tr { right: 0; top: 0; border-right-width: 2px; border-top-width: 2px; }
-.mt-brackets .bl { left: 0; bottom: 0; border-left-width: 2px; border-bottom-width: 2px; }
-.mt-brackets .br { right: 0; bottom: 0; border-right-width: 2px; border-bottom-width: 2px; }
-.mt-found .mt-brackets { width: calc(var(--mt-bracket) * 0.8); height: calc(var(--mt-bracket) * 0.8); }
-.mt-found .mt-brackets i { border-color: var(--mt-line-on); }
+.mt-found .mt-eye { color: var(--mt-eye-on); transform: translate(-50%, -50%) scale(calc(var(--mt-scale) * 1.1)); }
 
 .mt-card {
     position: absolute; left: calc(50% + 34px); top: 50%;
@@ -52,7 +46,5 @@ body { user-select: none; }
 .mt-row .mt-l { flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .mt-row .mt-d { display: block; font-size: var(--mc-size-small); color: var(--mc-ink-faint); white-space: normal; }
 .mt-row .mt-more { font-size: 10px; opacity: 0.6; }
-.mt-row.on { border-color: var(--mc-ink); background: rgba(255, 255, 255, 0.06); }
+.mt-cursor .mt-row:hover { border-color: var(--mc-ink); background: rgba(255, 255, 255, 0.08); }
 
-.mt-hint { padding: 6px 14px 0; font-size: calc(var(--mc-size-small) * 0.9); color: var(--mc-ink-faint); }
-.mt-hint:empty { display: none; }

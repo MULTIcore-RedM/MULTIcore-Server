@@ -20,10 +20,11 @@ Do **not** start `ox_target`, `rsg-target` or `qb-target` as well. MULTItarget `
 
 | | |
 |---|---|
-| Hold **Left Alt** | Four thin corner brackets show in the middle of the screen. Look at something and its options appear beside them |
-| **Mouse wheel** / arrow keys | Move through the options |
-| **Left mouse** / **E** / **Enter** | Pick the highlighted option |
-| **Right mouse** | Free the cursor to click an option instead. Esc or right mouse gives the camera back |
+| Hold **Left Alt** | An eye shows in the middle of the screen. Look at something with options: the eye lights up and the options appear beside it |
+| **Left mouse** | The cursor comes out (Left Alt can be let go now). Click the option you want |
+| **Right mouse** / **Esc** | Cancel |
+
+It works the same way as rsg-target, without scrolling.
 
 `Config.Mode = 'toggle'` makes Left Alt switch targeting on and off instead of being held. All keys are in `config.lua` (`Config.Keys`).
 
@@ -40,8 +41,8 @@ MULTItarget never draws a dot, marker or sprite in the world.
 | `Config.RayIntervalMs` | `60` | How often the look ray is cast while targeting |
 | `Config.RayFlags` | `511` | What the ray can hit (511 = everything) |
 | `Config.BoneDistance` | `1.2` | Options tied to bones show within this distance of the bone |
-| `Config.Scale` | `1.0` | Size of the brackets and the list |
-| `Config.Keys` | see file | Control hashes for target, select, up / down, cursor and the controls turned off while targeting |
+| `Config.Scale` | `1.0` | Size of the eye and the list |
+| `Config.Keys` | see file | Control hashes for target (Left Alt), click (left mouse) and the controls turned off while targeting |
 | `Config.Zone` | see file | Heights for PolyZone-style boxes and polys made through rsg-target / qb-target calls |
 
 Colours and sizes: `html/custom.css` (loaded last). Text: `locales/` (10 languages).

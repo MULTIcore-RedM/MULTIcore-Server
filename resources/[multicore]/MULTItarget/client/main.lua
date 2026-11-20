@@ -1,10 +1,10 @@
 -- ============================================================
 -- MULTItarget :: targeting (client)
--- Hold Left Alt: thin corner brackets show in the middle of the screen. Look at a person,
--- animal, wagon, object or counter and its options are listed beside them. Mouse wheel or
--- arrow keys move through the list, left mouse / E / Enter picks. Right mouse frees the
--- cursor to click an option instead (Esc or right mouse gives the camera back).
--- No marker dots are ever drawn in the world (RINGO's rule).
+-- Works like rsg-target: hold Left Alt and an eye shows in the middle of the screen. Look at a
+-- person, animal, wagon, object or counter: the eye lights up and its options are listed beside
+-- it. Left mouse gives you the cursor (Left Alt may then be let go); click an option.
+-- Right mouse or Esc cancels. No scrolling.
+-- No marker dots or sprites are ever drawn in the world (RINGO's rule).
 -- Written for MULTIcore (GPL v3).
 -- ============================================================
 
@@ -152,13 +152,10 @@ RegisterNUICallback('hover', function(data, cb)
     if active and i then index = i end
 end)
 
+-- right mouse or Esc with the cursor out: cancel (as rsg-target)
 RegisterNUICallback('release', function(_, cb)
     cb('ok')
-    if cursor then
-        cursor = false
-        SetNuiFocus(false, false)
-        SendNUIMessage({ action = 'cursor', on = false })
-    end
+    if active then MT.Stop() end
 end)
 
 -- ------------------------------------------------------------
@@ -187,13 +184,6 @@ local function pressed(list)
     return false
 end
 
-local function move(step)
-    local total = #shown + (menu and 1 or 0)
-    if total == 0 then return end
-    index = ((index - 1 + step) % total) + 1
-    SendNUIMessage({ action = 'index', index = index })
-end
-
 local nextRay = 0
 
 CreateThread(function()
@@ -219,16 +209,11 @@ CreateThread(function()
                     end
                     refresh(false)
                 end
-                if not cursor then
-                    if pressed(K.Down) then move(1) elseif pressed(K.Up) then move(-1) end
-                    if MT.HasOptions or menu then
-                        if pressed(K.Select) then pick(index) end
-                        if pressed(K.Cursor) then
-                            cursor = true
-                            SetNuiFocus(true, true)
-                            SendNUIMessage({ action = 'cursor', on = true })
-                        end
-                    end
+                -- options showing: left mouse brings the cursor out to click one (as rsg-target)
+                if not cursor and (MT.HasOptions or menu) and pressed(K.Click) then
+                    cursor = true
+                    SetNuiFocus(true, true)
+                    SendNUIMessage({ action = 'cursor', on = true })
                 end
             end
             Wait(0)
