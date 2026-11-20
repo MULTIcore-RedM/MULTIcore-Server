@@ -56,6 +56,10 @@ Everything a script writer needs is in [`docs/`](docs):
 | `MULTIcore-UI-Guide.md` + `MULTIcore-UI-Kit.zip` | How to make screens that match, with a working example menu |
 | `MULTIstarter.zip` | A small working script to start from |
 
+## Item pictures
+
+None are included. Put your own `.png` files in `resources/[multicore]/MULTIimages/images/`, named as each item's `image` field (`bread.png` ...). Until then, items show a plain icon. See the server owner guide.
+
 ## Game fonts (optional)
 
 The menus look most like the game with its own style of fonts. They are not included, because the font files belong to their owners. See `resources/[multicore]/MULTIcore/html/theme/fonts/README.md`. Without them, close free fonts are used.
