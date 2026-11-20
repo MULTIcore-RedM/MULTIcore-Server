@@ -61,7 +61,7 @@ ensure MULTIappearance
 ensure MULTIcharacter
 ensure MULTIinventory
 ensure MULTIstores
-ensure MULTIclothing
+ensure MULTItailor
 ensure MULTIvorpchar
 ensure MULTIhud
 ensure MULTIconsumables

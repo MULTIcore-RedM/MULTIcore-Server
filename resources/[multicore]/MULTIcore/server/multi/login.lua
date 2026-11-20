@@ -1,7 +1,7 @@
 -- ============================================================
 -- MULTIcore :: character login API
 -- Used by MULTIcharacter (select, create, delete) and MULTIcreator /
--- MULTIclothing (looks). See docs/BASE_SET.md for the contract.
+-- MULTItailor (looks). See docs/BASE_SET.md for the contract.
 -- ============================================================
 
 MULTI.Login = {}

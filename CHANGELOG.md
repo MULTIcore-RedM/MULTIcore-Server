@@ -2,6 +2,27 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-20 (new inventory and clothing)
+
+### New
+- **MULTIinventory is a new inventory.** It is RINGO's full inventory, now free and part of MULTIcore:
+  - slots and weight, a hotbar, and clothing slots;
+  - weapons with serials, condition and components, and a gunbelt for spare ammo;
+  - stashes, saddlebags and wagon storage, searching players;
+  - a Craft tab and a crafting journal.
+
+  It is drawn in MULTIcore's black and white look, and the key is still **I**. RSG v2, VORP and RedEM:RP inventory calls work as before.
+- **MULTItailor replaces MULTIclothing. Clothes are now items.** What you wear sits in the clothing slots of your inventory. You can take pieces off, swap them, store them, trade them and save outfits. Clothes stores are in the main towns, and the tailor job (Outfit Designer, sewing, counter and till) is included. The radial menu's clothes on and off still works.
+- **Scripts written for RINGOinventory or RINGOtailor** work on MULTIcore without changes.
+
+### Changed
+- **Ammo:** spare ammo now sits on your gunbelt. Use an ammo box from the inventory to put its rounds on the belt.
+
+### Updating an existing server
+- In `server.cfg`, replace `ensure MULTIclothing` with `ensure MULTItailor`, after `ensure MULTIstores`. Then delete the `MULTIclothing` folder.
+- On the first start, MULTIinventory copies every satchel, stash, saddlebag, wagon trunk and gun from the old inventory into its own tables. It only does this once, and it leaves the old data untouched.
+- On each character's first load, the clothes they were wearing become clothing items, so nobody turns up without clothes.
+
 ## 2026-11-20 (more fixes)
 
 - **Ammo:** reloading takes one round from the satchel for every round loaded into the gun. Each shot takes one round from the gun. The rounds in a gun stay in it when you put it away.

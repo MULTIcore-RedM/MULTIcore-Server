@@ -1,0 +1,144 @@
+/* ============================================================================
+   MULTIinventory :: FONTS & TEXT SIZES  (edit freely - this file is yours)
+   ----------------------------------------------------------------------------
+   Loaded after the built-in look (custom.css comes last), so everything
+   here wins over it.
+
+   1. FONTS
+      MULTIinventory uses MULTIcore's fonts (nui://MULTIcore/html/theme/multi.css:
+      the game-style fonts in MULTIcore/html/theme/fonts/, else close free
+      fonts). Change them for every MULTI script there, or for this script only
+      in --font-display / --font-ui / --font-body / --font-book below.
+      Russian / Cyrillic: the game title font has no Cyrillic letters. Use
+      the RUSSIAN PRESET below (the same fonts as MULTIcore's Cyrillic preset).
+
+   2. TEXT SIZE
+      --text-scale   multiplies every text size listed in section 3 (1 = normal,
+                     1.2 = 20% bigger, 0.9 = smaller).
+      --ui-zoom      zooms the WHOLE inventory window plus its tooltips, menus and
+                     pop-ups (1 = normal, 0.9 = 10% smaller). It multiplies the
+                     automatic fit-to-screen scale.
+
+   3. SINGLE SIZES (in px, before --text-scale)
+      --size-title       big "Inventory" title
+      --size-tab         category tabs (All / Craft / Remedies ...)
+      --size-card        item names on the slots (inventory, hotbar, saddlebags,
+                         stashes)
+      --size-count       stack count on each slot
+      --size-recipe      recipe names in the Craft tab
+      --size-card-title  item name in the tooltip (the Craft tab title is 1px
+                         bigger)
+      --size-body        description text (tooltip, Craft tab)
+      --size-price       PRICE / VALUE line in the tooltip of money items
+      --size-money       cash and gold in the header
+      --size-button      buttons (Saddlebags, Craft, Outfits; small buttons are
+                         2px smaller)
+
+   4. CRAFTING JOURNAL (the book opened from a journal item / station)
+      Fonts: the book uses the same families as the rest of the UI -
+      --font-display for its titles (recipe name, cover, Contents),
+      --font-ui for labels, tabs, stamps and buttons, --font-body for the
+      have / need numbers, and:
+      --font-book          the text written on the pages (descriptions,
+                           ingredient names, notes). Default: MULTIcore's
+                           body font.
+      --size-book-title    recipe title on each page (the cover title is
+                           1.6x this, the Contents title 1.35x)
+      --size-book-heading  chapter names, running heads, section labels
+                           (Needs / Tools / Makes), stamps, page numbers,
+                           copy cost (paper / ink) and its note
+      --size-book-body     descriptions, ingredient rows, notes, "Write a copy"
+      --size-book-button   Craft and Write copy buttons, quantity box
+      The book also follows --text-scale and --ui-zoom.
+   ========================================================================= */
+
+:root {
+    /* MULTIcore's fonts (theme variables), with the theme's own fallbacks */
+    --font-display: var(--mc-font-title, 'Oswald', 'Arial Narrow', sans-serif);
+    --font-ui:      var(--mc-font-ui, 'Zilla Slab', 'PT Serif', serif);
+    --font-body:    var(--mc-font-body, 'Zilla Slab', 'PT Serif', serif);
+    --font-book:    var(--mc-font-body, 'Zilla Slab', 'PT Serif', serif);
+
+    /* ---- RUSSIAN PRESET: delete the four lines above and remove the comment
+            markers around these four lines ----
+    --font-display: 'Oswald', sans-serif;
+    --font-ui:      'PT Serif', serif;
+    --font-body:    'PT Serif', serif;
+    --font-book:    'PT Serif', serif;
+    */
+
+    --text-scale: var(--mc-scale, 1);
+    --ui-zoom: 1;
+
+    --size-title: 38px;
+    --size-tab: 11px;
+    --size-card: 9px;
+    --size-count: 13px;
+    --size-recipe: 13px;
+    --size-card-title: 25px;
+    --size-body: 13px;
+    --size-price: 12px;
+    --size-money: 17px;
+    --size-button: 12px;
+    --size-book-title: 38px;
+    --size-book-heading: 14px;
+    --size-book-body: 17px;
+    --size-book-button: 16px;
+
+    /* the UI kit reads these names - keep them pointing at the three above */
+    --multi-font-title: var(--font-display);
+    --multi-font-body:  var(--font-body);
+}
+
+/* ---- applied below; you normally only edit the values above ----
+   (--ui-zoom is applied by js/app.js together with the fit-to-screen scale;
+    the crafting journal gets it through the zoom rule at the bottom) */
+.tip .t-desc, .cd-desc                 { font-family: var(--font-body) !important; }
+
+#app .inv-head .multi-title            { font-size: calc(var(--size-title) * var(--text-scale)) !important; }
+#app .tab                              { font-size: calc(var(--size-tab) * var(--text-scale)) !important; }
+#app .tile .nm                         { font-size: calc(var(--size-card) * var(--text-scale)) !important; }
+#app .tile .cnt                        { font-size: calc(var(--size-count) * var(--text-scale)) !important; }
+#app .crow-txt b                       { font-size: calc(var(--size-recipe) * var(--text-scale)) !important; }
+#overlay .tip h3                       { font-size: calc(var(--size-card-title) * var(--text-scale)) !important; }
+#app .cd-title h3                      { font-size: calc((var(--size-card-title) + 1px) * var(--text-scale)) !important; }
+#overlay .tip .t-desc,
+#app .cd-desc                          { font-size: calc(var(--size-body) * var(--text-scale)) !important; }
+#overlay .tip .t-row b.t-price         { font-size: calc(var(--size-price) * var(--text-scale)) !important; }
+#app .coin b                           { font-size: calc(var(--size-money) * var(--text-scale)) !important; }
+#app .rbtn                             { font-size: calc(var(--size-button) * var(--text-scale)) !important; }
+#app .rbtn.small                       { font-size: calc((var(--size-button) - 2px) * var(--text-scale)) !important; }
+
+/* ---- crafting journal (book) ---- */
+#book                                        { font-family: var(--font-book); }
+#book .bk-title, #book .bk-cover-title       { font-family: var(--font-display) !important; }
+#book .bk-head, #book .bk-sec, #book .bk-stamp,
+#book .bk-folio, #book .bk-qty-l,
+#book .bk-btn, #book .bk-keys, #book .bk-legend,
+#book .bk-toc-row .nm, #book .bk-cover-kick,
+#book .bk-cover-open, #book .bk-learned      { font-family: var(--font-ui) !important; }
+#book .bk-ing b, #book .bk-chip b, #book kbd,
+#book .bk-qty input, #book .bk-toc-row .ct,
+#book .bk-toc-row .pg, #book .bk-toast,
+#book .bk-ico .n                             { font-family: var(--font-body) !important; }
+#book .bk-fit                                { zoom: var(--ui-zoom); }
+
+#book .bk-title                              { font-size: calc(var(--size-book-title) * var(--text-scale)) !important; }
+#book .bk-pg.intro .bk-title                 { font-size: calc(var(--size-book-title) * 1.35 * var(--text-scale)) !important; }
+#book .bk-cover-title                        { font-size: calc(var(--size-book-title) * 1.6 * var(--text-scale)) !important; }
+#book .bk-head, #book .bk-sec, #book .bk-stamp,
+#book .bk-folio, #book .bk-qty-l,
+#book .bk-toc-row .ct, #book .bk-cover-kick,
+#book .bk-cover-open, #book .bk-chip,
+#book .bk-copy-why                           { font-size: calc(var(--size-book-heading) * var(--text-scale)) !important; }
+#book .bk-toc-row .nm                        { font-size: calc(var(--size-book-heading) * 1.45 * var(--text-scale)) !important; }
+#book .bk-tab                                { font-size: calc((var(--size-book-heading) - 1px) * var(--text-scale)) !important; }
+#book .bk-keys                               { font-size: calc((var(--size-book-heading) - 2px) * var(--text-scale)) !important; }
+#book .bk-legend                             { font-size: calc(var(--size-book-heading) * var(--text-scale)) !important; }
+#book .bk-desc, #book .bk-ing, #book .bk-out,
+#book .bk-warn, #book .bk-learn, #book .bk-known,
+#book .bk-meta, #book .bk-why, #book .bk-blurb,
+#book .bk-sub, #book .bk-here,
+#book .bk-toc-row .nm small, #book .bk-cover-sub,
+#book .bk-toast, #book .bk-copy-t             { font-size: calc(var(--size-book-body) * var(--text-scale)) !important; }
+#book .bk-btn, #book .bk-qty input           { font-size: calc(var(--size-book-button) * var(--text-scale)) !important; }

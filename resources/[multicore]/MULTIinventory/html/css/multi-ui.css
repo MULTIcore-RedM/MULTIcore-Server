@@ -1,0 +1,395 @@
+/* ==========================================================================
+   MULTIinventory UI kit - MULTIcore's base-game look
+   Black see-through panels, white lettering, white selection frames, thin
+   white rules that fade at the ends, MULTIcore's fonts. No paper, no
+   textures. Colours and fonts come from MULTIcore's shared theme
+   (nui://MULTIcore/html/theme/multi.css, linked first in index.html); this
+   file maps them onto the class and --multi-* names the inventory uses.
+   Text sizes: fonts.css. Your own changes: custom.css.
+   ========================================================================== */
+
+:root {
+  /* ---- palette: MULTIcore black / white ---- */
+  --multi-bg: #000000;
+  --multi-bg-raised: #0a0a0a;
+  --multi-panel: var(--mc-paper, rgba(0, 0, 0, 0.82));
+  --multi-panel-hover: rgba(255, 255, 255, 0.08);
+  --multi-ink-light: var(--mc-ink, #ffffff);
+  --multi-text: var(--mc-ink, #ffffff);
+  --multi-text-muted: var(--mc-ink-dim, rgba(255, 255, 255, 0.72));
+  --multi-text-faint: var(--mc-ink-faint, rgba(255, 255, 255, 0.42));
+  --multi-border: var(--mc-line-strong, rgba(255, 255, 255, 0.55));
+  --multi-border-subtle: var(--mc-line, rgba(255, 255, 255, 0.18));
+  --multi-red: var(--mc-red, #c0281e);
+  --multi-ink: #000000;                /* text on a white plate */
+  --multi-success: var(--mc-good, #8fbf6a);
+  --multi-info: var(--mc-ink, #ffffff);
+  --multi-warning: var(--mc-gold, #d6b25e);
+  --multi-danger: var(--mc-bad, #d04a3c);
+  --multi-focus: var(--mc-ink, #ffffff);
+  --multi-backdrop: rgba(0, 0, 0, 0.55);
+
+  /* ---- older token names used across the inventory CSS ---- */
+  --multi-black: #000000;
+  --multi-panel-2: var(--mc-paper-2, rgba(0, 0, 0, 0.55));
+  --multi-steel: var(--mc-paper-3, rgba(255, 255, 255, 0.08));
+  --multi-line: var(--mc-line, rgba(255, 255, 255, 0.18));
+  --multi-line-bright: var(--mc-line-strong, rgba(255, 255, 255, 0.55));
+  --multi-muted: var(--mc-ink-dim, rgba(255, 255, 255, 0.72));
+  --multi-silver: var(--mc-ink, #ffffff);
+  --multi-silver-bright: #ffffff;
+  --multi-silver-dim: var(--mc-ink-dim, rgba(255, 255, 255, 0.72));
+  --multi-ok: var(--mc-good, #8fbf6a);
+  --multi-warn: var(--mc-gold, #d6b25e);
+  --multi-bad: var(--mc-bad, #d04a3c);
+  --multi-shadow: rgba(0, 0, 0, 0.7);
+
+  /* the white rule that fades at both ends (the theme's .mc-rule) */
+  --multi-rule: linear-gradient(90deg, transparent, var(--mc-line-strong, rgba(255, 255, 255, 0.55)) 15%, var(--mc-line-strong, rgba(255, 255, 255, 0.55)) 85%, transparent);
+
+  /* ---- type: MULTIcore's fonts (fonts.css maps these) ---- */
+  --font-display: var(--mc-font-title, 'Oswald', 'Arial Narrow', sans-serif);
+  --font-ui: var(--mc-font-ui, 'Zilla Slab', 'PT Serif', serif);
+  --font-body: var(--mc-font-body, 'Zilla Slab', 'PT Serif', serif);
+  --font-document: var(--mc-font-body, 'Zilla Slab', 'PT Serif', serif);
+  --multi-font-title: var(--font-display);
+  --multi-font-body: var(--font-body);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--multi-text);
+  text-shadow: var(--mc-text-shadow, 0 1px 2px rgba(0, 0, 0, 0.9));
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea { font-family: inherit; color: inherit; text-shadow: inherit; }
+button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--multi-focus);
+  outline-offset: 2px;
+}
+
+.hidden { display: none !important; }
+
+/* ---------- type ---------- */
+.multi-title, .stencil {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--multi-ink-light);
+  margin: 0;
+}
+.kicker {
+  font: 500 11px/1 var(--font-ui);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--multi-text-muted);
+}
+.muted-text { color: var(--multi-text-muted); }
+.rule {
+  height: 1px; border: 0; margin: 10px 0;
+  background: var(--multi-rule);
+}
+
+/* full-screen dim behind a big menu: add class="multi-world" to the overlay */
+.multi-world {
+  background: radial-gradient(ellipse 75% 70% at 50% 45%, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.9) 62%, rgba(0, 0, 0, 0.97) 100%);
+}
+
+/* ---------- the panel: black, fading softly at the edges (the theme's .mc-panel) ---------- */
+.multi-shadow { filter: none; }
+
+.plate-frame {
+  --cut: 0px;
+  position: relative;
+  padding: 0;
+  background: none;
+}
+.plate-frame.cut-modal, .plate-frame.cut-toast { --cut: 0px; }
+
+.plate,
+.multi-paper {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, calc(var(--mc-panel, 0.82) - 0.08)) 0%, rgba(0, 0, 0, var(--mc-panel, 0.82)) 12%, rgba(0, 0, 0, var(--mc-panel, 0.82)) 88%, rgba(0, 0, 0, calc(var(--mc-panel, 0.82) - 0.08)) 100%);
+  box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.35);
+  border-radius: 0;
+}
+.plate::before { content: none; }
+
+.plate-char, .rivet, .plate-mark, .plate-flash { display: none !important; }
+
+/* ---------- the R mark ---------- */
+.multi-r {
+  display: inline-block;
+  width: 24px; height: 24px;
+  color: var(--multi-ink-light);
+  vertical-align: middle;
+  flex: none;
+}
+
+/* ---------- header ---------- */
+.plate-head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 22px 12px;
+}
+.plate-head::after {
+  content: "";
+  position: absolute;
+  left: 14px; right: 14px; bottom: 0;
+  height: 1px;
+  background: var(--multi-rule);
+  pointer-events: none;
+}
+.plate-head .brand { display: flex; align-items: center; gap: 8px; }
+.plate-head .titles { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.plate-head .titles .multi-title { font-size: 30px; line-height: 1; }
+.plate-body { position: relative; z-index: 2; padding: 16px 22px 22px; }
+
+/* ---------- open animation: a short fade, once ---------- */
+.plate-frame.stamp { opacity: 1; transform: none; }
+@keyframes multi-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: no-preference) {
+  .plate-frame.stamp { animation: multi-fade-in 0.2s ease-out 1 both; }
+}
+
+/* ---------- buttons: white words in a thin frame; primary is white with black text (the theme's .mc-btn) ---------- */
+.rbtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px 9px;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--multi-ink-light);
+  border: 0;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px var(--multi-border);
+  font: 500 13px/1 var(--font-ui);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
+}
+.rbtn:hover { background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 1px var(--multi-ink-light); }
+.rbtn:active { background: rgba(255, 255, 255, 0.16); }
+.rbtn.primary { background: var(--multi-ink-light); color: #000000; box-shadow: none; text-shadow: none; }
+.rbtn.primary:hover { background: rgba(255, 255, 255, 0.85); }
+.rbtn.danger:hover { background: var(--multi-red); color: #ffffff; box-shadow: inset 0 0 0 1px var(--multi-red); }
+.rbtn.muted { color: var(--multi-text-muted); background: none; box-shadow: none; }
+.rbtn.muted:hover { color: var(--multi-ink-light); background: none; }
+.rbtn:disabled, .rbtn.disabled { opacity: 0.35; cursor: not-allowed; }
+.rbtn:disabled:hover, .rbtn.disabled:hover {
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--multi-ink-light);
+  box-shadow: inset 0 0 0 1px var(--multi-border);
+}
+
+/* ---------- inputs (the theme's .mc-input) ---------- */
+.rinput, .rselect, .rtextarea {
+  width: 100%;
+  padding: 8px 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--multi-ink-light);
+  border: 1px solid var(--multi-border-subtle);
+  border-radius: 0;
+  font: 400 15px/1.3 var(--font-body);
+  outline: none;
+  user-select: text;
+  -webkit-user-select: text;
+}
+.rtextarea { padding: 8px 10px; }
+.rselect {
+  -webkit-appearance: none; appearance: none; padding-right: 28px;
+  background-image: linear-gradient(45deg, transparent 50%, #fff 50%), linear-gradient(135deg, #fff 50%, transparent 50%);
+  background-position: calc(100% - 15px) 55%, calc(100% - 10px) 55%;
+  background-size: 5px 5px; background-repeat: no-repeat;
+}
+.rselect option { background: #000000; color: #ffffff; }
+.rinput:focus, .rselect:focus, .rtextarea:focus { border-color: var(--multi-ink-light); box-shadow: none; }
+.rinput::placeholder, .rtextarea::placeholder { color: var(--multi-text-faint); }
+.rlabel {
+  display: block;
+  margin: 0 0 4px;
+  font: 500 11px/1 var(--font-ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--multi-text-muted);
+}
+
+/* ---------- list rows: the selected one gets a white frame (the theme's .mc-row) ---------- */
+.rrow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--multi-panel-2);
+  border: 0;
+  border-radius: 0;
+  color: var(--multi-text);
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+.rrow::before { content: none; }
+.rrow:hover { background: var(--multi-steel); color: var(--multi-ink-light); }
+.rrow.active { color: var(--multi-ink-light); background: rgba(0, 0, 0, 0.75); }
+.rrow.active::after,
+.multi-selected::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--multi-ink-light);
+  pointer-events: none;
+}
+.rrow.disabled { opacity: 0.4; cursor: not-allowed; }
+
+.rtile {
+  width: 30px; height: 30px;
+  flex: none;
+  display: flex; align-items: center; justify-content: center;
+  background: none;
+  border: 2px solid var(--multi-ink-light);
+  border-radius: 50%;
+  font: 700 12px/1 var(--font-body);
+  color: var(--multi-ink-light);
+}
+
+/* status pill */
+.rpill {
+  display: inline-block;
+  padding: 3px 7px;
+  border: 1px solid var(--multi-border);
+  border-radius: 0;
+  font: 500 10px/1 var(--font-ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--multi-text-muted);
+}
+.rpill.ok   { color: var(--multi-ok);   border-color: var(--multi-ok); }
+.rpill.warn { color: var(--multi-warn); border-color: var(--multi-warn); }
+.rpill.bad  { color: var(--multi-bad);  border-color: var(--multi-bad); }
+
+/* ---------- bars: thin white fill on a faint white track ---------- */
+.rbar-row { margin: 8px 0; }
+.rbar-label {
+  display: flex; justify-content: space-between;
+  margin-bottom: 4px;
+  font: 500 11px/1 var(--font-ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--multi-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.rbar { height: 4px; background: rgba(255, 255, 255, 0.18); border-radius: 0; overflow: hidden; }
+.rbar > i {
+  display: block; height: 100%;
+  background: var(--multi-ink-light);
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+.rbar > i.ok   { background: var(--multi-ink-light); }
+.rbar > i.warn { background: var(--multi-warn); }
+.rbar > i.bad  { background: var(--multi-red); }
+
+/* ---------- modals ---------- */
+.rmodal-backdrop {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--multi-backdrop);
+  z-index: 50;
+}
+.rmodal { width: 380px; max-width: calc(100vw - 32px); }
+.rmodal .plate { background: rgba(0, 0, 0, 0.92); }
+.rmodal .plate-body { padding: 20px 22px 20px; }
+.rmodal .kicker { display: block; margin-bottom: 6px; }
+.rmodal .multi-title { font-size: 26px; padding-bottom: 10px; margin-bottom: 14px; position: relative; }
+.rmodal .multi-title::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+  background: var(--multi-rule);
+}
+.rmodal .actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+
+/* ---------- toasts: black cards, a short rule on the left carries the type ---------- */
+.rtoasts {
+  position: fixed;
+  left: 0; right: 0; bottom: 28px;
+  display: flex; flex-direction: column-reverse; align-items: center; gap: 8px;
+  pointer-events: none;
+  z-index: 100;
+}
+.rtoast { min-width: 260px; max-width: 440px; animation: multi-toast-in 0.25s ease 1 both; }
+.rtoast .plate { background: rgba(0, 0, 0, 0.92); }
+.rtoast .plate-body { padding: 13px 18px 12px 22px; font-weight: 500; color: var(--multi-ink-light); }
+.rtoast .plate::after {
+  content: ""; position: absolute; left: 8px; top: 10px; bottom: 10px; width: 2px;
+  background: var(--multi-ink-light);
+}
+.rtoast.ok  .plate::after { background: var(--multi-ok); }
+.rtoast.warn .plate::after { background: var(--multi-warn); }
+.rtoast.bad .plate::after { background: var(--multi-red); }
+@keyframes multi-toast-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- documents: a black panel like everything else ---------- */
+.multi-parchment {
+  position: relative;
+  color: var(--multi-ink-light);
+  font-family: var(--font-document);
+  background: var(--multi-panel);
+}
+
+/* ---------- key prompt: small white box (the theme's .mc-key) ---------- */
+.multi-key {
+  display: inline-grid; place-items: center;
+  min-width: 24px; height: 24px; padding: 0 6px;
+  border: 1px solid var(--multi-ink-light);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.55);
+  font: 700 10px/1 var(--font-ui);
+  color: var(--multi-ink-light);
+}
+
+/* ---------- scrollbars: a thin white line ---------- */
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.12); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.6); border: 0; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #ffffff; }
+
+/* ---------- tables ---------- */
+.rtable { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.rtable th {
+  text-align: left; padding: 8px 10px;
+  font: 500 11px/1 var(--font-ui);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--multi-text-muted);
+  border-bottom: 1px solid var(--multi-border);
+}
+.rtable td { padding: 9px 10px; border-bottom: 1px solid var(--multi-border-subtle); }
+.rtable tr:hover td { background: var(--multi-steel); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rtoast, .plate-frame.stamp { animation: none !important; }
+}
+
+/* buttons keep their footprint so the header row does not shift */
+.rbtn { padding: 10px 16px; }

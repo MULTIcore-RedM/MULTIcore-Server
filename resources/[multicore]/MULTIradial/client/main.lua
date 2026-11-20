@@ -162,7 +162,7 @@ end)
 local function run(b)
     if b.action then return b.action(b) end
     if b.clothing then return TriggerEvent('rsg-wardrobe:client:OnOffClothing', b.clothing) end
-    if b.dress then return TriggerEvent('MULTIclothing:client:dress') end
+    if b.dress then return TriggerEvent('MULTItailor:client:dress') end
     if b.undress then return TriggerEvent('rsg-wardrobe:client:removeAllClothing') end
     if b.command then return ExecuteCommand(b.command) end
     -- RSG v2 option format

@@ -1,260 +1,280 @@
 -- ============================================================
--- MULTIinventory settings. Every option has its default in the comment.
--- Sections: engine (server), UI (client), weapons and ammo (both), VORP face.
+-- MULTIinventory :: main configuration
+-- More specific settings live in config/*.lua.
 -- ============================================================
+
 Config = Config or {}
 
--- Language for this script ('' = use server.cfg `setr multicore_locale`, else 'en').
-Config.Locale = ''                       -- default ''
+-- On MULTIcore the inventory always talks to MULTIcore's rsg-core shape (this is ignored).
+-- Without MULTIcore: 'auto' | 'vorp' | 'rsg'   (server-wide: setr multi_framework "...")
+Config.Framework = 'rsg'
 
--- Print extra lines to the server console (moves, loads, saves).
-Config.Debug = false                     -- default false
-Config.DebugUse = false                  -- true = every item use (and why it stopped) is printed to the server console
+-- Language: '' = server.cfg  setr multicore_locale "de"  (de en es fr it nl pl pt-br ru tr), else 'en'
+Config.Locale = ''
+Config.Debug  = false
 
-------------------------------------------------------------------
--- Sizes (server)
-------------------------------------------------------------------
--- The player's satchel takes its size from the character (players.slots / players.weight,
--- RSG's PlayerDefaults: 25 slots / 35000 g). These are used only if those are missing.
-Config.Player = {
-    Slots = 25,                          -- default 25
-    MaxWeight = 35000,                   -- default 35000 (grams)
-    MaxCount = nil,                      -- default nil (no limit on the total item count)
-    UseItemLimits = true,                -- default true  (VORP per-item `limit` applies to the satchel)
-}
+-- Commands (client): open / close the satchel. MULTIradial's satchel button runs /inventory.
+Config.OpenCommand = 'inventory'
+Config.CloseCommand = 'closeinv'
+-- Admin command (server, rsg-core command permission 'admin'): /giveitem [id] [item] [amount]
+Config.GiveItemCommand = 'giveitem'
 
--- A stash opened without its own size.
-Config.Stash = {
-    Slots = 100,                         -- default 100
-    MaxWeight = 2000000,                 -- default 2000000 (grams)
-}
+-- Item pop-ups (MULTIinventory:client:itembox, rsg-inventory:client:ItemBox) as MULTIcore notifications
+Config.ItemBox = { enabled = true, time = 3000 }
 
--- Items dropped on the ground (memory only, gone after a restart). The client's look is Config.Drops below.
-Config.Drop = {
-    Slots = 50,                          -- default 50
-    MaxWeight = 1000000,                 -- default 1000000
-    ExpireMinutes = 15,                  -- default 15 (an unopened drop is removed after this)
-    Model = 'p_bag01x',                  -- default 'p_bag01x' (from RSG's config)
-}
-
-------------------------------------------------------------------
--- Rules (server)
-------------------------------------------------------------------
-Config.MaxDistance = 5.0                 -- default 5.0 (metres to a stash / drop / searched player while moving items)
-Config.GiveDistance = 3.0                -- default 3.0 (metres between giver and receiver, checked on the server)
-Config.RateLimitMs = 100                 -- default 100 (one move / use / give per player per this many ms)
-Config.AutoSaveSeconds = 60              -- default 60 (changed satchels and stashes are written this often)
-Config.ForceDropWhenFull = true          -- default true  (RSG AddItem on a full satchel puts the item on the ground)
-Config.AdminAce = 'command'              -- default 'command' (ACE that skips distance checks)
-
--- Item decay (RSG items with `decay = minutes` lose quality). Off by default.
-Config.Decay = {
-    Enabled = false,                     -- default false
-    WhileOffline = false,                -- default false (also decays while the character is logged out)
-}
-
--- Stash names that need a job or gang (RSG's restricted prefixes). Prefix -> rule.
---   jobs = list of job names, gang = true (stash 'gang-<gangname>-...'), admin = true
-Config.RestrictedStashes = {
-    ['police-']   = { jobs = { 'police', 'marshal', 'sheriff' } },
-    ['marshal-']  = { jobs = { 'police', 'marshal', 'sheriff' } },
-    ['evidence-'] = { jobs = { 'police', 'marshal', 'sheriff' } },
-    ['gang-']     = { gang = true },
-    ['admin-']    = { admin = true },
-}
-
--- Inventory ids a player's client may never ask to open; only a server script opens them.
-Config.ServerOpenOnly = {
-    'custom:safedeposit:',               -- default (MULTIbank's safe-deposit boxes)
-    'custom:camp:',                      -- default (MULTIcamps' camp chests)
-    'custom:horse_',                     -- default (MULTIhorses' saddlebags)
-    'stash:multilaw_evidence_',          -- default (MULTIlaw's evidence lockers; MULTIlaw Config.Evidence.Prefix)
-    'stash:multilaw_jailitems_',         -- default (items kept while in a cell or Sisika; MULTIlaw Config.Jail.ItemStashPrefix)
-    'stash:lawstorage',                  -- default (rsg-lawman's law storage; MULTIlaw Config.Compat.StoragePrefix)
-    -- wagon storage: MULTIwagons, rsg-wagons and every RSG v2 / RINGO trunk script open it from
-    -- the server (a server event or callback after their own checks), never from the client
-    'trunk:',                            -- default (MULTIwagons' wagon storage)
-}
-
-------------------------------------------------------------------
--- Trading between two players (server + client)
-------------------------------------------------------------------
-Config.Trade = {
-    Enabled = true,                      -- default true
-    Command = 'trade',                   -- default 'trade' (/trade = nearest player, /trade <server id> = that player)
-    UseTarget = true,                    -- default true  ("Offer a trade" on players through MULTItarget when it runs; waits for it at start, reach 2.5 m at most)
-    TargetIcon = 'fas fa-handshake',     -- default 'fas fa-handshake'
-    SatchelButton = true,                -- default true  (a Trade button on the satchel page)
-    Distance = 3.0,                      -- default 3.0 (metres to offer a trade; checked on the server)
-    KeepDistance = 6.0,                  -- default 6.0 (walking further apart cancels; also checked at the swap)
-    RequestSeconds = 20,                 -- default 20 (an unanswered request runs out after this)
-    MaxItems = 12,                       -- default 12 (item stacks each player may offer)
-    MaxCash = 10000,                     -- default 10000 (most cash one player may offer, dollars; cents allowed)
-    AcceptDelayMs = 1500,                -- default 1500 (after any change, Accept works again only after this; stops last-second swaps)
-    CheckMs = 1000,                      -- default 1000 (how often walking away / death / leaving is checked)
-}
-
--- Item registry
-Config.VorpItems = {
-    Enabled = true,                      -- default true  (also read the VORP `items` table when it exists)
-    WeightUnit = 'kg',                   -- default 'kg'  ('kg' = VORP weights are kilograms, 'g' = grams)
-    RefreshMinutes = 5,                  -- default 5 (re-read the table this often; unknown names are also looked up at once; 0 = never)
-}
-
-------------------------------------------------------------------
--- Stores are not part of the inventory: they are their own resource, MULTIstores.
--- RSG scripts that call exports['rsg-inventory']:CreateShop / OpenShop / DoesShopExist /
--- RestockShop are passed on to MULTIstores (start it after MULTIinventory).
-------------------------------------------------------------------
-
-------------------------------------------------------------------
--- UI (client)
-------------------------------------------------------------------
-Config.ImagePaths = {                    -- nui:// item picture folders tried in order, then a plain icon (no pictures are shipped;
-    'nui://MULTIimages/images/',         --   put yours in MULTIimages/images, named as each item's image field, e.g. bread.png)
-}                                        -- (more folders: add 'nui://<started resource>/<folder>/' lines;
-                                         --             MULTIstores reads these too through exports.MULTIinventory:GetImagePaths())
-Config.OpenKey = 0xC1989F95              -- default 0xC1989F95 (I)
-Config.OpenCommand = 'inventory'         -- default 'inventory'
-Config.CloseCommand = 'closeinv'         -- default 'closeinv'
-Config.GiveItemCommand = 'giveitem'     -- default 'giveitem' (admin: /giveitem [id] [item] [amount])
-Config.UseCooldown = 500                 -- default 500 (ms between uses)
-Config.CloseOnUse = true                 -- default true  (the page closes when an item is used)
-Config.CloseOnWeaponUse = false          -- default false (the page stays open when a weapon is equipped)
-Config.RefreshDelay = 1500               -- default 1500 (ms after login before the satchel is asked for)
-
-Config.Hotbar = {
-    Enabled = true,                      -- default true
-    Size = 5,                            -- default 5 (first slots of the satchel)
-    Keys = { 0xE6F612E4, 0x1CE6D9EB, 0x4F49CC4C, 0x8F9F9E58, 0xAB62E997 }, -- default 1-5
-    ToggleKey = 0x26E9DC00,              -- default 0x26E9DC00 (Z)
-    ShowTime = 2500,                     -- default 2500 (ms the hotbar stays up)
-    Command = 'hotbar',                  -- default 'hotbar'
-}
-
-Config.ItemBox = {
-    Enabled = true,                      -- default true  (item pop-ups)
-    Time = 3500,                         -- default 3500 (ms each pop-up shows)
-    Max = 5,                             -- default 5 (pop-ups on screen at once)
-}
-
-Config.Give = {
-    Enabled = true,                      -- default true
-    Distance = 3.0,                      -- default 3.0 (client-side search radius; the server checks Config.GiveDistance)
-    AnimDict = 'mech_butcher',           -- default 'mech_butcher'
-    AnimName = 'small_fish_give_player', -- default 'small_fish_give_player'
-}
-
-Config.Drops = {
-    Enabled = true,                      -- default true
-    Model = 'p_bag01x',                  -- default 'p_bag01x' (bag prop the client draws)
-    UseTarget = true,                    -- default true  (MULTItarget "Open" on the bag when MULTItarget runs, else a key prompt; false = always the key prompt)
-    PromptKey = 0xCEFD9220,              -- default 0xCEFD9220 (E)
-    TargetIcon = 'fas fa-box-open',      -- default 'fas fa-box-open'
-    OpenDistance = 2.0,                  -- default 2.0
-    DrawDistance = 40.0,                 -- default 40.0
-    NotOnMount = true,                   -- default true  (no opening from horseback)
-}
-
-------------------------------------------------------------------
--- Weapons (server + client)
-------------------------------------------------------------------
-Config.Weapons = {
-    -- server
-    Handler = 'auto',                    -- default 'auto' ('auto' = rsg-weapons when it runs, else MULTIinventory's client; 'rsg' / 'multi' to force)
-    DefaultQuality = 100,                -- default 100
-    RegisterSerials = true,              -- default true (write used weapons' serials to player_weapons when that table exists)
-    -- client
-    Enabled = true,                      -- default true
-    Components = true,                   -- default true  (apply info.components / componentshash)
-    ComponentsDelay = 500,               -- default 500 (ms the client waits for the satchel update before re-applying components)
-    TwoSlots = true,                     -- default true  (two pistols / revolvers at once)
-    BrokenQuality = 0,                   -- default 0 (at or below this quality a weapon will not fire)
-    AmmoCheckInterval = 250,             -- default 250 (ms)
-    SyncInterval = 2000,                 -- default 2000 (ms between loaded-ammo reports to the server)
-    AfterRespawn = 'medic',              -- default 'medic'
-    RespawnDelay = 1500,                 -- default 1500 (ms)
-}
-
-------------------------------------------------------------------
--- Ammo (server + client)
--- Rounds are counted on the server: every ammo type has a one-round item (ammo_revolver,
--- ammo_arrow_single ...; def.ammoPer = 1). Boxes and arrow bundles (def.ammoPer = rounds)
--- turn into rounds as soon as they reach a satchel, so a half-used box is never lost.
-------------------------------------------------------------------
-Config.Ammo = {
-    -- server
-    RoundWeight = 5,                     -- default 5 (grams per generated round item)
-    BoxesToRounds = true,                -- default true (open boxes / bundles into rounds in the satchel; off by itself when rsg-ammo runs)
-    -- box or bundle item -> { ammo type, rounds } (rounds from rsg-ammo's refill values)
-    Boxes = {
-        ammo_box_revolver                    = { 'AMMO_REVOLVER', 12 },
-        ammo_box_revolver_express            = { 'AMMO_REVOLVER_EXPRESS', 12 },
-        ammo_box_revolver_explosive          = { 'AMMO_REVOLVER_EXPRESS_EXPLOSIVE', 10 },
-        ammo_box_revolver_velocity           = { 'AMMO_REVOLVER_HIGH_VELOCITY', 12 },
-        ammo_box_revolver_splitpoint         = { 'AMMO_REVOLVER_SPLIT_POINT', 12 },
-        ammo_box_pistol                      = { 'AMMO_PISTOL', 12 },
-        ammo_box_pistol_express              = { 'AMMO_PISTOL_EXPRESS', 12 },
-        ammo_box_pistol_explosive            = { 'AMMO_PISTOL_EXPRESS_EXPLOSIVE', 10 },
-        ammo_box_pistol_velocity             = { 'AMMO_PISTOL_HIGH_VELOCITY', 12 },
-        ammo_box_pistol_splitpoint           = { 'AMMO_PISTOL_SPLIT_POINT', 12 },
-        ammo_box_repeater                    = { 'AMMO_REPEATER', 12 },
-        ammo_box_repeater_express            = { 'AMMO_REPEATER_EXPRESS', 12 },
-        ammo_box_repeater_explosive          = { 'AMMO_REPEATER_EXPRESS_EXPLOSIVE', 10 },
-        ammo_box_repeater_velocity           = { 'AMMO_REPEATER_HIGH_VELOCITY', 12 },
-        ammo_box_repeater_splitpoint         = { 'AMMO_REPEATER_SPLIT_POINT', 12 },
-        ammo_box_rifle                       = { 'AMMO_RIFLE', 12 },
-        ammo_box_rifle_express               = { 'AMMO_RIFLE_EXPRESS', 12 },
-        ammo_box_rifle_explosive             = { 'AMMO_RIFLE_EXPRESS_EXPLOSIVE', 10 },
-        ammo_box_rifle_velocity              = { 'AMMO_RIFLE_HIGH_VELOCITY', 12 },
-        ammo_box_rifle_splitpoint            = { 'AMMO_RIFLE_SPLIT_POINT', 12 },
-        ammo_box_rifle_elephant              = { 'AMMO_RIFLE_ELEPHANT', 10 },
-        ammo_box_shotgun                     = { 'AMMO_SHOTGUN', 12 },
-        ammo_box_shotgun_buckshot_incendiary = { 'AMMO_SHOTGUN_BUCKSHOT_INCENDIARY', 7 },
-        ammo_box_shotgun_slug                = { 'AMMO_SHOTGUN_SLUG', 12 },
-        ammo_box_shotgun_slug_explosive      = { 'AMMO_SHOTGUN_SLUG_EXPLOSIVE', 10 },
-        ammo_box_varmint                     = { 'AMMO_22', 12 },
-        ammo_box_varmint_tranquilizer        = { 'AMMO_22_TRANQUILIZER', 12 },
-        -- RSG's arrow items are bundles (rsg-ammo gives `refill` arrows per item)
-        ammo_arrow                           = { 'AMMO_ARROW', 10 },
-        ammo_arrow_small                     = { 'AMMO_ARROW_SMALL_GAME', 10 },
-        ammo_arrow_fire                      = { 'AMMO_ARROW_FIRE', 3 },
-        ammo_arrow_poison                    = { 'AMMO_ARROW_POISON', 2 },
-        ammo_arrow_dynamite                  = { 'AMMO_ARROW_DYNAMITE', 1 },
-    },
-    -- client
-    Items = {},                          -- default {} (extra item -> 'AMMO_*' type, for items the client does not know)
-    PerItem = {},                        -- default {} (item -> rounds, overrides def.ammoPer)
-    BoxRounds = 12,                      -- default 12 (rounds of an ammo_box_* item without def.ammoPer)
-    UseLoads = true,                     -- default true  (using an ammo item loads it into the gun)
-    BlockWorldAmmo = true,               -- default true  (ammo picked up in the world is not kept)
-}
-
-
-------------------------------------------------------------------
--- RedEM:RP face (server/redem, client/redem)
-------------------------------------------------------------------
+-- RedEM:RP face
 Config.Redem = {
-    UsableEvents = true,                 -- default true  (using a useable item nothing else handles fires RedEM:RP's RegisterUsableItem:<name>)
-    StashSlots = 50,                     -- default 50 (slots of a stash opened with redemrp_inventory:OpenStash)
-}
-------------------------------------------------------------------
--- VORP face (server/vorp, client/vorp)
-------------------------------------------------------------------
-Config.Vorp = {
-    Debug = false,                       -- default false (VORP face console lines)
-    UseInvCapacity = true,               -- default true  (metadata.vorp.invCapacity limits the satchel's item count, weapons and ammo not counted)
-    SyncCapacityToEngine = false,        -- default false (write VORP capacity changes into the satchel's size)
-    HiddenInfoKeys = { 'quality', 'lastUpdate' }, -- default { 'quality', 'lastUpdate' } (info keys VORP scripts do not see as metadata)
-    AmmoItems = {},                      -- default {} (extra VORP ammo item -> 'AMMO_*' type)
-    AmmoMax = nil,                       -- default nil (cap on rounds per ammo type; nil = the game data max)
-    MaxWeapons = 0,                      -- default 0 (most weapons a character may carry; 0 = no limit)
-    WeaponCheckDefault = 'weapon_revolver_cattleman', -- default 'weapon_revolver_cattleman'
-    CustomInventorySlots = 50,           -- default 50 (slots of a VORP custom inventory made without a size)
-    CustomInventoryMaxWeight = 1000000000, -- default 1000000000 (VORP custom inventories count items, not weight)
+    UsableEvents = true,   -- a usable item nothing else handles fires RedEM:RP's 'RegisterUsableItem:<name>'
+    StashSlots = 50,       -- slots of a stash opened with redemrp_inventory:OpenStash
 }
 
-------------------------------------------------------------------
--- Further client keys go here.
-------------------------------------------------------------------
-Config.UI = Config.UI or {}
+-- ------------------------------------------------------------
+-- Player inventory
+-- ------------------------------------------------------------
+Config.Player = {
+    -- Carry capacity in kg. The character's own capacity (MULTIcore PlayerData.weight,
+    -- grams) wins; this is the fallback when the framework gives nothing.
+    defaultMaxWeight = 35.0,
+    useFrameworkCapacity = true,
+
+    slots = 40,                -- grid slots in the player inventory
+    hotbarSlots = 5,           -- keys 1-5
+
+    -- Keys: a number (control hash) or an input name string (hashed with joaat).
+    openKey = 0xC1989F95,      -- "I"
+    -- On / next to a horse the game marks the open key disabled; within this many metres of your
+    -- mount (or last mount) the key still opens the inventory (not while cuffed / hogtied).
+    horseOpenRadius = 6.0,
+    -- Hotbar: press the slot's number key to USE the item there (weapons: draw, press again to holster).
+    -- Primary: RegisterKeyMapping, players can rebind under Settings > Key Bindings > FiveM/RedM
+    -- ("Inventory hotbar slot N"). Defaults below are only the first-time binding.
+    hotbarBindDefaults = { '1', '2', '3', '4', '5' },
+    -- Fallback: the game's number-key controls (quick-select 1..5), read even when disabled, for
+    -- clients where key mappings do not fire. Switches itself off once a key mapping has fired.
+    hotbarControlFallback = true,
+    hotbarKeys = { 0xE6F612E4, 0x1CE6D9EB, 0x4F49CC4C, 0x8F9F9E58, 0xAB62E997 }, -- quick-select 1..5
+    -- While a hotbar slot holds something, the game's own quick-select on that number is blocked so
+    -- the game does not swap weapons at the same time. Empty hotbar slots keep the game behaviour.
+    -- Set false if your players rebind the hotbar away from 1-5 and want the native number keys back.
+    hotbarSuppressNative = true,
+    -- Optional modifier: an input (hash or 'INPUT_...' name) that must be held with the number key.
+    -- nil = number key alone (default). The old default was 'INPUT_SELECT_ITEM_WHEEL'.
+    hotbarHoldKey = nil,
+    hotbarServerGapMs = 250,   -- server: minimum time between two hotbar uses per player
+
+    -- Worn clothing does not count toward carry weight.
+    -- Clothing carried in the grid always counts.
+    wornClothingCountsWeight = false,
+
+    -- Cash and gold are framework currencies; the inventory only shows them.
+    showCurrency = { cash = true, gold = true },
+}
+
+-- ------------------------------------------------------------
+-- Money as items
+-- Two physical items ARE the character's cash: cash = dollars + cents / 100.
+-- The framework cash (vorp_core character money / rsg-core PlayerData.money.cash)
+-- stays authoritative for every other script; MULTIinventory keeps the items in sync
+-- both ways. Ship default: OFF. Turning it on needs the two item rows
+-- (money_dollar / money_cent in your item list) and a full server restart.
+-- ------------------------------------------------------------
+Config.Money = {
+    enabled = false,               -- default false; needs a full restart
+
+    dollarItem = 'money_dollar',   -- one-dollar bills (stack = whole dollars)
+    centItem   = 'money_cent',     -- coins (stack = cents, always 0-99 in a player's pockets)
+
+    reconcileSeconds = 5,          -- safety-net re-sync of every online player (framework -> items)
+    loadDelayMs = 2000,            -- first sync after a character is selected
+
+    countWeight = true,            -- money counts toward carry weight
+    weights = { dollar = 0.001, cent = 0.0025 },   -- kg per bill / per coin (override the items table)
+
+    allowInStashes = true,         -- cash may be stored in stashes / saddlebags / trunks / business storage
+    allowOnGround = true,          -- cash may be dropped as a world pile
+    allowDestroy = false,          -- Config.Drop.mode = 'delete': destroying cash is refused
+    searchCountsAsOne = true,      -- robbery: taking a stack of cash counts as ONE item toward search limits
+
+    -- While enabled = false, money items are frozen: nothing (except admins) can add them anywhere,
+    -- so stale wallet items from a previous enabled period cannot be stored and later re-cashed.
+    freezeWhenDisabled = true,
+}
+
+-- ------------------------------------------------------------
+-- Dropping
+-- ------------------------------------------------------------
+Config.Drop = {
+    -- 'world'  = the item becomes a ground pick-up anyone can collect (metadata kept)
+    -- 'delete' = dropping destroys the item (old DELETE_ON_DROP behaviour)
+    mode = 'world',
+    confirmDelete = true,          -- UI asks before destroying (mode = 'delete')
+
+    lifetimeSeconds = 1800,        -- despawn timer of a ground pick-up
+    persistAcrossRestarts = true,  -- false = all ground pick-ups are wiped on resource start
+    sweepSeconds = 15,             -- how often expired drops are removed
+
+    slots = 20,                    -- max different stacks in one ground pile
+    mergeRadius = 1.25,            -- a drop this close to an existing pile joins it
+    pickupDistance = 2.5,          -- server check (metres) for pick-up
+    renderDistance = 40.0,         -- client spawns the local prop within this range
+
+    prop = 'p_cs_bag01x',          -- local (non-networked) prop for a pile; verify model on test server
+    propByItem = {},               -- { item_name = 'p_model' } single-item piles
+    maxDropsPerMinute = 20,        -- per player, anti-spam
+}
+
+-- ------------------------------------------------------------
+-- Death
+-- ------------------------------------------------------------
+Config.Death = {
+    -- vorp_core fires vorp:PlayerForceRespawn on a forced respawn. Clear items then?
+    clearOnForceRespawn = false,
+    clearEquipped = false,         -- also strip worn clothing (only when the above is true)
+    keepItems = {},                -- names never cleared, e.g. { id_card = true }
+}
+
+-- ------------------------------------------------------------
+-- Give
+-- ------------------------------------------------------------
+Config.Give = {
+    maxDistance = 3.0,
+    requireTargetConfirm = false,
+}
+
+-- ------------------------------------------------------------
+-- Stacking
+-- ------------------------------------------------------------
+Config.Stacking = {
+    -- Items stack only when their metadata is equal (canonical compare).
+    -- These metadata keys are ignored when comparing (volatile UI hints).
+    ignoreKeys = { tooltip = true, context = true },
+    -- Respect items.limit as the max count per stack (true) or as max per inventory (false).
+    -- items.limit <= 0 means no limit.
+    limitIsPerStack = false,
+}
+
+-- ------------------------------------------------------------
+-- Degradation / expiry
+-- ------------------------------------------------------------
+Config.Degradation = {
+    enabled = true,
+    -- items.degradation = minutes until fully decayed (0 = never)
+    tickSeconds = 60,
+    onlyInPlayerInventory = false, -- decay everywhere unless a container sets flags.freeze = true
+    removeWhenExpired = false,     -- false: keep as "spoiled" (items.useExpired decides use)
+    -- Two stacks of a decaying item only merge when their expiry times are this close;
+    -- the merged stack keeps the EARLIER expiry.
+    mergeWindowSeconds = 3600,
+}
+
+-- ------------------------------------------------------------
+-- Persistence
+-- ------------------------------------------------------------
+Config.Persistence = {
+    saveIntervalSeconds = 30,   -- write-behind flush of dirty containers
+    tablePrefix = 'multiinv_',
+    idBlock = 1000,             -- stack ids reserved per block (AUTO_INCREMENT is moved past the block)
+    unloadOfflineAfter = 600,   -- seconds an offline container stays cached after its last use
+}
+
+-- Moving from the old MULTIinventory (server/multi/migrate.lua). On start, once per database,
+-- satchels in players.inventory and stashes in the `inventories` table are copied into this
+-- inventory (weapons keep their serials). The old data is never changed or deleted. The run is
+-- recorded in multiinv_migration (step 'old_multiinventory'); delete that row to run it again -
+-- inventories that already hold items here are skipped. false = never import.
+Config.MigrateOld = true
+
+-- ------------------------------------------------------------
+-- Actions (server authority)
+-- ------------------------------------------------------------
+Config.Actions = {
+    ratePerSecond = 15,         -- NUI actions per player per second
+    useCooldownMs = 300,
+}
+
+-- ------------------------------------------------------------
+-- Images: item pictures come from MULTIimages (put your .png files in MULTIimages/images,
+-- named as each item's image field, e.g. bread.png). No pictures are shipped with MULTIinventory.
+-- ------------------------------------------------------------
+Config.Images = {
+    -- NUI path of item pictures (%s = picture name without .png)
+    itemPath = 'nui://MULTIimages/images/%s.png',
+    -- placeholder for items without a picture
+    fallback = 'nui://MULTIinventory/html/img/ui/missing.png',
+    -- more picture folders handed to other scripts by exports.MULTIinventory:GetImagePaths()
+    -- (MULTIstores, MULTIcrafting), e.g. { 'nui://my_pictures/images/' }
+    extraPaths = {},
+    shipThirdPartyImages = false,
+}
+
+-- ------------------------------------------------------------
+-- Item groups -> UI filter tabs (data-driven from the `item_group` table).
+-- Key = item_group.description. Groups without a label get a title-cased name.
+-- `parents`: the parent tab ALSO lists the child group's items (Provisions shows food/drink).
+-- ------------------------------------------------------------
+Config.Groups = {
+    labels = {
+        default   = 'Other',
+        medical   = 'Remedies',
+        foods     = 'Provisions',
+        tools     = 'Materials',
+        weapons   = 'Weapons',
+        ammo      = 'Ammo',
+        documents = 'Documents',
+        animals   = 'Animals',
+        valuables = 'Valuables',
+        horse     = 'Horse',
+        herbs     = 'Herbs',
+        drinks    = 'Drinks',
+        food      = 'Food',
+        canned    = 'Canned Food',
+        packet    = 'Packet Food',
+        meals     = 'Meals',
+        alcohol   = 'Alcohol',
+        drugs     = 'Drugs & Tobacco',
+    },
+    parents = { drinks = 'foods', food = 'foods', canned = 'foods', packet = 'foods', meals = 'foods' },
+    hidden = { default = true },   -- no own tab (still shown under "All")
+}
+
+-- ------------------------------------------------------------
+-- Audit log
+-- ------------------------------------------------------------
+Config.Log = {
+    enabled = true,
+    -- actions written to multiinv_log (admin_* are always written)
+    actions = { give = true, drop = true, pickup = true, destroy = true, drop_expired = true,
+                expired = true, death_clear = true,
+                money_in = true, money_out = true, cash = true },   -- Config.Money (items <-> framework cash)
+    flushSeconds = 10,
+}
+
+-- ------------------------------------------------------------
+-- Compatibility
+-- ------------------------------------------------------------
+Config.Compat = {
+    -- Fire the vorp_inventory-named events other resources listen to
+    -- (vorp_inventory:Server:OnItemUse, vorp_inventory:onWeaponEquipped, ...).
+    -- The core emits MULTIinventory:* events; the vorp_inventory face forwards them.
+    emitVorpEvents = true,
+    -- Show the saddlebag button and send vorp_inventory:Server:SaddleOpen (stable scripts).
+    saddleButton = true,
+}
+
+-- ------------------------------------------------------------
+-- Admin
+-- ------------------------------------------------------------
+Config.Admin = {
+    ace = 'multi_admin',          -- ace permission for admin tools
+    commands = {
+        inspect = 'invinspect',   -- view / edit another player's inventory
+        give    = 'invgive',
+        remove  = 'invremove',
+        clear   = 'invclear',
+        stash   = 'invstash',     -- open any registered secondary inventory
+        log     = 'invlog',
+        restore = 'invrestore',
+        reload  = 'invreload',
+        flush   = 'invflush',
+    },
+}

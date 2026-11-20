@@ -5,49 +5,113 @@ lua54 'yes'
 
 name 'MULTIinventory'
 author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
-description 'One inventory for RSG and VORP scripts side by side (part of MULTIcore)'
-version '0.1.0'
+description 'Slot and weight inventory for MULTIcore: satchel, stashes, clothing slots, weapons with a gunbelt, ground drops and crafting, answering RSG, VORP and RedEM:RP scripts alike. GPL v3.'
+version '1.0.0'
 license 'GPL-3.0'
 
--- answers to both inventory names, so scripts for either framework find it
+-- answers to every inventory name, so scripts written for any framework find it
 provide 'rsg-inventory'
 provide 'vorp_inventory'
 provide 'redemrp_inventory'
-
-ui_page 'html/index.html'
+provide 'RINGOinventory'      -- scripts written for RINGOinventory use MULTIinventory (do not run both)
 
 shared_scripts {
     '@ox_lib/init.lua',
-    '@MULTIcore/shared/i18n.lua',
+    'shared/ringo_names.lua',      -- answers as RINGOinventory too (must load before any export)
     'config.lua',
-    'locales/*.lua',
-    'shared/*.lua',
+    'config_handcraft.lua',       -- hand crafting (Craft tab)
+    'config_workshop.lua',        -- crafting journal + work stations
+    'config_handcraft_jobs.lua',  -- job field recipes (after config_workshop.lua: adds job chapters)
+    'config/*.lua',
+    'bridge/shared.lua',          -- framework shape (always rsg on MULTIcore)
+    'shared/locale.lua',
+    'shared/util.lua',
+    'shared/metadata.lua',        -- canonical metadata + stack keys
+    'shared/clothing_categories.lua',
+    'shared/clothing_catalog.lua',
+    'shared/weapons.lua',
+}
+
+client_scripts {
+    'client/multiui.lua',         -- ox_lib menus (drawn by RINGOui instead when that resource runs)
+    'bridge/client.lua',
+    'client/nui.lua',
+    'client/main.lua',
+    'client/hotbar.lua',
+    'client/native_inventory.lua', -- game native inventory helper (dual wield: off-hand holster, weapon GUIDs)
+    'client/weapons.lua',
+    'client/clothing.lua',
+    'client/secondary.lua',
+    'client/drops.lua',
+    'client/handcraft.lua',       -- Craft tab: progress bar + animation
+    'client/workshop.lua',        -- crafting journal, placed stations, grinding wheel
+    'client/exports.lua',
+    'client/multi/faces.lua',     -- MULTIinventory / rsg-inventory / vorp_inventory / redemrp_inventory client exports, /inventory
 }
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
-    'server/core/*.lua',   -- engine: registry, storage, limits, stashes, drops, usable items
-    'server/rsg/*.lua',    -- rsg-inventory face
-    'server/vorp/*.lua',   -- vorp_inventory face
-    'server/redem/*.lua',  -- redemrp_inventory face
+    'bridge/server.lua',
+    'server/core/db.lua',          -- schema (multiinv_*) auto-migration + oxmysql wrappers
+    'server/core/hooks.lua',       -- InvHooks: in-resource extension points
+    'server/core/registry.lua',    -- item definitions
+    'server/core/containers.lua',  -- container model: player, equipment, drop, stashes
+    'server/core/persistence.lua', -- write-behind save queue + stack id allocator
+    'server/core/weight.lua',
+    'server/core/stacking.lua',
+    'server/core/sync.lua',        -- serialisation + NUI deltas
+    'server/core/state.lua',       -- character load/unload, open/close sessions
+    'server/core/inventory.lua',   -- Inv.*: the rule layer
+    'server/core/usables.lua',     -- usable-item registry + use flow
+    'server/core/log.lua',         -- audit log (multiinv_log)
+    'server/core/hotbar.lua',
+    'server/core/drops.lua',       -- world drops
+    'server/core/degradation.lua',
+    'server/core/actions.lua',     -- move/split/merge/sort/use/give/drop/pickup/hotbar
+    'server/core/money.lua',       -- money as items (Config.Money, off by default)
+    'server/weapons/weapons.lua',
+    'server/weapons/ammo.lua',     -- gunbelt
+    'server/secondary/inventories.lua',
+    'server/secondary/permissions.lua',
+    'server/secondary/search.lua',
+    'server/clothing/equipment.lua',
+    'server/clothing/appearance_vorp.lua',
+    'server/clothing/appearance_rsg.lua',
+    'server/clothing/outfits.lua',
+    'server/admin/admin.lua',
+    'server/handcraft/core.lua',
+    'server/handcraft/handcraft.lua',
+    'server/workshop/logic.lua',
+    'server/workshop/stations.lua',
+    'server/workshop/book.lua',
+    'server/workshop/sharpen.lua',
+    'server/compat/vorp_api.lua',  -- vorp_inventory-shaped API
+    'server/rsg/items_reader.lua', -- rsg-core item list reader
+    'server/rsg/rsg_api.lua',      -- rsg-inventory-shaped API (MULTIcore's player data)
+    'server/exports.lua',
+    -- server/multi (name order): api.lua = the MULTIinventory export API the MULTI scripts use,
+    -- commands.lua = /giveitem, faces.lua = rsg-inventory / vorp_inventory / redemrp_inventory names,
+    -- migrate.lua = optional data import from older inventories (when present)
+    'server/multi/*.lua',
+    'server/core/boot.lua',        -- start-up + background loops (must stay last)
 }
 
-client_scripts {
-    '@MULTIcore/lib/ui.lua',   -- ox_lib menus and dialogs in the MULTI look
-    '@MULTIcore/lib/interact.lua',  -- MULTItarget / prompt helper (drops, trade on players)
-    'client/core/*.lua',   -- satchel UI, hotbar, weapons on the ped
-    'client/rsg/*.lua',    -- rsg-inventory client face
-    'client/vorp/*.lua',   -- vorp_inventory client face
-    'client/redem/*.lua',  -- redemrp_inventory client face
-}
+ui_page 'html/index.html'
 
 files {
-    'html/**',
+    'html/index.html',
+    'html/fonts.css',
+    'html/custom.css',
+    'html/css/*.css',
+    'html/js/*.js',
+    'html/img/ui/*.png',
+    'html/img/ui/*.svg',
+    'locales/*.json',
 }
 
 dependencies {
-    'MULTItarget',   -- MULTIcore's target system (every MULTI script needs it)
     'oxmysql',
     'ox_lib',
     'MULTIcore',
+    'MULTItarget',
 }

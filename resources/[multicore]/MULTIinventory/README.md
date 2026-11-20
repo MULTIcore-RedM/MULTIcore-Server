@@ -1,191 +1,176 @@
 # MULTIinventory
 
-One inventory for RSG and VORP scripts side by side. It answers as **rsg-inventory** and as
-**vorp_inventory** (`provide` both), so both kinds of script give, take, check and use the same
-items from the same satchel. Part of MULTIcore, GPL v3 (see `CREDITS.md`).
+The inventory of MULTIcore: a slot and weight satchel with stashes, worn clothing slots, weapons
+with a gunbelt for spare ammo, ground drops, hand crafting and a crafting journal. It answers as
+**rsg-inventory**, **vorp_inventory** and **redemrp_inventory** at the same time (`provide`), so
+scripts written for RSG, VORP and RedEM:RP give, take, check and use the same items from the same
+satchel.
 
-## Setup
-1. Remove `rsg-inventory`, `vorp_inventory` (and `rsg-ammo` if you want rounds counted by MULTIinventory).
-2. `server.cfg`, after MULTIcore and its base scripts:
+Part of MULTIcore by RINGO (RINGOscripting). Licence: GPL-3.0-or-later (see `LICENSE`).
+
+## Install
+
+1. Remove `rsg-inventory`, `vorp_inventory` and `redemrp_inventory` if you have them.
+2. `server.cfg`, after MULTIcore and MULTItarget:
    ```
+   ensure MULTItarget
+   ensure MULTIimages
    ensure MULTIinventory
    ```
-3. Tables are made on start (`CREATE TABLE IF NOT EXISTS`): `inventories`, `items` (VORP's shape),
-   `multiinventory_kv`. `sql/multiinventory.sql` holds the same statements if you want to import them yourself.
-   The satchel lives in `players.inventory` (RSG's column, from MULTIcore).
-4. Item images: put your `.png` files in `MULTIimages/images/`, named as each item's `image` field (`ensure MULTIimages`). More folders: `Config.ImagePaths`. None are shipped.
-5. Stores are not part of the inventory: they are their own resource, **MULTIstores** (`ensure MULTIstores` after
-   MULTIinventory). See "Stores" below.
+   (MULTIstores, MULTItailor and the other MULTI scripts come after it.)
+3. The tables are made on start (`sql/install.sql`, applied automatically): `multiinv_*` plus an
+   empty VORP-style `items` table, so VORP item install SQL works on a MULTIcore server.
+4. Item pictures: put your `.png` files in `MULTIimages/images/`, named as each item's `image`
+   field (`bread.png`). None are shipped.
+
+## Moving from the old inventory
+
+On the first start, items saved by the old MULTIinventory (or rsg-inventory) are copied over:
+satchels in `players.inventory` and stashes in the `inventories` table. Items keep their slot,
+amount and info; weapons keep their serial, parts, condition and loaded rounds; loose rounds and
+ammo boxes stay items (use them to fill the gunbelt). Stash ids stay the same (`foo` becomes
+`stash:foo`; `trunk:`, `glovebox:` and `custom:` ids are kept), so saddlebags, wagon storage, camp
+chests and bank boxes find their items. The old data is not changed. The console prints one
+summary line. `Config.MigrateOld = false` turns it off. To run it again, delete the
+`old_multiinventory` row from `multiinv_migration` and restart; inventories that already hold
+items are skipped.
+
+## Keys and commands
+
+| Key / command | What it does |
+|---|---|
+| `I` (`Config.Player.openKey`) | open the satchel |
+| `1`-`5` | use the hotbar slots |
+| `/inventory` | open the satchel (MULTIradial's satchel button uses it) |
+| `/closeinv` | close it |
+| `/giveitem [id] [item] [amount]` | admin: give a player any item or weapon |
+
+The satchel does not open while another script holds `LocalPlayer.state.inv_busy`, and sets it while open.
+
+## Configuration
+
+| File | What |
+|---|---|
+| `config.lua` | language, commands, satchel size and keys, item pop-ups, drops, decay, stacking, saving, images, admin |
+| `config/weapons.lua` | weapons, gunbelt ammo items (`ammoItems`), throwables, dual wield, cleaning |
+| `config/secondary.lua` | stashes, saddlebags, trunks, searching players |
+| `config/clothing.lua` | clothing as items and the worn slots |
+| `config/rsg.lua` | rsg-inventory behaviour (force drop when full, PlayerData mirror, echo events) |
+| `config_handcraft*.lua`, `config_workshop.lua` | hand crafting recipes, crafting journal, work stations |
+
+Language: `setr multicore_locale "de"` in `server.cfg` (de, en, es, fr, it, nl, pl, pt-br, ru, tr).
 
 ## Items
-- One registry: `RSGCore.Shared.Items` + VORP's `items` table (+ every weapon and an ammo round item for
-  every ammo type, made when missing). Same name in both = one item: RSG's label / image / weight win;
-  VORP's `limit`, `can_remove`, `desc`, `usable` are kept. VORP weights are kilograms (`Config.VorpItems.WeightUnit`).
-- Items made here or found only in `items` are added to `RSGCore.Shared.Items`, so RSG scripts see them.
-- Scripts that `INSERT IGNORE INTO items` at runtime: an unknown name is looked up in the table at once,
-  and the table is re-read every `Config.VorpItems.RefreshMinutes`.
-- Rules, all on the server: slots, weight (RSG), per-item `limit` (VORP, satchel), `metadata.vorp.invCapacity`
-  (VORP item count without weapons and ammo), optional total count (`maxCount`).
-- Stacking: unique items never stack; the rest stack when name and info match (`lastUpdate` ignored).
 
-## Weapons and ammo
-- Weapons are items with `info = { serie, quality, id, components = {}, ammo?, ammoType? }`. `id` is a
-  whole number from a counter kept in the database; `serie` follows rsg-inventory's pattern.
-- Thrown weapons (dynamite, molotov, knives, tomahawks, bolas, hatchets, cleaver) stack; the count is the ammo.
-- Rounds are items: every AMMO_* type has a one-round item (`ammo_revolver`, `ammo_rifle_express`,
-  `ammo_arrow_single` ...). Ammo boxes and RSG's arrow bundles turn into rounds as soon as they reach a
-  satchel (`Config.Ammo.BoxesToRounds`; off by itself when rsg-ammo runs), so partly used boxes never exist.
-- `def.ammoPer` (rounds per item) and `def.ammotype` are set on every ammo item.
-- Shared data for any script: `MULTIInvData.Weapons[name] = { name, hash, group, type, ammoTypes, ammoType, thrown, melee, noAmmo, weight }`,
-  `MULTIInvData.Ammo[AMMO_X] = { name, hash, item, max, refill, verified }`, `MULTIInvData.AmmoItems`,
-  `MULTIInvData.AmmoBoxes`; server: `exports.MULTIinventory:GetWeaponData(name?)`, `GetAmmoData()`.
+- Item definitions come from MULTIcore's item list (`RSGCore.Shared.Items`) and from the `items`
+  table; a row in `items` wins over the list for the same name (its weight is in kilograms).
+- `exports.MULTIinventory:RegisterItem(def)` adds an item at runtime to both MULTIinventory and
+  `RSGCore.Shared.Items`, so every script sees it.
+- Unique items never stack; the rest stack when name and metadata match.
 
-## Engine API (server)
-Global `MULTIInv` in this resource; every function is also `exports.MULTIinventory:<Name>`.
+## Weapons and the gunbelt
+
+- Every weapon is its own slot with a serial number, condition, parts and loaded rounds.
+- Spare ammo lives on the character's **gunbelt**, per ammo type. Ammo boxes and arrow bundles
+  (`ammo_box_revolver`, `ammo_arrow` ...) are used to put their rounds on the belt; loose rounds
+  (`ammo_revolver`, `ammo_arrow_single` ...) put the whole stack on the belt when used. The list is
+  `Config.Weapons.ammoItems`.
+- Throwables (dynamite, fire bottles, knives, tomahawks, bolas) are one stack per kind; its number is
+  how many you can throw.
+
+## Export API (server)
+
+`exports.MULTIinventory:<Name>(...)`. An inventory id is `player:<charId>` (from `PlayerInv(src)`),
+or a stash id such as `stash:<name>`, `trunk:<plate>`, `custom:horse_<id>`, `custom:camp:<citizenid>`,
+`custom:safedeposit:<citizenid>:<bank>`. A player's server id works as their satchel id too.
 
 | Function | Returns |
 |---|---|
-| `Get(invId)` / `Exists(invId)` | inventory (Get makes an empty stash-type one) / existing only |
-| `PlayerInv(src)` | `'player:<citizenid>'` |
-| `Create(invId, data)`, `Configure(invId, data)`, `Delete(invId)` | data = `{ label, slots, maxWeight, maxCount, coords, reach, itemLimits, whitelist, blacklist, acceptWeapons, ignoreItemLimits }` (`reach` = metres from `coords` within which items may be moved; default `Config.MaxDistance`) |
-| `AddItem(invId, name, amount, info?, slot?, reason?)` | `true, nil, slot` or `false, err` |
-| `RemoveItem(invId, name, amount, slot?, infoMatch?, reason?)` | `true, nil, info` or `false, err` |
-| `Count(invId, name, infoMatch?)`, `Find(invId, name, infoMatch?)` (= `FindItems`), `GetSlot(invId, slot)` | number / stacks / stack |
-| `CanAdd(invId, name, amount, info?)` | `true` or `false, err` |
-| `ItemCount(invId, { skipWeapons, skipAmmo })`, `SetCapacity(invId, n)` | VORP invCapacity count / set |
-| `SetInfo(invId, slot, info)` (merge), `ReplaceInfo(invId, slot, info)` | bool |
-| `Move(src, fromInv, fromSlot, toInv, toSlot?, amount?)` | `true` or `false, err` (the only path the UI uses) |
-| `Open(src, invId or spec?, opts?)`, `OpenPlayer(src, targetSrc)`, `Close(src)` | bool |
-| `RegisterUsable(name, fn(src, stack, invId), opts?)`, `UnregisterUsable(name, resource?)`, `Use(src, slot)` | bool |
-| `Give(src, target, slot, amount)`, `DropFromSlot(src, slot, amount)`, `ForceDrop(src, name, amount, info)` | bool / dropId |
-| `RegisterItem(def)`, `GetItemDef(name)`, `GetItems()` | |
-| `Save(invId)`, `SaveAll()` | |
-| `WeaponNew(name, info?)`, `WeaponFindById(id)`, `WeaponFindBySerial(serial)` | info / invId, slot, stack |
-| `TradeRequest(src, target)`, `TradeAnswer(src, from, accept)` | `true` or `false, err` (see Trading) |
-| `TradeSetItem(src, satchelSlot, amount)` (0 = take back), `TradeSetCash(src, dollars)`, `TradeAccept(src, state)`, `TradeCancel(src, reasonKey?)` | `true` or `false, err` |
-| `InTrade(src)`, `TradeView(src)`, `SlotLocked(inv, slot)` | trade id / what src sees / bool |
+| `IsReady()` | bool |
+| `PlayerInv(src)` | `'player:<charId>'` or nil |
+| `Get(id)` / `Exists(id)` | inventory view (Get makes an empty stash) / only when it exists |
+| `Create(id, { label, slots, maxWeight, coords, reach, acceptWeapons, shared })`, `Configure(id, data)`, `Delete(id)` | view / view / bool. `maxWeight` in grams, `reach` = metres from `coords` within which items may be moved (default 5) |
+| `Open(src, id or { id, type, label, slots, maxWeight, coords, reach }, opts?)` | `true` or `false, err` (`in_use` when someone else has it open) |
+| `Close(src)`, `OpenPlayer(officer, target)` | - / bool |
+| `AddItem(id, name, amount, info?, slot?, reason?)` | `true, nil, slot` or `false, err` |
+| `RemoveItem(id, name, amount, slot?, infoMatch?, reason?)` | `true, nil, info` or `false, err` |
+| `Count(id, name, infoMatch?)`, `ItemCount(id, { skipWeapons, skipAmmo })` | number |
+| `CanAdd(id, name, amount, info?)` | `true` or `false, err` |
+| `FindItems(id, name, infoMatch?)` (= `Find`), `GetSlot(id, slot)` | stacks / stack |
+| `SetInfo(id, slot, info)` (merge), `ReplaceInfo(id, slot, info)` | bool |
+| `Move(src, fromId, fromSlot, toId, toSlot?, amount?)`, `CanAccess(src, id)` | `true` or `false, err` / bool |
+| `Use(src, slot)`, `UseByName(src, name, stack?)` | `true` or `false, err` |
+| `RegisterUsable(name, fn(src, stack, invId), { builtin = true }?)`, `UnregisterUsable(name, resource?)`, `IsUsable(name)` | a `builtin` use only runs when nothing else handles the item |
+| `GetItemDef(name)`, `GetItems()`, `RegisterItem(def)` | definition in rsg-core's shape (weight in grams, `type` `'item'` / `'weapon'`) |
+| `ItemBox(src, name, amount, 'add' or 'remove' or 'use')` | item pop-up on the player's screen |
+| `WeaponNew(name, info?)` | info for `AddItem(id, weaponName, 1, info)`; the serial is given when it is added |
+| `WeaponFindById(id)`, `WeaponFindBySerial(serial)` | `invId, slot, stack` |
+| `GetWeaponData(name?)` | `{ [weapon_name] = { name, hash, group, label, ammoTypes, ammoType, thrown, melee, noAmmo, weight (g), clip } }` |
+| `GetAmmoData()` | see below |
+| `Save(id?, await?)`, `Weight(id)` | bool / grams |
+| `GetAmmo(src)`, `AddAmmo(src, type, n)`, `RemoveAmmo(src, type, n)` | gunbelt `{ [AMMO_X] = n }` / `ok, count` |
+| `GetCharId(src)` | MULTIcore numeric character id |
+| clothing: `CreateClothingItem`, `CreateOutfitBundle`, `EquipClothing`, `UnequipClothing`, `GetWorn`, `ReapplyClothing`, `GetOutfits`, `SaveOutfit`, `WearOutfit`, `RenameOutfit`, `DeleteOutfit` | |
 
-Errors: `unknown_item`, `bad_amount`, `too_heavy`, `limit`, `no_space`, `not_allowed`, `no_inventory`,
-`not_enough`, `no_access`, `too_far`, `busy`, `locked` (the slot is offered in a trade).
+Stack shape: `{ name, amount, info, label, description, weight (grams per unit), type, unique, useable, image, slot, id }`;
+a weapon has `info.serie` (serial), `info.components`, `info.quality`.
 
-Inventory ids: `player:<citizenid>`, `stash:<name>` (saved as `<name>`, RSG's key), `glovebox:<plate>`,
-`trunk:<plate>`, `custom:<name>`, `drop:<n>` (memory only).
+Inventory view: `{ id, type, kind, label, slots, maxWeight (grams), weight (grams), items = { [slot] = stack }, isOpen, viewers, coords, reach }`.
 
-Move hooks: an inventory table may carry `canPut(src, name, amount, info)` / `canTake(...)` (return
-`false` to refuse) and `onPut` / `onTake` (after the move); called on moves and gives.
+Errors: `unknown_item`, `bad_amount`, `too_heavy`, `no_space`, `limit`, `not_allowed`, `no_inventory`,
+`not_enough`, `no_item`, `in_use`, `too_far`, `no_access`, `no_player`.
 
-Server events: `MULTIinventory:changed (invId, changes)`, `MULTIinventory:ready`, `MULTIinventory:itemsLoaded`,
-`MULTIinventory:playerLoaded (src, invId)`, `MULTIinventory:opened / closed (src, invId)`,
-`MULTIinventory:used (src, name, slot)`, `MULTIinventory:given (src, target, name, amount)`,
-`MULTIinventory:dropCreated / dropRemoved`, `MULTIinventory:tradeStarted (id, a, b)`, `MULTIinventory:tradeDone (id, a, b)`,
-`MULTIinventory:tradeCancelled (id, a, b, reasonKey)`.
+`GetAmmoData()`:
+```lua
+{
+  gunbelt = true,
+  ammo   = { AMMO_REVOLVER = { name, label, max, item = 'ammo_revolver', refill = 12 }, ... },
+  boxes  = { ammo_box_revolver = { ammo = 'AMMO_REVOLVER', rounds = 12 }, ... },  -- one used = rounds on the belt
+  rounds = { ammo_revolver = 'AMMO_REVOLVER', ... },                              -- loose rounds: the stack goes on the belt
+  items  = { [every item that feeds the belt] = 'AMMO_X' },
+}
+```
 
-`Config.ServerOpenOnly` lists inventory id prefixes a client may never ask to open; only a server script opens those.
-Defaults: `custom:safedeposit:` (MULTIbank safe-deposit boxes), `custom:camp:` (MULTIcamps chests),
-`custom:horse_` (MULTIhorses saddlebags), `stash:multilaw_evidence_`, `stash:multilaw_jailitems_` and
-`stash:lawstorage` (MULTIlaw evidence lockers, items kept in jail / Sisika, rsg-lawman law storage) and `trunk:`
-(MULTIwagons wagon storage; rsg-wagons and other RSG trunk scripts also open it from the server). If you change
-MULTIlaw's stash prefixes, change them here too.
+Server events: `MULTIinventory:ready`, `MULTIinventory:opened (src, id)`, `MULTIinventory:closed (src, id)`,
+`MULTIinventory:used (src, name, slot)`, `MULTIinventory:itemAdded / itemRemoved (id, name, count, meta, reason, ownerSrc)`,
+`MULTIinventory:clothingChanged`.
+
+Client: `exports.MULTIinventory:GetItemCount(name)`, `GetImagePaths()`, `GetItems()`, `IsOpen()`, `Open()`, `Close()`,
+`ReapplyClothing`, `PreviewClothing`, `ClearPreview`; event `MULTIinventory:client:itembox (def, amount, kind)`.
 
 ## RSG scripts (rsg-inventory)
-`exports['rsg-inventory']:*` with rsg-inventory's shapes: `LoadInventory`, `SaveInventory`, `AddItem`
-(full satchel -> item on the ground, returns `true, 'dropped'`), `RemoveItem`, `HasItem`, `GetItemByName`,
-`GetItemsByName`, `GetItemBySlot`, `GetItemCount`, `CanAddItem` (`false, 'weight'|'slots'`), `GetFreeWeight`,
-`GetTotalWeight`, `GetSlots`, `GetSlotsByItem`, `GetFirstSlotByItem`, `GetItemWeight`, `SetInventory`,
-`SetItemData`, `ClearInventory`, `ClearStash`, `SaveStash`, `OpenInventory`, `OpenInventoryById`,
-`CloseInventory`, `GetInventory`, `GetStashItems`, `CreateInventory`, `RegisterStash`, `DeleteInventory`,
-`RemoveInventory`, `ForceDropItem`, `UseItem`, `CreateUseableItem` / `CreateUsableItem`.
-- Shop exports `CreateShop`, `OpenShop`, `DoesShopExist`, `RestockShop` are passed on, with the same arguments, to
-  MULTIstores when it is started. Without MULTIstores they print one warning and return `false`.
-- `Player.Functions.AddItem / RemoveItem / GetItemBySlot / GetItemByName / GetItemsByName / ClearInventory / SetInventory / HasItem`.
-- `Player.PlayerData.items` always mirrors the satchel; a script that writes it with `SetPlayerData('items', ...)` is followed.
-- Events: `rsg-inventory:server:useItem`, `rsg-inventory:server:closeInventory`, `rsg-inventory:server:SetInventoryData`,
-  `rsg-inventory:server:openPlayerInventory`; callbacks `rsg-inventory:server:giveItem`, `rsg-inventory:server:getPlayerName`;
-  fires `rsg-inventory:server:itemRemovedFromPlayerInventory`.
-- Stash names are kept as RSG saves them, so an existing `inventories` table carries over.
+
+`exports['rsg-inventory']:` `AddItem` (a full satchel drops the item on the ground and returns `true, 'dropped'`),
+`RemoveItem`, `HasItem`, `GetItemCount`, `CanAddItem` (`false, 'weight'|'slots'`), `GetFreeWeight`, `GetSlots`,
+`GetItemBySlot`, `GetItemByName`, `GetItemsByName`, `GetItemWeight`, `GetTotalWeight`, `GetSlotsByItem`,
+`GetFirstSlotByItem`, `SetItemData`, `SetInventory`, `ClearInventory`, `UseItem`, `CreateUseableItem`,
+`LoadInventory`, `SaveInventory`, `OpenInventory`, `OpenInventoryById`, `CloseInventory`, `CreateInventory`,
+`RegisterStash`, `DeleteInventory`, `RemoveInventory`, `GetInventory`, `GetStashItems`, `ClearStash`,
+`SaveStash`, `ForceDropItem`. Shop exports (`CreateShop`, `OpenShop`, `DoesShopExist`, `RestockShop`) are passed
+on to MULTIstores. A stash name `x` is the inventory `stash:x`.
+
+`Player.Functions.AddItem / RemoveItem / GetItemByName / GetItemsByName / GetItemBySlot / ClearInventory / SetInventory`,
+and `Player.PlayerData.items` mirrors the satchel. Client: `HasItem`, `GetItemCount`, `GetPlayerItems`, `IsOpen`,
+`OpenInventory`, `CloseInventory`, `ItemBox`; events `rsg-inventory:client:ItemBox`, `closeInv`, `giveAnim`.
 
 ## VORP scripts (vorp_inventory)
-MULTIinventory answers as `vorp_inventory`, so VORP scripts call `exports.vorp_inventory:*` as usual and work on the same satchel RSG scripts use.
 
-- **Items:** addItem, subItem, subItemById, getItem, getItemCount, getItemById, getUserInventoryItems, getItemDB, canCarryItem(s), setItemMetadata, registerUsableItem / unRegisterUsableItem. Every export takes an optional callback and also returns the answer.
-- **Weapons** are weapon items that keep the VORP weapon id, serial, loaded rounds, components, custom label and description. createWeapon, giveWeapon, subWeapon, deleteWeapon, getUserInventoryWeapons, getUserWeapon, canCarryWeapons, setWeaponCustomLabel / CustomDesc / SerialNumber and the component exports all work.
-- **Ammo** is items in the satchel (ammo_revolver, ammo_rifle_express, ammo_arrow_fire, ...). Thrown weapons (knives, tomahawks, bolas, dynamite, molotovs, poison bottles, hatchets) are their own items, and their count is the ammo. getUserAmmo returns `{ AMMO_X = n }` for every type, variants included. addBullets / subBullets / getWeaponBullets / removeAllUserAmmo map AMMO_* types to these items. Change the mapping with `Config.Vorp.AmmoItems`.
-- **Custom inventories:** registerInventory and the rest of the custom inventory exports. A shared one is saved as `custom:<id>`, a per-character one as `custom:<id>:<charIdentifier>`. VORP's `limit` is the inventory's total item count. White lists, black lists, item limits and acceptWeapons apply.
-- **Inventory capacity:** each character's VORP capacity (invCapacity, changed with updateInvCapacity) limits how many items can go in the satchel. Weapons and ammo don't count.
-- **The old API** works too: `exports.vorp_inventory:vorp_inventoryApi()` and the server events `vorpCore:addItem`, `vorpCore:getItemCount`, ...
-- **Client:**
-  - exports getInventoryItems, getInventoryItem, getServerItem, closeInventory;
-  - the events `vorp_inventory:Client:OnInvStateChange`, `vorp_inventory:onWeaponEquipped`, componentAdded / componentRemoved, `vorp_inventory:blockInventory`;
-  - the state bags IsInvActive and `GetEquippedWeaponData_<hash>`.
-- **Not yet:** item ids are new after a restart; openPlayerInventory ignores title, blacklist, itemsLimit and timeout.
+Items, weapons, ammo (the gunbelt), custom inventories and permissions, with an optional callback on every
+export: `addItem`, `subItem`, `subItemById` / `subItemID`, `getItem`, `getItemByName`, `getItemById` /
+`getItemByMainId`, `getItemContainingMetadata`, `getItemMatchingMetadata`, `getItemCount`, `getItemDB`,
+`getUserInventoryItems` / `getUserInventory`, `canCarryItem(s)`, `setItemMetadata`, `registerUsableItem`,
+`createWeapon`, `giveWeapon`, `subWeapon`, `deleteWeapon`, `getUserInventoryWeapons` / `getUserWeapons`,
+`getUserWeapon` / `getWeapon`, `setWeaponSerialNumber` / `setWeaponSerial`, the component and ammo exports,
+`registerInventory` and the custom inventory exports, `vorp_inventoryApi()` and the `vorpCore:*` events.
+Client: `closeInventory`, `getInventoryItems`, `getInventoryItem`, `getServerItem`.
 
-Settings: `Config.Vorp` in config.lua.
+## RedEM:RP scripts (redemrp_inventory)
 
-## UI (satchel, hotbar, drops, weapons on the ped)
-- **Satchel:** B (the game's satchel key) or `/inventory`. Two black panes in the base-game look: the satchel on the left, and on the right whatever is open — a stash, a drop, storage, a wagon or another player. With nothing open, the right pane is the ground: drag items there to drop them. The Trade button in the satchel title offers a trade to the nearest player (see "Trading between players").
-- **Moving:** drag and drop, Shift-click moves the whole stack, double-click or Enter uses. Split, give (nearest player), drop, put away, take. Every move is checked by the server.
-- **Hotbar:** keys 1-5 use satchel slots 1-5; Z shows the bar.
-- **Item pop-ups** at the bottom when items are added, removed or used.
-- **Drops:** a bag on the ground, opened with MULTItarget "Open" (Left Alt) when MULTItarget runs, else with a hold-E prompt (`Config.Drops.UseTarget`). `/mcinteract` (MULTIcore) prints the drop and trade targets / prompts to the server console.
-- **Weapons on the ped:**
-  - Using a weapon item equips it with its own ammo, ammo type, components and wear.
-  - A second sidearm goes on the left hip, a second long arm on the shoulder.
-  - Ammo items fill the ped's ammo by type, and using an ammo item loads that type.
-  - Thrown weapons count as items.
-  - Ammo use is synced to the server.
-  - After death, weapons follow MULTImedic's settings and are never duplicated.
-- **Pictures:** `Config.ImagePaths` lists `nui://` folders tried in order (e.g. an item image folder already on your server); a plain icon shows when none is found. No images are shipped. Other pages read the same list with the client export `exports.MULTIinventory:GetImagePaths()` (MULTIstores does).
-- **Restyle:** `html/custom.css`.
+`TriggerEvent('redemrp_inventory:getData', function(Inv) ... end)` with `getItem(src, name, meta)`
+(`ItemAmount`, `AddItem`, `RemoveItem`, `ChangeMeta`, `getAllItemOfName`), `getItemData`, `getPlayerInventory`,
+`removePlayerInventory`; `exports.redemrp_inventory:GetItemsList()`, `GetStashWeight(id)`; client event
+`redemrp_inventory:OpenStash(id, kg)`. A usable item nothing else handles fires `RegisterUsableItem:<name>`.
 
-## Trading between players
-- **Offering:** `/trade` (the nearest player within `Config.Trade.Distance`) or `/trade <server id>`, the **Trade**
-  button on the satchel page, or "Offer a trade" on a player through MULTItarget. The other player answers Yes / No
-  in a dialog; an unanswered request runs out after `RequestSeconds`. Two players who ask each other start at once.
-- **The trade window** is the satchel page in trade mode: your satchel on the left; on the right your offer, the
-  other player's offer and the cash each side puts in (dollars with cents). Drag a stack (or part of it, with Amount)
-  from the satchel into your offer, Shift-click or double-click to offer the whole stack, drag it back or press
-  Take back to remove it. Up to `MaxItems` stacks and `MaxCash` dollars each.
-- **Accepting:** both must accept. Any change by either side clears both accepts, and Accept works again only
-  `AcceptDelayMs` after the last change, so nothing can be swapped in at the last second.
-- **The swap** happens on the server in one go, or not at all. It checks again that every offered stack is
-  still the same stack with enough in it, that both players still hold the cash, that both satchels have room
-  (weight, slots, limits) once the outgoing items have left, that the players are alive, free and within
-  `KeepDistance`. Any failure undoes everything and both players are told why (for example
-  "Trade Beta has no room for everything"). Weapons keep their serial and id.
-- **No dupes:** a stack in a pending offer is locked. It cannot be moved, swapped, used, given or dropped
-  (`locked`); the satchel shows it dimmed with "In the trade". Walking further apart than `KeepDistance`, dying,
-  being cuffed, logging out, leaving, closing the window or opening another inventory cancels the trade and
-  unlocks everything.
+## Credits
 
-| `Config.Trade` | Default | What |
-|---|---|---|
-| `Enabled` | `true` | trading on / off |
-| `Command` | `'trade'` | chat command |
-| `UseTarget` / `TargetIcon` | `true` / `'fas fa-handshake'` | MULTItarget option on players (added when MULTItarget runs, also if it starts later; reach 2.5 m at most) |
-| `SatchelButton` | `true` | Trade button on the satchel page |
-| `Distance` / `KeepDistance` | `3.0` / `6.0` | metres to offer / to stay in the trade (also checked at the swap) |
-| `RequestSeconds` | `20` | how long a request waits for an answer |
-| `MaxItems` / `MaxCash` | `12` / `10000` | stacks and dollars each player may offer |
-| `AcceptDelayMs` | `1500` | wait after any change before Accept works |
-| `CheckMs` | `1000` | how often walking away / death / leaving is checked |
-
-## Stores
-Stores (buying, selling to a store, stock, prices) are their own resource, MULTIstores, with their own screen.
-MULTIinventory only gives and takes the items: MULTIstores checks room with `CanAdd`, gives with `AddItem`
-(weapons through `WeaponNew`, so each has a serial) and takes with `RemoveItem`. RSG scripts that call
-`exports['rsg-inventory']:CreateShop / OpenShop / DoesShopExist / RestockShop` keep working: the calls go on to MULTIstores.
-
-### Admin command
-`/giveitem [id] [item] [amount]` gives a player any item or weapon (admin; `Config.GiveItemCommand`).
-
-## Config
-Everything is in `config.lua`, every option with its default. Words are in `locales/` (10 languages).
-
-## Self-test
-`test/inventory_selftest` (needs `setr multicore_selftest true`): prints `[invtest] DONE: n passed, m failed`.
-`test/trade_selftest` covers trading (and MULTIbank's safe-deposit boxes): `[tradetest] DONE: n passed, m failed`.
-
-## RedEM:RP (redemrp_inventory)
-
-RedEM:RP scripts work unchanged: `TriggerEvent('redemrp_inventory:getData', cb)` gives the same API (`getItem(src, name, meta)` with `ItemAmount`, `AddItem`, `RemoveItem`, `ChangeMeta`; `getItemData`, `getPlayerInventory`), `exports.redemrp_inventory:GetItemsList()` lists every item, the client event `redemrp_inventory:OpenStash(id, kg)` opens a stash, and using an item marked `useable` fires `RegisterUsableItem:<name>`. Item names are matched without case, weights are given in kilograms. Differences, all on the safe side: `ItemAmount` counts every stack, `AddItem` never drops what does not fit unless asked to, an unknown item adds nothing. A stash named after a character opens only for that character; `bossstash_<job>` only for that job. Settings: `Config.Redem`.
-
+Weapon and ammo data use public RedM game names; native references from the RedM community (femga's rdr3 discoveries).

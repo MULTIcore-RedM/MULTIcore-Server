@@ -1,7 +1,7 @@
 -- ============================================================
 -- MULTIvorpchar :: server
---   exports.vorp_character:OpenOutfitsMenu(source) -> true when MULTIclothing's
---   outfit list was opened for that player (MULTIclothing running, character loaded).
+--   exports.vorp_character:OpenOutfitsMenu(source) -> true when MULTItailor's
+--   outfit list was opened for that player (MULTItailor running, character loaded).
 -- Names follow VORP's public docs and how VORP scripts call vorp_character.
 -- ============================================================
 
@@ -16,8 +16,8 @@ end
 ExportAs('OpenOutfitsMenu', function(source)
     local src = tonumber(source)
     if not src or not RSGCore.Functions.GetPlayer(src) then return false end
-    if GetResourceState('MULTIclothing') ~= 'started' then
-        dbg('OpenOutfitsMenu: MULTIclothing is not running')
+    if GetResourceState('MULTItailor') ~= 'started' then
+        dbg('OpenOutfitsMenu: MULTItailor is not running')
         return false
     end
     TriggerClientEvent('MULTIvorpchar:client:openOutfits', src)

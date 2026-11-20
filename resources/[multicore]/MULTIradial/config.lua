@@ -29,7 +29,7 @@ Config.PerPage = 8                  -- most buttons on one page (4 each side); m
 -- Buttons for a script that is not running are left out by themselves (resource = 'MULTIhorses').
 -- ---------------------------------------------------------------
 Config.Menu = {
-    { label = 'm_clothing', icon = 'shirt', resource = 'MULTIclothing', items = {
+    { label = 'm_clothing', icon = 'shirt', resource = 'MULTItailor', items = {
         { label = 'c_hat',       icon = 'hat-cowboy',    clothing = 'hat' },
         { label = 'c_mask',      icon = 'mask',          clothing = 'masks' },
         { label = 'c_neckwear',  icon = 'user-tie',      clothing = 'neckwear' },

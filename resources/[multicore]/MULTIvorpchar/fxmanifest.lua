@@ -11,7 +11,7 @@ version '0.1.0'
 license 'GPL-3.0-or-later'
 
 -- VORP scripts call exports.vorp_character:X() and fire vorpcharacter:* events; MULTIvorpchar answers them.
--- Only for servers that use MULTIcreator / MULTIclothing. Do not run it together with the real vorp_character.
+-- Only for servers that use MULTIcreator / MULTItailor. Do not run it together with the real vorp_character.
 provide 'vorp_character'
 
 shared_scripts {

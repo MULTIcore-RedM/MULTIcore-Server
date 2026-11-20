@@ -114,8 +114,8 @@ AddEventHandler('MULTIcore:client:lookApplied', function(reason)
     dbg('look applied', reason)
 end)
 
--- server export OpenOutfitsMenu(source) -> MULTIclothing's outfit list
+-- server export OpenOutfitsMenu(source) -> MULTItailor's outfit list
 RegisterNetEvent('MULTIvorpchar:client:openOutfits', function()
-    if GetResourceState('MULTIclothing') ~= 'started' then return end
-    TriggerEvent('MULTIclothing:client:wardrobePoint')
+    if GetResourceState('MULTItailor') ~= 'started' then return end
+    TriggerEvent('MULTItailor:client:openOutfits')
 end)

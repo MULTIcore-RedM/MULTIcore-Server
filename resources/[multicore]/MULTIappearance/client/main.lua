@@ -237,11 +237,11 @@ RegisterNetEvent('rsg-appearance:client:OpenCreator', function()
     dbg('OpenCreator: ignored, MULTIcharacter and MULTIcreator create characters')
 end)
 
--- rsg-appearance's outfit menu -> MULTIclothing's outfit list
+-- rsg-appearance's outfit menu -> MULTItailor's outfit list
 RegisterNetEvent('rsg-appearance:client:outfits', function()
-    if GetResourceState('MULTIclothing') == 'started' then
-        TriggerEvent('MULTIclothing:client:wardrobePoint')
+    if GetResourceState('MULTItailor') == 'started' then
+        TriggerEvent('MULTItailor:client:openOutfits')
     else
-        dbg('outfits: MULTIclothing is not running')
+        dbg('outfits: MULTItailor is not running')
     end
 end)

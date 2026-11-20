@@ -3,7 +3,7 @@
 The MULTIcore quick menu. Press **F6** (or type `/radial`): the MC crest in the middle, buttons on both sides, Cancel underneath. Buttons with a › open a sub menu; Cancel turns into Back there (Esc, Backspace or a right click go back too).
 
 Standard buttons (each one only shows when its script runs):
-- **Clothing**: hat, mask, neckwear, eyewear, coat, vest, gloves, gun belt, shirt, trousers, boots, satchel (take off / put back on, the menu stays open), dress fully, take all off (MULTIclothing)
+- **Clothing**: hat, mask, neckwear, eyewear, coat, vest, gloves, gun belt, shirt, trousers, boots, satchel (take off / put back on, the menu stays open), dress fully, take all off (MULTItailor)
 - **Emotes**, **Walk style** (MULTIemotes)
 - **Satchel** (MULTIinventory)
 - **Horse & wagon**: find my horse, send horse away, my wagons (MULTIhorses, MULTIwagons)

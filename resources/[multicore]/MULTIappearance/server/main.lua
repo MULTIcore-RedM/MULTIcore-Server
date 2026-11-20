@@ -2,8 +2,9 @@
 -- MULTIappearance :: server
 -- rsg-appearance's server events and callbacks, answered from MULTIcore's
 -- look storage (exports.MULTIcore:GetLook / SaveLook) and, for outfits,
--- MULTIclothing's multicore_outfits table. Event names and arguments follow
--- RSG v2 rsg-appearance (GPL v3); the code is MULTIcore's own.
+-- MULTIinventory's saved outfits (clothing items; MULTItailor is the clothing
+-- system). Event names and arguments follow RSG v2 rsg-appearance (GPL v3);
+-- the code is MULTIcore's own.
 -- ============================================================
 
 local RSGCore = exports['rsg-core']:GetCoreObject()
@@ -27,8 +28,52 @@ local function sexOf(P, l)
     return (g == 1 or g == '1') and 'female' or 'male'
 end
 
+local INV = 'MULTIinventory'
+
 local function outfitsOn()
-    return Config.Outfits.UseMULTIclothing and GetResourceState('MULTIclothing') == 'started'
+    return Config.Outfits.UseInventoryOutfits ~= false and GetResourceState(INV) == 'started'
+end
+
+-- MULTIinventory export call, pcall-protected: returns its results, or nil when it failed
+local function inv(fn, ...)
+    local ok, a, b = pcall(function(...) return exports[INV][fn](exports[INV], ...) end, ...)
+    if not ok then dbg(('%s failed: %s'):format(fn, tostring(a))) return nil end
+    return a, b
+end
+
+-- clothing slot key (MULTIinventory) -> game category (rsg-appearance clothes key)
+local SLOT_GAME = {
+    Hat = 'hats', EyeWear = 'eyewear', Mask = 'masks', NeckWear = 'neckwear', NeckTies = 'neckties',
+    Bow = 'hair_accessories', Shirt = 'shirts_full', Vest = 'vests', Coat = 'coats', CoatClosed = 'coats_closed',
+    Poncho = 'ponchos', Cloak = 'cloaks', Suspender = 'suspenders', Dress = 'dresses', Armor = 'armor',
+    Badge = 'badges', Glove = 'gloves', Gauntlets = 'gauntlets', RingRh = 'jewelry_rings_right',
+    RingLh = 'jewelry_rings_left', Bracelet = 'jewelry_bracelets', Gunbelt = 'gunbelts', Holster = 'holsters_left',
+    GunbeltAccs = 'gunbelt_accs', Belt = 'belts', Buckle = 'belt_buckles', Satchels = 'satchels',
+    Loadouts = 'loadouts', Pant = 'pants', Skirt = 'skirts', Chap = 'chaps', Boots = 'boots', Spats = 'spats',
+    Spurs = 'boot_accessories', Accessories = 'accessories',
+}
+
+-- one saved outfit (MULTIinventory: pieces = { { key, look = item metadata } }) -> rsg-appearance clothes
+local function outfitClothes(o)
+    local out = {}
+    for _, p in ipairs(type(o.pieces) == 'table' and o.pieces or {}) do
+        local game = SLOT_GAME[p.key]
+        local m = type(p.look) == 'table' and p.look or {}
+        if game and tonumber(m.comp) then
+            local e = { hash = tonumber(m.comp) }
+            if tonumber(m.palette) then
+                e.palette, e.tint0, e.tint1, e.tint2 = tonumber(m.palette), tonumber(m.tint0) or 0, tonumber(m.tint1) or 0, tonumber(m.tint2) or 0
+            end
+            out[game] = e
+        end
+    end
+    return out
+end
+
+local function sameHashes(a, b)
+    for k, v in pairs(a) do if type(b[k]) ~= 'table' or MA.U32(b[k].hash) ~= MA.U32(v.hash) then return false end end
+    for k in pairs(b) do if a[k] == nil then return false end end
+    return true
 end
 
 local function cleanName(s)
@@ -36,12 +81,6 @@ local function cleanName(s)
     if #s < 1 then return nil end
     if #s > Config.Outfits.NameMax then s = s:sub(1, Config.Outfits.NameMax) end
     return s
-end
-
-local function decode(v)
-    if type(v) ~= 'string' then return v end
-    local ok, out = pcall(json.decode, v)
-    return ok and out or nil
 end
 
 local function logSkipped(what, skipped)
@@ -145,36 +184,33 @@ lib.callback.register('rsg-appearance:server:LoadClothes', function(source)
 end)
 
 -- lib.callback 'rsg-appearance:server:getOutfits' -> { { id, citizenid, name, clothes = rsg shape }, ... }
+-- (MULTIinventory's saved outfits: lists of clothing items)
 lib.callback.register('rsg-appearance:server:getOutfits', function(source)
     local P = player(source)
     if not P or not outfitsOn() then return {} end
     local cid = P.PlayerData.citizenid
-    local sex = sexOf(P, lookOf(P))
-    local rows = MySQL.query.await('SELECT id, name, comps FROM multicore_outfits WHERE citizenid = ? ORDER BY name', { cid }) or {}
     local out = {}
-    for _, r in ipairs(rows) do
-        out[#out + 1] = { id = r.id, citizenid = cid, name = r.name, clothes = MA.ToRsgClothes(decode(r.comps) or {}, sex) }
+    for _, o in ipairs(inv('GetOutfits', source) or {}) do
+        out[#out + 1] = { id = o.id, citizenid = cid, name = o.name, clothes = outfitClothes(o) }
     end
+    table.sort(out, function(a, b) return tostring(a.name):lower() < tostring(b.name):lower() end)
     return out
 end)
 
 -- rsg-appearance:server:saveOutfit(newClothes, isMale, outfitName)
 -- RSG charged the store price and saved the clothes, plus a named outfit. Here:
---   * the named outfit is stored in multicore_outfits: the clothes sent when Config.AllowClientSaves,
---     else the character's saved clothing (what they own), as MULTIclothing does
---   * the worn clothing changes only when Config.AllowClientSaves (no charge)
+--   * the named outfit is saved in MULTIinventory: the clothing items the character wears now
+--   * the clothes sent by the client are never turned into items; with Config.AllowClientSaves on
+--     they only change the saved look (no charge)
 RegisterNetEvent('rsg-appearance:server:saveOutfit', function(newClothes, isMale, outfitName)
     local src = source
     local P = player(src)
     if not P then return end
-    local l = lookOf(P) or { skin = {}, comps = {} }
-    local sex = sexOf(P, l)
-    if isMale ~= nil and not l.skin.sex then sex = isMale and 'male' or 'female' end
-
-    local comps = l.comps
     if Config.AllowClientSaves and type(newClothes) == 'table' then
-        local skipped
-        comps, skipped = MA.FromRsgClothes(newClothes, sex)
+        local l = lookOf(P) or { skin = {}, comps = {} }
+        local sex = sexOf(P, l)
+        if isMale ~= nil and not l.skin.sex then sex = isMale and 'male' or 'female' end
+        local comps, skipped = MA.FromRsgClothes(newClothes, sex)
         logSkipped('saveOutfit', skipped)
         exports.MULTIcore:SaveLook(src, 'comps', comps)
     else
@@ -184,43 +220,31 @@ RegisterNetEvent('rsg-appearance:server:saveOutfit', function(newClothes, isMale
     local name = outfitName and cleanName(outfitName)
     if not name then return end
     if not outfitsOn() then
-        dbg('saveOutfit: MULTIclothing is not running, outfit not stored')
+        dbg('saveOutfit: MULTIinventory is not running, outfit not stored')
         return
     end
-    local cid = P.PlayerData.citizenid
-    local count = MySQL.scalar.await('SELECT COUNT(*) FROM multicore_outfits WHERE citizenid = ?', { cid }) or 0
-    if count >= Config.Outfits.Max then
-        dbg(('saveOutfit: %s already has %d outfits'):format(cid, count))
-        return
-    end
-    MySQL.insert.await('INSERT INTO multicore_outfits (citizenid, name, comps) VALUES (?, ?, ?)', { cid, name, json.encode(comps) })
+    local ok, err = inv('SaveOutfit', src, name)
+    if not ok then dbg(('saveOutfit: %s not stored (%s)'):format(name, tostring(err))) end
 end)
 
--- rsg-appearance:server:saveUseOutfit(clothes): makes an outfit the saved clothing.
--- Allowed when the clothes are one of the character's saved outfits, or when Config.AllowClientSaves.
+-- rsg-appearance:server:saveUseOutfit(clothes): wears one of the character's saved outfits
+-- (the one whose pieces match the clothes sent). Only pieces the character owns are put on.
 RegisterNetEvent('rsg-appearance:server:saveUseOutfit', function(clothes)
     local src = source
     local P = player(src)
-    if not P or type(clothes) ~= 'table' then return end
-    local sex = sexOf(P, lookOf(P))
-    local comps, skipped = MA.FromRsgClothes(clothes, sex)
-    logSkipped('saveUseOutfit', skipped)
-
-    local allowed = Config.AllowClientSaves
-    if not allowed and outfitsOn() then
-        local rows = MySQL.query.await('SELECT comps FROM multicore_outfits WHERE citizenid = ?', { P.PlayerData.citizenid }) or {}
-        for _, r in ipairs(rows) do
-            if MA.SameComps(sex, decode(r.comps), comps) then
-                allowed = true
-                break
-            end
+    if not P or type(clothes) ~= 'table' or not outfitsOn() then return end
+    local want = {}
+    for k, v in pairs(clothes) do
+        local h = type(v) == 'table' and tonumber(v.hash) or tonumber(v)
+        if type(k) == 'string' and h and h ~= 0 then want[k] = { hash = h } end
+    end
+    for _, o in ipairs(inv('GetOutfits', src) or {}) do
+        if sameHashes(outfitClothes(o), want) then
+            inv('WearOutfit', src, o.id)
+            return
         end
     end
-    if not allowed then
-        dbg(('saveUseOutfit from %s ignored: not one of their outfits'):format(src))
-        return
-    end
-    exports.MULTIcore:SaveLook(src, 'comps', comps)
+    dbg(('saveUseOutfit from %s ignored: not one of their outfits'):format(src))
 end)
 
 -- rsg-appearance:server:DeleteOutfit(name)
@@ -229,7 +253,12 @@ RegisterNetEvent('rsg-appearance:server:DeleteOutfit', function(name)
     local P = player(src)
     if not P or not outfitsOn() then return end
     if type(name) ~= 'string' and type(name) ~= 'number' then return end
-    MySQL.update.await('DELETE FROM multicore_outfits WHERE citizenid = ? AND name = ?', { P.PlayerData.citizenid, tostring(name) })
+    for _, o in ipairs(inv('GetOutfits', src) or {}) do
+        if tostring(o.name) == tostring(name) or tostring(o.id) == tostring(name) then
+            inv('DeleteOutfit', src, o.id)
+            return
+        end
+    end
 end)
 
 -- ---------------------------------------------------------------

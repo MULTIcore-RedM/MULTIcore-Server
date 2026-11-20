@@ -2,115 +2,228 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MULTIinventory</title>
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/multi-ui.css?v=3">
+    <link rel="stylesheet" href="css/inventory.css?v=4">
+    <link rel="stylesheet" href="css/book.css?v=2">
+    <link rel="stylesheet" href="fonts.css?v=4">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
-<!-- MULTIinventory satchel (GPL v3, part of MULTIcore by RINGO (RINGOscripting)).
-     Every visible word comes from the locale table Lua sends (data-l = key). -->
-<div id="app" class="mc-root">
+    <!-- RINGO-drawn icon sprite -->
+    <svg class="svg-sprite" aria-hidden="true" focusable="false">
+        <symbol id="icon-multi-r" viewBox="0 0 40 40">
+            <path d="M12 7 V33 M12 7 C21 7 23 10.5 23 14 C23 18 19 20 12 20 M14 20 C19 20 21 25 26 31 C28 33.5 31 34.5 35 34" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-close" viewBox="0 0 32 32">
+            <path d="M8 8 L24 24 M24 8 L8 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="icon-search" viewBox="0 0 32 32">
+            <circle cx="14" cy="14" r="7.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M19.5 19.5 L26 26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="icon-pouch" viewBox="0 0 32 32">
+            <path d="M10 12 H22 L24 26 H8 Z M12 12 Q16 6 20 12 M12 16 H20" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </symbol>
+        <symbol id="icon-nugget" viewBox="0 0 32 32">
+            <path d="M6 22 L10 13 L17 9 L25 13 L27 21 L19 25 L10 25 Z M10 13 L15 18 L17 9 M15 18 L19 25 M15 18 L27 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-weight" viewBox="0 0 32 32">
+            <path d="M9 12 H23 L26 26 H6 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <circle cx="16" cy="8.5" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        </symbol>
+        <symbol id="icon-lock" viewBox="0 0 32 32">
+            <rect x="8" y="14" width="16" height="12" fill="currentColor"/>
+            <path d="M11 14 V10 Q16 4 21 10 V14" fill="none" stroke="currentColor" stroke-width="2.4"/>
+        </symbol>
+        <symbol id="icon-hand" viewBox="0 0 32 32">
+            <path d="M6 18 H12 L18 14 Q21 13 21 16 L16 19 H22 L27 15 Q29 14 28 17 L22 24 H6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-drop" viewBox="0 0 32 32">
+            <path d="M16 5 V19 M10 13 L16 19 L22 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 26 H27" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="icon-saddle" viewBox="0 0 32 32">
+            <path d="M5 13 Q9 9 13 13 Q16 16 19 13 Q23 9 27 13 L25 18 H7 Z M10 18 V26 H16 V18 M18 18 V24 H24 V18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-collapse" viewBox="0 0 32 32">
+            <path d="M12 8 L20 16 L12 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-sort" viewBox="0 0 32 32">
+            <path d="M10 6 V26 M6 22 L10 26 L14 22 M22 26 V6 M18 10 L22 6 L26 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="icon-figure" viewBox="0 0 120 300">
+            <path d="M60 8 C72 8 78 18 78 30 C78 44 70 54 60 54 C50 54 42 44 42 30 C42 18 48 8 60 8 Z M48 56 L72 56 L96 70 L108 150 L98 152 L86 92 L84 150 L88 214 L84 292 L68 292 L62 180 L58 180 L52 292 L36 292 L32 214 L36 150 L34 92 L22 152 L12 150 L24 70 Z" fill="currentColor"/>
+        </symbol>
+    </svg>
 
-    <div id="inv" class="mi-inv mc-hidden">
-        <div class="mi-panes">
-            <!-- the player's satchel -->
-            <section class="mc-panel mi-pane mc-fade" id="paneP" data-pane="p">
-                <img class="mc-brand mc-brand-corner" src="nui://MULTIcore/html/theme/img/mc-mark.png" alt="">
-                <div class="mi-title-row">
-                    <h1 class="mc-title" id="pTitle" data-l="ui_satchel"></h1>
-                    <button class="mc-btn small mc-hidden" id="tradeBtn" data-l="ui_trade"></button>
-                </div>
-                <div class="mi-stats">
-                    <div class="mi-weight"><div class="mi-bar"><i id="pBar"></i></div><span id="pWeight"></span></div>
-                    <span class="mi-slots" id="pSlots"></span>
-                </div>
-                <div class="mi-grid mc-scroll" id="pGrid"></div>
-            </section>
+    <div id="app" class="hidden">
+        <div id="stage">
+            <div class="inv multi-shadow">
+                <div class="plate-frame stamp inv-frame" id="frame">
+                    <div class="plate inv-plate">
+                        <div class="plate-char"></div>
+                        <svg class="plate-mark"><use href="#icon-multi-r"></use></svg>
+                        <div class="rivet tl"></div>
+                        <div class="rivet bl"></div>
+                        <div class="rivet br"></div>
+                        <div class="plate-flash"></div>
 
-            <!-- second pane: stash / drop / custom / other player, or the ground -->
-            <section class="mc-panel mi-pane mc-fade" id="paneO" data-pane="o">
-                <h1 class="mc-title" id="oTitle"></h1>
-                <div class="mi-stats" id="oStats">
-                    <div class="mi-weight"><div class="mi-bar"><i id="oBar"></i></div><span id="oWeight"></span></div>
-                    <span class="mi-slots" id="oSlots"></span>
-                </div>
-                <div class="mi-grid mc-scroll" id="oGrid"></div>
-                <div class="mi-ground mc-hidden" id="oGround"><span class="mi-ground-mark"></span><span class="mc-note mc-hand" data-l="ui_ground_hint"></span></div>
-            </section>
+                        <header class="inv-head">
+                            <div class="brand">
+                                <img class="mc-brand mc-brand-left" src="nui://MULTIcore/html/theme/img/mc-mark.png" alt="">
+                                <div class="titles">
+                                    <span class="kicker" data-t="kicker">SATCHEL</span>
+                                    <h1 class="multi-title" data-t="title">Inventory</h1>
+                                </div>
+                            </div>
+                            <div class="purse" id="purse">
+                                <div class="coin" id="cashBox" title="Cash">
+                                    <svg><use href="#icon-pouch"></use></svg><b id="cash">$ 0.00</b>
+                                </div>
+                                <div class="coin gold" id="goldBox" title="Gold">
+                                    <svg><use href="#icon-nugget"></use></svg><b id="gold">0.00</b>
+                                </div>
+                            </div>
+                            <div class="carry" id="carry">
+                                <div class="rbar-label"><span><svg class="mini"><use href="#icon-weight"></use></svg> <span data-t="carry">Carry weight</span></span><span id="weightText">0 / 0 kg</span></div>
+                                <div class="rbar"><i id="weightBar" style="width:0%"></i></div>
+                                <div class="over hidden" id="overWarn" data-t="overweight">Over-burdened: you cannot pick anything up.</div>
+                            </div>
+                            <button class="rbtn icon-btn hidden" id="saddleBtn" title="Saddlebags"><svg><use href="#icon-saddle"></use></svg><span data-t="saddle">Saddlebags</span></button>
+                            <button class="rbtn icon-btn close-btn" id="closeBtn" title="Close (Esc)"><svg><use href="#icon-close"></use></svg></button>
+                        </header>
 
-            <!-- trade window: my offer (t), the other player's offer (u), cash, accept -->
-            <section class="mc-panel mi-pane mi-trade mc-fade mc-hidden" id="paneT" data-pane="t">
-                <h1 class="mc-title" id="tTitle"></h1>
-                <div class="mi-trade-head">
-                    <span class="mi-trade-who" data-l="ui_trade_yours"></span>
-                    <span class="mi-trade-ok mc-hidden" id="tOk" data-l="ui_trade_accepted"></span>
-                </div>
-                <div class="mi-grid mi-trade-grid mc-scroll" id="tGrid"></div>
-                <div class="mi-trade-cash">
-                    <label for="tCash" data-l="ui_trade_cash"></label>
-                    <span class="mi-dollar">$</span>
-                    <input id="tCash" class="mc-input" inputmode="decimal" maxlength="10" placeholder="0.00">
-                    <button class="mc-btn small" id="tCashSet" data-l="ui_trade_set"></button>
-                    <span class="mc-note mi-trade-have" id="tHave"></span>
-                </div>
-                <hr class="mc-rule">
-                <div class="mi-trade-head">
-                    <span class="mi-trade-who" id="uName"></span>
-                    <span class="mi-trade-ok mc-hidden" id="uOk" data-l="ui_trade_accepted"></span>
-                </div>
-                <div class="mi-grid mi-trade-grid mc-scroll" id="uGrid"></div>
-                <div class="mi-trade-cash">
-                    <label data-l="ui_trade_cash"></label>
-                    <span class="mc-money" id="uCash"></span>
-                </div>
-                <div class="mi-trade-foot">
-                    <span class="mc-note mi-trade-hint" id="tHint"></span>
-                    <div class="mc-btn-row">
-                        <button class="mc-btn" id="tCancel" data-l="ui_trade_cancel"></button>
-                        <button class="mc-btn primary" id="tAccept"></button>
+                        <div class="inv-body" id="body">
+                            <!-- secondary panel -->
+                            <section class="pane pane-sec hidden" id="paneSec" data-pane="secondary">
+                                <div class="pane-head">
+                                    <div class="titles">
+                                        <span class="kicker" id="secKind">STORAGE</span>
+                                        <h2 class="stencil" id="secLabel">Stash</h2>
+                                    </div>
+                                    <button class="rbtn icon-btn small" id="secSort" title="Sort"><svg><use href="#icon-sort"></use></svg></button>
+                                </div>
+                                <div class="pane-meta">
+                                    <span id="secSlots">0 / 0</span>
+                                    <span id="secWeightText"></span>
+                                </div>
+                                <div class="rbar thin" id="secWeightBarWrap"><i id="secWeightBar" style="width:0%"></i></div>
+                                <div class="sec-info hidden" id="secInfo"></div>
+                                <div class="grid grid-sec" id="gridSec" data-ref="secondary"></div>
+                                <div class="pager hidden" id="secPager"></div>
+                            </section>
+
+                            <!-- player grid -->
+                            <section class="pane pane-main" data-pane="player">
+                                <div class="toolbar">
+                                    <label class="search">
+                                        <svg><use href="#icon-search"></use></svg>
+                                        <input class="rinput" id="search" type="text" placeholder="Search ( / )" autocomplete="off" spellcheck="false">
+                                    </label>
+                                    <select class="rselect sort-select" id="sortMode" title="Sort">
+                                        <option value="" data-t="sortBy">Sort...</option>
+                                        <option value="name" data-t="sortName">By name</option>
+                                        <option value="type" data-t="sortType">By type</option>
+                                        <option value="weight" data-t="sortWeight">By weight</option>
+                                    </select>
+                                </div>
+                                <nav class="tabs" id="tabs"></nav>
+                                <div class="grid grid-player" id="gridPlayer" data-ref="player"></div>
+                                <!-- hand crafting (Craft tab): recipe list + detail, filled by app.js -->
+                                <div class="craft hidden" id="craftPanel">
+                                    <div class="craft-list" id="craftList"></div>
+                                    <div class="craft-detail" id="craftDetail"></div>
+                                </div>
+                                <div class="pane-meta foot-meta">
+                                    <span id="playerSlots">0 / 40</span>
+                                    <span class="muted-text" data-t="dragHelp">Shift = all · Alt = half · Ctrl = amount</span>
+                                </div>
+                            </section>
+
+                            <!-- equipment -->
+                            <section class="pane pane-equip" id="paneEquip" data-pane="equip">
+                                <div class="pane-head">
+                                    <div class="titles">
+                                        <span class="kicker" data-t="worn">WORN</span>
+                                        <h2 class="stencil" data-t="equipment">Equipment</h2>
+                                    </div>
+                                    <button class="rbtn small outfit-btn" id="outfitBtn" data-t="outfits">Outfits</button>
+                                    <button class="rbtn icon-btn small" id="equipToggle" title="Collapse"><svg><use href="#icon-collapse"></use></svg></button>
+                                </div>
+                                <div class="equip-wrap">
+                                    <svg class="figure"><use href="#icon-figure"></use></svg>
+                                    <div class="equip-groups" id="equipGroups"></div>
+                                </div>
+                                <div class="equip-strip" id="equipStrip"></div>
+                            </section>
+                        </div>
+
+                        <footer class="inv-foot">
+                            <div class="zone" id="zoneGive" data-zone="give">
+                                <svg><use href="#icon-hand"></use></svg>
+                                <span data-t="give">Give</span>
+                            </div>
+                            <div class="hotbar-wrap">
+                                <div class="hotbar" id="hotbar"></div>
+                                <div class="ammo" id="ammo"></div>
+                            </div>
+                            <div class="zone" id="zoneDrop" data-zone="drop">
+                                <svg><use href="#icon-drop"></use></svg>
+                                <span id="zoneDropLabel" data-t="drop">Drop</span>
+                            </div>
+                        </footer>
+                        <div class="keys" id="keysHint">
+                            <span><kbd>LMB</kbd> drag</span><span><kbd>RMB</kbd> menu</span><span><kbd>Dbl</kbd> use</span>
+                            <span><kbd>Shift</kbd>+click quick move</span><span><kbd>1-5</kbd> hotbar</span>
+                            <span><kbd>Arrows</kbd> move</span><span><kbd>Enter</kbd> pick / place</span><span><kbd>X</kbd> menu</span><span><kbd>Y</kbd> use</span>
+                            <span><kbd>Q</kbd>/<kbd>E</kbd> panel</span><span><kbd>[</kbd>/<kbd>]</kbd> page</span><span><kbd>Esc</kbd> close</span>
+                        </div>
                     </div>
                 </div>
-            </section>
-        </div>
-
-        <!-- the selected item -->
-        <section class="mc-panel mi-detail" id="detail">
-            <div class="mi-detail-info">
-                <div class="mi-detail-head">
-                    <h2 class="mi-name" id="dName"></h2>
-                    <span class="mi-tag mc-hidden" id="dTag" data-l="ui_equipped"></span>
-                    <span class="mi-tag mc-hidden" id="dLock" data-l="ui_trade_in"></span>
-                </div>
-                <div class="mi-desc mc-hand" id="dDesc"></div>
-                <div class="mi-meta" id="dMeta"></div>
             </div>
-            <div class="mi-detail-act" id="dAct">
-                <div class="mi-amount" id="dAmountBox">
-                    <label data-l="ui_amount"></label>
-                    <input id="dAmount" class="mc-input" type="number" min="1">
-                    <button class="mc-btn small" id="dAll" data-l="ui_all"></button>
-                </div>
-                <div class="mc-btn-row mi-actions" id="dButtons"></div>
-            </div>
-        </section>
-
-        <div class="mc-prompts mi-prompts">
-            <span><span class="mc-key">Esc</span><span data-l="ui_close"></span></span>
-            <span><span class="mc-key" data-l="ui_key_shift"></span><span data-l="ui_quick_move"></span></span>
-            <span><span class="mc-key" data-l="ui_key_drag"></span><span data-l="ui_move"></span></span>
-            <span><span class="mc-key" data-l="ui_key_dbl"></span><span id="kDbl" data-l="ui_use"></span></span>
         </div>
     </div>
 
-    <!-- hotbar (no focus) -->
-    <div id="hotbar" class="mi-hotbar mc-hidden"></div>
+    <!-- crafting journal (book UI, filled by js/book.js); shown while #app is hidden -->
+    <div id="book" class="hidden"></div>
 
-    <!-- item pop-ups (no focus) -->
-    <div id="itembox" class="mi-itembox"></div>
+    <!-- unscaled overlay: tooltip, context menu, drag ghost, modals, toasts -->
+    <div id="overlay">
+        <div class="tip hidden" id="tip"></div>
+        <div class="ctx hidden" id="ctx"></div>
+        <div class="ghost hidden" id="ghost"></div>
+        <div id="modalRoot"></div>
+        <div class="rtoasts" id="toasts"></div>
+        <!-- hand crafting progress (shown with the inventory closed) -->
+        <div class="craft-progress hidden" id="craftProgress">
+            <div class="plate-frame cut-toast">
+                <div class="plate">
+                    <div class="plate-body">
+                        <div class="cp-head">
+                            <span class="kicker" data-t="craftKicker">HAND CRAFT</span>
+                            <b id="cpLabel"></b>
+                        </div>
+                        <div class="rbar"><i id="cpBar" style="width:0%"></i></div>
+                        <small class="muted-text" data-t="craftMoveCancel">Move to stop.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div id="ghost" class="mi-ghost mc-hidden"></div>
-</div>
-<script src="app.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/book.js"></script>
+    <script>
+        // Browser preview only (no CEF host): load the mock-data harness. Never runs in game.
+        if (typeof GetParentResourceName !== 'function') {
+            var s = document.createElement('script');
+            s.src = 'dev/mock.js';
+            document.body.appendChild(s);
+        }
+    </script>
 </body>
 </html>

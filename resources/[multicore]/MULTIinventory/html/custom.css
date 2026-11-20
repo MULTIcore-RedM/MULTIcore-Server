@@ -1,5 +1,9 @@
-/* MULTIinventory: your own styling goes here (loaded last, kept on updates).
-   Examples:
-     :root { --mi-tile: 84px; --mi-cols: 5; --mi-rows: 4; }   bigger tiles, fewer per row
-     :root { --mc-panel: 0.9; }                                darker panels
-*/
+/* ============================================================
+   MULTIinventory: your own styles (loaded last, after the theme,
+   the inventory's own CSS and fonts.css)
+   Empty on purpose. Examples:
+
+   :root { --tile: 80px; }                      bigger slots
+   #app .keys { display: none; }                hide the key help line
+   :root { --mc-panel: 0.9; }                   darker panels
+   ============================================================ */
