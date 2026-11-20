@@ -4,7 +4,7 @@
 
 ## 2026-11-20 (more fixes)
 
-- **Ammo:** every shot now takes one round from the satchel. Reloading no longer does. Loaded rounds still count as satchel rounds. A gun can't load more than the satchel holds, so it runs dry when the satchel does. Rounds that were sitting in a gun before this update are lost once. The gun reloads from the satchel.
+- **Ammo:** reloading takes one round from the satchel for every round loaded into the gun. Each shot takes one round from the gun. The rounds in a gun stay in it when you put it away.
 - **Horse saddlebags and wagon storage:** Left Alt now finds horses, wagons, people and objects even when grass or bushes are in the way, and from further away when the camera is pulled back. The **Saddlebags** option shows on your horse and **Open storage** at the back of your wagon. New setting: `Config.EntityRayFlags` in MULTItarget.
 
 ## 2026-11-20 (fixes)

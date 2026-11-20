@@ -14,8 +14,8 @@
 -- Model:
 --   * A weapon item (type 'weapon', unique) is put on the ped when used and taken
 --     off when used again or when it leaves the satchel. info.ammo = rounds loaded
---     in the gun, remembered on the gun item. Loaded rounds are still satchel
---     rounds: every shot takes one round item, a reload takes none.
+--     in the gun, remembered on the gun item. Loading takes the rounds from the
+--     satchel (one round item per round loaded); firing a loaded round takes nothing more.
 --   * Ammo items fill the ped's ammo pool by their exact AMMO_* type. Rounds per
 --     item: def.ammoPer, Config.Ammo.PerItem[name], 'ammo_box_*' = Config.Ammo.BoxRounds, else 1.
 --   * Thrown weapons (dynamite, molotov, knives, tomahawks, bolas, ...): the item
@@ -139,8 +139,8 @@ local lastCount = {}  -- [itemName] = count at the last satchel push
 local queueAmmo, queueThrown, queueWeapon = {}, {}, {}
 local busy = false
 -- Does the ped's ammo pool count the rounds loaded in the gun? Learned from the first shot or
--- reload (nil until then, treated as yes). Every round, loaded or not, is a satchel item: a
--- shot takes one, a reload takes none.
+-- reload (nil until then, treated as no). Satchel rounds = the pool without the loaded rounds:
+-- a reload takes one satchel round per round loaded, a shot takes none.
 local poolHasClip = nil
 local quietUntil = 0  -- ammo type switch running: the watcher only takes new baselines
 
@@ -161,9 +161,9 @@ local function clipsOf(ped, t)
     return n
 end
 
---- Loaded rounds that sit outside the pool (0 when the pool counts them).
-local function outsidePool(ped, t)
-    if poolHasClip == false then return clipsOf(ped, t) end
+--- Loaded rounds the pool counts as well (0 when it does not).
+local function loadedInPool(ped, t)
+    if poolHasClip == true then return clipsOf(ped, t) end
     return 0
 end
 
@@ -245,7 +245,7 @@ local function applyPools()
         for name, s in pairs(items) do
             rounds = rounds + math.max(0, s.count - (owed[name] or 0)) * s.per
         end
-        local target = math.max(0, rounds - (spent[t] or 0) + extraFor(t) - outsidePool(ped, t))
+        local target = math.max(0, rounds - (spent[t] or 0) + extraFor(t) + loadedInPool(ped, t))
         seen[t] = true
         if lastSet[t] ~= target then
             Citizen.InvokeNative(N.SET_PED_AMMO_BY_TYPE, ped, joaat(t), target)
@@ -417,24 +417,15 @@ local function equipGun(it, hash)
         Citizen.InvokeNative(N.SET_AMMO_TYPE_FOR_PED_WEAPON, ped, hash, joaat(typeName))
     end
 
-    -- rounds in the gun: what was loaded last time (info.ammo), one clip at most, and never
-    -- more than the satchel holds (loaded rounds are satchel rounds too; a shot takes one)
+    -- rounds in the gun (already taken from the satchel when they were loaded): one clip
+    -- loaded, the rest rides on the pool as "extra"
     local ammo = math.max(0, math.floor(tonumber(info.ammo) or 0))
     local maxClip = int(N.GET_MAX_AMMO_IN_CLIP, ped, hash, true)
     local clip = maxClip > 0 and math.min(ammo, maxClip) or ammo
-    local have = 0
-    for name, s in pairs(typeName and poolSources()[typeName] or {}) do
-        have = have + math.max(0, s.count - (owed[name] or 0)) * s.per
-    end
-    have = math.max(0, have - (typeName and spent[typeName] or 0))
-    for _, o in pairs(equipped) do
-        if not o.thrown and o.ammoTypeName == typeName and o.hash ~= hash then have = have - clipOf(ped, o.hash) end
-    end
-    clip = math.max(0, math.min(clip, have))
     local w = {
         serie = info.serie or info.serial,
         key = key, id = info.id or info.serie or info.serial, name = it.name, slot = it.slot, hash = hash,
-        attach = attach, ammoTypeName = typeName, extra = 0, lastTotal = clip,
+        attach = attach, ammoTypeName = typeName, extra = ammo - clip, lastTotal = ammo,
     }
     equipped[key] = w
     Citizen.InvokeNative(N.SET_AMMO_IN_CLIP, ped, hash, clip)
@@ -694,13 +685,13 @@ CreateThread(function()
                             print(('[MULTIinventory] ammo pool counts loaded rounds: %s'):format(tostring(poolHasClip)))
                         end
                     end
-                    local extraNow = poolHasClip == false and cNow or 0
-                    local extraBefore = poolHasClip == false and cBefore or 0
-                    local totalNow, totalBefore = now + extraNow, set + extraBefore
+                    -- satchel rounds = the pool without what is loaded in the guns
+                    local totalNow = now - (poolHasClip == true and cNow or 0)
+                    local totalBefore = set - (poolHasClip == true and cBefore or 0)
                     if quiet then
                         lastSet[t] = now
                     elseif totalNow < totalBefore then
-                        -- rounds fired (or thrown): one satchel round each
+                        -- rounds loaded into a gun (or thrown): one satchel round each
                         lastSet[t] = now
                         consume(t, totalBefore - totalNow)
                     elseif totalNow > totalBefore and MIC.Cfg('Ammo.BlockWorldAmmo', true) then
