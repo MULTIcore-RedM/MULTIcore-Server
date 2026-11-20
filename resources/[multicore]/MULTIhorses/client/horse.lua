@@ -244,7 +244,42 @@ local function walkToPlayer()
     end)
 end
 
---- Spawns the active horse behind the player (or at `at`), with the data the server sends.
+-- START_EXPENSIVE_SYNCHRONOUS_SHAPE_TEST_LOS_PROBE (x1, y1, z1, x2, y2, z2, flags, entity, p8) -> handle (femga natives.json)
+local LOS_PROBE = 0x377906D8A31E5586
+local PROBE_FLAGS = 17   -- 1 = map, 16 = objects (as MULTIdoors)
+
+--- true when nothing solid lies between the player and the spot (no wall, building or rock in the way)
+local function clearTo(from, to)
+    local handle = Citizen.InvokeNative(LOS_PROBE, from.x, from.y, from.z, to.x, to.y, to.z, PROBE_FLAGS, cache.ped, 7, Citizen.ResultAsInteger())
+    local _, hit = GetShapeTestResult(handle)
+    return not hit or hit == 0 or hit == false
+end
+
+--- Where a called horse appears: Config.SpawnDistance in front of the player, on the player's own
+--- ground (never on a roof above). If a wall is in the way, the sides, then behind, are tried.
+local function spawnSpot()
+    local ped = cache.ped
+    local me = GetEntityCoords(ped)
+    local d = Config.SpawnDistance
+    local tries = { { 0.0, d }, { d * 0.7, d * 0.7 }, { -d * 0.7, d * 0.7 }, { d, 0.0 }, { -d, 0.0 }, { 0.0, -d } }
+    local eye = vector3(me.x, me.y, me.z + 0.5)
+    local pick
+    for _, o in ipairs(tries) do
+        -- check a little past the spot too, so the horse's body has room
+        local past = GetOffsetFromEntityInWorldCoords(ped, o[1] * 1.3, o[2] * 1.3, 0.0)
+        if clearTo(eye, vector3(past.x, past.y, past.z + 0.5)) then
+            pick = GetOffsetFromEntityInWorldCoords(ped, o[1], o[2], 0.0)
+            break
+        end
+    end
+    pick = pick or GetOffsetFromEntityInWorldCoords(ped, 0.0, d, 0.0)
+    -- ground just below the player's height: starting low means a roof or upper floor is never chosen
+    local found, groundZ = GetGroundZFor_3dCoord(pick.x, pick.y, me.z + 1.5, false)
+    local z = (found and math.abs(groundZ - me.z) < 3.0) and groundZ or (me.z - 1.0)
+    return vector3(pick.x, pick.y, z)
+end
+
+--- Spawns the active horse in front of the player (or at `at`), with the data the server sends.
 local function spawn(at)
     local info, err, extra = lib.callback.await('MULTIhorses:callHorse', false)
     if not info then return notify(_L('err_' .. tostring(err), extra or ''), 'error') end
@@ -256,10 +291,16 @@ local function spawn(at)
     if not HasModelLoaded(model) then return notify(_L('err_error'), 'error') end
 
     despawn(false)
-    local pos = at or GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, -Config.SpawnDistance, 0.0)
-    local found, groundZ = GetGroundZFor_3dCoord(pos.x, pos.y, pos.z + 10.0, false)
-    local z = found and groundZ or pos.z
-    horse = CreatePed(model, pos.x, pos.y, z, GetEntityHeading(cache.ped), true, true, false, false)
+    local pos = at or spawnSpot()
+    local z = pos.z
+    if at then
+        local found, groundZ = GetGroundZFor_3dCoord(at.x, at.y, at.z + 1.5, false)
+        if found and math.abs(groundZ - at.z) < 3.0 then z = groundZ end
+    end
+    -- the horse faces the player
+    local me = GetEntityCoords(cache.ped)
+    local heading = GetHeadingFromVector_2d(me.x - pos.x, me.y - pos.y)
+    horse = CreatePed(model, pos.x, pos.y, z, heading, true, true, false, false)
     local t = 0
     while not DoesEntityExist(horse) and t < 200 do Wait(10) t = t + 1 end
     SetModelAsNoLongerNeeded(model)

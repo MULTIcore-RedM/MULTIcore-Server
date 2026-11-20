@@ -30,7 +30,13 @@ local S = {
     respawnAsked = 0,    -- GetGameTimer() of the last respawn request
     extra = 0,           -- seconds other scripts added to this death's respawn timer (vorp_core:Client:AddTimeToRespawn)
     cursor = false,
+    aliveAt = 0,         -- GetGameTimer() of the last revive / respawn (no new death is taken for a short while after)
+    moving = false,      -- true while MULTImedic's own respawn moves and resurrects the player
 }
+
+-- After a revive or respawn the body can still read as dead for a moment (fade, resurrect, collision).
+-- No new death is taken in that time, or the unconscious screen would come straight back.
+local ALIVE_GRACE_MS = 8000
 
 local function key(name) return RSGCore.Shared.Keybinds[name] end
 
@@ -181,6 +187,8 @@ end
 
 local function onDeath(killerId, cause)
     if S.dead or not LocalPlayer.state.isLoggedIn then return end
+    -- just revived / respawning: the body may not be up yet; a real death is picked up by the check below after the grace
+    if S.moving or GetGameTimer() - S.aliveAt < ALIVE_GRACE_MS then return end
     S.dead = true
     S.diedAt = GetGameTimer()
     S.callReadyAt = 0
@@ -198,26 +206,47 @@ end
 -- MULTIcore's VORP face fires this once per death (killer server id, cause of death hash)
 AddEventHandler('vorp_core:Client:OnPlayerDeath', function(killerId, cause) onDeath(killerId, cause) end)
 
--- fallback check, in case the core event did not reach us
-CreateThread(function()
-    stopAutoSpawn()
-    while true do
-        Wait(Config.DeathCheckMs)
-        if not S.dead and LocalPlayer.state.isLoggedIn then
-            local ped = PlayerPedId()
-            if IsEntityDead(ped) or GetEntityHealth(ped) <= 0 then onDeath(0, nil) end
-        end
-    end
-end)
-
 --- Called when the server says the player is alive again (revive, respawn, admin).
 local function closeDeath()
+    S.aliveAt = GetGameTimer()
     if not S.dead then return end
     S.dead = false
     closeScreen()
     TriggerEvent('MULTImedic:client:onRevive')
     dbg('alive')
 end
+
+-- fallback check, in case the core event did not reach us;
+-- and a safety net: the screen never stays up on a living player the server no longer counts as dead
+CreateThread(function()
+    stopAutoSpawn()
+    local aliveSince = nil
+    while true do
+        Wait(Config.DeathCheckMs)
+        if LocalPlayer.state.isLoggedIn then
+            local ped = PlayerPedId()
+            local bodyDead = IsEntityDead(ped) or GetEntityHealth(ped) <= 0
+            if not S.dead then
+                if bodyDead then onDeath(0, nil) end
+            elseif not bodyDead and not S.moving then
+                local data = RSGCore.Functions.GetPlayerData()
+                local serverDead = data and data.metadata and data.metadata.isdead == true
+                if serverDead then
+                    aliveSince = nil
+                else
+                    aliveSince = aliveSince or GetGameTimer()
+                    if GetGameTimer() - aliveSince > 3000 then
+                        aliveSince = nil
+                        dbg('alive and not dead on the server: closing the screen')
+                        closeDeath()
+                    end
+                end
+            else
+                aliveSince = nil
+            end
+        end
+    end
+end)
 MedicC.CloseDeath = closeDeath
 
 --- Adds seconds to the current death's respawn timer (only while down; the server keeps the same count).
@@ -254,7 +283,7 @@ end)
 -- own respawn at the doctor (Config.Respawn.UseCoreRespawn = false)
 RegisterNetEvent('MULTImedic:client:respawnAt', function(c, pct)
     if type(c) ~= 'vector4' then return end
-    closeDeath()
+    S.moving = true   -- no new death while the body is moved and brought back
     CreateThread(function()
         local R = Config.Respawn
         DoScreenFadeOut(R.FadeMs)
@@ -281,6 +310,9 @@ RegisterNetEvent('MULTImedic:client:respawnAt', function(c, pct)
         if R.ResetOutlawStatus then TriggerServerEvent('rsg-prison:server:resetoutlawstatus') end
         if R.ReloadLook then pcall(function() exports.MULTIcore:ReloadLook() end) end
 
+        -- alive again: now the unconscious screen goes (behind the fade)
+        S.moving = false
+        closeDeath()
         DoScreenFadeIn(R.FadeMs * 2)
         -- the core's own respawn fires this; MULTImedic moved the player itself, so it fires it once here
         TriggerEvent('vorp_core:Client:OnPlayerRespawn')

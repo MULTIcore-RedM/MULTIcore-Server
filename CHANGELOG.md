@@ -2,6 +2,12 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-20 (fixes)
+
+- **Respawn:** the "You are unconscious" screen no longer stays up after you respawn at the doctor.
+- **Calling your horse:** it now appears about 10 feet (3 m) in front of you, on your own ground level. It no longer appears on roofs or inside buildings. If a wall is in the way, it appears beside or behind you instead. Setting: `Config.SpawnDistance` in MULTIhorses.
+- **Last location:** "Last location" in the spawn picker is now where you actually were when you logged out or closed the game. It used to be where you had logged in.
+
 ## 2026-11-20 (later)
 
 ### New

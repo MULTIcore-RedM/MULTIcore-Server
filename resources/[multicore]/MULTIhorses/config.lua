@@ -63,7 +63,8 @@ Config.Transfer = {
 Config.WhistleKey = 'H'             -- default 'H' (key name from MULTIcore's shared/keybinds.lua; H = the game's whistle, INPUT_WHISTLE 0x24978A28)
 Config.WhistleCooldownMs = 3000     -- default 3000 (ms between two whistles)
 Config.WalkDistance = 100.0         -- default 100.0 (a horse closer than this walks to you; farther away it is brought near you)
-Config.SpawnDistance = 15.0         -- default 15.0 (how far behind the player a called horse appears)
+Config.SpawnDistance = 3.0          -- default 3.0 (metres in front of the player a called horse appears, about 10 feet;
+                                    --   on the player's own ground level, never on a roof; if a wall is in the way it tries the sides, then behind)
 Config.ArriveDistance = 4.0         -- default 4.0 (the horse stops walking this close to the player)
 Config.WalkSpeed = 2.0              -- default 2.0 (walking speed to the player; 1.0 walk, 2.0 trot, 3.0 gallop)
 Config.FollowSpeed = 1.5            -- default 1.5 (speed while following the player on foot)
