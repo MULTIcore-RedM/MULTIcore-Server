@@ -12,3 +12,4 @@ If you share MULTIcore, or a changed copy of it, keep this notice, the credits f
 
 - **rsg-core 2.4.1** and other RSG v2 framework code (GPL v3). Their authors keep their copyright; see `resources/[multicore]/MULTIcore/CREDITS.md` and each script's `CREDITS.md`.
 - **ox_lib** and **oxmysql** by Overextended (LGPL v3), included unchanged in `resources/[standalone]` with their own licences.
+- **redm-ipls** (MIT licence, Copyright (c) 2020 Heather Rhodes; IPL list by koil, CryptoGenics, PitchSean and Plouffe), included unchanged in `resources/[standalone]/redm-ipls` with its licence.

@@ -243,7 +243,7 @@ Do not start these: MULTIcore and its scripts already answer as them (or do the 
 | RSG v2 | `rsg-core`, `rsg-inventory`, `rsg-target`, `rsg-hud`, `rsg-medic`, `rsg-bossmenu` |
 | VORP | `vorp_core`, `vorp_inventory`, `vorp_menu`, `vorp_inputs`, `vorp_progressbar`, `vorp_metabolism` |
 | RedEM:RP | `redem_roleplay`, `redemrp_inventory`, `redemrp_status`, `redemrp_respawn`, `redemrp_bossmenu`, `redemrp_menu_base`, `redemrp_progressbars`, `redemrp_charselect`, `redemrp_creator` |
-| Other | `ox_target`, `chat`, `pma-voice`, `weathersync` |
+| Other | `ox_target`, `chat`, `pma-voice`, `weathersync`, a second IPL or interiors script (`redm-ipls` is already included) |
 
 If a script needs items:
 - **RSG scripts** usually ship an items block: paste it into `MULTIcore/shared/items.lua`.
