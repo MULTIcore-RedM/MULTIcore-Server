@@ -6,12 +6,13 @@ lua54 'yes'
 
 name 'MULTIcore'
 author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
-description 'One core for RSG and VORP scripts side by side. Built on rsg-core 2.4.1 (see CREDITS.md).'
+description 'One core for RSG, VORP and RedEM:RP scripts side by side. Built on rsg-core 2.4.1 (see CREDITS.md).'
 version '0.1.0'
 
--- MULTIcore answers to both framework names, so scripts that depend on either find it
+-- MULTIcore answers to every framework name, so scripts that depend on any of them find it
 provide 'rsg-core'
 provide 'vorp_core'
+provide 'redem_roleplay'
 
 ui_page 'html/notify/index.html'
 
@@ -49,6 +50,7 @@ client_scripts {
     'client/pvp.lua',
     'client/multi/*.lua',      -- look apply library, login events
     'client/vorp/*.lua',       -- VORP client face
+    'client/redem/*.lua',      -- RedEM:RP client face
 }
 
 server_scripts {
@@ -72,6 +74,8 @@ server_scripts {
     'server/vorp/character.lua',
     'server/vorp/core.lua',
     'server/vorp/events.lua',
+    'server/redem/player.lua',             -- RedEM:RP face: the player object
+    'server/redem/core.lua',               -- RedEM:RP face: RedEM object, callbacks, events
     'server/multi/compat_characters.lua',  -- VORP characters table + RSG playerskins kept in step
     'server/multi/compat_vorp.lua',        -- getUserByCharId export, vorp:setjob
     'server/multi/api.lua',        -- MULTIcore's own API (docs/API.md)

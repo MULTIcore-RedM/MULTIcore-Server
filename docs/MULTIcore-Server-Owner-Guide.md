@@ -232,12 +232,29 @@ Every script has a README with all of its settings and commands.
 
 ---
 
-## 7. Adding RSG and VORP scripts
+## 7. Adding RSG, VORP and RedEM:RP scripts
 
-Put them in `resources/` and `ensure` them **below** the MULTI scripts. Do not start `rsg-core`, `vorp_core`, `rsg-inventory`, `vorp_inventory`, `ox_target`, `rsg-target`, `chat`, `pma-voice` or `weathersync`: MULTIcore and its scripts answer as those already (or do the same job).
+Put them in `resources/` and `ensure` them **below** the MULTI scripts.
+
+Do not start these: MULTIcore and its scripts already answer as them (or do the same job).
+
+| Framework | Do not start |
+|---|---|
+| RSG v2 | `rsg-core`, `rsg-inventory`, `rsg-target`, `rsg-hud`, `rsg-medic`, `rsg-bossmenu` |
+| VORP | `vorp_core`, `vorp_inventory`, `vorp_menu`, `vorp_inputs`, `vorp_progressbar`, `vorp_metabolism` |
+| RedEM:RP | `redem_roleplay`, `redemrp_inventory`, `redemrp_status`, `redemrp_respawn`, `redemrp_bossmenu`, `redemrp_menu_base`, `redemrp_progressbars`, `redemrp_charselect`, `redemrp_creator` |
+| Other | `ox_target`, `chat`, `pma-voice`, `weathersync` |
 
 If a script needs items:
 - **RSG scripts** usually ship an items block: paste it into `MULTIcore/shared/items.lua`.
 - **VORP scripts** usually ship SQL for the `items` table: run it as it is. MULTIcore reads that table too.
+- **RedEM:RP scripts** usually ship lines for `Config.Items` in `redemrp_inventory/config.lua`. Add each one to `MULTIcore/shared/items.lua` instead, in that file's shape:
+  - `weight` there is kilograms; here it is grams (0.25 becomes 250);
+  - `canBeUsed = true` becomes `useable = true`;
+  - `imgsrc = 'items/bread.png'` becomes `image = 'bread.png'`.
+
+  A RedEM:RP weapon such as `WEAPON_REVOLVER_CATTLEMAN` is already there in lower case: names are matched without case.
+
+**RedEM:RP scripts that read or write the `characters` table with their own SQL will not work.** That table belongs to VORP's layout on MULTIcore. Scripts that use the RedEM:RP functions (`RedEM.GetPlayer`, the inventory API, the events) work.
 
 Pictures go in `MULTIimages/images/`.

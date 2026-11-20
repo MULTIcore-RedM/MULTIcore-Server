@@ -14,6 +14,8 @@ version '0.1.0'
 provide 'vorp_menu'
 provide 'vorp_inputs'
 provide 'vorp_progressbar'
+provide 'redemrp_menu_base'
+provide 'redemrp_progressbars'
 
 shared_scripts {
     '@MULTIcore/shared/i18n.lua',   -- _L / _LT / _LCode (MULTIcore's shared language helper)
@@ -27,6 +29,7 @@ client_scripts {
     'client/menu.lua',       -- vorp_menu
     'client/inputs.lua',     -- vorp_inputs
     'client/progress.lua',   -- vorp_progressbar
+    'client/redem.lua',      -- redemrp_menu_base, redemrp_progressbars
 }
 
 ui_page 'html/index.html'

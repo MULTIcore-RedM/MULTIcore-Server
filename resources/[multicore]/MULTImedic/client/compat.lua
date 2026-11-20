@@ -57,3 +57,16 @@ AddEventHandler('__cfx_export_rsg-medic_IsDead', function(setCB) setCB(function(
 -- VORP: a server script adds seconds to a downed player's respawn timer (seconds). Only while down;
 -- capped by Config.Compat.MaxAddRespawnSeconds. Documented meaning only: it never shortens the timer.
 RegisterNetEvent('vorp_core:Client:AddTimeToRespawn', function(seconds) MedicC.AddRespawnTime(seconds) end)
+
+-- redemrp_respawn (RedEM:RP): a server script revives with this client event
+RegisterNetEvent('redemrp_respawn:client:Revived', function() TriggerServerEvent('MULTImedic:server:compatRevive', 'playerRevive') end)
+
+-- RedEM:RP client callback 'redemrp_respawn:IsPlayerDead'
+CreateThread(function()
+    while GetResourceState('MULTIcore') ~= 'started' do Wait(250) end
+    local ok, RedEM = pcall(function() return exports['redem_roleplay']:RedEM() end)
+    if not ok or not RedEM then return end
+    RedEM.CreateClientCallback('redemrp_respawn:IsPlayerDead', function(cb)
+        cb(IsEntityDead(PlayerPedId()) or LocalPlayer.state.isDead == true)
+    end)
+end)

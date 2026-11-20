@@ -12,6 +12,7 @@ version '0.1.0'
 -- MULTImedic stands in for rsg-medic (see README "rsg-medic compatibility").
 -- Do not run rsg-medic on the same server.
 provide 'rsg-medic'
+provide 'redemrp_respawn'
 
 shared_scripts {
     '@ox_lib/init.lua',

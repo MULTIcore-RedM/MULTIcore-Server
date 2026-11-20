@@ -14,6 +14,7 @@ version '0.1.0'
 provide 'rsg-bossmenu'
 provide 'rsg-gangmenu'
 provide 'rsg-multijob'
+provide 'redemrp_bossmenu'
 
 shared_scripts {
     '@ox_lib/init.lua',

@@ -158,3 +158,8 @@ The callback runs with no arguments when the bar ends. Bars can overlap; the new
 
 ## Languages
 Words of our own (default buttons, key hints, input check messages and console warnings) come from `locales/*.lua`. Text from the calling script is shown as it is. `ru` switches the page to the theme's Cyrillic font preset.
+
+## RedEM:RP (redemrp_menu_base, redemrp_progressbars)
+
+`TriggerEvent('redemrp_menu_base:getData', cb)` gives the same menu as vorp_menu. `exports.redemrp_progressbars:DisplayProgressBar(ms, text, cb)` shows the MULTIhelpers bar, waits for it and then calls `cb`.
+

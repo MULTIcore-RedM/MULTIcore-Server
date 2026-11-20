@@ -2,11 +2,11 @@
 
 **MULTIcore was founded and created by RINGO (RINGOscripting).**
 
-A ready-to-run RedM base server on **MULTIcore**: one core that runs **RSG v2 scripts and VORP scripts side by side**, with its own full set of base scripts in the game's own look (black panels, white text).
+A ready-to-run RedM base server on **MULTIcore**: one core that runs **RSG v2, VORP and RedEM:RP scripts side by side**, with its own full set of base scripts in the game's own look (black panels, white text).
 
 ## What you get
 
-- **MULTIcore**: the core. It answers to both `rsg-core` and `vorp_core`, so scripts written for either framework find their core and share the same players, money, jobs and items.
+- **MULTIcore**: the core. It answers to `rsg-core`, `vorp_core` and `redem_roleplay`, so scripts written for any of the three frameworks find their core and share the same players, money, jobs and items.
 - **33 MULTI scripts** (`resources/[multicore]`): login and character select, character creator, inventory, stores, clothing, HUD, food and drink, bank, jobs, medic, admin, camps, crafting, doors, emotes, gathering, horses, hunting, law, telegrams, wagons, a radial menu, Discord logs and whitelist, its own **target system** (MULTItarget), its own **chat** (MULTIchat), **proximity voice** (MULTIvoice), **one clock and weather for everyone** (MULTIweather) and a picture folder for items (MULTIimages).
 - **ox_lib** and **oxmysql** (`resources/[standalone]`), unchanged, with their own licences.
 - 10 languages: English, German, French, Spanish, Brazilian Portuguese, Italian, Polish, Russian, Dutch and Turkish.
@@ -43,7 +43,7 @@ Every key can be changed in the script's `config.lua`.
 
 ## Adding your own scripts
 
-Put them in `resources/` and `ensure` them **below** the MULTI scripts in `server.cfg`. RSG v2 and VORP scripts work without edits. Do not also start `rsg-core`, `vorp_core`, `ox_target`, `rsg-target`, `chat`, `rsg-inventory`, `vorp_inventory`, `pma-voice` or `weathersync`: MULTIcore and its scripts already answer as those (or do the same job).
+Put them in `resources/` and `ensure` them **below** the MULTI scripts in `server.cfg`. RSG v2, VORP and RedEM:RP scripts work without edits. Do not also start `rsg-core`, `vorp_core`, `redem_roleplay`, `redemrp_inventory`, `ox_target`, `rsg-target`, `chat`, `rsg-inventory`, `vorp_inventory`, `pma-voice` or `weathersync`: MULTIcore and its scripts already answer as those (or do the same job).
 
 ## Making MULTI scripts
 

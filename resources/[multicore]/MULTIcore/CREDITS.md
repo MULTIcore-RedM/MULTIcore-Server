@@ -42,3 +42,7 @@ Original project: https://github.com/Rexshack-RedM/rsg-core
   the fallback head textures (texture_types) and the light-to-dark tone order (GetHashHead).
 - Body proportion sliders follow VORP's idea (arms, chest, waist ... sliders); the MetaPedExpression ids are from femga's rdr3_discoveries.
 - Overlay, palette, face slider and clothing data: femga's rdr3_discoveries.
+
+# The VORP and RedEM:RP faces
+
+- The VORP face (server/vorp, client/vorp) and the RedEM:RP face (server/redem, client/redem) are written from each framework's public API, so their scripts find what they call. No VORP or RedEM:RP code is used. VORP and RedEM:RP belong to their own authors.

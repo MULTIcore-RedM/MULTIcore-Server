@@ -12,6 +12,7 @@ license 'GPL-3.0'
 -- answers to both inventory names, so scripts for either framework find it
 provide 'rsg-inventory'
 provide 'vorp_inventory'
+provide 'redemrp_inventory'
 
 ui_page 'html/index.html'
 
@@ -28,6 +29,7 @@ server_scripts {
     'server/core/*.lua',   -- engine: registry, storage, limits, stashes, drops, usable items
     'server/rsg/*.lua',    -- rsg-inventory face
     'server/vorp/*.lua',   -- vorp_inventory face
+    'server/redem/*.lua',  -- redemrp_inventory face
 }
 
 client_scripts {
@@ -36,6 +38,7 @@ client_scripts {
     'client/core/*.lua',   -- satchel UI, hotbar, weapons on the ped
     'client/rsg/*.lua',    -- rsg-inventory client face
     'client/vorp/*.lua',   -- vorp_inventory client face
+    'client/redem/*.lua',  -- redemrp_inventory client face
 }
 
 files {

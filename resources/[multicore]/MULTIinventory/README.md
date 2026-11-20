@@ -184,3 +184,8 @@ Everything is in `config.lua`, every option with its default. Words are in `loca
 ## Self-test
 `test/inventory_selftest` (needs `setr multicore_selftest true`): prints `[invtest] DONE: n passed, m failed`.
 `test/trade_selftest` covers trading (and MULTIbank's safe-deposit boxes): `[tradetest] DONE: n passed, m failed`.
+
+## RedEM:RP (redemrp_inventory)
+
+RedEM:RP scripts work unchanged: `TriggerEvent('redemrp_inventory:getData', cb)` gives the same API (`getItem(src, name, meta)` with `ItemAmount`, `AddItem`, `RemoveItem`, `ChangeMeta`; `getItemData`, `getPlayerInventory`), `exports.redemrp_inventory:GetItemsList()` lists every item, the client event `redemrp_inventory:OpenStash(id, kg)` opens a stash, and using an item marked `useable` fires `RegisterUsableItem:<name>`. Item names are matched without case, weights are given in kilograms. Differences, all on the safe side: `ItemAmount` counts every stack, `AddItem` never drops what does not fit unless asked to, an unknown item adds nothing. A stash named after a character opens only for that character; `bossstash_<job>` only for that job. Settings: `Config.Redem`.
+

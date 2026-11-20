@@ -230,6 +230,14 @@ Config.Ammo = {
     BlockWorldAmmo = true,               -- default true  (ammo picked up in the world is not kept)
 }
 
+
+------------------------------------------------------------------
+-- RedEM:RP face (server/redem, client/redem)
+------------------------------------------------------------------
+Config.Redem = {
+    UsableEvents = true,                 -- default true  (using a useable item nothing else handles fires RedEM:RP's RegisterUsableItem:<name>)
+    StashSlots = 50,                     -- default 50 (slots of a stash opened with redemrp_inventory:OpenStash)
+}
 ------------------------------------------------------------------
 -- VORP face (server/vorp, client/vorp)
 ------------------------------------------------------------------

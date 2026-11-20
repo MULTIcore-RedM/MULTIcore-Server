@@ -110,6 +110,7 @@ end)
 
 -- ------------------------------------------------------------ exports
 local api = { start = start }
+Helpers.ProgressStart = start
 
 Helpers.Export('initiate', function() return api end, { 'vorp_progressbar' })
 

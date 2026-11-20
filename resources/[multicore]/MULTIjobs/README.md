@@ -124,3 +124,8 @@ VORP: `character.setJob / setJobGrade / setJobLabel / setMultiJob / removeMultiJ
 
 - Boss desk coordinates from `rsg-bossmenu`, law office duty points from `rsg-lawman`, the Valentine doctor from `rsg-medic`, and the names / shapes of the rsg-bossmenu, rsg-gangmenu and rsg-multijob calls: RSG v2 framework (GPL v3), by the RSG team.
 - Built for MULTIcore, which is built on rsg-core 2.4.1 (GPL v3).
+
+## RedEM:RP (redemrp_bossmenu)
+
+`exports.redemrp_bossmenu:GetJobDuty(src)`, the duty toggle `redemrp_bossmenu:server:ToggleDuty` (same checks as `/duty`) and the client event `redemrp_bossmenu:client:ReceiveJob (job, grade)` on login and every job change.
+

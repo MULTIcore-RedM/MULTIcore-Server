@@ -14,6 +14,7 @@ license 'GPL-3.0-or-later'
 -- Do not run vorp_metabolism or rsg-hud on the same server.
 provide 'vorp_metabolism'
 provide 'rsg-hud'
+provide 'redemrp_status'
 
 shared_scripts {
     '@MULTIcore/shared/i18n.lua',  -- _L / _LT / _LCode
@@ -30,6 +31,7 @@ client_scripts {
 server_scripts {
     'server/needs.lua',    -- decay loop, writes through the RSGCore player metadata
     'server/compat.lua',   -- rsg-hud server events, exports
+    'server/redem.lua',    -- redemrp_status events
 }
 
 ui_page 'html/index.html'

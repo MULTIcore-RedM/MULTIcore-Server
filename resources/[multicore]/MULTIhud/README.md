@@ -60,3 +60,8 @@ Client:
 
 ## Credits
 Event names and argument orders for the RSG side come from how the RSG v2 framework scripts (GPL v3) call them; no code was copied. The VORP side follows the public vorp_metabolism documentation; no VORP code was used.
+
+## RedEM:RP (redemrp_status)
+
+RedEM:RP scripts change needs with the same events as redemrp_status: `redemrp_status:server:AddHungerThirst` (client), `redemrp_status:server:AddHungerThirstForId` and `redemrp_status:server:FeedMe` (server), `AddStress` / `RelieveStress`. Players get `redemrp_status:UpdateStatus (thirst, hunger, stress)` every 30 seconds. Client changes are limited like the rsg-hud events (`Config.ClientWrites`).
+

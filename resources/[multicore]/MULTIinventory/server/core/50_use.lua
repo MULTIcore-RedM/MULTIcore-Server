@@ -97,7 +97,17 @@ local function run(src, stack, invId)
     end
     local rsgCb = Inv.RsgUsable(name)
     local list = (#external > 0 or rsgCb) and external or builtin
-    if not rsgCb and #list == 0 then return false, 'not_usable' end
+    if not rsgCb and #list == 0 then
+        -- RedEM:RP scripts listen for 'RegisterUsableItem:<name>' (items marked useable in items.lua)
+        local def = Inv.Items[name]
+        if def and def.useable and not (Config.Redem and Config.Redem.UsableEvents == false) then
+            local data = { name = name, amount = stack.amount, meta = Inv.DeepCopy(stack.info or {}), label = def.label, slot = stack.slot }
+            TriggerEvent('RegisterUsableItem:' .. name, src, data)
+            if name ~= name:upper() then TriggerEvent('RegisterUsableItem:' .. name:upper(), src, data) end
+            return true
+        end
+        return false, 'not_usable'
+    end
     local copy = Inv.DeepCopy(stack)
     if rsgCb then
         local ok, err = pcall(rsgCb, src, copy)

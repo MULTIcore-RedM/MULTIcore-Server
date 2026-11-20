@@ -354,3 +354,30 @@ RSGCore.Commands.Add('removejob', _L('cmd_removejob'), { { name = 'id', help = _
     local ok = removeHeld(id, args[2])
     MJ.Notify(source, ok and _L('job_removed_admin', tostring(args[2]), id) or _L('not_held'), ok and 'success' or 'error')
 end, 'admin')
+
+-- ------------------------------------------------------------
+-- redemrp_bossmenu (RedEM:RP) - written from its public API, no RedEM:RP code
+-- ------------------------------------------------------------
+
+-- exports['redemrp_bossmenu']:GetJobDuty(src) -> bool
+exportAs('redemrp_bossmenu', 'GetJobDuty', function(src)
+    local P = RSGCore.Functions.GetPlayer(tonumber(src))
+    return P ~= nil and P.PlayerData.job ~= nil and P.PlayerData.job.onduty == true
+end)
+
+-- the RedEM:RP duty toggle: the same checks as /duty
+RegisterNetEvent('redemrp_bossmenu:server:ToggleDuty', function()
+    local src = source
+    say(src, MJ.Duty(src))
+end)
+
+-- RedEM:RP scripts learn the job (and grade) from this client event
+local function sendJob(src)
+    local P = RSGCore.Functions.GetPlayer(src)
+    if not P then return end
+    local job = P.PlayerData.job or {}
+    TriggerClientEvent('redemrp_bossmenu:client:ReceiveJob', src, job.name, job.grade and tonumber(job.grade.level) or 0)
+end
+AddEventHandler('RSGCore:Server:PlayerLoaded', function(P) sendJob(P.PlayerData.source) end)
+AddEventHandler('RSGCore:Server:OnJobUpdate', function(src) sendJob(src) end)
+RegisterNetEvent('redemrp_bossmenu:server:RequestJob', function() sendJob(source) end)

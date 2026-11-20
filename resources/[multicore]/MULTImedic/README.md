@@ -84,3 +84,8 @@ Client events: `rsg-medic:client:adminRevive`, `playerRevive`, `adminHeal` (sent
 
 ## Credits
 Doctor coordinates, event names and argument shapes come from rsg-medic and the scripts of the RSG v2 framework (GPL v3). No code was copied. No VORP code was used.
+
+## RedEM:RP (redemrp_respawn)
+
+`TriggerEvent('redemrp_respawn:IsPlayerDead', src, cb)`, the server event `redemrp_respawn:server:RequestRevivePlayer (id)`, the client event `redemrp_respawn:client:Revived` and the client callback `redemrp_respawn:IsPlayerDead` all work, with MULTImedic's own checks.
+

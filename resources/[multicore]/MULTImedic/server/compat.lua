@@ -119,3 +119,18 @@ RSGCore.Functions.CreateCallback('rsg-medic:server:getPlayerInjuries', function(
     if not inj then return cb(nil) end
     cb(inj, Medic.fullName(T))
 end)
+
+-- ------------------------------------------------------------
+-- redemrp_respawn (RedEM:RP) - written from its public API, no RedEM:RP code
+-- ------------------------------------------------------------
+
+-- TriggerEvent('redemrp_respawn:IsPlayerDead', src, function(isDead) end)
+AddEventHandler('redemrp_respawn:IsPlayerDead', function(src, cb)
+    if cb then cb(Medic.IsDead(tonumber(src)) == true) end
+end)
+
+-- server only: TriggerEvent('redemrp_respawn:server:RequestRevivePlayer', id)
+AddEventHandler('redemrp_respawn:server:RequestRevivePlayer', function(id)
+    id = tonumber(id)
+    if id and getP(id) then Medic.Revive(id, Config.Revive.HealthPercent) end
+end)
