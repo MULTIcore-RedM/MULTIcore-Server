@@ -123,4 +123,12 @@ Locales['pl'] = {
     ['ui_trade_offer'] = 'Zaoferuj',
     ['ui_trade_back'] = 'Zabierz',
     ['ui_trade_in'] = 'W wymianie',
+    ['cmd_giveitem'] = 'Daj graczowi przedmiot (admin)',
+    ['cmd_giveitem_id'] = 'ID gracza',
+    ['cmd_giveitem_item'] = 'Nazwa przedmiotu',
+    ['cmd_giveitem_amount'] = 'Ile (domyślnie 1)',
+    ['cmd_giveitem_no_player'] = 'Nie ma gracza o tym ID.',
+    ['cmd_giveitem_unknown'] = 'Nie ma przedmiotu %s.',
+    ['cmd_giveitem_done'] = 'Dano %d x %s graczowi %s.',
+    ['cmd_giveitem_failed'] = 'Nie zmieściło się: torba pełna lub za ciężka.',
 }

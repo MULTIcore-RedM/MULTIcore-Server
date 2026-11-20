@@ -124,4 +124,12 @@ Locales['en'] = {
     ['ui_trade_offer'] = 'Offer',
     ['ui_trade_back'] = 'Take back',
     ['ui_trade_in'] = 'In the trade',
+    ['cmd_giveitem'] = 'Give a player an item (admin)',
+    ['cmd_giveitem_id'] = 'Player id',
+    ['cmd_giveitem_item'] = 'Item name',
+    ['cmd_giveitem_amount'] = 'How many (default 1)',
+    ['cmd_giveitem_no_player'] = 'No player with that id.',
+    ['cmd_giveitem_unknown'] = 'No item called %s.',
+    ['cmd_giveitem_done'] = 'Gave %d x %s to %s.',
+    ['cmd_giveitem_failed'] = 'It did not fit: their satchel is full or too heavy.',
 }

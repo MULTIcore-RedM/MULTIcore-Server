@@ -123,4 +123,12 @@ Locales['es'] = {
     ['ui_trade_offer'] = 'Ofrecer',
     ['ui_trade_back'] = 'Retirar',
     ['ui_trade_in'] = 'En el intercambio',
+    ['cmd_giveitem'] = 'Dar un objeto a un jugador (admin)',
+    ['cmd_giveitem_id'] = 'ID del jugador',
+    ['cmd_giveitem_item'] = 'Nombre del objeto',
+    ['cmd_giveitem_amount'] = 'Cuántos (1 por defecto)',
+    ['cmd_giveitem_no_player'] = 'No hay ningún jugador con ese ID.',
+    ['cmd_giveitem_unknown'] = 'No hay ningún objeto llamado %s.',
+    ['cmd_giveitem_done'] = 'Diste %d x %s a %s.',
+    ['cmd_giveitem_failed'] = 'No cabe: la bolsa está llena o pesa demasiado.',
 }

@@ -123,4 +123,12 @@ Locales['nl'] = {
     ['ui_trade_offer'] = 'Aanbieden',
     ['ui_trade_back'] = 'Terugnemen',
     ['ui_trade_in'] = 'In de ruil',
+    ['cmd_giveitem'] = 'Geef een speler een voorwerp (admin)',
+    ['cmd_giveitem_id'] = 'Speler-ID',
+    ['cmd_giveitem_item'] = 'Naam van het voorwerp',
+    ['cmd_giveitem_amount'] = 'Hoeveel (standaard 1)',
+    ['cmd_giveitem_no_player'] = 'Geen speler met dat ID.',
+    ['cmd_giveitem_unknown'] = 'Geen voorwerp met de naam %s.',
+    ['cmd_giveitem_done'] = '%d x %s gegeven aan %s.',
+    ['cmd_giveitem_failed'] = 'Past niet: tas vol of te zwaar.',
 }

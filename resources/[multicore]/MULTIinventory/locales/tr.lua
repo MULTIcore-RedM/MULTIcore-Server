@@ -123,4 +123,12 @@ Locales['tr'] = {
     ['ui_trade_offer'] = 'Teklif et',
     ['ui_trade_back'] = 'Geri al',
     ['ui_trade_in'] = 'Takasta',
+    ['cmd_giveitem'] = 'Bir oyuncuya eşya ver (yönetici)',
+    ['cmd_giveitem_id'] = 'Oyuncu kimliği',
+    ['cmd_giveitem_item'] = 'Eşya adı',
+    ['cmd_giveitem_amount'] = 'Kaç tane (varsayılan 1)',
+    ['cmd_giveitem_no_player'] = 'Bu kimlikte oyuncu yok.',
+    ['cmd_giveitem_unknown'] = '%s adında eşya yok.',
+    ['cmd_giveitem_done'] = '%d x %s, %s adlı oyuncuya verildi.',
+    ['cmd_giveitem_failed'] = 'Sığmadı: çanta dolu ya da çok ağır.',
 }

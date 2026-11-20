@@ -123,4 +123,12 @@ Locales['ru'] = {
     ['ui_trade_offer'] = 'Предложить',
     ['ui_trade_back'] = 'Забрать',
     ['ui_trade_in'] = 'В обмене',
+    ['cmd_giveitem'] = 'Выдать игроку предмет (админ)',
+    ['cmd_giveitem_id'] = 'ID игрока',
+    ['cmd_giveitem_item'] = 'Название предмета',
+    ['cmd_giveitem_amount'] = 'Сколько (по умолчанию 1)',
+    ['cmd_giveitem_no_player'] = 'Нет игрока с таким ID.',
+    ['cmd_giveitem_unknown'] = 'Нет предмета %s.',
+    ['cmd_giveitem_done'] = 'Выдано %d x %s игроку %s.',
+    ['cmd_giveitem_failed'] = 'Не поместилось: сумка полна или слишком тяжела.',
 }

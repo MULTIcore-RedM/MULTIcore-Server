@@ -13,7 +13,7 @@ items from the same satchel. Part of MULTIcore, GPL v3 (see `CREDITS.md`).
 3. Tables are made on start (`CREATE TABLE IF NOT EXISTS`): `inventories`, `items` (VORP's shape),
    `multiinventory_kv`. `sql/multiinventory.sql` holds the same statements if you want to import them yourself.
    The satchel lives in `players.inventory` (RSG's column, from MULTIcore).
-4. Item images: put the `nui://` folders of your images in `Config.ImagePaths`. None are shipped.
+4. Item images: put your `.png` files in `MULTIimages/images/`, named as each item's `image` field (`ensure MULTIimages`). More folders: `Config.ImagePaths`. None are shipped.
 5. Stores are not part of the inventory: they are their own resource, **MULTIstores** (`ensure MULTIstores` after
    MULTIinventory). See "Stores" below.
 
@@ -174,6 +174,9 @@ Stores (buying, selling to a store, stock, prices) are their own resource, MULTI
 MULTIinventory only gives and takes the items: MULTIstores checks room with `CanAdd`, gives with `AddItem`
 (weapons through `WeaponNew`, so each has a serial) and takes with `RemoveItem`. RSG scripts that call
 `exports['rsg-inventory']:CreateShop / OpenShop / DoesShopExist / RestockShop` keep working: the calls go on to MULTIstores.
+
+### Admin command
+`/giveitem [id] [item] [amount]` gives a player any item or weapon (admin; `Config.GiveItemCommand`).
 
 ## Config
 Everything is in `config.lua`, every option with its default. Words are in `locales/` (10 languages).

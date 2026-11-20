@@ -123,4 +123,12 @@ Locales['de'] = {
     ['ui_trade_offer'] = 'Anbieten',
     ['ui_trade_back'] = 'Zurücknehmen',
     ['ui_trade_in'] = 'Im Handel',
+    ['cmd_giveitem'] = 'Einem Spieler einen Gegenstand geben (Admin)',
+    ['cmd_giveitem_id'] = 'Spieler-ID',
+    ['cmd_giveitem_item'] = 'Gegenstandsname',
+    ['cmd_giveitem_amount'] = 'Anzahl (Standard 1)',
+    ['cmd_giveitem_no_player'] = 'Kein Spieler mit dieser ID.',
+    ['cmd_giveitem_unknown'] = 'Kein Gegenstand namens %s.',
+    ['cmd_giveitem_done'] = '%d x %s an %s gegeben.',
+    ['cmd_giveitem_failed'] = 'Passt nicht: Tasche voll oder zu schwer.',
 }

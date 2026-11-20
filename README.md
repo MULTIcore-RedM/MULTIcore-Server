@@ -7,7 +7,7 @@ A ready-to-run RedM base server on **MULTIcore**: one core that runs **RSG v2 sc
 ## What you get
 
 - **MULTIcore**: the core. It answers to both `rsg-core` and `vorp_core`, so scripts written for either framework find their core and share the same players, money, jobs and items.
-- **30 MULTI scripts** (`resources/[multicore]`): login and character select, character creator, inventory, stores, clothing, HUD, food and drink, bank, jobs, medic, admin, camps, crafting, doors, emotes, gathering, horses, hunting, law, telegrams, wagons, a radial menu, Discord logs and whitelist, its own **target system** (MULTItarget) and its own **chat** (MULTIchat).
+- **31 MULTI scripts** (`resources/[multicore]`): login and character select, character creator, inventory, stores, clothing, HUD, food and drink, bank, jobs, medic, admin, camps, crafting, doors, emotes, gathering, horses, hunting, law, telegrams, wagons, a radial menu, Discord logs and whitelist, its own **target system** (MULTItarget), its own **chat** (MULTIchat) and a picture folder for items (MULTIimages).
 - **ox_lib** and **oxmysql** (`resources/[standalone]`), unchanged, with their own licences.
 - 10 languages: English, German, French, Spanish, Brazilian Portuguese, Italian, Polish, Russian, Dutch and Turkish.
 - 1899 prices.
@@ -24,6 +24,8 @@ Then:
 2. Copy `server.cfg.example` to `server.cfg` and fill in the three lines marked `CHANGE`: your licence key, your database, and your own licence as admin.
 3. Start the server from this folder: `FXServer +exec server.cfg`. With txAdmin, point it at this folder and this `server.cfg`, and turn OneSync on in txAdmin's settings.
 4. Join, make a character, and play.
+
+**Then read [`docs/MULTIcore-Server-Owner-Guide.md`](docs/MULTIcore-Server-Owner-Guide.md):** item pictures, adding items, jobs, gangs, stores, staff and money, step by step.
 
 ## Keys
 
@@ -47,6 +49,7 @@ Everything a script writer needs is in [`docs/`](docs):
 
 | File | What it is |
 |---|---|
+| `MULTIcore-Server-Owner-Guide.md` | Pictures, items, jobs, gangs, stores, staff: for server owners |
 | `MULTIcore-API.md` | The MULTIcore API (players, money, items, jobs, notifications) |
 | `MULTItarget-API.md` | The target system |
 | `MULTIcore-Script-Rules.md` | The rules every MULTI script follows |

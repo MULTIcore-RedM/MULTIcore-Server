@@ -341,6 +341,8 @@ end, 'user')
 
 -- Me command
 
+-- MULTIchat's /me (a chat line, no floating text) replaces this one when MULTIchat is installed
+if GetResourceState('MULTIchat') == 'missing' then
 RSGCore.Commands.Add('me', Lang:t('command.me.help'), { { name = Lang:t('command.me.params.message.name'), help = Lang:t('command.me.params.message.help') } }, false, function(source, args)
     if #args < 1 then
         notify(source, Lang:t('error.missing_args2'), 'error')
@@ -356,6 +358,7 @@ RSGCore.Commands.Add('me', Lang:t('command.me.help'), { { name = Lang:t('command
         end
     end
 end, 'user')
+end
 
 -- ids
 RSGCore.Commands.Add('id', Lang:t('command.id.help'), {}, false, function(source)

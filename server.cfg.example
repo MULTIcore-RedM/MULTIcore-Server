@@ -50,6 +50,7 @@ ensure ox_lib
 ensure MULTIcore
 ensure MULTItarget      # target system (hold Left Alt); answers ox_target, rsg-target and qb-target
 ensure MULTIchat        # chat (T); answers every standard chat call
+ensure MULTIimages      # item pictures: put your .png files in resources/[multicore]/MULTIimages/images
 ensure MULTIhelpers
 ensure MULTIloading
 ensure MULTIcreator
