@@ -1,6 +1,6 @@
 # MULTIcore by RINGO (RINGOscripting) - txAdmin recipe.
 # In txAdmin's setup choose "Remote URL Template" and paste:
-#   https://raw.githubusercontent.com/RINGOBenny/MULTIcore-Server/main/recipe/multicore.yaml
+#   https://raw.githubusercontent.com/MULTIcore-RedM/MULTIcore-Server/main/recipe/multicore.yaml
 $engine: 3
 $onesync: on
 name: MULTIcore Server
@@ -11,7 +11,7 @@ description: MULTIcore by RINGO (RINGOscripting). One core where RSG v2, VORP an
 tasks:
   # Download the server
   - action: download_github
-    src: https://github.com/RINGOBenny/MULTIcore-Server
+    src: https://github.com/MULTIcore-RedM/MULTIcore-Server
     ref: main
     dest: ./tmp/multicore
 

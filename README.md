@@ -24,7 +24,7 @@ You need:
 1. Start FXServer and open txAdmin's setup page.
 2. At "Deployment Type" choose **Remote URL Template** and paste:
    ```
-   https://raw.githubusercontent.com/RINGOBenny/MULTIcore-Server/main/recipe/multicore.yaml
+   https://raw.githubusercontent.com/MULTIcore-RedM/MULTIcore-Server/main/recipe/multicore.yaml
    ```
 3. Give it your licence key and database details when it asks. txAdmin downloads everything, makes the database and writes `server.cfg` with your key, your database and you as admin.
 4. Start the server, join, make a character, and play.
