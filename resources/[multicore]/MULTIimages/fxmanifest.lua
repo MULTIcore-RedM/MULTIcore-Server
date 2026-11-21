@@ -4,7 +4,7 @@ game 'rdr3'
 
 name 'MULTIimages'
 author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
-description 'Item pictures for MULTIinventory and MULTIstores. Put your .png files in images/.'
+description 'Item pictures for MULTIinventory and MULTIstores. Pictures from The Icon Library Project are included; add your own .png files in images/.'
 version '1.0.0'
 license 'GPL-3.0-or-later'
 

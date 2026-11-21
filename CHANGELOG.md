@@ -2,6 +2,15 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-21 (item pictures)
+
+### New
+- **Item pictures included.** MULTIimages now comes with pictures for 394 of MULTIcore's 515 base items: food, drink, medicine, ammo, tools, ores, gems, pelts, herbs, money and more. They are from **The Icon Library Project** (https://github.com/TankieTwitch/FREE-RedM-Image-Library), a free RedM picture library.
+- Items without a picture yet (most guns, canteens, backpacks, some herbs and orchids) keep the plain placeholder. Add your own `.png` in `MULTIimages/images`, named as the item's `image`.
+
+### Updating an existing server
+- Copy `resources/[multicore]/MULTIimages/images` into your server. Pictures you added yourself with the same name are replaced, so keep a copy of them first.
+
 ## 2026-11-21 (coroner)
 
 ### New
