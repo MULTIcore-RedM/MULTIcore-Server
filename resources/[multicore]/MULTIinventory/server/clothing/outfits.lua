@@ -251,7 +251,47 @@ function Outfits.unpack(src, stackId)
     for _, a in ipairs(added) do stacks[#stacks + 1] = { item = a.item, count = 1, metadata = a.meta } end
     InvLog.write('clothing_unpack', { actorSrc = src, targetCharId = st.charId, from = pc.id, to = pc.id,
                                       item = ClothingOutfitItem, count = 1, data = { bundle = meta, stacks = stacks } })
+    return true, added
+end
+
+-- Using the bundle item: unpack it and put the pieces on (Config.Clothing.outfitItemWears, default on).
+-- What was worn in those slots goes into the satchel. Pieces that cannot go on stay in the satchel.
+function Outfits.useBundle(src, stackId)
+    local ok, added = Outfits.unpack(src, stackId)
+    if not ok or CC().outfitItemWears == false then return ok, added end
+    local st = State.get(src)
+    local pc = st and Containers.get('player:' .. st.charId, { create = true })
+    if not pc then return true end
+    local _, requires = Equipment.rules()
+    table.sort(added, function(a, b)   -- required pieces (gunbelt) before their dependants (holster)
+        local ka, kb = a.meta.category, b.meta.category
+        local ra, rb = requires[ka] ~= nil, requires[kb] ~= nil
+        if ra ~= rb then return not ra end
+        return (ClothingCategoriesByKey[ka] or { order = 99 }).order < (ClothingCategoriesByKey[kb] or { order = 99 }).order
+    end)
+    for _, a in ipairs(added) do
+        for slot, e in pairs(pc.stacks) do
+            if e.item == a.item and e.metadata and Meta.hash(e.metadata) == Meta.hash(a.meta) then
+                Equipment.equip(src, pc, slot)
+                break
+            end
+        end
+    end
     return true
+end
+
+-- Wearing a saved outfit from the inventory follows the same rule as MULTItailor's outfit list:
+-- at a clothes store, a wardrobe point or another script's wardrobe (exports.MULTItailor:CanChangeOutfit).
+-- A wardrobe stash of the player's own that is open right now counts too. Without MULTItailor it is allowed.
+function Outfits.canChange(src)
+    local sec = State.secondaryOf(src)
+    local st = State.get(src)
+    local pre = (CC().wardrobePrefix or 'wardrobe:') .. tostring(st and st.charId) .. ':'
+    if sec and sec:sub(1, #pre) == pre then return true end
+    if GetResourceState('MULTItailor') ~= 'started' then return true end
+    local ok, allowed = pcall(function() return exports.MULTItailor:CanChangeOutfit(src) end)
+    if not ok then return true end
+    return allowed == true
 end
 
 function Outfits.pack(src, slots, label)
@@ -315,12 +355,15 @@ Outfits.API = API
 if CC().enabled ~= false then
     Actions.register('outfitList', function(src) local st = State.get(src) return true, Outfits.list(st.charId) end)
     Actions.register('outfitSave', function(src, d) return Outfits.save(src, d.name) end)
-    Actions.register('outfitWear', function(src, d) return Outfits.wear(src, d.id, { undress = d.undress == true }) end)
+    Actions.register('outfitWear', function(src, d)
+        if not Outfits.canChange(src) then return false, 'wardrobe_only' end
+        return Outfits.wear(src, d.id, { undress = d.undress == true })
+    end)
     Actions.register('outfitDelete', function(src, d) return Outfits.delete(src, d.id) end)
     Actions.register('outfitRename', function(src, d) return Outfits.rename(src, d.id, d.name) end)
     Actions.register('outfitPack', function(src, d) return Outfits.pack(src, d.slots, d.label) end)
     Usables.register(ClothingOutfitItem, function(data)
-        local ok, err = Outfits.unpack(data.source, data.item.id)
+        local ok, err = Outfits.useBundle(data.source, data.item.id)
         if not ok then
             Sync.notify(data.source, (err == 'slots' or err == 'weight' or err == 'limit')
                 and 'Not enough room to unpack the outfit.' or 'The outfit cannot be unpacked.', 'error')

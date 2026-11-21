@@ -76,6 +76,7 @@
     no_cleaning_item: 'You have nothing to clean it with.', ammo_full: 'Your gunbelt is full.',
     no_permission: 'You may not do that here.', blacklisted: 'That does not go in there.', not_allowed: 'Not allowed in there.',
     bad_name: 'Give it a name.', outfit_limit: 'Too many saved outfits.', nothing_worn: 'You are not wearing anything.',
+    wardrobe_only: 'Change outfits at a wardrobe or a clothes store.',
     no_outfit: 'That outfit is gone.', no_pieces: 'Pick some pieces first.', search_none: 'Nobody close enough.', no_horse: 'No horse nearby.',
     money_disabled: 'Cash cannot be moved right now.', player_offline: 'They are not here.', no_character: 'Your character is still loading.',
     bad_op: 'Not available.',

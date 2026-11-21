@@ -105,6 +105,10 @@ Config.Clothing = {
     maxOutfits = 20,
     -- Container id prefix of house wardrobe stashes (clothing-only): wardrobe:<charid>:<houseId>
     wardrobePrefix = 'wardrobe:',
+    -- Using an outfit item (clothing_outfit) puts the outfit on; what was worn goes into the satchel.
+    -- false = using it only unpacks the pieces into the satchel.
+    -- (Saved outfits can only be put on at a clothes store or a wardrobe: see MULTItailor Config.Outfits.)
+    outfitItemWears = true,
 
     -- NPC general outfitter (optional, basics only; NOT built in Phase 2).
     -- Shops use exports.MULTIinventory:CreateClothingItem(target, spec, count).

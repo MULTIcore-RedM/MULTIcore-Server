@@ -1,4 +1,5 @@
 {
+    "ui_err_wardrobe_only": "Change outfits at a wardrobe or a clothes store.",
     "inv_title": "Inventory",
     "inv_weight": "{current} / {max} kg",
     "inv_full": "You cannot carry that much.",

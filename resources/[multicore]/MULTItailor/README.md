@@ -11,7 +11,7 @@ MULTItailor sells, makes and manages those items and keeps the character's MULTI
   The garment goes into your satchel; use it (or drag it to the equipment panel) to put it on.
 - **Wearing:** put on and take off pieces in the inventory's equipment panel. The change shows at once and is saved
   in your MULTIcore look, so the character select screen, respawn, revive and every look reload show the same clothes.
-- **Saved outfits:** "My outfits" at any store clerk, at a wardrobe point, or `/outfits`. An outfit is a named list of
+- **Saved outfits:** "My outfits" at any store clerk, at a wardrobe point, or at another script's wardrobe (a house ...). There is no outfit list anywhere: changing outfits needs a wardrobe or a store. An outfit is a named list of
   the items you wear; wearing it puts on the pieces you still own. Rename and delete too.
 - **Quick toggles:** `/clothes` takes your hat, mask, coat, vest, gloves, neckwear, spectacles, gunbelt or satchel off
   for the moment and puts it back. The item stays in its slot. The radial menu's clothing buttons do the same.
@@ -67,7 +67,7 @@ Store, shop and wardrobe positions are default positions: check them in game and
 | Command | Who | What |
 |---|---|---|
 | `/clothes` | everyone | quick toggles (`Config.Toggles.command`) |
-| `/outfits` | everyone | saved outfits anywhere (`Config.Outfits.command`; set `''` to allow them only at stores and wardrobes) |
+| `/outfits` | off | not there by default. Setting `Config.Outfits.command = 'outfits'` opens the outfit list anywhere |
 | `/tailorstores` | admin (ACE `multitailor.admin`, or group admin / god) | add a store where you stand, move the clerk, rename, open / close, map blip, price level, clerk model, remove / restore. Saved in `multitailor_stores`, live for everyone |
 
 ## How wearing works
@@ -93,7 +93,9 @@ Store, shop and wardrobe positions are default positions: check them in game and
 | Export | Returns |
 |---|---|
 | `CreateGarment(src, { cat, hash, sex, label, description?, palette?, tints? })` | `ok, err` - hands one garment over as a clothing item |
-| `OpenOutfits(src)` | opens the outfit list for that player |
+| `OpenOutfits(src)` | opens the outfit list for that player, who may change outfits there for a while (`Config.Outfits.passSeconds` / `passDistance`) |
+| `GrantWardrobe(src)` | lets the player change outfits where they stand for a while, for a house or camp wardrobe in another script |
+| `CanChangeOutfit(src)` | true when the player may change outfits now |
 | `MirrorLook(src)` / `SeedClothing(src)` | write the worn items into the look now / run the first-load check now |
 | `GetTailoringCategories()` | `{ { id, label, vorp, tag, group, keep } }` |
 | `GetClothesStores()` / `GetStoreCatalogue()` | stores / the ready-made lines |
@@ -118,3 +120,6 @@ Saved outfits are MULTIinventory's (`multiinv_outfits`).
 
 ## Licence
 GPL-3.0, part of MULTIcore by RINGO (RINGOscripting). Clothing data: femga's rdr3_discoveries (through MULTIcore's game data).
+
+## Wardrobes in other scripts (houses, camps ...)
+Outfits are changed at a clothes store, a wardrobe point, or another script's wardrobe. A wardrobe in a housing script works by itself when the script opens rsg-appearance's outfits (`rsg-appearance:client:outfits`) or VORP's (`exports.vorp_character:OpenOutfitsMenu(source)`): the player gets the outfit list and may change outfits there for `Config.Outfits.passSeconds` while staying within `Config.Outfits.passDistance` metres. A script written for MULTIcore calls `exports.MULTItailor:OpenOutfits(source)`. An outfit item (`clothing_outfit`) can be used anywhere and puts that outfit on.

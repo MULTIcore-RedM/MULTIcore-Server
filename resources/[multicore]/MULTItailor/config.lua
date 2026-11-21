@@ -81,7 +81,12 @@ Config.Toggles = {
 -- An outfit is a named list of the clothing items you wear now. Wearing it puts on the pieces you still
 -- own (in your satchel or worn); nothing is created. Outfits open at every clothes store and wardrobe point.
 Config.Outfits = {
-    command = 'outfits',       -- opens the outfit list anywhere ('' = only at stores and wardrobe points)
+    command = '',              -- '' = outfits are changed only at a clothes store, a wardrobe point or another script's
+                               -- wardrobe (a house ...). A command name here (e.g. 'outfits') opens the list anywhere.
+    passSeconds = 600,         -- another script's wardrobe (a house ...) lets the player change outfits for this long ...
+    passDistance = 5.0,        -- ... while they stay within this many metres of where they opened it
+    clientPass = true,         -- false = only server-side calls (exports.MULTItailor:GrantWardrobe / OpenOutfits,
+                               -- vorp_character's OpenOutfitsMenu) open such a wardrobe, not rsg-appearance's client event
     nameMax = 40,
     undress = false,           -- true = wearing an outfit also takes off worn pieces that are not part of it
 }

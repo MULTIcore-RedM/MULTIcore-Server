@@ -35,9 +35,47 @@ local function cleanName(s)
     return TU.text(s, tonumber((Config.Outfits or {}).nameMax) or 40)
 end
 
+-- ---------------------------------------------------------------- wardrobe passes
+-- Another script's wardrobe (a house, a camp ...) opens the outfit list with exports.MULTItailor:GrantWardrobe(src)
+-- or OpenOutfits(src), rsg-appearance's client event 'rsg-appearance:client:outfits' (MULTIappearance) or
+-- vorp_character's OpenOutfitsMenu (MULTIvorpchar). That gives the player a pass: outfits can be changed for
+-- Config.Outfits.passSeconds while they stay within Config.Outfits.passDistance metres of that spot.
+local passes = {}
+
+local function pedPos(src)
+    local ped = GetPlayerPed(src)
+    if not ped or ped == 0 then return nil end
+    return GetEntityCoords(ped)
+end
+
+local function grantPass(src)
+    src = tonumber(src)
+    if not src or not GetPlayerName(src) then return false end
+    local pos = pedPos(src)
+    if not pos then return false end
+    passes[src] = { pos = pos, untilAt = os.time() + (tonumber((Config.Outfits or {}).passSeconds) or 600) }
+    return true
+end
+
+local function hasPass(src)
+    local p = passes[src]
+    if not p then return false end
+    if os.time() > p.untilAt then passes[src] = nil return false end
+    local pos = pedPos(src)
+    return pos ~= nil and #(pos - p.pos) <= (tonumber((Config.Outfits or {}).passDistance) or 5.0)
+end
+
+AddEventHandler('playerDropped', function() passes[source] = nil end)
+
+RegisterNetEvent('MULTItailor:server:wardrobePass', function()
+    if (Config.Outfits or {}).clientPass == false then return end
+    grantPass(source)
+end)
+
 local function nearWardrobe(src)
     local cmd = (Config.Outfits or {}).command
     if type(cmd) == 'string' and cmd ~= '' then return true end
+    if hasPass(src) then return true end
     local w = Config.Wardrobes or {}
     if w.enabled ~= false then
         for _, p in ipairs(w.points or {}) do
@@ -100,8 +138,18 @@ end)
 exports('OpenOutfits', function(src)
     src = tonumber(src)
     if not src or not GetPlayerName(src) then return false end
+    grantPass(src)
     TriggerClientEvent('MULTItailor:client:openOutfits', src, {})
     return true
+end)
+
+-- for other scripts' wardrobes: lets the player change outfits where they stand now (see wardrobe passes above)
+exports('GrantWardrobe', function(src) return grantPass(src) end)
+
+-- true when the player may change outfits now (store clerk, wardrobe point, a wardrobe pass, or the command is on)
+exports('CanChangeOutfit', function(src)
+    src = tonumber(src)
+    return src ~= nil and nearWardrobe(src) or false
 end)
 
 -- ---------------------------------------------------------------- rsg-wardrobe server API

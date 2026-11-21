@@ -1,4 +1,5 @@
 {
+    "ui_err_wardrobe_only": "Cambia abito a un guardaroba o in un negozio di vestiti.",
     "inv_title": "Inventario",
     "inv_weight": "{current} / {max} kg",
     "inv_full": "Non puoi portare così tanto.",

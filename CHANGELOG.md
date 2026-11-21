@@ -2,6 +2,23 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-21 (wardrobes)
+
+### Changed
+- **Outfits are changed at a wardrobe, not anywhere.** `/outfits` is gone. You change into a saved outfit:
+  - at a clothes store;
+  - at a wardrobe point;
+  - at a wardrobe in another script, like a house.
+
+  The inventory's outfit list follows the same rule.
+- **Wardrobes in housing scripts work by themselves.** A housing script that opens rsg-appearance's or VORP's outfits gets MULTIcore's outfit list, and the player can change outfits there.
+- **Using an outfit item puts the outfit on.** What you were wearing goes into your satchel. It used to only unpack the pieces.
+- Single clothing pieces can still be put on and taken off anywhere from the inventory.
+- Server owners who want the old way back: set `Config.Outfits.command = 'outfits'` in MULTItailor.
+
+### Updating an existing server
+- Copy `MULTItailor`, `MULTIinventory`, `MULTIappearance` and `MULTIvorpchar` into your server. Keep a copy of your own config changes first.
+
 ## 2026-11-21 (new horses and wagons)
 
 ### New

@@ -1,4 +1,5 @@
 {
+    "ui_err_wardrobe_only": "Strój zmienisz przy szafie lub w sklepie z ubraniami.",
     "inv_title": "Ekwipunek",
     "inv_weight": "{current} / {max} kg",
     "inv_full": "Nie uniesiesz tyle.",

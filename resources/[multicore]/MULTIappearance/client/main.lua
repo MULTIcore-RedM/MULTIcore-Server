@@ -237,9 +237,11 @@ RegisterNetEvent('rsg-appearance:client:OpenCreator', function()
     dbg('OpenCreator: ignored, MULTIcharacter and MULTIcreator create characters')
 end)
 
--- rsg-appearance's outfit menu -> MULTItailor's outfit list
+-- rsg-appearance's outfit menu (an RSG script's wardrobe, e.g. in a house) -> MULTItailor's outfit list.
+-- The pass lets the player change outfits where they stand for a while (MULTItailor Config.Outfits.passSeconds).
 RegisterNetEvent('rsg-appearance:client:outfits', function()
     if GetResourceState('MULTItailor') == 'started' then
+        TriggerServerEvent('MULTItailor:server:wardrobePass')
         TriggerEvent('MULTItailor:client:openOutfits')
     else
         dbg('outfits: MULTItailor is not running')

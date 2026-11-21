@@ -20,6 +20,8 @@ ExportAs('OpenOutfitsMenu', function(source)
         dbg('OpenOutfitsMenu: MULTItailor is not running')
         return false
     end
+    -- a VORP script's wardrobe (a house ...): outfits can be changed here for a while
+    pcall(function() exports.MULTItailor:GrantWardrobe(src) end)
     TriggerClientEvent('MULTIvorpchar:client:openOutfits', src)
     return true
 end)

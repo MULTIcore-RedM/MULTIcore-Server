@@ -1,4 +1,5 @@
 {
+    "ui_err_wardrobe_only": "Outfits wechselst du an einem Kleiderschrank oder in einem Kleidergeschäft.",
     "inv_title": "Inventar",
     "inv_weight": "{current} / {max} kg",
     "inv_full": "So viel kannst du nicht tragen.",
