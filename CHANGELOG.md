@@ -2,6 +2,34 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-21 (new horses and wagons)
+
+### New
+- **MULTIhorses is a new horse script**, based on **rsg-horses by Phil**:
+  - buy, name, customise and move horses between stables;
+  - horses level up, age and can be bred (horse breeder job);
+  - tame wild horses and sell them;
+  - saddlebags, a lantern and a holster on the horse;
+  - a stable shop.
+- **MULTIwagons is a new wagon script**, based on **rsg-wagons by Phil**, with wagon work by **Mack**:
+  - about 50 wagons to buy, with liveries, extras and cargo;
+  - store hunted animals on a wagon;
+  - a chop shop for wood.
+  - Other players can ask the owner for the wagon's storage.
+- Both use MULTIcore's black and white look, Left Alt targeting and all 10 languages. Scripts written for rsg-horses and rsg-wagons still work.
+- New items: `hay`, `horsecarrot`, `horseapple` and `horse_holster`, with pictures.
+- The game's own cash, gold and honor display no longer pops up when you hold Left Alt (`Config.HideGameMoneyHonor` in MULTIhud).
+
+### Changed
+- A horse that isn't revived in time goes back to its stable (`Config.DeleteDeadHorse = true` in MULTIhorses makes it gone for good).
+- Horses grow old and die of old age (see `Config.HorseDieAge` in MULTIhorses; 0 = never).
+- Saddlebags need a saddle and saddlebags on the horse. Horses you already had get saddlebags.
+- Wagon repair and renaming a wagon are gone, and so is the `wagon_repair_kit` item.
+
+### Updating an existing server
+- Replace `resources/[multicore]/MULTIhorses` and `MULTIwagons` with the new folders. Copy MULTIcore's `shared/items.lua`, MULTIhud and `MULTIimages/images` too. Keep a copy of your own changes first.
+- Your players' horses, wagons, saddlebags and wagon storage carry over. The new columns are added on the first start.
+
 ## 2026-11-21 (new home)
 
 - **MULTIcore has moved to its own GitHub organisation:** https://github.com/MULTIcore-RedM/MULTIcore-Server. Old links still lead there.

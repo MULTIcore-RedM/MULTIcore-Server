@@ -1,112 +1,104 @@
 # MULTIwagons
 
-Basic owned wagons for MULTIcore servers: wagon dealers in six towns, buy / name / rename / sell back,
-take out and put away (one wagon out at a time), a storage inventory in every wagon, health that is
-kept between take-outs, and repair with a kit or at the dealer. It answers as **rsg-wagons**
-(`provide 'rsg-wagons'`, same table, same event and callback names). GPL v3, part of MULTIcore by RINGO (RINGOscripting)
-(see `CREDITS.md`).
+Owned wagons for MULTIcore servers. GPL v3.
+MULTIcore was founded and created by RINGO (RINGOscripting).
 
-Deliberately simple: no customisation (tints, liveries, lanterns), no carcass storage, no chop shop,
-no shared keys. Those are the job of a premium wagon script.
-
-## What it does
-
-- **Dealers** in Valentine, Saint Denis, Strawberry, Blackwater, Tumbleweed and Caliga Hall
-  (places from RSG v2's rsg-wagons), with a clerk, a map blip and MULTItarget on the spot and the clerk (hold Left Alt) when it runs, else a hold-key prompt within `Config.PromptDistance` (`Config.Interact = 'auto'`). `/mcinteract` (MULTIcore) prints what was placed to the server console.
-- **Buy** from a list of 20 carts, buggies, wagons and a carriage at 1899 prices (`config/wagons.lua`),
-  and **name** the wagon. A character owns at most `Config.MaxWagonsPerCharacter` (3).
-- **Sell back** at a dealer for `Config.SellBackRate` (40 %) of the price paid, never more than half.
-  The wagon's storage must be empty first (`Config.SellNeedsEmptyStorage`).
-- **Take out** at a dealer or a call point (`Config.CallPoints`): the wagon appears at that place's spawn
-  spot. With `Config.CallAnywhere` the `/wagon` command calls it to the nearest road anywhere.
-- **Put away** near a dealer or call point (or anywhere with `Config.StoreAnywhere`). One wagon out per
-  character. The wagon is put away by itself when its owner leaves or switches character
-  (`Config.DespawnOnLeave`), when the take-out never completes, or when the wagon is gone from the world.
-- **Plate**: every wagon gets a unique id like `K7RW2M` (`custom.plate`).
-- **Storage**: every wagon has a MULTIinventory inventory `trunk:<plate>` (slots and weight per model),
-  opened at the wagon's back with a hold-key prompt (`Config.StorageKey`) or MULTItarget. Only the owner
-  (or anyone, `Config.StorageOpenTo`). The server checks the distance on opening and closes it when the
-  player walks off. Saved in `inventories` under `trunk:<plate>`.
-- **Damage**: the owner's game reports the wagon's health while it is out; it is saved when the wagon
-  is put away. A wagon below `Config.Health.MinToTakeOut` % must be repaired first.
-- **Repair**: the `wagon_repair_kit` item (use it next to your wagon), or at a dealer for
-  `Config.Repair.DealerFeePerPercent` per missing percent (a wreck costs $8.00).
+- **Wagon dealers** in Valentine, Saint Denis, Strawberry, Blackwater, Tumbleweed and Caliga Hall, each with a clerk and a map blip. Hold **Left Alt** (MULTItarget) on the counter or the clerk, or use the hold-key prompt when MULTItarget is not running (`Config.Interact`).
+- **The dealer page:** wagons for sale by kind (work, special, coaches), shown in the showroom with a camera you can turn. Buy one and give it a name.
+- **My wagons:** pick one to take it out (it becomes your selected wagon), change it, or sell it.
+- **Changes** (paid each time): side stripes, paint, extras (several at once), cargo sets in four groups, and lanterns. Shown on the showroom wagon before you pay.
+- **Call your wagon** with `/wagon` (also in MULTIradial under Horse > Wagon). It comes to the nearest road. One wagon out at a time.
+- **At the wagon** (MULTItarget, or hold-key prompts): **Wagon storage** at the back, **Send away** (owner), and for wagons that carry game, **Store carcass / pelt** and **Stored carcasses / pelts** (owner).
+- **Storage:** every wagon has a MULTIinventory inventory `trunk:<id>` (slots and weight per model). The owner opens it; another player asks and the owner says yes or no (`Config.StorageOpenTo`). The server checks the distance and closes it when the player walks off.
+- **Carcasses and pelts:** the hunting cart and some work wagons carry game (`maxAnimals` per model). The hunting cart's tarp fills up as you load it.
+- **Chop shop:** bring any wagon and scrap it for wood and cash. Your own wagon is deleted for good; other players' owned wagons cannot be scrapped.
+- Drawn in MULTIcore's black and white look, in 10 languages. Nothing is drawn in the world: no markers, no dots, no floating text.
 
 ## Setup
-
-1. Put `MULTIwagons` in `resources/[multicore]/`.
-2. `server.cfg`, after MULTIcore and MULTIinventory:
-   ```
-   ensure MULTIwagons
-   ```
-3. Remove `rsg-wagons` from the server: MULTIwagons stands in for it.
-4. Needs `oxmysql`, `ox_lib`, `MULTIcore`, `MULTIinventory`; `MULTItarget` recommended (used automatically when it runs; `Config.Interact` `'auto'`, `'target'` or `'prompt'`).
-5. The table `rsg_wagons` is created on start (rsg-wagons' own shape). Rows rsg-wagons wrote keep
-   working: they get a plate and storage on the first start, and the items of the old stash
-   `Wagon_Stash_<id>` move into the new storage (`Config.MigrateRsgStashes`).
-6. Sell the repair kit in a general store (`wagon_repair_kit`).
-
-## Data
-
-`rsg_wagons` (id, citizenid, wagon = model, custom JSON, animals JSON, active). MULTIwagons keeps its
-data inside `custom`: `{ name, plate, health (0-100), price (paid), buyMoneyType = 'cash' }`.
-`active` is 1 while the wagon is out. A deleted character's wagons and their storage are removed.
-
-## Config
-
-Everything is in `config.lua` (every option with its default), `config/dealers.lua` (dealers and call
-points) and `config/wagons.lua` (models, prices, storage). Words are in `locales/` (10 languages);
-a new wagon or place needs a `wagon_<model>` / `place_<name>` line.
+1. Put `MULTIwagons` in `resources/[multicore]`.
+2. In `server.cfg`, after MULTItarget, MULTIcore and MULTIinventory: `ensure MULTIwagons`.
+3. Do not run `rsg-wagons` as well: MULTIwagons answers in its place (`provide 'rsg-wagons'`).
+4. The table `rsg_wagons` is made by itself on the first start, and columns an older table lacks are added (a copy is in `sql/multiwagons.sql`). The table keeps that name so wagons from earlier versions carry over: they get a storage id on the first start, their storage keeps its items, and items from old `Wagon_Stash_<id>` stashes move into it (`Config.MigrateOldStashes`). A player whose wagons have none selected gets the first one when they call.
+5. The chop shop gives `wood`, which is in MULTIcore's `shared/items.lua`.
+6. Optional: `setr multicore_locale de` picks the language for all MULTI scripts.
 
 ## Commands
+| Command | What it does |
+|---|---|
+| `/wagon` | calls your selected wagon (name set by `Config.CallCommand`; MULTIradial uses it) |
+| `/chopdebug` | only with `Config.Chop.Debug = true`: prints the chop shop checks to F8 |
 
-- `/wagon` (`Config.CallCommand`): the menu of the dealer / call point you stand at; anywhere with
-  `Config.CallAnywhere`.
+## Config
+Everything is in `config.lua`, one comment per option:
 
-## Exports (server)
+| Setting | Purpose |
+|---|---|
+| `Config.Locale` | language for this script only |
+| `Config.Interact`, `Config.PromptKey`, `Config.PromptDistance`, `Config.Target*` | MULTItarget or hold-key prompts |
+| `Config.WagonInteractDistance`, `Config.StorageDistance`, `Config.StorageBackOffset` | where the wagon options show |
+| `Config.Keys` | keys of the wagon prompts (prompt mode) |
+| `Config.CallCommand`, `Config.SpawnKey`, `Config.SpawnRadius`, `Config.FallbackSpawnDistance` | calling the wagon |
+| `Config.DespawnOnLeave` | the wagon goes when its owner leaves |
+| `Config.MoneyType`, `Config.CurrencySign` | money types and sign |
+| `Config.maxWagonsPerPlayer`, `Config.Sell`, `Config.SellNeedsEmptyStorage`, `Config.NameMaxLength` | owning and selling |
+| `Config.ServerDistanceCheck`, `Config.DealerUseDistance`, `Config.StorageServerDistance` | server checks |
+| `Config.StorageOpenTo`, `Config.MigrateOldStashes` | storage |
+| `Config.Blip` | dealer and own-wagon blips |
+| `Config.Stores` | dealers: counter, clerk, showroom spot and camera |
+| `Config.Wagons` | wagons for sale by kind: name, price (`priceGold` optional), storage slots and weight, `maxAnimals` |
+| `Config.CustomPrice` | price of each change |
+| `Config.AnimalsStorage` | carcasses and pelts a wagon takes, with their names |
+| `Config.Chop` | chop shop places, rewards, cooldown, blip |
+
+What each model can be fitted with is in `client/list.lua` and `client/wagon_extras.lua`.
+Change the look in `html/custom.css`.
+
+## Exports
+Server:
 
 | Export | Returns |
 |---|---|
-| `GetWagons(src or citizenid)` | list of `{ id, citizenid, model, name, plate, health, out, netId, storage }` |
-| `GetWagon(id)`, `GetWagonByPlate(plate)`, `GetWagonByNetId(netId)`, `GetActiveWagon(src or citizenid)` | one of those, or nil |
+| `IsReady()` | true once the table and storages are ready |
+| `GetWagons(src or citizenid)` | list of `{ id, citizenid, model, label, name, plate, selected, out, netId, storage, custom }` |
+| `GetWagon(id)`, `GetWagonByPlate(plate)`, `GetWagonByNetId(netId)`, `GetActiveWagon(src or citizenid)` | one of those (the active one is the wagon that is out), or nil |
 | `GetStorageId(id or plate)` | `'trunk:<plate>'` |
-| `GetModelConfig(model)` | the `config/wagons.lua` entry |
-| `Buy(src, model, name)` | `true, id, plate` or `false, err` |
-| `Sell(src, id)` | `true, payout` or `false, err` |
-| `Rename(src, id, name)` | `true` or `false, err` |
-| `TakeOut(src, id, spawn?)` | `true, data` or `false, err` (the owner's game is told to make it only through the menu; scripts send `MULTIwagons:client:spawn` with `data`) |
-| `Store(src, id?, health?)`, `PutAway(id, health?, reason?)` | `true` or `false, err` |
-| `Repair(src, id, 'dealer' or 'item')` | `true, fee` or `false, err` |
-| `OpenStorage(src, id)` | opens the wagon's storage for src |
-| `SellPrice(id)`, `RepairFee(id)` | money |
+| `GetModelConfig(model)` | the `Config.Wagons` entry |
+| `OpenStorage(src, id)` | opens that wagon's storage for src (no checks) |
+| `CallWagon(src)` | calls src's selected wagon |
+| `Despawn(id)` | removes that wagon from the world |
 
-Exports are server-trusted: they skip the distance checks the menus get. Errors: `no_player`, `busy`,
-`unknown_model`, `bad_name`, `limit`, `name_taken`, `no_money`, `no_wagon`, `not_owner`, `is_out`,
-`already_out`, `not_out`, `broken`, `not_empty`, `not_damaged`, `no_item`, `error`.
+Server events: `MULTIwagons:ready`, `MULTIwagons:bought (src, id, model)`, `MULTIwagons:sold (src, id, model, payout)`,
+`MULTIwagons:spawned (src, id, netId)`, `MULTIwagons:stored (src, id)`.
+A wagon that is out carries the state bag `multiwagon = { id, owner, model, name, plate }`.
 
-Server events: `MULTIwagons:ready`, `MULTIwagons:bought (src, id, model, plate)`, `MULTIwagons:sold (src, id, model, payout)`,
-`MULTIwagons:spawned (src, id, netId)`, `MULTIwagons:stored (src, id, reason)`.
-A wagon that is out carries the state bag `multiwagon = { id, plate, owner, model, name }`.
+Client: `GetMyWagon()` (entity, id, model), `CallWagon()`, `SendAway()`, `OpenStore(storeId)`.
 
-Client exports: `GetMyWagon()`, `OpenMenu()`.
-
-## rsg-wagons scripts
+## Old wagon script names
+For scripts written for rsg-wagons:
 
 | Call | What MULTIwagons does |
 |---|---|
 | table `rsg_wagons` | same shape; `custom.name` is the name |
-| callback `rsg-wagons:checkMyWagons` | `models[], customs[]` of the caller's wagons |
+| callback `rsg-wagons:checkMyWagons` | `models[], customs[]` |
 | callback `rsg-wagons:isWagonRegistered (netId)` | `true, isOwner, id, model, netId` for a wagon that is out, else `false` |
-| callback `rsg-wagons:getAnimalStorage` | `{}` (no carcass storage) |
-| event `rsg-wagons:getWagonDataByCitizenID` | sends `rsg-wagons:receiveWagonData (model, custom, animals, id)` for the wagon that is out |
-| event `rsg-wagons:openWagonStash (stash, model, id, netId)` | opens that wagon's storage (same checks as the prompt) |
-| event `rsg-wagons:saveWagonToDatabase (model, custom)` | buys at the dealer the player stands at |
-| event `rsg-wagons:sellWagon (model, custom)` | sells at the dealer the player stands at |
-| event `rsg-wagons:toggleWagonActive (model, custom)` | takes that wagon out at the nearest dealer / call point |
-| event `rsg-wagons:removeWagon (netId)` | puts the caller's wagon away |
-| client `rsg-wagons:client:callwagon` | opens "my wagons" at the dealer / call point (or anywhere with CallAnywhere) |
-| client `rsg-wagons:client:dellwagon` | puts the own wagon away |
+| callback `rsg-wagons:getAnimalStorage (id)` | the carcasses / pelts in that wagon |
+| event `rsg-wagons:getWagonDataByCitizenID` | calls the player's selected wagon |
+| event `rsg-wagons:openWagonStash (stash, model, id, netId)` | opens that wagon's storage (same checks) |
+| event `rsg-wagons:saveWagonToDatabase (model, custom)` | buys at a dealer, named `custom.name` |
+| event `rsg-wagons:sellWagon (model, custom)` | sells the wagon named `custom.name` |
+| event `rsg-wagons:toggleWagonActive (model, custom)` | selects and calls that wagon |
+| event `rsg-wagons:removeWagon (netId)` | sends the sender's wagon away |
+| events `rsg-wagons:registerWagon`, `updateWagonAuth`, `storeAnimalInWagon`, `removeAnimalFromWagon` | the same as MULTIwagons' own |
+| client `rsg-wagons:client:callwagon` / `dellwagon` / `openStore` | call / send away / open a dealer page |
 
-## Self-test
+## Credits
+MULTIwagons is based on **rsg-wagons by Phil**, with wagon work by **Mack**, renamed and fitted to MULTIcore with their permission. Thank you, Phil and Mack.
 
-`test/wagons_selftest` (needs `setr multicore_selftest true`): prints `[wagontest] DONE: n passed, m failed`.
+- **Phil**: the original wagon script (dealers and showroom, buying and naming, changes, calling the wagon, storage with owner permission, carcass and pelt storage, chop shop).
+- **Mack**: the wagon extras, liveries, cargo sets and lantern tiers in `client/wagon_extras.lua`.
+- **RINGO (RINGOscripting)**: founder of MULTIcore; the MULTIcore version.
+
+Earlier MULTIwagons versions were based in part on RSG v2's **rsg-wagons** (GPL v3, original project https://github.com/Rexshack-RedM/rsg-wagons, authors **Phil and mack**, with the Rexshack-RedM team and contributors), who keep their copyright. MULTIwagons is not affiliated with or endorsed by the RSG team.
+
+## Licence
+GPL-3.0-or-later. See `LICENSE`.

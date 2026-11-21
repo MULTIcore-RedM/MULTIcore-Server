@@ -1,76 +1,96 @@
 # MULTIhorses
 
-Basic horses and stables for MULTIcore. GPL v3 (see `CREDITS.md`). Stands in for **rsg-horses** (`provide 'rsg-horses'`).
-Deliberately simple: breeding, horse levels, trading, coat editing, wild horses and a showroom are left to premium stable scripts.
+Horses and stables for MULTIcore. GPL v3 (see `LICENSE`). Stands in for **rsg-horses** (`provide 'rsg-horses'`).
+MULTIcore was founded and created by RINGO (RINGOscripting).
 
-- **Stables** in nine towns (rsg-horses' places), each with a stable hand and a map blip. "Open stable" through MULTItarget on the stable hand (Left Alt) when MULTItarget runs, else a hold-key prompt (`Config.Interact = 'auto'`, `Config.PromptDistance`).
-- **Buy** a horse from a list of 41 breeds and coats at RDR2's 1899 stable prices, **name** it, pick stallion or mare.
-  A character owns up to `Config.MaxHorses` (3).
-- **Riding horse:** pick one at the stable it stands in. **Fetch** a horse from another stable for a small fee.
-  **Stable** your riding horse at any stable. **Rename** at a stable. **Sell** back for 40 % of the price
-  (never more than half; the saddlebags must be empty).
-- **Calling:** H (the game's whistle) calls the riding horse. Close by, it walks to you; far away, it is brought
-  near you. On the horse (MULTItarget, or the game's prompts when you look at it): **Saddlebags**, **Brush**, **Feed**,
-  **Follow me**, **Send away**, **Use horse reviver**. `/fleehorse` sends it away, `/findhorse` lists your horses.
-- **Care:** feeding (carrots, apples, hay snack, horse meal, stimulant, and rsg-horses' `horsecarrot`, `horseapple`, `hay`)
-  raises the health and stamina cores; brushing cleans the horse and gives a little stamina. The cores are saved.
-- **Falling:** a horse that dies lies there for `Config.Revive.BodySeconds`; a horse reviver brings it back. After that
-  the stable takes it in, and it can't be called until the vet at a stable has nursed it back (`Config.Revive.StableFee`).
-- **Saddlebags:** every horse has its own MULTIinventory custom inventory (`custom:horse_<horseid>`),
-  `Config.Saddlebag` slots and weight. Opened only beside your horse.
-- **Tack:** six saddles and six blankets at the stable (`config/tack.lua`).
+- **Stables** in nine towns, each with a stable hand and a map blip. Hold **Left Alt** (MULTItarget) on the stable hand
+  and pick **Stable Menu**. Without MULTItarget a hold-key prompt is used (`Config.Interact`).
+- **The stable page** (MULTIcore's black and white look): view your horses and ride one, sell, move to another stable,
+  trade to a nearby player, breed, the horse shop, store your horse, buy a horse, customize.
+- **Buying** at the stables in `Config.BuyStables` (Valentine): 104 horses, a live preview you can turn, a name and gelding or mare.
+- **Customization** at the stables in `Config.CustomizeStables` (Valentine): saddles, blankets, horns, saddlebags, stirrups,
+  bedrolls, manes, tails, masks, mustaches, bridles, horseshoes, plus coat colour, markings, nose, mane and tail colour.
+  Every changed piece is paid once (`Config.PriceComponent`, `Config.CoatPresets`).
+- **Calling:** H (the game's whistle) calls the active horse; far away it is brought near you.
+- **On the horse** (MULTItarget): lantern, holster on / off, store or take a long arm, saddlebags.
+- **Care:** use horse food from the satchel next to your horse (`horsecarrot`, `horseapple`, `hay`, and MULTIcore's
+  `horse_carrot`, `horse_apple`, `haysnack`, `horsemeal`), the stimulant, the brush, the reviver. Leading the horse to
+  water, a trough or a hay pile lets it drink or graze (game key prompts while leading).
+- **Horse xp and levels:** feeding, brushing, drinking and grazing give xp (server-side, cooldown per horse). Ten levels
+  raise health, stamina, speed and acceleration, the saddlebag size and the bond. Tricks: **Lay** at 1000 xp, **Play** at 2000.
+- **Saddlebags:** one MULTIinventory inventory per horse (`custom:horse_<horseid>`), sized by level. They open while the horse
+  wears a saddle and saddlebags (`Config.SaddlebagsNeedTack`).
+- **Breeding** (job `horsebreeder`, `Config.Breeding`): a mare and a stallion, hay, a foal is born after the gestation time and grows up.
+- **Death and old age:** a fallen horse can be revived for `Config.DeathGracePeriod`; after that it goes back to its
+  stable (`Config.DeleteDeadHorse = true` makes it gone for good instead). Horses die of old age after
+  `Config.HorseDieAge` days, the starter horse after `Config.StarterHorseDieAge` (0 = never); the owner gets a telegram.
+- **Wild horses:** tame one, ride it to a horse seller (Van Horn, Valentine, Blackwater) and sell it or have it stabled
+  (`config/wildhorse.lua`). Rewards are worked out on the server.
+- 10 languages, nothing drawn in the world (no markers, no floating text, no dots).
 
-Everything that costs money or changes a horse is checked on the server (stable distance with OneSync, ownership,
-limits, horse beside the player, items in the satchel, rate limit).
+Everything that costs money or changes a horse is checked on the server (ownership, stable distance, prices, quantities).
 
 ## Setup
-1. Put `MULTIhorses` in `resources/[multicore]`.
-2. `server.cfg`, after MULTIcore and MULTIinventory: `ensure MULTIhorses`.
-3. Do **not** run `rsg-horses` as well. Existing `player_horses` rows carry over (horses stay; old rsg-horses
-   saddlebag stashes are not moved).
-4. Tables are made on start: `player_horses` (rsg-horses' shape) and `multihorses_state`. `sql/multihorses.sql` has the same.
-5. Recommended: MULTItarget. With `Config.Interact = 'auto'` (default) the stable and horse options use it when it runs (the script waits for it at start and switches if it starts or stops later), else prompts. `/mcinteract` (MULTIcore) prints the targets, prompts and stable hands this script placed to the server console.
+1. Put `MULTIhorses` in `resources/[multicore]`. Do **not** run `rsg-horses` as well.
+2. `server.cfg`, after MULTItarget, MULTIcore and MULTIinventory: `ensure MULTIhorses`.
+3. `player_horses` is made on start; missing columns are added by themselves (`sql/multihorses.sql` has the same).
+   Servers coming from the earlier MULTIhorses keep their horses: on the first start they are made grown up, their
+   saddle and blanket become customization pieces and each gets saddlebags. `multihorses_state` is then no longer used.
+4. Items: `hay`, `horsecarrot`, `horseapple` and `horse_holster` are added at start when MULTIcore's items do not have them
+   (`Config.NewItems`). Pictures are in `images/` — copy them into MULTIimages' `images` folder.
+5. Optional: `setr multicore_locale de` picks the language for all MULTI scripts (`Config.Locale` for this one only).
+
+## Commands
+| Command | What it does |
+|---|---|
+| `/findhorse` | lists your horses, where they are stabled and which is active (MULTIradial uses it) |
+| `/fleehorse` | sends your horse away (MULTIradial uses it) |
+| `/sethorsename` | renames your active horse |
+| `/accepttrade` | takes a horse someone offered you |
+| `/seat 2` | change seats on a horse or wagon |
+
+Names in `Config.Commands` ('' = off). `/sethorsewild` (admins) only with `Config.WildHorse.Debug`.
 
 ## Config
-Everything is in `config.lua`, one comment per option: money and limits, stable interaction and distances, stable hands,
-blips, transfers, whistle key and calling, care (food list, brush, lantern, reviver, vet fee), saddlebags, horse prompts,
-rate limit, commands. Stables are in `config/stables.lua`, horses and prices in `config/horses.lua`, tack in
-`config/tack.lua`, the extra items in `config/items.lua`.
-Text is in `locales/<lang>.lua` (en, de, fr, es, pt-br, it, pl, ru, nl, tr). The menus are ox_lib menus.
+`config.lua`, one comment per option: money, stable interaction and distances, which stables sell and customize, the
+horse shop, prices for tack and coats, old age and death, saddlebags, levels, food and xp, drinking and grazing, blips,
+breeding, foals, commands, Discord logs (`Config.Webhooks`, off by default), stables. Wild horse sellers:
+`config/wildhorse.lua`. Horses for sale: `shared/horse_settings.lua`. Tack pieces: `shared/horse_comp.lua`.
+Text: `locales/<lang>.lua` (en, de, es, fr, it, nl, pl, pt-br, ru, tr). Change the look in `html/custom.css`.
 
-## Items
-Uses MULTIcore's `horse_brush`, `horse_carrot`, `horse_apple`, `haysnack`, `horsemeal`, `horse_stimulant`,
-`horse_reviver`, `horse_lantern`; registers `hay`, `horsecarrot`, `horseapple` when missing. The usable items are
-registered as built-in, so a premium stable script that handles them keeps them.
+## Exports
+Server (`exports.MULTIhorses` and `exports['rsg-horses']`):
+- `GetHorses(srcOrCitizenid)` → rows of `player_horses`
+- `GetActiveHorse(srcOrCitizenid)` → the active row or nil
+- `SaddlebagId(horseid)` → MULTIinventory id of the saddlebags
+- `SellPrice(model)` → what a stable pays, or nil
+- `IsReady()` → true once the table is set up
 
-## Exports (server)
-- `Buy(src, stableId, model, name, gender)` → `true, { id, horseid }` | `false, err`
-- `Sell(src, id, stableId)` → `true, paid` · `SetActive(src, id, stableId)` · `Store(src, stableId)`
-- `Transfer(src, id, toStableId, fromStableId?)` → `true, fee` · `Rename(src, id, name)`
-- `ReviveAtStable(src, id, stableId)` · `SetTack(src, id, 'saddle'|'blanket', index (0 = off), stableId)`
-- `Feed(src, item?, slot?)` · `Brush(src)` · `ReviveWithItem(src, slot?)` · `OpenSaddlebag(src)`
-- `GetHorses(srcOrCitizenid)` · `GetActiveHorse(srcOrCitizenid)` · `GetHorseOut(src)` → `{ horseid, netId, dead }`
-- `SaddlebagId(horseid)` · `SellPrice(model)` · `RegisterStable({ id, label?, coords?, distance? })` · `GetStable(id)` · `IsReady()`
+Client: `CheckActiveHorse()` (ped or 0), `CheckHorseLevel()`, `CheckHorseBondingLevel()` (also as `exports['rsg-horses']`),
+and `GetHorse()`, `GetHorseData()`, `CallHorse()`, `SendAway()`.
 
-`id` is the `player_horses.id` number or the `horseid` string. Errors: `too_far`, `bad_stable`, `bad_horse`, `bad_name`,
-`limit`, `no_money`, `not_owner`, `bag_not_empty`, `injured`, `not_here`, `no_active`, `is_active`, `already_here`,
-`not_injured`, `bad_tack`, `tack_same`, `no_horse`, `horse_dead`, `not_dead`, `no_food`, `no_brush`, `no_reviver`, `slow_down`, `busy`.
-
-Server events fired: `MULTIhorses:bought (src, horseid, model)`, `MULTIhorses:sold (src, horseid)`,
-`MULTIhorses:spawned (src, horseid, netId)`, `MULTIhorses:died (src, horseid)`, `MULTIhorses:ready`.
-The spawned horse carries the state bag `multihorse = <horseid>` (set by the server).
-
-## Exports (client)
-`GetHorse()` (ped or 0), `GetHorseData()`, `CallHorse()`, `SendAway()`.
+Server event fired: `MULTIhorses:ready` once the table is set up.
 
 ## rsg-horses compatibility
-- `exports['rsg-horses']:CheckActiveHorse()`, `CheckHorseLevel()` (1 while a horse is out), `CheckHorseBondingLevel()`.
-- Client events `rsg-horses:client:FleeHorse`, `equipHorseLantern`, `inventoryHorse`, `SpawnHorse`, `gethorselocation`.
-- Server callbacks `rsg-horses:server:GetActiveHorse`, `GetHorse`, `GetAllHorses`, `GetPlayerHorses`; events `BuyHorse`,
-  `SetHoresActive`, `SetHoresUnActive`, `deletehorse`, `MoveHorse`, `renameHorse`, `openhorseinventory`, `HorseDied`,
-  `sethorseAttributes`, all with MULTIhorses' checks. Breeding, trading, holster weapons and customisation events are accepted and ignored.
-- `player_horses` keeps rsg-horses' columns, so starter horses inserted by rsg-multicharacter and scripts that read the table work.
-- A dying horse is not deleted (rsg-horses deletes it): it is hurt until revived.
+- Every server event `rsg-horses:server:<name>` (and `rsg-horses:renameHorse`) runs the same MULTIhorses function with
+  the same checks: `BuyHorse`, `SetHoresActive`, `SetHoresUnActive`, `deletehorse`, `MoveHorse`, `openhorseinventory`,
+  `HorseDied`, `sethorseAttributes`, `openShop`, `buyShopItems`, `fleeStoreHorse`, `breedHorse`, `TradeHorse`,
+  `AcceptTrade`, `storeHorseWeapon`, `retrieveHorseWeapon`, `clearHorseWeapon`, `SaveComponents`, `SetPlayerBucket`,
+  `brushhorse`, `AddHorseXp`.
+- Callbacks `rsg-horses:server:GetActiveHorse`, `GetHorse`, `GetAllHorses`, `GetPlayerHorses`, `CheckComponents`,
+  `getHorseWeapon`, `getWeaponData`, both as ox_lib callbacks and as core callbacks.
+- Client events `rsg-horses:client:FleeHorse`, `SpawnHorse`, `equipHorseLantern`, `equipHorseHolster`, `inventoryHorse`,
+  `gethorselocation`, `stablemenu` and the rest of the client events.
+- `player_horses` keeps the same table and columns, so starter horses inserted by character scripts and scripts that
+  read the table keep working.
 
-## Self-test
-`test/horses_selftest` (needs `setr multicore_selftest true`): prints `[horsetest] DONE: n passed, m failed`.
+## Credits
+- **MULTIhorses is based on rsg-horses by Phil**, renamed and fitted to MULTIcore with Phil's permission. Thank you, Phil:
+  the stable page, buying and preview, customization and coats, breeding and foals, horse xp and levels, the holster,
+  trading, moving, the horse shop, wild horses, Discord logs.
+- rsg-horses is GPL v3 and builds on the RSG v2 framework resource by **Rexshack-RedM, RexShack and their contributors**
+  (https://github.com/Rexshack-RedM/rsg-horses), who keep their copyright. See `CREDITS.md`.
+- **RINGO (RINGOscripting)**: founder of MULTIcore; the MULTIcore version.
+
+## Licence
+GPL-3.0-or-later. See `LICENSE`.

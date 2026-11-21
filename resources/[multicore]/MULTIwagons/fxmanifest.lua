@@ -1,44 +1,60 @@
 fx_version 'cerulean'
-game 'rdr3'
 rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aware my resources *will* become incompatible once RedM ships.'
+game 'rdr3'
+
 lua54 'yes'
 
 name 'MULTIwagons'
-author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
-description 'Owned wagons for MULTIcore: dealers, buy / name / sell, take out and put away, storage, damage and repair. Answers as rsg-wagons. GPL v3.'
-version '0.1.0'
-license 'GPL-3.0'
+author 'Phil (original wagon script), Mack (wagon extras, liveries, cargo and lanterns); MULTIcore by RINGO (RINGOscripting)'
+description 'Owned wagons for MULTIcore: dealers with a showroom, buy / name / change / sell, call your wagon, storage, carcass storage and a chop shop.'
+version '2.0.0'
+license 'GPL-3.0-or-later'
 
--- answers to rsg-wagons' name (table rsg_wagons, its events and callbacks).
+-- answers to the old wagon script's name (its table, events and callbacks, see server/compat.lua).
 -- Do not run rsg-wagons on the same server.
 provide 'rsg-wagons'
 
 shared_scripts {
     '@ox_lib/init.lua',
-    '@MULTIcore/shared/i18n.lua',
+    '@MULTIcore/shared/i18n.lua',  -- _L / _LT / _LCode
     'config.lua',
-    'config/*.lua',
     'locales/*.lua',
+}
+
+client_scripts {
+    '@MULTIcore/lib/ui.lua',        -- ox_lib menus, dialogs and notifications in the MULTI look
+    '@MULTIcore/lib/interact.lua',  -- MULTItarget or hold-key prompts (Config.Interact)
+    'client/list.lua',              -- what each model can be fitted with
+    'client/wagon_extras.lua',      -- Mack's extras, liveries, cargo sets and lanterns (after list.lua)
+    'client/main.lua',              -- your wagon: call, make, send away, storage, carcasses
+    'client/showroom.lua',          -- dealer showroom wagon and camera
+    'client/menu.lua',              -- dealer page callbacks
+    'client/dealers.lua',           -- dealer blips, clerks, counter
+    'client/chop.lua',              -- chop shop
+    'client/compat.lua',            -- old client event names
 }
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
-    'server/main.lua',     -- engine: database, buy / sell / rename, take out / put away, storage, repair, exports
-    'server/net.lua',      -- what the game client may ask (distance, rate limit, ownership checked here)
-    'server/compat.lua',   -- rsg-wagons events and callbacks
+    'server/main.lua',     -- database, buy / sell / change, wagons out, storage, carcasses, exports
+    'server/chop.lua',     -- chop shop rewards
+    'server/compat.lua',   -- old event and callback names
 }
 
-client_scripts {
-    '@MULTIcore/lib/ui.lua',   -- ox_lib menus and dialogs in the MULTI look
-    '@MULTIcore/lib/interact.lua',  -- MULTItarget / prompt helper (Config.Interact)
-    'client/main.lua',     -- dealers, menus, spawning, storage prompt, repair
-    'client/compat.lua',   -- rsg-wagons client events
+ui_page 'html/index.html'
+
+files {
+    'html/index.html',
+    'html/wagons.css',
+    'html/wagons.js',
+    'html/custom.css',
+    'images/*.png',
 }
 
 dependencies {
-    'MULTItarget',   -- MULTIcore's target system (every MULTI script needs it)
-    'oxmysql',
     'ox_lib',
+    'oxmysql',
     'MULTIcore',
+    'MULTItarget',
     'MULTIinventory',
 }

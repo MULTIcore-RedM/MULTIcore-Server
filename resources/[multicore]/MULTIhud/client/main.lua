@@ -353,3 +353,20 @@ end)
 AddEventHandler('onResourceStop', function(res)
     if res == GetCurrentResourceName() and Config.HideGameCores then setGameCores(0) end
 end)
+
+-- ---------------------------------------------------------------
+-- the game's own cash / gold / token display and honor bar (Config.HideGameMoneyHonor)
+-- They come up with the game's "Reveal HUD" control, RevealHud 0xCF8A4ECA (redm-info Controls.cs),
+-- which is on Left Alt like targeting. Turning that control off every frame keeps them away.
+-- ---------------------------------------------------------------
+local REVEAL_HUD = 0xCF8A4ECA
+CreateThread(function()
+    while true do
+        if Config.HideGameMoneyHonor then
+            DisableControlAction(0, REVEAL_HUD, true)
+            Wait(0)
+        else
+            Wait(1000)
+        end
+    end
+end)

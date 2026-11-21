@@ -87,6 +87,11 @@ Config.Temperature = {
 -- of MULTIhud's rings. false = leave the game's icons as they are.
 Config.HideGameCores = true
 
+-- Hide the game's own cash, gold and token display (top right) and its honor bar (bottom left).
+-- The game shows them when its "Reveal HUD" key is pressed, which is Left Alt, the same key as targeting.
+-- false = the game shows them as normal.
+Config.HideGameMoneyHonor = true
+
 Config.Hud = {
     Command = 'hud',               -- /hud toggles the HUD for the player (remembered on their PC)
     Style = 'ring',                -- 'ring' (round gauges) or 'bar' (thin bars with labels)

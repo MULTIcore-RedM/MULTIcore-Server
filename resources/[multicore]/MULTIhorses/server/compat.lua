@@ -1,121 +1,91 @@
 -- ============================================================
--- MULTIhorses :: rsg-horses server compatibility
--- Names and argument shapes follow rsg-horses 2.3.3 (RSG v2 framework,
--- GPL v3; server/server.lua). Each one runs MULTIhorses' own checks.
--- Callers found: rsg-multicharacter and RINGOmulticharacterV2 insert
--- starter horses into player_horses; RINGOwagons / RINGOitemplacer read
--- player_horses; rsg-appearance and rsg-radialmenu fire client events
--- (client/compat.lua). The rest is here for scripts that talk to
--- rsg-horses the way its own client does.
+-- MULTIhorses :: server answers for scripts written for rsg-horses
+-- MULTIhorses provides 'rsg-horses' (fxmanifest). Every server event and
+-- callback of MULTIhorses is also answered under its rsg-horses name,
+-- running the very same function with the same checks:
+--   events     rsg-horses:server:<name>   (and rsg-horses:renameHorse)
+--   callbacks  rsg-horses:server:<name>   as ox_lib callbacks and as core callbacks
+-- Known callers: starter horses that character scripts insert straight into
+-- player_horses (same table and columns), scripts that read player_horses,
+-- and scripts that talk to rsg-horses the way its own client does.
 -- ============================================================
+local Core = exports['rsg-core']:GetCoreObject()
+local OLD = 'rsg-horses'
 
-local RSGCore = exports['rsg-core']:GetCoreObject()
+-- events
+for name, fn in pairs(Horses.events) do
+    RegisterNetEvent(OLD .. ':server:' .. name, fn)
+end
+if Horses.events.renameHorse then
+    RegisterNetEvent(OLD .. ':renameHorse', Horses.events.renameHorse)
+end
 
-local function cidOf(src)
-    local P = RSGCore.Functions.GetPlayer(src)
+-- ox_lib callbacks, also answered as core callbacks
+for name, fn in pairs(Horses.callbacks) do
+    lib.callback.register(OLD .. ':server:' .. name, fn)
+    Core.Functions.CreateCallback(OLD .. ':server:' .. name, function(source, cb, ...)
+        cb(fn(source, ...))
+    end)
+end
+
+-- core callbacks, also answered as ox_lib callbacks
+for name, fn in pairs(Horses.coreCallbacks) do
+    Core.Functions.CreateCallback(OLD .. ':server:' .. name, fn)
+    lib.callback.register(OLD .. ':server:' .. name, function(source, ...)
+        local p = promise.new()
+        fn(source, function(result) p:resolve(result) end, ...)
+        return Citizen.Await(p)
+    end)
+end
+
+-- and the same answers under MULTIhorses' own name the other way round, so a
+-- script may use either kind of callback with either name
+for name, fn in pairs(Horses.callbacks) do
+    Core.Functions.CreateCallback('MULTIhorses:server:' .. name, function(source, cb, ...)
+        cb(fn(source, ...))
+    end)
+end
+for name, fn in pairs(Horses.coreCallbacks) do
+    lib.callback.register('MULTIhorses:server:' .. name, function(source, ...)
+        local p = promise.new()
+        fn(source, function(result) p:resolve(result) end, ...)
+        return Citizen.Await(p)
+    end)
+end
+
+-- ------------------------------------------------------------
+-- server exports, as MULTIhorses and as rsg-horses
+-- ------------------------------------------------------------
+local function export(name, fn)
+    exports(name, fn)
+    AddEventHandler(('__cfx_export_%s_%s'):format(OLD, name), function(setCB) setCB(fn) end)
+end
+
+local function cidOf(srcOrCid)
+    if type(srcOrCid) == 'string' and not tonumber(srcOrCid) then return srcOrCid end
+    local P = Core.Functions.GetPlayer(tonumber(srcOrCid))
     return P and P.PlayerData.citizenid or nil
 end
 
---- The stable the player stands at, for rsg-horses events that name none.
-local function hereId(src)
-    local s = Horses.StableAt(src)
-    return s and s.id or nil
-end
-
--- rsg-horses rows (player_horses columns) --------------------------------
-local function rawActive(cid)
-    return cid and MySQL.single.await('SELECT * FROM player_horses WHERE citizenid = ? AND active = 1 LIMIT 1', { cid }) or nil
-end
-
-lib.callback.register('rsg-horses:server:GetActiveHorse', function(src)
-    return rawActive(cidOf(src))
-end)
-
-lib.callback.register('rsg-horses:server:GetHorse', function(src, stableid)
-    local cid = cidOf(src)
-    if not cid or type(stableid) ~= 'string' then return {} end
-    return MySQL.query.await('SELECT * FROM player_horses WHERE citizenid = ? AND stable = ?', { cid, stableid }) or {}
-end)
-
-lib.callback.register('rsg-horses:server:GetAllHorses', function(src)
-    local cid = cidOf(src)
+--- every horse of a player (server id) or citizenid
+export('GetHorses', function(srcOrCid)
+    local cid = cidOf(srcOrCid)
     if not cid then return {} end
-    return MySQL.query.await('SELECT name, stable, active FROM player_horses WHERE citizenid = ?', { cid }) or {}
+    return MySQL.query.await('SELECT * FROM player_horses WHERE citizenid = ?', { cid }) or {}
 end)
 
-lib.callback.register('rsg-horses:server:GetPlayerHorses', function(src)
-    local cid = cidOf(src)
-    if not cid then return {} end
-    return MySQL.query.await('SELECT id, name, horse, gender, age_seconds, pregnant_until FROM player_horses WHERE citizenid = ?', { cid }) or {}
+--- the active horse row of a player (server id) or citizenid, or nil
+export('GetActiveHorse', function(srcOrCid)
+    local cid = cidOf(srcOrCid)
+    if not cid then return nil end
+    return MySQL.single.await('SELECT * FROM player_horses WHERE citizenid = ? AND active = 1 LIMIT 1', { cid })
 end)
 
--- the client asks before an item is used up (rsg-horses' check); MULTIhorses checks on the server instead
-lib.callback.register('rsg-horses:server:getHorseWeapon', function() return nil end)
+--- the MULTIinventory id of a horse's saddlebags
+export('SaddlebagId', function(horseid) return SaddlebagId(horseid) end)
 
--- events -------------------------------------------------------------------
+--- what a stable pays for a horse of this model (nil = not sold here)
+export('SellPrice', function(model) return SellPrice(model) end)
 
--- (model, stableid, horsename, gender)
-RegisterNetEvent('rsg-horses:server:BuyHorse', function(model, stableid, horsename, gender)
-    Horses.Buy(source, stableid, model, horsename, gender)
-end)
-
--- (id) make this horse the active one; at the stable the player stands at
-RegisterNetEvent('rsg-horses:server:SetHoresActive', function(id)
-    local src = source
-    Horses.SetActive(src, id, hereId(src))
-end)
-
--- (stableid) put the active horse in this stable
-RegisterNetEvent('rsg-horses:server:SetHoresUnActive', function(stableid)
-    Horses.Store(source, stableid)
-end)
-
--- (id) sell the horse to the stable the player stands at
-RegisterNetEvent('rsg-horses:server:deletehorse', function(id)
-    local src = source
-    Horses.Sell(src, id, hereId(src))
-end)
-
--- (id, newStableId) send a horse from the stable the player stands at to another
-RegisterNetEvent('rsg-horses:server:MoveHorse', function(id, newStableId)
-    local src = source
-    Horses.Transfer(src, id, newStableId, hereId(src))
-end)
-
--- (name) rename the active horse
-RegisterNetEvent('rsg-horses:renameHorse', function(name)
-    local src = source
-    local horse = Horses.Active(cidOf(src))
-    if not horse then return Horses.notify(src, _L('err_no_active'), 'error') end
-    Horses.Rename(src, horse.id, name)
-end)
-
--- open the saddlebags of the horse beside the player
-RegisterNetEvent('rsg-horses:server:openhorseinventory', function()
-    Horses.OpenSaddlebag(source)
-end)
-
--- the active horse died (rsg-horses deleted it; here it is hurt until revived)
-RegisterNetEvent('rsg-horses:server:HorseDied', function()
-    Horses.Died(source)
-end)
-
--- (dirt 0-100) saved on the active horse
-RegisterNetEvent('rsg-horses:server:sethorseAttributes', function(dirt)
-    local cid = cidOf(source)
-    dirt = tonumber(dirt)
-    if not cid or not dirt or dirt < 0 or dirt > 100 then return end
-    MySQL.update('UPDATE player_horses SET dirt = ? WHERE citizenid = ? AND active = 1', { math.floor(dirt), cid })
-end)
-
--- shop: rsg-horses opened its own 'horse' shop; MULTIstores' general stores sell horse care
-RegisterNetEvent('rsg-horses:server:openShop', function()
-    Horses.dbg('ignored rsg-horses:server:openShop from', source)
-end)
-
--- accepted and ignored: breeding, trading, horse holster weapons, customisation buckets are premium features
-for _, name in ipairs({ 'rsg-horses:server:fleeStoreHorse', 'rsg-horses:server:breedHorse', 'rsg-horses:server:TradeHorse',
-    'rsg-horses:server:AcceptTrade', 'rsg-horses:server:storeHorseWeapon', 'rsg-horses:server:retrieveHorseWeapon',
-    'rsg-horses:server:SaveComponents', 'rsg-horses:server:SetPlayerBucket' }) do
-    RegisterNetEvent(name, function() Horses.dbg('ignored', name, 'from', source) end)
-end
+--- true once the table is set up
+export('IsReady', function() return DB and DB.ready == true end)

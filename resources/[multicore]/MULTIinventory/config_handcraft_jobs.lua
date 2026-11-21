@@ -251,7 +251,6 @@ local R = {
     -- ---------------- Wagon Maker ----------------
     wagon_gasket     = { label = 'Sealing Gasket', category = 'Wagon Maker', jobs = JOBS.wagon, tools = { WRENCH, HAMMER }, ingredients = { I('leather'), I('oil'), I('twine') }, outputs = { I('sealing_gasket') }, time = 5000 },
     wagon_brake_pad  = { label = 'Brake Pad', category = 'Wagon Maker', jobs = JOBS.wagon, tools = { WRENCH, HAMMER }, ingredients = { I('leather', 2), I('scrapmetal', 2) }, outputs = { I('brake_pad') }, time = 6000 },
-    wagon_repair_kit = { label = 'Wagon Repair Kit', category = 'Wagon Maker', jobs = JOBS.wagon, tools = { WRENCH, HAMMER }, ingredients = { I('wood_plank', 4), I('steel_ingot', 2), I('bolts', 4), I('nails', 6) }, outputs = { I('wagonrepairkit') }, time = 12000 },
     wagon_wrench     = { label = 'Make a Wrench', category = 'Wagon Maker', jobs = JOBS.wagon, tools = { HAMMER }, ingredients = { I('iron_ingot'), I('bolts') }, outputs = { I('wrench') }, time = 9000 },
 
     -- ================ job stations ================

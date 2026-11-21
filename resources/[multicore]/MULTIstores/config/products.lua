@@ -75,7 +75,6 @@ Config.Products.general = {
     { name = 'horse_lantern',   price = 2.00, amount = 3, category = 'horse' },
     { name = 'horse_reviver',   price = 8.00, amount = 5, category = 'horse' },
     -- more tools and camping (1899: a canvas wall tent $5-6, a gold pan 50c-$1)
-    { name = 'wagon_repair_kit', price = 2.00, amount = 10, category = 'tools', buyPrice = 1.00, maxStock = 20 },
     { name = 'lockpick',         price = 0.75, amount = 20, category = 'tools' },
     { name = 'goldpan',          price = 0.75, amount = 5,  category = 'tools' },
     { name = 'tent',             price = 5.50, amount = 5,  category = 'camp' },
