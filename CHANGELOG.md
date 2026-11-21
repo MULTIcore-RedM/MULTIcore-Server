@@ -2,6 +2,13 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-21 (new home)
+
+- **MULTIcore has moved to its own GitHub organisation:** https://github.com/MULTIcore-RedM/MULTIcore-Server. Old links still lead there.
+- The txAdmin recipe link is now
+  `https://raw.githubusercontent.com/MULTIcore-RedM/MULTIcore-Server/main/recipe/multicore.yaml`.
+- Changes to MULTIcore now come in as pull requests and are checked before they go live.
+
 ## 2026-11-21 (food, drink and medicine)
 
 ### New
