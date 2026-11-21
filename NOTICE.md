@@ -12,4 +12,6 @@ If you share MULTIcore, or a changed copy of it, keep this notice, the credits f
 
 - **rsg-core 2.4.1** and other RSG v2 framework code (GPL v3). Their authors keep their copyright; see `resources/[multicore]/MULTIcore/CREDITS.md` and each script's `CREDITS.md`.
 - **ox_lib** and **oxmysql** by Overextended (LGPL v3), included unchanged in `resources/[standalone]` with their own licences.
+- **Item pictures** in `resources/[multicore]/MULTIimages/images` by **Tankie** (The Icon Library Project, https://github.com/TankieTwitch/FREE-RedM-Image-Library), free to use. Tankie keeps the rights to the pictures.
+- **MULTIcoroner** is based on **phils-coroner by Phil**, renamed and fitted to MULTIcore with Phil's permission.
 - **redm-ipls** (MIT licence, Copyright (c) 2020 Heather Rhodes; IPL list by koil, CryptoGenics, PitchSean and Plouffe), included unchanged in `resources/[standalone]/redm-ipls` with its licence.

@@ -39,6 +39,10 @@ Everything is in `config.lua` and `config/*.lua`, every option commented:
 - `config.lua`: using items, the drunk levels and their effects, blackout, the addiction substances and their times.
 - `config/consumables.lua`: what each item does (hunger, thirst, stress, health, cores, alcohol, sobering,
   substance, cure). Add a line to make another item usable.
+- `config/consumables_library.lua`: about 440 more foods, drinks, spirits and medicines (cakes, stews, soups,
+  cooked meats, canned goods, teas, sodas, cocktails, tonics ...). Their items are in MULTIcore's `shared/items.lua`
+  with pictures by Tankie (The Icon Library Project). Bottles hand back an empty bottle. Cooked meat with oregano
+  heals more, with thyme relieves stress, with mint restores stamina. A line in `config/consumables.lua` wins.
 - `config/anims.lua`: the animations and props.
 - `config/items.lua`: the items this resource adds (registered at start if your registry lacks them).
 

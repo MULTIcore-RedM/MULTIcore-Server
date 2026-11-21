@@ -2,10 +2,24 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-21 (food, drink and medicine)
+
+### New
+- **635 new items, all with pictures by Tankie** (The Icon Library Project). MULTIcore now has 1150 items.
+  - **Food (about 340):** cakes, pies, cookies, candy, ice cream, breads, stews, soups, full meals, canned goods, and cooked meats and fish. Cooked meat seasoned with oregano heals more, with thyme relieves stress, with mint restores stamina.
+  - **Drinks:** teas, coffees, juices, lemonades, sodas and milkshakes.
+  - **Alcohol:** beers, ales, wines, spirits, cocktails and 10 kinds of moonshine. They get you drunk, and a bottle leaves an empty bottle.
+  - **Medicine:** tonics, restoratives, snake oils, antibiotics, antipoison, morphine and valerian root. Salves and balms heal wounds like a bandage.
+  - **Ingredients:** raw meats, flour, spices, herbs, grains, fruit and vegetables, crates and sacks, and brewing malt and mash.
+- Every food, drink and medicine works straight away through MULTIconsumables. Their effects are in `MULTIconsumables/config/consumables_library.lua`, one line per item.
+
+### Updating an existing server
+- Copy MULTIcore's `shared/items.lua`, `MULTIconsumables/config/consumables_library.lua` and `config/consumables.lua`, MULTImedic's `config.lua` and `MULTIimages/images` into your server. Keep a copy of your own changes to those files first.
+
 ## 2026-11-21 (item pictures)
 
 ### New
-- **Item pictures included.** MULTIimages now comes with pictures for 394 of MULTIcore's 515 base items: food, drink, medicine, ammo, tools, ores, gems, pelts, herbs, money and more. They are from **The Icon Library Project** (https://github.com/TankieTwitch/FREE-RedM-Image-Library), a free RedM picture library.
+- **Item pictures included.** MULTIimages now comes with pictures for 394 of MULTIcore's 515 base items: food, drink, medicine, ammo, tools, ores, gems, pelts, herbs, money and more. They are by **Tankie** (The Icon Library Project, https://github.com/TankieTwitch/FREE-RedM-Image-Library), a free RedM picture library.
 - Items without a picture yet (most guns, canteens, backpacks, some herbs and orchids) keep the plain placeholder. Add your own `.png` in `MULTIimages/images`, named as the item's `image`.
 
 ### Updating an existing server

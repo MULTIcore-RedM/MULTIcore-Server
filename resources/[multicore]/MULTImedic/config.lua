@@ -120,6 +120,13 @@ Config.SelfCare = {
         bandage      = { health = 15, improve = 1, time = 6000 },   -- rsg-medic: 15 %
         fieldbandage = { health = 25, improve = 2, time = 8000 },
         firstaid     = { health = 50, improve = 3, time = 10000 },
+        -- salves and balms (MULTIcore items with pictures by Tankie, The Icon Library Project)
+        balm_honey_juniper          = { health = 20, improve = 1, time = 5000 },
+        medical_cream               = { health = 20, improve = 1, time = 5000 },
+        ointment_bears_foot         = { health = 20, improve = 1, time = 5000 },
+        salve_alaskan_ginseng_honey = { health = 20, improve = 1, time = 5000 },
+        salve_creekplum             = { health = 20, improve = 1, time = 5000 },
+        salve_daisy_burn            = { health = 20, improve = 1, time = 5000 },
     },
     AllowOnMount = false,           -- false = get off the horse first
     -- bandaging animation used by rsg-medic (RSG v2, GPL v3); not listed in redm-info, works in rsg-medic

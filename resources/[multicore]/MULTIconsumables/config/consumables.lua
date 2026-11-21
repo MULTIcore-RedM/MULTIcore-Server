@@ -70,3 +70,9 @@ Config.Consumables = {
     -- cure: eases the habit (set more cure items the same way)
     tonic_temperance = { anim = 'drink', prop = 'p_bottlemedicine03x', stress = -5, sober = 15, cures = { alcohol = 25, laudanum = 20 }, relief = 1800 },
 }
+
+-- food, drink and medicine from the picture library (config/consumables_library.lua),
+-- whichever of the two files loads first; a line set above always wins
+for name, def in pairs(Config.LibraryConsumables or {}) do
+    if Config.Consumables[name] == nil then Config.Consumables[name] = def end
+end
