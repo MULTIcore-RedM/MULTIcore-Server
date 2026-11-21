@@ -58,6 +58,58 @@ if Config.Logout.command then
     end, false)
 end
 
+-- ------------------------------------------------------------
+-- Private select scene / character creator
+-- Each player gets a routing bucket of their own while they pick or create a character, so
+-- players in the scene or the creator at the same time don't see each other.
+-- ------------------------------------------------------------
+local private = {}   -- [src] = bucket they were in before
+
+local function leavePrivate(src)
+    local before = private[src]
+    if before == nil then return end
+    private[src] = nil
+    SetPlayerRoutingBucket(src, before)
+end
+
+RegisterNetEvent('MULTIcharacter:server:privateScene', function(on)
+    local src = source
+    if not Config.PrivateScene then return end
+    if on ~= true then
+        leavePrivate(src)
+        return
+    end
+    if private[src] ~= nil then return end
+    -- only before a character is loaded: a playing character can't hide from everyone with it
+    if RSGCore.Functions.GetPlayer(src) then return end
+    local bucket = (tonumber(Config.PrivateBucketBase) or 50000) + src
+    private[src] = GetPlayerRoutingBucket(src)
+    SetRoutingBucketPopulationEnabled(bucket, false)
+    SetPlayerRoutingBucket(src, bucket)
+end)
+
+-- the client normally puts the player back when they spawn; if it never does (crash, script
+-- error), a loaded character is put back with everyone else a little later
+CreateThread(function()
+    while true do
+        Wait(15000)
+        for src in pairs(private) do
+            -- a loaded character still in the spawn picker stays; once out in the world it is put back
+            if RSGCore.Functions.GetPlayer(src) then
+                local ped = GetPlayerPed(src)
+                local away = ped ~= 0 and #(GetEntityCoords(ped) - Config.Scene.hidePlayerAt) > (Config.NoSaveRadius or 100.0)
+                if away then leavePrivate(src) end
+            end
+        end
+    end
+end)
+
+AddEventHandler('onResourceStop', function(res)
+    if res ~= GetCurrentResourceName() then return end
+    for src in pairs(private) do leavePrivate(src) end
+end)
+
 AddEventHandler('playerDropped', function()
     lastLogout[source] = nil
+    private[source] = nil
 end)

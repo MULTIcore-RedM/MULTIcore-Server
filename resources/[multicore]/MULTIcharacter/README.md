@@ -45,6 +45,8 @@ The fxmanifest has `provide 'rsg-multicharacter'` and `provide 'rsg-spawn'`, so 
 | `NewPlayerPicker` | RSG `newplayer` event: town picker instead of the fixed spawn |
 | `AllowLastLocation` | offer the last saved position |
 | `SpawnLocations` | towns in the spawn picker (`id` + coords; names in the locale files as `loc_<id>` / `loc_<id>_desc`) |
+| `PrivateScene` | each player picks and creates their character in a world of their own, so players there at the same time don't see each other (default on) |
+| `PrivateBucketBase` | the private worlds are numbered from here (+ the player's server id) |
 | `SpawnCollisionTimeout` | longest wait for collision at the spawn point |
 | `Timing` | fades and waits |
 | `Logout` | command name, ACE, cooldown, allowed while dead |

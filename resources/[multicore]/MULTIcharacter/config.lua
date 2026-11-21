@@ -52,6 +52,13 @@ Config.AllowLastLocation = true
 -- offered as "Last location" (stops players spawning in the void under the select platform)
 Config.NoSaveRadius = 100.0
 
+-- Each player picks and creates their character in a world of their own (a routing bucket), so two
+-- players in the select scene or the character creator at the same time never see each other.
+-- They are put back with everyone else when they spawn. false = everyone shares one world.
+Config.PrivateScene = true
+-- The private worlds are numbered from here: this number + the player's server id
+Config.PrivateBucketBase = 50000
+
 -- Towns in the spawn picker. Names and the line under them are locale keys loc_<id> and loc_<id>_desc.
 -- Valentine and Saint Denis: RSG v2 rsg-spawn. The rest: RSG v2 rsg-medic respawn points.
 Config.SpawnLocations = {

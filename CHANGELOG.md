@@ -2,6 +2,15 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-21 (character creator fix)
+
+### Fixed
+- **Two players making a character at the same time no longer see each other.** Each player now picks and creates their character in a world of their own and joins everyone else when they spawn. Thanks to bula1918 for the report.
+- Settings: `Config.PrivateScene` and `Config.PrivateBucketBase` in MULTIcharacter.
+
+### Updating an existing server
+- Copy `resources/[multicore]/MULTIcharacter` into your server. Keep a copy of your own config changes first.
+
 ## 2026-11-21 (wardrobes)
 
 ### Changed

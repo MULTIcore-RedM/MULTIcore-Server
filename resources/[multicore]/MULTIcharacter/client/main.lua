@@ -83,6 +83,9 @@ end
 -- ------------------------------------------------------------
 
 local function hidePlayer()
+    -- a world of their own while they pick or create a character (the server only does this
+    -- for a player with no character loaded)
+    TriggerServerEvent('MULTIcharacter:server:privateScene', true)
     local ped = PlayerPedId()
     local p = S.hidePlayerAt
     SetEntityCoords(ped, p.x, p.y, p.z, false, false, false, false)
@@ -96,6 +99,7 @@ local function hidePlayer()
 end
 
 local function releasePlayer()
+    TriggerServerEvent('MULTIcharacter:server:privateScene', false)
     local ped = PlayerPedId()
     FreezeEntityPosition(ped, false)
     SetEntityVisible(ped, true)
