@@ -83,6 +83,7 @@ MULTItarget-only calls set the heading above the list:
 exports.MULTItarget:setEntityLabel(ped, 'Doc Hale', 'Doctor')
 exports.MULTItarget:setModelLabel('u_m_m_valdoctor_01', 'Doctor')
 exports.MULTItarget:hasEntityOptions(entity)   -- true when a script put options on this entity
+exports.MULTItarget:hasZoneNear(coords, 1.5, GetCurrentResourceName())   -- true when another script's zone is within 1.5 m
 ```
 
 ### rsg-target / qb-target calls

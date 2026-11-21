@@ -276,6 +276,23 @@ function API.hasEntityOptions(entity)
     return l ~= nil and #l > 0
 end
 
+-- true when a zone with options lies within `radius` metres of `coords`;
+-- zones of the resource named `ignore` don't count (pass your own name to skip your zones)
+function API.hasZoneNear(coords, radius, ignore)
+    local p = vec(coords)
+    if not p then return false end
+    radius = tonumber(radius) or 1.5
+    for _, z in pairs(zones) do
+        if z.resource ~= ignore and z.options and #z.options > 0 then
+            if contains(z, p) then return true end
+            local reach = (z.kind == 'sphere' and z.radius)
+                or (z.kind == 'box' and math.max(z.size.x, z.size.y) / 2)
+            if reach and #(p - z.coords) <= reach + radius then return true end
+        end
+    end
+    return false
+end
+
 -- a script stopped: its targets go with it
 AddEventHandler('onClientResourceStop', function(res)
     local function drop(list) for i = #list, 1, -1 do if list[i].resource == res then table.remove(list, i) end end end
