@@ -221,6 +221,7 @@ RSGShared.Items = {
     firstaid     = { name = 'firstaid',      label = 'First Aid',      weight = 100,  type = 'item',  image = 'firstaid.png',      unique = false,  useable = true,  shouldClose = true,  description = 'used by medics to improve your health',  category = 'medical' },
     laudanum         = { name = 'laudanum',          label = 'Laudanum',          weight = 120,  type = 'item',  image = 'laudanum.png',          unique = false,  useable = true,  shouldClose = true,  description = 'Tincture of opium sold for pain and sleeplessness. Habit-forming.', category = 'medical' },
     tonic_temperance = { name = 'tonic_temperance',  label = 'Temperance Tonic',  weight = 150,  type = 'item',  image = 'tonic_temperance.png',  unique = false,  useable = true,  shouldClose = true,  description = 'A doctor\'s remedy that eases the craving for drink and laudanum.', category = 'medical' },
+    coroner_report   = { name = 'coroner_report',    label = 'Inquest Report',    weight = 10,   type = 'item',  image = 'coroner_report.png',    unique = true,   useable = true,  shouldClose = true,  description = 'A copy of a coroner\'s inquest report. Use it to read it.', category = 'medical' },
 
     -- mining
     resource_amethyst             = { name = 'resource_amethyst',              label = 'Amethyst',              weight = 100,  type = 'item',  image = 'resource_amethyst.png',              unique = false,  useable = true,  shouldClose = true,  description = 'Resource Amethyst — useful item to have around.',              category = 'mining' },

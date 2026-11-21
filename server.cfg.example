@@ -68,6 +68,7 @@ ensure MULTIconsumables
 ensure MULTIbank
 ensure MULTIjobs
 ensure MULTImedic
+ensure MULTIcoroner
 ensure MULTIadmin
 ensure MULTIcamps
 ensure MULTIcrafting

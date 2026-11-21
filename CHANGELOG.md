@@ -2,6 +2,17 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-21 (coroner)
+
+### New
+- **MULTIcoroner: coroner inquests.** Hold **Left Alt** on a dead player, stranger or animal and pick **Perform inquest**. The form fills in the place (nearest town) and, for a dead player, the character's name. Add the cause and manner of death, notes and a conclusion, and file it. `/inquests` opens the ledger of every filed report, where reports can be read, copied or deleted. Filing gives you an **Inquest Report** item that anyone can read and hand on.
+- **Coroner job** (Assistant, Deputy Coroner, Coroner) and the `coroner_report` item. Coroners, medics and lawmen on duty can hold inquests.
+- MULTIcoroner is based on **phils-coroner by Phil**, renamed and fitted to MULTIcore with Phil's permission.
+
+### Updating an existing server
+- Copy `resources/[multicore]/MULTIcoroner` into your server, plus MULTIcore's `shared/jobs.lua` and `shared/items.lua`.
+- In `server.cfg`, add `ensure MULTIcoroner` after `ensure MULTImedic`. Its table is made on the first start.
+
 ## 2026-11-20 (new inventory and clothing)
 
 ### New

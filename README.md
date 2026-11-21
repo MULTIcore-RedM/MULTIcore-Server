@@ -7,7 +7,7 @@ A ready-to-run RedM base server on **MULTIcore**: one core that runs **RSG v2, V
 ## What you get
 
 - **MULTIcore**: the core. It answers to `rsg-core`, `vorp_core` and `redem_roleplay`, so scripts written for any of the three frameworks find their core and share the same players, money, jobs and items.
-- **33 MULTI scripts** (`resources/[multicore]`): login and character select, character creator, inventory, stores, clothing as items with a tailor job, HUD, food and drink, bank, jobs, medic, admin, camps, crafting, doors, emotes, gathering, horses, hunting, law, telegrams, wagons, a radial menu, Discord logs and whitelist, its own **target system** (MULTItarget), its own **chat** (MULTIchat), **proximity voice** (MULTIvoice), **one clock and weather for everyone** (MULTIweather) and a picture folder for items (MULTIimages).
+- **34 MULTI scripts** (`resources/[multicore]`): login and character select, character creator, inventory, stores, clothing as items with a tailor job, HUD, food and drink, bank, jobs, medic, coroner inquests, admin, camps, crafting, doors, emotes, gathering, horses, hunting, law, telegrams, wagons, a radial menu, Discord logs and whitelist, its own **target system** (MULTItarget), its own **chat** (MULTIchat), **proximity voice** (MULTIvoice), **one clock and weather for everyone** (MULTIweather) and a picture folder for items (MULTIimages).
 - **ox_lib**, **oxmysql** and **redm-ipls** (`resources/[standalone]`), unchanged, with their own licences. redm-ipls loads the base-game map pieces RedM leaves out: buildings, interiors and their furniture.
 - 10 languages: English, German, French, Spanish, Brazilian Portuguese, Italian, Polish, Russian, Dutch and Turkish.
 - 1899 prices.
@@ -91,4 +91,4 @@ Open an issue on this repository. Include:
 
 **Founder and creator: RINGO (RINGOscripting).** MULTIcore, the MULTI scripts, MULTItarget, MULTIchat and the MULTIcore look are RINGO's work. Copyright (C) 2026 RINGO (RINGOscripting). See `NOTICE.md`.
 
-GPL-3.0 (see `LICENSE`). If you share a changed copy, keep the credits and licence notices. MULTIcore is built on **rsg-core 2.4.1** and other RSG v2 framework code (GPL v3); see each script's `CREDITS.md`, and `resources/[multicore]/MULTIcore/CREDITS.md` and `MULTICORE_CHANGES.md`. **ox_lib** and **oxmysql** are by Overextended, and **redm-ipls** by Heather Rhodes (MIT), under their own licences (included in their folders).
+GPL-3.0 (see `LICENSE`). If you share a changed copy, keep the credits and licence notices. MULTIcore is built on **rsg-core 2.4.1** and other RSG v2 framework code (GPL v3); see each script's `CREDITS.md`, and `resources/[multicore]/MULTIcore/CREDITS.md` and `MULTICORE_CHANGES.md`. **MULTIcoroner** is based on **phils-coroner by Phil**, renamed and fitted to MULTIcore with Phil's permission. **ox_lib** and **oxmysql** are by Overextended, and **redm-ipls** by Heather Rhodes (MIT), under their own licences (included in their folders).

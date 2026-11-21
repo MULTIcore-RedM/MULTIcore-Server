@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>MULTIcoroner</title>
+    <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
+    <link rel="stylesheet" href="coroner.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+    <div id="ui" class="mc-root mc-hidden">
+
+        <!-- the inquest form -->
+        <div class="mc-panel cr-panel mc-hidden" id="case-panel">
+            <h1 class="mc-title" data-t="title_inquest"></h1>
+            <div class="mc-subtitle" data-t="sub_examiner"></div>
+            <hr class="mc-rule">
+
+            <div class="cr-body mc-scroll">
+                <div class="cr-meta">
+                    <span class="cr-pill" id="subject-type"></span>
+                    <span class="mc-note" id="case-time"></span>
+                </div>
+
+                <div class="cr-progress">
+                    <div class="cr-progress-label" data-t="completeness"></div>
+                    <div class="cr-track"><div class="cr-fill" id="completeness-fill"></div></div>
+                </div>
+
+                <div class="mc-heading" data-t="sec_subject"></div>
+                <div class="mc-field">
+                    <label for="subject-name" data-t="f_name"></label>
+                    <input class="mc-input" id="subject-name" type="text" maxlength="80" data-ph="ph_name">
+                </div>
+                <div class="mc-field">
+                    <label for="subject-location" data-t="f_location"></label>
+                    <input class="mc-input cr-readonly" id="subject-location" type="text" readonly>
+                </div>
+
+                <div class="mc-heading" data-t="sec_findings"></div>
+                <div class="mc-field">
+                    <label for="cause-of-death" data-t="f_cause"></label>
+                    <input class="mc-input" id="cause-of-death" type="text" maxlength="120" data-ph="ph_cause">
+                </div>
+                <div class="mc-field">
+                    <label for="manner-of-death" data-t="f_manner"></label>
+                    <select class="mc-select" id="manner-of-death"></select>
+                </div>
+                <div class="mc-field">
+                    <label for="inquest-notes" data-t="f_notes"></label>
+                    <textarea class="mc-textarea" id="inquest-notes" maxlength="500" data-ph="ph_notes"></textarea>
+                </div>
+                <div class="mc-field">
+                    <label for="conclusion" data-t="f_conclusion"></label>
+                    <input class="mc-input" id="conclusion" type="text" maxlength="120" data-ph="ph_conclusion">
+                </div>
+            </div>
+
+            <hr class="mc-rule">
+            <div class="cr-footer">
+                <span class="mc-note" data-t="hint_esc"></span>
+                <div class="mc-btn-row">
+                    <button class="mc-btn" id="case-cancel" type="button" data-t="btn_cancel"></button>
+                    <button class="mc-btn primary" id="btn-file" type="button" data-t="btn_file"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- the ledger -->
+        <div class="mc-panel cr-panel mc-hidden" id="reports-panel">
+            <h1 class="mc-title" data-t="title_ledger"></h1>
+            <div class="mc-subtitle" data-t="sub_filed"></div>
+            <hr class="mc-rule">
+
+            <div class="cr-body mc-scroll">
+                <div class="mc-list" id="reports-list"></div>
+            </div>
+
+            <hr class="mc-rule">
+            <div class="cr-footer">
+                <span class="mc-note" data-t="hint_esc"></span>
+                <div class="mc-btn-row">
+                    <button class="mc-btn" id="reports-refresh" type="button" data-t="btn_refresh"></button>
+                    <button class="mc-btn primary" id="reports-close" type="button" data-t="btn_close"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- one report -->
+        <div class="mc-panel cr-panel mc-hidden" id="detail-panel">
+            <h1 class="mc-title" data-t="title_report"></h1>
+            <div class="mc-subtitle" data-t="sub_examiner"></div>
+            <hr class="mc-rule">
+
+            <div class="cr-body mc-scroll">
+                <div class="cr-banner">
+                    <div>
+                        <div class="cr-label" data-t="d_number"></div>
+                        <div class="cr-report-id" id="detail-id"></div>
+                    </div>
+                    <div class="cr-banner-meta">
+                        <div><span class="cr-label" data-t="d_filed"></span> <span id="detail-time"></span></div>
+                        <div><span class="cr-label" data-t="d_examiner"></span> <span id="detail-coroner"></span></div>
+                    </div>
+                </div>
+
+                <div class="mc-heading" data-t="sec_subject"></div>
+                <div class="cr-line"><span class="cr-label" data-t="d_type"></span><span id="detail-type"></span></div>
+                <div class="cr-line"><span class="cr-label" data-t="d_recorded"></span><span id="detail-recorded-name"></span></div>
+                <div class="cr-line"><span class="cr-label" data-t="d_identified"></span><span id="detail-identified-name"></span></div>
+
+                <div class="mc-heading" data-t="sec_location"></div>
+                <div class="cr-text" id="detail-location"></div>
+
+                <div class="mc-heading" data-t="sec_findings"></div>
+                <div class="cr-line"><span class="cr-label" data-t="d_cause"></span><span id="detail-cause"></span></div>
+                <div class="cr-line"><span class="cr-label" data-t="d_manner"></span><span id="detail-manner"></span></div>
+
+                <div class="mc-heading" data-t="sec_notes"></div>
+                <div class="cr-text cr-notes" id="detail-notes"></div>
+
+                <div class="mc-heading" data-t="sec_conclusion"></div>
+                <div class="cr-text cr-conclusion" id="detail-conclusion"></div>
+            </div>
+
+            <hr class="mc-rule">
+            <div class="cr-footer">
+                <span class="mc-note" data-t="hint_esc"></span>
+                <div class="mc-btn-row">
+                    <button class="mc-btn" id="detail-print" type="button" data-t="btn_print"></button>
+                    <button class="mc-btn danger" id="detail-delete" type="button" data-t="btn_delete"></button>
+                    <button class="mc-btn primary" id="detail-done" type="button" data-t="btn_close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mc-root cr-toasts" id="toasts"></div>
+
+    <script src="coroner.js"></script>
+</body>
+</html>

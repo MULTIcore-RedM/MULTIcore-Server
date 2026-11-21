@@ -140,6 +140,17 @@ RSGShared.Jobs = {
             ['1'] = { name = 'Master', payment = 0, isboss = true },
         },
     },
+    coroner = {                       -- MULTIcoroner: inquests on the dead
+        name = 'coroner',
+        label = 'Coroner',
+        defaultDuty = false,
+        offDutyPay = false,
+        grades = {
+            ['0'] = { name = 'Assistant', payment = 0.30 },
+            ['1'] = { name = 'Deputy Coroner', payment = 0.40 },
+            ['2'] = { name = 'Coroner', isboss = true, payment = 0.50 },
+        },
+    },
     undertaker = {
         name = 'undertaker',
         label = 'Undertaker',

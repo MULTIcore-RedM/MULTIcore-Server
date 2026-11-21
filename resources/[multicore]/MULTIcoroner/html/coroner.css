@@ -1,0 +1,65 @@
+/* MULTIcoroner: MULTIcore's black panels and white text (nui://MULTIcore/html/theme/multi.css).
+   Change things in custom.css, not here. */
+
+html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+
+.cr-panel {
+    position: fixed; top: 50%; right: 4vw; transform: translateY(-50%);
+    width: 520px; max-height: 88vh;
+    display: flex; flex-direction: column;
+    box-sizing: border-box;
+}
+.cr-body { flex: 1 1 auto; overflow-y: auto; padding-right: 6px; }
+.cr-body::-webkit-scrollbar { width: 4px; }
+.cr-body::-webkit-scrollbar-thumb { background: var(--mc-line-strong); }
+
+.cr-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.cr-footer > .mc-note { white-space: nowrap; }
+.cr-footer .mc-btn-row { flex-wrap: nowrap; gap: 6px; }
+.cr-footer .mc-btn { padding: 8px 12px; white-space: nowrap; }
+
+.cr-meta { display: flex; align-items: center; justify-content: space-between; margin: 4px 0 12px; }
+.cr-pill {
+    font-family: var(--mc-font-ui); font-size: var(--mc-size-small);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 3px 10px; border: 1px solid var(--mc-line-strong);
+}
+
+.cr-progress-label, .cr-label {
+    font-family: var(--mc-font-ui); font-size: var(--mc-size-small);
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--mc-ink-dim);
+}
+.cr-track { height: 4px; margin-top: 5px; background: rgba(255, 255, 255, 0.18); }
+.cr-fill { height: 100%; width: 0; background: var(--mc-ink); transition: width 0.2s ease-out; }
+
+.mc-input.cr-readonly { color: var(--mc-ink-dim); border-style: dashed; cursor: default; }
+
+/* the ledger */
+.cr-row { flex-direction: column; align-items: stretch; gap: 2px; }
+.cr-row-top { display: flex; justify-content: space-between; gap: 10px; }
+.cr-row-time { color: var(--mc-ink-dim); font-size: var(--mc-size-small); white-space: nowrap; }
+.cr-empty { padding: 16px 0; text-align: center; color: var(--mc-ink-dim); }
+
+/* one report */
+.cr-banner { display: flex; justify-content: space-between; gap: 16px; padding: 10px 14px; background: var(--mc-paper-2); }
+.cr-report-id { font-family: var(--mc-font-title); font-size: calc(26px * var(--mc-scale)); letter-spacing: 0.03em; }
+.cr-banner-meta { text-align: right; font-size: var(--mc-size-small); line-height: 1.6; }
+.cr-line { display: flex; justify-content: space-between; gap: 16px; padding: 4px 0; border-bottom: 1px solid var(--mc-line); }
+.cr-line span:last-child { text-align: right; }
+.cr-text { white-space: pre-wrap; word-wrap: break-word; }
+.cr-notes { color: var(--mc-ink-dim); }
+.cr-conclusion { font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-ui); }
+
+.mc-btn.armed { background: var(--mc-red); border-color: var(--mc-red); }
+
+/* messages, top right */
+.cr-toasts { position: fixed; top: 4vh; right: 4vw; width: 340px; display: flex; flex-direction: column; gap: 6px; pointer-events: none; }
+.cr-toast {
+    padding: 10px 14px; background: rgba(0, 0, 0, 0.85);
+    border-left: 3px solid var(--mc-ink);
+    opacity: 0; transform: translateX(12px); transition: opacity 0.2s, transform 0.2s;
+}
+.cr-toast.visible { opacity: 1; transform: none; }
+.cr-toast.error { border-left-color: var(--mc-red); }
+.cr-toast-label { font-family: var(--mc-font-ui); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--mc-size-small); }
+.cr-toast-message { color: var(--mc-ink-dim); font-size: var(--mc-size-small); }
