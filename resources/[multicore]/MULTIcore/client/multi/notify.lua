@@ -94,15 +94,112 @@ local function playSound(name, set)
     Citizen.InvokeNative(PLAY_SOUND_FRONTEND, name, set, true, 0)
 end
 
-local function layout()
-    local t = Cfg.Styles
-    return {
-        toast = { position = t.toast.position, x = t.toast.offsetX, y = t.toast.offsetY, width = t.toast.width, max = t.toast.max },
-        tip = { y = t.tip.offsetY, max = t.tip.max },
-        objective = { y = t.objective.offsetY, max = t.objective.max },
-        banner = { top = t.banner.top, max = t.banner.max },
-        cyrillic = _LCode and _LCode() == 'ru' or false,
+-- ------------------------------------------------------------
+-- layout (where each style sits, its size) and look (how it is drawn)
+-- ------------------------------------------------------------
+local POSITIONS = {
+    ['top-left'] = true, ['top-center'] = true, ['top-right'] = true,
+    ['middle-left'] = true, ['center'] = true, ['middle-right'] = true,
+    ['bottom-left'] = true, ['bottom-center'] = true, ['bottom-right'] = true,
+}
+local DEFAULT_POS = { toast = 'top-left', tip = 'bottom-center', objective = 'top-center', banner = 'center' }
+local ALIGNS = { auto = true, left = true, center = true, right = true }
+local KVP = 'multicore_notify_layout'
+
+-- the player's own layout from /notifylayout (kept on their PC), per style
+local mine = {}
+do
+    local ok, t = pcall(json.decode, GetResourceKvpString(KVP) or '')
+    if ok and type(t) == 'table' then mine = t end
+end
+
+local function num(v, lo, hi, fallback)
+    v = tonumber(v)
+    if not v then return fallback end
+    return math.max(lo, math.min(hi, v))
+end
+
+--- one style's place and size: the server's config, then the player's own layout on top
+local function placeOf(style, serverOnly)
+    local c = Cfg.Styles[style] or {}
+    local pos = POSITIONS[c.position] and c.position or DEFAULT_POS[style]
+    local p = {
+        position = pos,
+        x = tonumber(c.offsetX) or 0,
+        y = tonumber(c.offsetY) or 0,
+        width = num(c.width, 0, 4000, 0),
+        scale = num(c.scale, 0.3, 3.0, 1.0),
+        align = ALIGNS[c.align] and c.align or 'auto',
+        max = math.floor(num(c.max, 1, 20, 1)),
     }
+    -- older config: the banner had only top = % from the top of the screen
+    if style == 'banner' and c.top and not c.position then
+        p.position, p.y, p.topPct = 'top-center', 0, tonumber(c.top)
+    end
+    local o = not serverOnly and mine[style]
+    if type(o) == 'table' then
+        if POSITIONS[o.position] then p.position = o.position; p.topPct = nil end
+        p.x = num(o.x, -4000, 4000, p.x)
+        p.y = num(o.y, -4000, 4000, p.y)
+        p.width = num(o.width, 0, 4000, p.width)
+        p.scale = num(o.scale, 0.3, 3.0, p.scale)
+    end
+    return p
+end
+
+-- ready-made looks; single NotifyConfig.Look values override them
+local PRESETS = {
+    game = {
+        Background = 'rgba(0, 0, 0, 0.8)', FadeEdges = true, Border = 'none', Radius = 0,
+        AccentEdge = 2, AccentSide = 'screen', TitleUppercase = true,
+        ShowIcons = true, IconSize = 26, Gap = 6, Animation = 'slide', FadeMs = 300,
+    },
+    box = {
+        Background = 'rgba(0, 0, 0, 0.88)', FadeEdges = false, Border = '1px solid rgba(255, 255, 255, 0.35)', Radius = 0,
+        Padding = '10px 14px', AccentEdge = 3, AccentSide = 'screen', TitleUppercase = true,
+        ShowIcons = true, IconSize = 24, Gap = 8, Animation = 'slide', FadeMs = 250,
+    },
+    card = {
+        Background = 'rgba(14, 14, 14, 0.92)', FadeEdges = false, Border = '1px solid rgba(255, 255, 255, 0.12)', Radius = 8,
+        Padding = '12px 16px', AccentEdge = 3, AccentSide = 'top', TitleUppercase = false,
+        ShowIcons = true, IconSize = 24, Gap = 10, Animation = 'fade', FadeMs = 250,
+    },
+    minimal = {
+        Background = 'transparent', FadeEdges = false, Border = 'none', Radius = 0, Padding = '4px 6px',
+        AccentEdge = 0, AccentSide = 'screen', TextShadow = '0 1px 2px #000, 0 0 6px rgba(0, 0, 0, 0.9)',
+        TitleUppercase = true, ShowIcons = true, IconSize = 22, Gap = 4, Animation = 'fade', FadeMs = 300,
+    },
+}
+local LOOK_KEYS = { 'Background', 'FadeEdges', 'Border', 'Radius', 'Padding', 'AccentEdge', 'AccentSide', 'TextColor',
+    'TitleColor', 'DimColor', 'TextShadow', 'TitleUppercase', 'TitleFont', 'BodyFont', 'TextSize', 'TitleSize',
+    'ShowIcons', 'IconSize', 'Gap', 'Animation', 'FadeMs' }
+local LOOK_TEXT = { 'Background', 'Border', 'Padding', 'TextColor', 'TitleColor', 'DimColor', 'TextShadow', 'TitleFont', 'BodyFont' }
+local LOOK_NUM = { 'Radius', 'AccentEdge', 'TextSize', 'TitleSize', 'IconSize', 'Gap', 'FadeMs' }
+local SIDES = { screen = true, left = true, right = true, top = true, bottom = true }
+
+local function lookOf()
+    local L = type(Cfg.Look) == 'table' and Cfg.Look or {}
+    local base = PRESETS[type(L.Preset) == 'string' and L.Preset:lower() or 'game'] or PRESETS.game
+    local out = {}
+    for _, k in ipairs(LOOK_KEYS) do
+        local v = L[k]
+        if v == nil then v = base[k] end
+        out[k] = v
+    end
+    -- these become CSS values: keep them plain
+    for _, k in ipairs(LOOK_TEXT) do
+        if type(out[k]) ~= 'string' or out[k] == '' or out[k]:find('[;{}<>]') then out[k] = nil end
+    end
+    for _, k in ipairs(LOOK_NUM) do out[k] = tonumber(out[k]) end
+    if out.Animation ~= 'slide' and out.Animation ~= 'fade' and out.Animation ~= 'none' then out.Animation = 'slide' end
+    if not SIDES[out.AccentSide] then out.AccentSide = 'screen' end
+    return out
+end
+
+local function layout()
+    local l = { cyrillic = _LCode and _LCode() == 'ru' or false, look = lookOf() }
+    for style in pairs(STYLES) do l[style] = placeOf(style) end
+    return l
 end
 
 -- ------------------------------------------------------------
@@ -201,6 +298,94 @@ MULTI.ClearAllNotify = clearAll
 exports('Notify', notify)
 exports('ClearNotify', clear)
 exports('ClearAll', clearAll)
+
+-- ------------------------------------------------------------
+-- In-game layout editor (/notifylayout): drag, wheel = size, Shift + wheel = width
+-- ------------------------------------------------------------
+local editing = false
+local ED = type(Cfg.Editor) == 'table' and Cfg.Editor or {}
+
+local function editorWords()
+    local w = {}
+    for _, k in ipairs({ 'help', 'save', 'cancel', 'reset', 'toast', 'tip', 'objective', 'banner',
+        'sample_title', 'sample_text', 'sample_tip', 'sample_objective', 'sample_banner', 'sample_banner_text' }) do
+        w[k] = _L('notify_editor_' .. k)
+    end
+    return w
+end
+
+local function openEditor()
+    if editing then return end
+    editing = true
+    SendNUIMessage({ action = 'editor', layout = layout(), server = (function()
+        local s = {}
+        for style in pairs(STYLES) do s[style] = placeOf(style, true) end
+        return s
+    end)(), words = editorWords() })
+    SetNuiFocus(true, true)
+end
+
+local function closeEditor()
+    editing = false
+    SetNuiFocus(false, false)
+end
+
+--- the saved layout as lines for NotifyConfig.Styles (F8 console), so an owner can make it everyone's default
+local function printConfig(t)
+    print('^5[MULTIcore] your notification layout, for config_notify.lua (NotifyConfig.Styles):^7')
+    for _, style in ipairs({ 'toast', 'tip', 'objective', 'banner' }) do
+        local p = t[style]
+        if p then
+            print(('    %s: position = \'%s\', offsetX = %d, offsetY = %d, width = %d, scale = %.2f,'):format(
+                style, p.position, p.x, p.y, p.width, p.scale))
+        end
+    end
+end
+
+RegisterNUICallback('notifyEditor:save', function(data, cb)
+    cb('ok')
+    if not editing or type(data) ~= 'table' then return closeEditor() end
+    local t = {}
+    for style in pairs(STYLES) do
+        local o = data[style]
+        if type(o) == 'table' and POSITIONS[o.position] then
+            t[style] = {
+                position = o.position,
+                x = math.floor(num(o.x, -4000, 4000, 0) + 0.5),
+                y = math.floor(num(o.y, -4000, 4000, 0) + 0.5),
+                width = math.floor(num(o.width, 0, 4000, 0) + 0.5),
+                scale = math.floor(num(o.scale, 0.3, 3.0, 1.0) * 100 + 0.5) / 100,
+            }
+        end
+    end
+    mine = t
+    SetResourceKvp(KVP, json.encode(t))
+    closeEditor()
+    printConfig(t)
+    notify({ text = _L('notify_editor_saved'), type = 'success' })
+end)
+
+RegisterNUICallback('notifyEditor:cancel', function(_, cb)
+    cb('ok')
+    closeEditor()
+end)
+
+if ED.Command then
+    RegisterCommand(ED.Command, function() openEditor() end, ED.Players == false)
+end
+if ED.ResetCommand then
+    RegisterCommand(ED.ResetCommand, function()
+        mine = {}
+        DeleteResourceKvp(KVP)
+        notify({ text = _L('notify_editor_reset_done'), type = 'info' })
+    end, false)
+end
+
+AddEventHandler('onResourceStop', function(res)
+    if res == GetCurrentResourceName() and editing then SetNuiFocus(false, false) end
+end)
+
+exports('OpenNotifyLayout', openEditor)
 
 RegisterNetEvent('MULTIcore:notify', function(a, b, c) notify(a, b, c) end)
 RegisterNetEvent('MULTIcore:notify:clear', function(id)

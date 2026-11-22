@@ -33,31 +33,112 @@ NotifyConfig.StripGameCodes = true       -- remove game colour codes such as ~e~
 --   objective = one line at the top centre (what to do next)
 --   banner    = big title and text in the middle, like the game's mission text
 -- ------------------------------------------------------------
+--
+-- Every style can be put anywhere and sized:
+--   position = where on the screen it sits:
+--              'top-left'    'top-center'    'top-right'
+--              'middle-left' 'center'        'middle-right'
+--              'bottom-left' 'bottom-center' 'bottom-right'
+--   offsetX  = px in from the left / right edge (for a -center position: px right of the middle, negative = left)
+--   offsetY  = px in from the top / bottom edge (for a middle- position or 'center': px below the middle, negative = above)
+--   width    = px wide (0 = as wide as its text needs)
+--   scale    = size of the whole notification: text, box and icon (1 = normal, 0.8 = smaller, 1.3 = bigger)
+--   align    = text alignment: 'auto' (follows the side of the screen), 'left', 'center', 'right'
+--   duration = default ms on screen      max = most of this style on screen at once (the oldest goes first)
+-- Players can also move and resize them in game with /notifylayout (NotifyConfig.Editor below).
 NotifyConfig.Styles = {
     toast = {
-        position = 'top-left',    -- top-right, top-left, bottom-right, bottom-left, middle-right, middle-left
-        offsetX = 28,            -- px from the side of the screen
-        offsetY = 90,            -- px from the top / bottom of the screen
-        width = 340,             -- px
-        duration = 5000,         -- default ms
-        max = 5,                 -- most toasts on screen; the oldest goes first
+        position = 'top-left',
+        offsetX = 28,
+        offsetY = 90,
+        width = 340,
+        scale = 1.0,
+        align = 'auto',
+        duration = 5000,
+        max = 5,
     },
     tip = {
-        offsetY = 110,           -- px from the bottom of the screen
+        position = 'bottom-center',
+        offsetX = 0,
+        offsetY = 110,
+        width = 0,
+        scale = 1.0,
+        align = 'center',
         duration = 4000,
         max = 1,                 -- a new tip replaces the old one
     },
     objective = {
-        offsetY = 60,            -- px from the top of the screen
+        position = 'top-center',
+        offsetX = 0,
+        offsetY = 60,
+        width = 0,
+        scale = 1.0,
+        align = 'center',
         duration = 6000,
         max = 1,
     },
     banner = {
-        top = 30,                -- % from the top of the screen
+        position = 'center',
+        offsetX = 0,
+        offsetY = -170,          -- above the middle of the screen
+        width = 1100,
+        scale = 1.0,
+        align = 'center',
         duration = 5000,
         max = 1,
         sound = { 'REWARD_MORALE', 'HUD_REWARD_SOUNDSET' },  -- played for every banner instead of the type's sound (false = use the type's)
     },
+}
+
+-- ------------------------------------------------------------
+-- Look: how the notifications are drawn (all styles). The default is the
+-- game's own look: black boxes fading out at the edges, white words.
+-- Pick a ready-made Preset, then change any single value below it.
+--   'game'    = the game's look (default)
+--   'box'     = solid black boxes with a thin white border
+--   'card'    = solid boxes with rounded corners and the type's colour along the top
+--   'minimal' = no box at all, only words with a shadow
+-- Colours: any CSS colour, e.g. '#000000', 'rgba(0, 0, 0, 0.8)', 'white'.
+-- Anything left as nil follows the Preset. For more, html/notify/custom.css.
+-- ------------------------------------------------------------
+NotifyConfig.Look = {
+    Preset = 'game',
+
+    Background = nil,        -- box colour, e.g. 'rgba(0, 0, 0, 0.82)'
+    FadeEdges = nil,         -- true = the box fades out at its edges (game look); false = a solid box
+    Border = nil,            -- e.g. '1px solid rgba(255, 255, 255, 0.35)', or 'none'
+    Radius = nil,            -- corner rounding in px (0 = square)
+    Padding = nil,           -- space inside the box, e.g. '11px 14px'
+    AccentEdge = nil,        -- px of the type's colour along one edge of the box (0 = none)
+    AccentSide = nil,        -- that edge: 'screen' (towards the screen edge), 'left', 'right', 'top', 'bottom'
+    TextColor = nil,         -- main words
+    TitleColor = nil,        -- titles
+    DimColor = nil,          -- words under a title
+    TextShadow = nil,        -- e.g. '0 1px 2px #000', or 'none'
+    TitleUppercase = nil,    -- true = titles in capitals
+    TitleFont = nil,         -- font for titles, e.g. 'Oswald'; nil = MULTIcore's game font
+    BodyFont = nil,          -- font for the words; nil = MULTIcore's game font
+    TextSize = nil,          -- px before scale (theme default 16)
+    TitleSize = nil,         -- px before scale (theme default 17)
+    ShowIcons = nil,         -- false = no sign in front of toasts and tips
+    IconSize = nil,          -- px before scale
+    Gap = nil,               -- px between stacked notifications
+    Animation = nil,         -- 'slide' (fade and slide in), 'fade', 'none'
+    FadeMs = nil,            -- ms the fade in / out takes
+}
+
+-- ------------------------------------------------------------
+-- In-game layout editor. /notifylayout shows one of each style: drag them
+-- where you want them, mouse wheel = bigger / smaller, Shift + wheel = wider /
+-- narrower, then Save. It is kept on that player's own PC, so only their screen
+-- changes. Saving also prints the positions to the F8 console in the form
+-- NotifyConfig.Styles uses, so a server owner can set everyone's default the
+-- same way: lay it out, save, copy the lines into this file.
+-- ------------------------------------------------------------
+NotifyConfig.Editor = {
+    Command = 'notifylayout',     -- false = no editor
+    Players = true,               -- true = every player can set their own layout; false = only admins (ace 'command')
+    ResetCommand = 'notifyreset', -- puts the player's layout back to the server's
 }
 
 -- ------------------------------------------------------------

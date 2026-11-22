@@ -1,10 +1,12 @@
 /* ============================================================
    MULTIcore notifications, in the base-game look
    Colours and fonts come from the shared theme (../theme/multi.css).
-   Black see-through boxes that fade out at the edges, white words.
-   Each notification gets --mn-accent (its type colour, set from
-   config_notify.lua); it is only used as a small accent: the icon
-   and a thin edge, never as a panel colour. Restyle in custom.css.
+   Where each style sits, its size and the look (NotifyConfig.Look in
+   config_notify.lua) are set from Lua as the --mn-* values below; the
+   defaults here are the game's look: black see-through boxes that fade
+   out at the edges, white words. Each notification gets --mn-accent (its
+   type colour); it is only used as a small accent: the icon and a thin
+   edge, never as a panel colour. Restyle in custom.css.
    No endless animations: each notification fades in once and out once.
    ============================================================ */
 
@@ -13,10 +15,23 @@ html, body { margin: 0; padding: 0; height: 100%; background: transparent; overf
 #mn-root {
     position: fixed; inset: 0;
     pointer-events: none;
-    --mn-fade: 0.3s;
+    --mn-fade: 300ms;
+    --mn-bg: rgba(0, 0, 0, 0.8);
+    --mn-gap: 6px;
+    --mn-edge: 2px;
+    --mn-radius: 0px;
+    --mn-border: none;
+    --mn-icon-size: 26px;
+    --mn-title-case: uppercase;
 }
 
-.mn-stack { position: absolute; display: flex; gap: 6px; }
+/* stacks: placed, sized and scaled by notify.js (position, offsets, width, scale) */
+.mn-stack { position: absolute; display: flex; flex-direction: column; gap: var(--mn-gap); }
+.mn-align-left { align-items: flex-start; text-align: left; }
+.mn-align-right { align-items: flex-end; text-align: right; }
+.mn-align-center { align-items: center; text-align: center; }
+#mn-toast { align-items: stretch; }
+#mn-banner { align-items: stretch; }
 #mn-banner { z-index: 1; }
 #mn-objective, #mn-tip { z-index: 2; }
 #mn-toast { z-index: 3; }
@@ -24,48 +39,50 @@ html, body { margin: 0; padding: 0; height: 100%; background: transparent; overf
 /* ---------- shared pieces ---------- */
 .mn-item {
     --mn-accent: var(--mc-ink);
+    position: relative;
     opacity: 0;
     transition: opacity var(--mn-fade) ease-out, transform var(--mn-fade) ease-out;
 }
 .mn-item.mn-in { opacity: 1; transform: none !important; }
 .mn-item.mn-out { opacity: 0; }
+.mn-anim-fade .mn-item, .mn-anim-none .mn-item { transform: none !important; }
 
 /* small icon: just the sign in the type's colour */
 .mn-icon {
     flex: 0 0 auto;
     display: flex; align-items: center; justify-content: center;
-    width: 26px; height: 26px; border-radius: 0;
+    width: var(--mn-icon-size); height: var(--mn-icon-size); border-radius: 0;
     color: var(--mn-accent);
     border: 0;
     background: none;
     font-family: var(--mc-font-ui), 'Segoe UI Symbol', sans-serif;
-    font-size: calc(18px * var(--mc-scale)); line-height: 1; font-weight: 700;
+    font-size: calc(var(--mn-icon-size) * 0.7 * var(--mc-scale)); line-height: 1; font-weight: 700;
     text-shadow: 0 1px 2px #000;
 }
-.mn-icon:empty { display: none; }
-.mn-icon img { width: 26px; height: 26px; object-fit: contain; }
+.mn-icon:empty, .mn-noicons .mn-icon { display: none; }
+.mn-icon img { width: var(--mn-icon-size); height: var(--mn-icon-size); object-fit: contain; }
 
 .mn-title {
     font-family: var(--mc-font-ui);
     font-weight: 700;
-    font-size: var(--mc-size-ui);
-    text-transform: uppercase; letter-spacing: 0.05em;
-    color: var(--mc-ink);
+    font-size: var(--mn-title-size, var(--mc-size-ui));
+    text-transform: var(--mn-title-case); letter-spacing: 0.05em;
+    color: var(--mn-title-ink, var(--mn-ink, var(--mc-ink)));
 }
 .mn-text {
     font-family: var(--mc-font-body);
-    font-size: var(--mc-size-body);
-    color: var(--mc-ink);
+    font-size: var(--mn-text-size, var(--mc-size-body));
+    color: var(--mn-ink, var(--mc-ink));
     line-height: 1.35;
     white-space: pre-line;
     overflow-wrap: anywhere;
 }
-.mn-title + .mn-text { margin-top: 2px; color: var(--mc-ink-dim); }
+.mn-title + .mn-text { margin-top: 2px; color: var(--mn-dim, var(--mc-ink-dim)); }
 
 /* x2, x3 for repeated messages: plain white, like the game's counters */
 .mn-count {
     display: inline-block; margin-left: 8px; padding: 0;
-    border-radius: 0; background: none; color: var(--mc-ink-dim);
+    border-radius: 0; background: none; color: var(--mn-dim, var(--mc-ink-dim));
     font-family: var(--mc-font-ui); font-weight: 700; font-size: var(--mc-size-small); line-height: 1;
     vertical-align: baseline; text-transform: none;
 }
@@ -73,80 +90,96 @@ html, body { margin: 0; padding: 0; height: 100%; background: transparent; overf
 @keyframes mn-bump { 0% { transform: scale(1.25); } 100% { transform: scale(1); } }
 .mn-count.mn-bump { animation: mn-bump 0.25s ease-out 1; }
 
-/* ---------- toast: like the game's feed, a black box fading out away from the screen edge ---------- */
-#mn-toast { flex-direction: column; }
-.mn-toast {
-    position: relative;
+/* ---------- boxes (toast and tip) ---------- */
+.mn-toast, .mn-tip {
     display: flex; align-items: flex-start; gap: 12px;
-    padding: 11px 26px 12px 14px;
-    background: linear-gradient(270deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.78) 65%, rgba(0, 0, 0, 0) 100%);
-    border: 0;
-    border-radius: 0;
+    border: var(--mn-border);
+    border-radius: var(--mn-radius);
+    overflow: hidden;
     box-shadow: none;
-    text-shadow: var(--mc-text-shadow);
+    text-shadow: var(--mn-shadow, var(--mc-text-shadow));
+}
+.mn-toast .mn-body, .mn-tip .mn-body { flex: 1 1 auto; min-width: 0; padding-top: 1px; }
+.mn-toast .mn-text:only-child { padding-top: 3px; }
+
+/* game look: the box fades out away from the screen edge */
+.mn-toast {
+    padding: var(--mn-pad, 11px 26px 12px 14px);
+    background: linear-gradient(90deg, var(--mn-bg) 0%, var(--mn-bg) 65%, transparent 100%);
+    transform: translateX(-16px);
+}
+.mn-side-right .mn-toast {
+    flex-direction: row-reverse;
+    padding: var(--mn-pad, 11px 14px 12px 26px);
+    background: linear-gradient(270deg, var(--mn-bg) 0%, var(--mn-bg) 65%, transparent 100%);
     transform: translateX(16px);
 }
-/* thin type-coloured edge on the screen side */
-.mn-toast::before {
-    content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: 2px;
-    background: var(--mn-accent); opacity: 0.9;
+.mn-side-center .mn-toast {
+    padding: var(--mn-pad, 11px 30px 12px 30px);
+    background: linear-gradient(90deg, transparent 0%, var(--mn-bg) 15%, var(--mn-bg) 85%, transparent 100%);
+    transform: translateY(-8px);
 }
-.mn-toast .mn-body { flex: 1 1 auto; min-width: 0; padding-top: 1px; }
-.mn-toast .mn-text:only-child { padding-top: 3px; }
-/* right-hand stack: fade towards the middle of the screen */
-#mn-toast:not(.mn-left) .mn-toast { flex-direction: row-reverse; text-align: right; padding: 11px 14px 12px 26px; }
-#mn-toast:not(.mn-left) .mn-toast .mn-body { text-align: right; }
-/* left-hand stack (the game's own side) */
-.mn-left .mn-toast {
-    transform: translateX(-16px);
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.78) 65%, rgba(0, 0, 0, 0) 100%);
-}
-.mn-left .mn-toast::before { right: auto; left: 0; }
+.mn-align-center .mn-toast { justify-content: center; }
+.mn-align-right .mn-toast .mn-body { text-align: right; }
+.mn-align-center .mn-toast .mn-body { text-align: center; flex: 0 1 auto; }
 
-/* ---------- tip: like the game's help text, one soft black line at the bottom ---------- */
-#mn-tip { left: 50%; transform: translateX(-50%); flex-direction: column; align-items: center; }
 .mn-tip {
-    display: flex; align-items: center; gap: 10px;
+    align-items: center; gap: 10px;
     max-width: 640px;
-    padding: 9px 44px;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.78) 18%, rgba(0, 0, 0, 0.78) 82%, rgba(0, 0, 0, 0) 100%);
-    border: 0;
-    border-radius: 0;
-    text-shadow: var(--mc-text-shadow);
+    padding: var(--mn-pad, 9px 44px);
+    background: linear-gradient(90deg, transparent 0%, var(--mn-bg) 18%, var(--mn-bg) 82%, transparent 100%);
     transform: translateY(8px);
 }
-.mn-tip .mn-icon { width: 20px; height: 20px; font-size: calc(14px * var(--mc-scale)); }
-.mn-tip .mn-text { color: var(--mc-ink); }
-.mn-tip .mn-title { font-size: var(--mc-size-small); color: var(--mc-ink); }
+.mn-tip .mn-icon { width: calc(var(--mn-icon-size) * 0.77); height: calc(var(--mn-icon-size) * 0.77); font-size: calc(14px * var(--mc-scale)); }
+.mn-tip .mn-title { font-size: var(--mc-size-small); }
 
-/* ---------- objective: the game's white objective line, no box ---------- */
-#mn-objective { left: 50%; transform: translateX(-50%); flex-direction: column; align-items: center; }
+/* solid look (FadeEdges = false): a plain box in the Background colour */
+.mn-solid .mn-toast, .mn-solid .mn-tip,
+.mn-solid .mn-side-right .mn-toast, .mn-solid .mn-side-center .mn-toast { background: var(--mn-bg); }
+.mn-solid .mn-tip { padding: var(--mn-pad, 9px 18px); }
+.mn-solid .mn-toast { padding: var(--mn-pad, 11px 14px 12px 14px); }
+
+/* the type's colour along one edge (AccentEdge px, AccentSide) */
+.mn-toast::before, .mn-tip::before {
+    content: ''; position: absolute; background: var(--mn-accent); opacity: 0.9; display: none;
+}
+.mn-edge-left .mn-toast::before, .mn-edge-left .mn-tip::before,
+.mn-edge-screen .mn-side-left .mn-toast::before, .mn-edge-screen .mn-side-center .mn-toast::before {
+    display: block; top: 0; bottom: 0; left: 0; width: var(--mn-edge);
+}
+.mn-edge-right .mn-toast::before, .mn-edge-right .mn-tip::before,
+.mn-edge-screen .mn-side-right .mn-toast::before {
+    display: block; top: 0; bottom: 0; right: 0; width: var(--mn-edge);
+}
+.mn-edge-top .mn-toast::before, .mn-edge-top .mn-tip::before { display: block; top: 0; left: 0; right: 0; height: var(--mn-edge); }
+.mn-edge-bottom .mn-toast::before, .mn-edge-bottom .mn-tip::before { display: block; bottom: 0; left: 0; right: 0; height: var(--mn-edge); }
+
+/* ---------- objective: the game's white objective line ---------- */
 .mn-objective {
-    text-align: center; max-width: 760px;
-    padding: 8px 60px 10px;
+    max-width: 760px;
+    padding: var(--mn-pad, 8px 60px 10px);
     background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.12) 45%, transparent 68%);
     transform: translateY(-8px);
 }
 .mn-objective .mn-title {
-    font-size: var(--mc-size-small); font-weight: 500; color: var(--mc-ink-dim); letter-spacing: 0.16em;
+    font-size: var(--mc-size-small); font-weight: 500; color: var(--mn-dim, var(--mc-ink-dim)); letter-spacing: 0.16em;
     text-shadow: 0 1px 2px #000;
 }
-.mn-objective .mn-title + .mn-text { color: var(--mc-ink); }
+.mn-objective .mn-title + .mn-text { color: var(--mn-ink, var(--mc-ink)); }
 .mn-objective .mn-text {
     font-family: var(--mc-font-body); font-style: normal;
-    font-size: calc(21px * var(--mc-scale)); color: var(--mc-ink);
-    text-shadow: 0 1px 2px #000, 0 0 6px rgba(0, 0, 0, 0.8);
+    font-size: var(--mn-text-size, calc(21px * var(--mc-scale)));
+    text-shadow: var(--mn-shadow, 0 1px 2px #000, 0 0 6px rgba(0, 0, 0, 0.8));
 }
 .mn-objective .mn-rule {
     height: 1px; width: 60%; margin: 7px auto 0;
     background: linear-gradient(90deg, transparent, var(--mc-line-strong), transparent);
 }
 
-/* ---------- banner: the game's big centred mission title between thin white rules ---------- */
-#mn-banner { left: 50%; transform: translateX(-50%); width: min(1100px, 80vw); flex-direction: column; align-items: center; }
+/* ---------- banner: the game's big mission title between thin white rules ---------- */
 .mn-banner {
-    width: 100%; text-align: center;
-    padding: 16px 0 18px;
+    width: 100%;
+    padding: var(--mn-pad, 16px 0 18px);
     background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.6) 25%, rgba(0, 0, 0, 0.6) 75%, transparent 100%);
     transform: scale(0.97);
 }
@@ -157,16 +190,51 @@ html, body { margin: 0; padding: 0; height: 100%; background: transparent; overf
 }
 .mn-banner .mn-title {
     font-family: var(--mc-font-title); font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em;
-    font-size: calc(58px * var(--mc-scale)); color: var(--mc-ink); line-height: 1.05;
+    font-size: calc(58px * var(--mc-scale)); line-height: 1.05;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     margin: 12px 0 2px;
 }
 .mn-banner .mn-text {
     font-family: var(--mc-font-ui); font-style: normal; text-transform: uppercase; letter-spacing: 0.14em;
-    font-size: calc(17px * var(--mc-scale)); color: var(--mc-ink);
+    font-size: calc(17px * var(--mc-scale));
     text-shadow: 0 1px 2px #000;
     margin: 0 auto 12px; max-width: 760px;
 }
-.mn-banner .mn-title + .mn-text { color: var(--mc-ink-dim); }
+.mn-banner .mn-title + .mn-text { color: var(--mn-dim, var(--mc-ink-dim)); }
 .mn-banner .mn-text:first-of-type:not(.mn-title + .mn-text) { margin-top: 12px; }
 .mn-banner .mn-icon { margin: 10px auto 0; width: 30px; height: 30px; }
+
+/* solid look: objective and banner become boxes too */
+.mn-solid .mn-objective, .mn-solid .mn-banner {
+    background: var(--mn-bg); border: var(--mn-border); border-radius: var(--mn-radius);
+}
+.mn-solid .mn-objective { padding: var(--mn-pad, 8px 24px 10px); }
+
+/* ---------- /notifylayout editor ---------- */
+.mn-editing .mn-stack {
+    pointer-events: auto; cursor: grab;
+    outline: 1px dashed rgba(255, 255, 255, 0.55); outline-offset: 4px;
+    min-width: 120px; min-height: 30px;
+}
+.mn-editing .mn-stack.mn-dragging { cursor: grabbing; outline-color: #ffffff; transition: none; }
+.mn-edit-tag {
+    align-self: flex-start;
+    font-family: var(--mc-font-ui); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #000; background: #fff; padding: 2px 6px; pointer-events: none;
+}
+.mn-edit-bar {
+    position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
+    pointer-events: auto; z-index: 10;
+    display: flex; align-items: center; gap: 18px;
+    padding: 10px 16px; background: rgba(0, 0, 0, 0.9); border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff; font-family: var(--mc-font-body); font-size: 14px;
+}
+.mn-edit-bar { width: max-content; max-width: 92vw; }
+.mn-edit-help { flex: 1 1 auto; min-width: 320px; max-width: 560px; line-height: 1.35; }
+.mn-edit-btns { display: flex; gap: 8px; }
+.mn-edit-btn {
+    font-family: var(--mc-font-ui); font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em;
+    background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.5); padding: 6px 12px; cursor: pointer;
+}
+.mn-edit-btn:hover, .mn-edit-save { background: #fff; color: #000; }
+.mn-edit-save:hover { background: #ddd; }

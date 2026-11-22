@@ -219,7 +219,7 @@ Moderators: use `group.mod` instead. The `add_ace` lines in `server.cfg.example`
 | Paycheck interval | `RSGConfig.Money.PayCheckTimeOut` in `MULTIcore/config.lua` |
 | Day length, night length, real-time clock, how often the weather changes | `MULTIweather/config.lua` |
 | Voice ranges (whisper, talk, shout) and the range key | `MULTIvoice/config.lua` |
-| Notifications (position, sounds, colours) | `MULTIcore/config_notify.lua` |
+| Notifications: where each kind sits, size, look, sounds, colours (see below) | `MULTIcore/config_notify.lua` |
 | Discord logs, whitelist, connect queue | `MULTIserver/config.lua` and its README |
 | Doors and locks | `MULTIdoors/config/locks.lua`, or in game with `/doors` |
 | Crafting recipes | `MULTIcrafting/config.lua` |
@@ -229,6 +229,41 @@ Moderators: use `group.mod` instead. The `add_ace` lines in `server.cfg.example`
 | Colours and sizes of any screen | That script's `html/custom.css` |
 
 Every script has a README with all of its settings and commands.
+
+### Notifications
+
+All notifications are drawn by MULTIcore, whether they come from MULTI, RSG or VORP scripts. There are four kinds:
+- **toast:** messages stacked in a corner;
+- **tip:** a hint line;
+- **objective;**
+- **banner:** a big centred title.
+
+In `MULTIcore/config_notify.lua`:
+- **Where and how big**, per kind in `NotifyConfig.Styles`:
+  - `position`: `top-left`, `top-center`, `top-right`, `middle-left`, `center`, `middle-right`, `bottom-left`, `bottom-center` or `bottom-right`;
+  - `offsetX`, `offsetY` (px in from that edge);
+  - `width` (px);
+  - `scale` (1 = normal, 1.3 = bigger);
+  - `align`, `duration`, `max`.
+- **The look** in `NotifyConfig.Look`. Pick a `Preset`:
+  - `game`: the game's own look, the default;
+  - `box`: solid boxes with a thin border;
+  - `card`: rounded boxes with the type's colour along the top;
+  - `minimal`: words only.
+
+  Then change single things on top of it: background colour, faded or solid edges, border, rounded corners, padding, the coloured edge, text and title colours, fonts, text sizes, icons, spacing and the animation.
+- **Colours, signs and sounds** of each type (info, success, error, money ...) in `NotifyConfig.Types`.
+- Anything else: `MULTIcore/html/notify/custom.css`.
+
+**In game:** type `/notifylayout`. It shows one of each kind:
+- drag them where you want;
+- use the mouse wheel to make them bigger or smaller, and Shift + wheel to make them wider or narrower;
+- press **Save**.
+
+How it is saved:
+- It is saved on that player's own PC, so every player can have their own layout. `/notifyreset` goes back to the server's.
+- Saving also prints the positions to the F8 console in the `NotifyConfig.Styles` form. To set the default for everyone, lay it out yourself, save, and copy those values into `config_notify.lua`.
+- `NotifyConfig.Editor.Players = false` keeps the editor for admins only.
 
 ---
 

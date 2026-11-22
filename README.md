@@ -51,6 +51,7 @@ You need:
 | **B** (hold) | Point |
 | **F6** | Radial menu |
 | **F5** | Emote menu (**X** stops an emote) |
+| `/notifylayout` | Move and resize your notifications (drag, mouse wheel), then Save. `/notifyreset` puts them back |
 
 Every key can be changed in the script's `config.lua`. The voice range key is also in the game's own key settings, so each player can change it.
 

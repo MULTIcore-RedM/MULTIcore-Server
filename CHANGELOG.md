@@ -2,6 +2,27 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-22 (notifications your way)
+
+### New
+- **Notifications can be put anywhere, any size, in any look.** In `MULTIcore/config_notify.lua`:
+  - each kind (messages, tips, objective, banner) gets a position (any corner, any edge or the middle), offsets, width and size;
+  - `NotifyConfig.Look` changes how they are drawn. Pick a preset (`game`, `box`, `card`, `minimal`), then change the background, border, rounded corners, coloured edge, text colours, fonts, text sizes, icons, spacing and animation.
+- **`/notifylayout`:** players drag the notifications where they want them, then press Save:
+  - the mouse wheel makes them bigger or smaller, Shift + wheel wider or narrower;
+  - it is kept on their own PC, and `/notifyreset` puts it back;
+  - saving also prints the positions for `config_notify.lua`, so an owner can set everyone's default the same way.
+- How to set it all up is in the server owner guide, section 6.
+
+### Updating an existing server
+- Copy these from `resources/[multicore]/MULTIcore` into your server:
+  - `config_notify.lua`;
+  - `client/multi/notify.lua`;
+  - `html/notify/notify.js` and `notify.css`;
+  - `locales/notify_*.lua`.
+
+  Your `html/notify/custom.css` keeps working. An older `config_notify.lua` also keeps working, but the new settings are only in the new one.
+
 ## 2026-11-22 (houses)
 
 ### New
