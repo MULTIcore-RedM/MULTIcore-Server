@@ -10,9 +10,20 @@
 
 ### Fixed
 - The wild horse seller's menu: a long seller name no longer runs under the back and close buttons. The buttons and the line under the title now show the right signs.
+- **Horse holster:** every rifle, sniper rifle, repeater, shotgun and bow now fits the horse holster. Some had wrong names before (Rolling Block, Carcano, Henry, Sawed-off ...) and were refused as "not a long arm".
+- **Permissions:** "set account group" in the admin menu now really changes a player's rights. MULTIcore was not allowed to set up permission groups, so the server log showed "Access denied for command add_ace". The same fix lets mod-level commands work.
 
 ### Updating an existing server
-- Copy `resources/[multicore]/MULTIadmin` into your server, keeping your own config changes. Then copy `MULTIhorses/html/index.html` and `MULTIhorses/html/horses.css`.
+- Copy `resources/[multicore]/MULTIadmin` into your server, keeping your own config changes. Then copy these from MULTIhorses:
+  - `html/index.html`;
+  - `html/horses.css`;
+  - `client/client.lua`.
+- In `server.cfg`, under `add_ace group.admin command allow`, add:
+  ```
+  add_ace resource.MULTIcore command.add_ace allow
+  add_ace resource.MULTIcore command.add_principal allow
+  add_ace resource.MULTIcore command.remove_principal allow
+  ```
 
 ## 2026-11-22 (notifications your way)
 

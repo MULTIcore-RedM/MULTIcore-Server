@@ -548,55 +548,49 @@ RegisterNetEvent('MULTIhorses:client:OpenBuyHorse', function()
     })
 end)
 
-local weaponItemMap = {
-    -- Rifles
-    [`WEAPON_RIFLE_SPRINGFIELD`]        = 'weapon_rifle_springfield',
-    [`WEAPON_RIFLE_ROLLINGBLOCK`]       = 'weapon_rifle_rollingblock',
-    [`WEAPON_RIFLE_BOLTACTION`]         = 'weapon_rifle_boltaction',
-    [`WEAPON_RIFLE_VARMINT`]            = 'weapon_rifle_varmint',
-    [`WEAPON_RIFLE_ELEPHANT`]           = 'weapon_rifle_elephant',
-    [`WEAPON_RIFLE_CARCANO`]            = 'weapon_rifle_carcano',
-    [`WEAPON_RIFLE_LANCASTER`]          = 'weapon_rifle_lancaster',
-    [`WEAPON_RIFLE_HENRY`]              = 'weapon_rifle_henry',
-    -- Shotguns
-    [`WEAPON_SHOTGUN_DOUBLEBARREL`]     = 'weapon_shotgun_doublebarrel',
-    [`WEAPON_SHOTGUN_SEMIAUTO`]         = 'weapon_shotgun_semiauto',
-    [`WEAPON_SHOTGUN_PUMP`]             = 'weapon_shotgun_pump',
-    [`WEAPON_SHOTGUN_REPEATING`]        = 'weapon_shotgun_repeating',
-    [`WEAPON_SHOTGUN_SAWNOFF`]          = 'weapon_shotgun_sawnoff',
-    -- Bows
-    [`WEAPON_BOW`]                      = 'weapon_bow',
-    [`WEAPON_BOW_IMPROVED`]             = 'weapon_bow_improved',
-    -- Repeaters
-    [`WEAPON_REPEATER_CARBINE`]         = 'weapon_repeater_carbine',
-    [`WEAPON_REPEATER_WINCHESTER`]      = 'weapon_repeater_winchester',
-    [`WEAPON_REPEATER_EVANS`]           = 'weapon_repeater_evans',
+-- Long arms that fit the horse holster: every weapon MULTIcore knows of these types
+-- (shared/weapons.lua), so the list always matches the game's real weapon names.
+local LONGARM_TYPES = { ['Rifle'] = true, ['Sniper Rifle'] = true, ['Repeater'] = true, ['Shotgun'] = true, ['Bow'] = true }
+local FALLBACK_LONGARMS = {
+    'weapon_rifle_springfield', 'weapon_rifle_boltaction', 'weapon_rifle_varmint', 'weapon_rifle_elephant',
+    'weapon_sniperrifle_rollingblock', 'weapon_sniperrifle_rollingblock_exotic', 'weapon_sniperrifle_carcano',
+    'weapon_repeater_carbine', 'weapon_repeater_winchester', 'weapon_repeater_henry', 'weapon_repeater_evans',
+    'weapon_shotgun_doublebarrel', 'weapon_shotgun_doublebarrel_exotic', 'weapon_shotgun_sawedoff',
+    'weapon_shotgun_semiauto', 'weapon_shotgun_pump', 'weapon_shotgun_repeating',
+    'weapon_bow', 'weapon_bow_improved',
 }
 
-local longarms = {
-    -- Rifles
-    [`WEAPON_RIFLE_SPRINGFIELD`]        = true,
-    [`WEAPON_RIFLE_ROLLINGBLOCK`]       = true,
-    [`WEAPON_RIFLE_BOLTACTION`]         = true,
-    [`WEAPON_RIFLE_VARMINT`]            = true,
-    [`WEAPON_RIFLE_ELEPHANT`]           = true,
-    [`WEAPON_RIFLE_CARCANO`]            = true,
-    [`WEAPON_RIFLE_LANCASTER`]          = true,
-    [`WEAPON_RIFLE_HENRY`]              = true,
-    -- Shotguns
-    [`WEAPON_SHOTGUN_DOUBLEBARREL`]     = true,
-    [`WEAPON_SHOTGUN_SEMIAUTO`]         = true,
-    [`WEAPON_SHOTGUN_PUMP`]             = true,
-    [`WEAPON_SHOTGUN_REPEATING`]        = true,
-    [`WEAPON_SHOTGUN_SAWNOFF`]          = true,
-    -- Bows
-    [`WEAPON_BOW`]                      = true,
-    [`WEAPON_BOW_IMPROVED`]             = true,
-    -- Repeaters
-    [`WEAPON_REPEATER_CARBINE`]         = true,
-    [`WEAPON_REPEATER_WINCHESTER`]      = true,
-    [`WEAPON_REPEATER_EVANS`]           = true,
-}
+-- a weapon hash as one signed 32-bit number, however the game handed it over
+local function hashKey(h)
+    h = tonumber(h) or 0
+    h = h % 0x100000000
+    if h >= 0x80000000 then h = h - 0x100000000 end
+    return math.floor(h)
+end
+
+local weaponItemMap = {}   -- hash -> item name
+local longarms = {}        -- hash -> true
+do
+    local list = Core and Core.Shared and Core.Shared.Weapons
+    local found = false
+    if type(list) == 'table' then
+        for hash, w in pairs(list) do
+            if type(w) == 'table' and type(w.name) == 'string' and LONGARM_TYPES[w.weapontype] then
+                local k = hashKey(tonumber(hash) or joaat(w.name))
+                weaponItemMap[k] = w.name
+                longarms[k] = true
+                found = true
+            end
+        end
+    end
+    if not found then
+        for _, name in ipairs(FALLBACK_LONGARMS) do
+            local k = hashKey(joaat(name))
+            weaponItemMap[k] = name
+            longarms[k] = true
+        end
+    end
+end
 
 local storedWeaponObject = nil
 
@@ -698,6 +692,7 @@ local function StowWeaponOnHorse(forcedWeaponHash)
         weaponHash = wh
     end
 
+    weaponHash = hashKey(weaponHash)
     if not longarms[weaponHash] then
         lib.notify({
             title = _L('cl_holster_title'),
