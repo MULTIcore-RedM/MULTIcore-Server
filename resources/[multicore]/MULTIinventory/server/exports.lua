@@ -28,6 +28,14 @@ function API.WearItem(target, stackId, amount)         ready() return Degradatio
 
 function API.MoveStack(stackId, toTarget, toSlot, count)
     ready()
+    -- a weapon's stack id is 'w<weaponId>' (weapons have their own lane): move the weapon itself
+    local wid = type(stackId) == 'string' and stackId:match('^w(%d+)$')
+    if wid then
+        if count ~= nil and tonumber(count) ~= 1 then return false, 'bad_count' end
+        local wc, werr = Inv.resolve(toTarget, { create = true })
+        if not wc then return false, werr end
+        return Weapons.moveTo(tonumber(wid), wc, ctx('move'), toSlot)
+    end
     local fc, e = Containers.locateStack(stackId)
     if not e then return false, 'no_item' end
     local tc, err = Inv.resolve(toTarget, { create = true })
