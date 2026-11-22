@@ -1788,3 +1788,11 @@ body {
 .notification.error { border-left-color: var(--mc-red); }
 .notification.success i, .notification.info i { color: var(--mc-ink); }
 .notification .notif-sub { white-space: pre-line; }
+
+/* wild horse panel header: back | title | close side by side, so a long title (a seller's name) never runs under the buttons */
+#wh-root .wh-header { display: grid; grid-template-columns: 34px minmax(0, 1fr) 34px; column-gap: 12px; align-items: center; }
+#wh-root .wh-header > div { min-width: 0; }
+#wh-root .wh-header h1 { font-size: calc(26px * var(--mc-scale)); line-height: 1.1; overflow-wrap: anywhere; }
+#wh-root .wh-icon, #wh-root .wh-icon-left:hover, #wh-root .wh-icon-right:hover {
+  position: static; transform: none; font-size: 18px; line-height: 1; color: var(--mc-ink, #fff);
+}

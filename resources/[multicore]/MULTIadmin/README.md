@@ -2,7 +2,7 @@
 
 Admin menu for MULTIcore servers. One NUI menu with three tabs:
 
-- **Players**: every online player with server id, name, character name, citizen id, character id, job and grade, cash / bank / gold / rol, account group and warnings. Actions: go to, bring, freeze / unfreeze, spectate, heal, revive, kill, kick (reason), ban (length + reason), warn (reason), give / take money, set job + grade, set account group, send back to character select, send a notification.
+- **Players**: every online player with server id, name, character name, citizen id, character id, job and grade, cash / bank / gold / rol, account group and warnings. Actions: go to, bring, freeze / unfreeze, spectate, heal, revive, kill, kick (reason), ban (length + reason), warn (reason), give / take money, give / take any item (type to search all items), give an item kit (one button, `Config.ItemKits`), set job + grade, set account group, send back to character select, send a notification.
 - **Self**: noclip (smooth, speed steps on the mouse wheel), godmode, invisible, teleport to waypoint, position with copy as `vector3` / `vector4` / table, heal / revive yourself, spawn a horse or wagon by model name, server-wide weather and time.
 - **Server**: announcement to everyone, notification to one player or everyone, list of active bans with unban.
 
@@ -70,7 +70,7 @@ Noclip keys: W A S D move, Space up, Q down, mouse wheel speed step, Shift fast,
 
 ## Config
 
-Everything is in `config.lua`, one comment per option: permissions, action levels, webhook convar, notification durations and the types/styles the notify form offers, money types and limit, assignable groups, warning kick limit, ban lengths, noclip speeds and keys, teleport and spectate timings, spawn presets, weather list and transition, menu timings. `Config.WorldSync = false` hands weather and time to another script (weathersync etc.).
+Everything is in `config.lua`, one comment per option: permissions, action levels, webhook convar, notification durations and the types/styles the notify form offers, money types and limit, item limit and item kits, assignable groups, warning kick limit, ban lengths, noclip speeds and keys, teleport and spectate timings, spawn presets, weather list and transition, menu timings. `Config.WorldSync = false` hands weather and time to another script (weathersync etc.).
 
 ## Languages
 
@@ -88,7 +88,7 @@ All messages go through `exports.MULTIcore:Notify` / `NotifyAll`, so they look l
 
 - Heal / revive: `exports.vorp_core:GetCore().Player.Heal / Revive` (MULTIcore's VORP face; its client does the work). `Config.LocalHealthFallback = true` adds MULTIadmin's own heal / revive for core builds without that client part.
 - Warnings and account group: the VORP user object (`getPlayerwarnings` / `setPlayerWarnings`, `setGroup`).
-- Money and job: rsg-core player functions (`AddMoney`, `RemoveMoney`, `SetJob`).
+- Money and job: rsg-core player functions (`AddMoney`, `RemoveMoney`, `SetJob`). Items: MULTIinventory (`AddItem`, `RemoveItem`, `GetItems`).
 - Character menu: `exports.MULTIcore:LogoutCharacter(src)`.
 - Weather / time: `GlobalState.multiadminWorld`, applied by every client (late joiners too).
 

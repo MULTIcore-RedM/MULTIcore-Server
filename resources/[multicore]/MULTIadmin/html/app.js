@@ -57,6 +57,11 @@
         S.jobs = d.jobs || [];
         S.groups = d.groups || [];
         S.moneyTypes = d.moneyTypes || [];
+        S.items = d.items || [];
+        S.kits = d.kits || [];
+        let dl = $('#ma-items');
+        if (!dl) { dl = document.createElement('datalist'); dl.id = 'ma-items'; document.body.appendChild(dl); }
+        dl.innerHTML = S.items.map(i => `<option value="${esc(i.name)}">${esc(i.label)}</option>`).join('');
         S.banDurations = d.banDurations || [];
         S.weatherTypes = d.weatherTypes || [];
         S.notifyTypes = d.notifyTypes || [];
@@ -186,6 +191,12 @@
                     <input class="mc-input" id="money-amount" type="number" min="0" step="0.01" placeholder="${esc(T('ph_amount'))}">
                     <button class="mc-btn small" data-money="give">${esc(T('btn_give'))}</button>
                     <button class="mc-btn small danger" data-money="take">${esc(T('btn_take'))}</button>`) : ''}
+                ${hasChar ? form('item', 'h_item', `<input class="mc-input" id="item-name" list="ma-items" autocomplete="off" placeholder="${esc(T('ph_item'))}">
+                    <input class="mc-input ma-num" id="item-amount" type="number" min="1" step="1" value="1">
+                    <button class="mc-btn small" data-item="give">${esc(T('btn_give'))}</button>
+                    <button class="mc-btn small danger" data-item="take">${esc(T('btn_take'))}</button>`) : ''}
+                ${hasChar && S.kits.length ? form('kit', 'h_kit', `<select class="mc-select" id="kit">${S.kits.map(k => `<option value="${Number(k.id)}">${esc(k.label)}</option>`).join('')}</select>
+                    <button class="mc-btn small" data-kit="1">${esc(T('btn_give'))}</button>`) : ''}
                 ${hasChar ? form('job', 'h_job', `<select class="mc-select" id="job">${jobOpts}</select>
                     <select class="mc-select ma-grade" id="grade"></select>${btn('job', 'btn_set')}`) : ''}
                 ${form('group', 'h_group', `<select class="mc-select" id="group">${opts(S.groups, null, p.group)}</select>${btn('group', 'btn_set', '', true)}`)}
@@ -216,6 +227,9 @@
             playerAction(b.dataset.act, p);
         }));
         $$('[data-money]', el).forEach(b => b.addEventListener('click', () => playerAction('money', p, { mode: b.dataset.money })));
+        $$('[data-item]', el).forEach(b => b.addEventListener('click', () =>
+            playerAction('item', p, { mode: b.dataset.item, item: val('item-name').trim(), amount: Number(val('item-amount')) })));
+        $$('[data-kit]', el).forEach(b => b.addEventListener('click', () => playerAction('kit', p, { kit: Number(val('kit')) })));
         $$('[data-pnotify]', el).forEach(b => b.addEventListener('click', () =>
             post('action', { action: 'notify', data: { target: p.id, text: val('pn-text'), type: val('pn-type') } })
                 .then(res => { if (res && res.ok) $('#pn-text').value = ''; })));

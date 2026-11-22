@@ -175,12 +175,36 @@ local function jobList()
     return out
 end
 
+-- every item MULTIinventory knows, for the give item search: { { name, label }, ... } by label
+local function itemList()
+    local ok, items = pcall(function() return exports.MULTIinventory:GetItems() end)
+    local out = {}
+    if ok and type(items) == 'table' then
+        for name, def in pairs(items) do
+            if type(name) == 'string' and type(def) == 'table' then
+                out[#out + 1] = { name = name, label = tostring(def.label or name) }
+            end
+        end
+    end
+    table.sort(out, function(a, b) return a.label:lower() < b.label:lower() end)
+    return out
+end
+
+local function kitList()
+    local out = {}
+    for i, k in ipairs(Config.ItemKits or {}) do out[#out + 1] = { id = i, label = tostring(k.label or ('Kit ' .. i)) } end
+    return out
+end
+
 -- Menu open: the client gets the data only when the server says yes
 lib.callback.register('MULTIadmin:open', function(src)
     local level = Admin.Level(src)
     if level == LEVEL.none then return false end
     Admin.Log(src, 'menu', 'opened the admin menu')
+    local canItems = Admin.Allowed(src, 'item') or Admin.Allowed(src, 'kit')
     return {
+        items = canItems and itemList() or {},
+        kits = canItems and kitList() or {},
         level = level == LEVEL.admin and 'admin' or 'mod',
         allowed = Admin.AllowedList(src),
         players = Admin.PlayerList(),

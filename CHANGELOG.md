@@ -2,6 +2,18 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-22 (give items from the admin menu)
+
+### New
+- **Admin menu: give and take items.** On a player's card, type to search every item, set the amount, then press Give or Take. Weapons are given with their own serial.
+- **Admin menu: item kits.** One button gives a whole set of items. Two kits come with it, for tailor materials: a full outfit, and the raw materials. Add your own in `Config.ItemKits` in MULTIadmin.
+
+### Fixed
+- The wild horse seller's menu: a long seller name no longer runs under the back and close buttons. The buttons and the line under the title now show the right signs.
+
+### Updating an existing server
+- Copy `resources/[multicore]/MULTIadmin` into your server, keeping your own config changes. Then copy `MULTIhorses/html/index.html` and `MULTIhorses/html/horses.css`.
+
 ## 2026-11-22 (notifications your way)
 
 ### New

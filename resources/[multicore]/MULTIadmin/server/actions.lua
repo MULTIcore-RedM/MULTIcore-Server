@@ -220,6 +220,72 @@ H.money = function(src, data)
     return true
 end
 
+-- items: through MULTIinventory (a player's server id is their satchel id)
+local function itemDef(name)
+    if type(name) ~= 'string' or not name:match('^[%w_%-]+$') or #name > 60 then return nil end
+    local ok, def = pcall(function() return exports.MULTIinventory:GetItemDef(name) end)
+    if ok and type(def) == 'table' then return def end
+    return nil
+end
+
+--- gives one item to a player; weapons one at a time, each with its own serial. -> ok, err
+local function giveItem(t, name, amount, def)
+    if def.type == 'weapon' then
+        for _ = 1, math.min(amount, 10) do
+            local info = exports.MULTIinventory:WeaponNew(name)
+            local ok, err = exports.MULTIinventory:AddItem(t, name, 1, info, nil, 'admin-give')
+            if not ok then return false, err end
+        end
+    else
+        local ok, err = exports.MULTIinventory:AddItem(t, name, amount, nil, nil, 'admin-give')
+        if not ok then return false, err end
+    end
+    pcall(function() exports.MULTIinventory:ItemBox(t, name, amount, 'add') end)
+    return true
+end
+
+H.item = function(src, data)
+    local t, err = target(src, data, 'item')
+    if not t then return false, err end
+    local _, perr = player(t)
+    if perr then return false, perr end
+    local name = tostring(data.item or ''):lower():gsub('%s+', '')
+    local def = itemDef(name)
+    if not def then return false, _L('err_item') end
+    local amount = math.floor(tonumber(data.amount) or 0)
+    if amount < 1 or amount > Config.MaxItemsPerAction then return false, _L('err_item_amount', Config.MaxItemsPerAction) end
+    local give = data.mode ~= 'take'
+    if give then
+        local ok, why = giveItem(t, name, amount, def)
+        if not ok then return false, _L('err_item_give', tostring(why or '')) end
+    else
+        local ok = exports.MULTIinventory:RemoveItem(t, name, amount, nil, nil, 'admin-take')
+        if not ok then return false, _L('err_item_take') end
+        pcall(function() exports.MULTIinventory:ItemBox(t, name, amount, 'remove') end)
+    end
+    Admin.Log(src, give and 'give item' or 'take item', ('%s x%d'):format(name, amount), t)
+    return true, _L(give and 'ok_item_given' or 'ok_item_taken', amount, def.label or name)
+end
+
+H.kit = function(src, data)
+    local t, err = target(src, data, 'kit')
+    if not t then return false, err end
+    local _, perr = player(t)
+    if perr then return false, perr end
+    local kit = Config.ItemKits and Config.ItemKits[tonumber(data.kit) or 0]
+    if type(kit) ~= 'table' or type(kit.items) ~= 'table' then return false, _L('err_kit') end
+    local missed = {}
+    for _, e in ipairs(kit.items) do
+        local name, amount = e[1] or e.item, math.floor(tonumber(e[2] or e.amount) or 1)
+        local def = itemDef(name)
+        local ok = def and amount > 0 and giveItem(t, name, amount, def)
+        if not ok then missed[#missed + 1] = tostring(name) end
+    end
+    Admin.Log(src, 'give kit', tostring(kit.label), t)
+    if #missed > 0 then return false, _L('err_kit_part', table.concat(missed, ', ')) end
+    return true, _L('ok_kit', tostring(kit.label))
+end
+
 H.job = function(src, data)
     local t, err = target(src, data, 'job')
     if not t then return false, err end

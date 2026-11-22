@@ -34,6 +34,7 @@ Config.ActionLevel = {
     heal = 'mod', revive = 'mod', kill = 'admin',
     kick = 'mod', ban = 'admin', warn = 'mod',
     money = 'admin', job = 'admin', group = 'admin', charmenu = 'admin',
+    item = 'admin', kit = 'admin',           -- give / take items, give an item kit (Config.ItemKits)
     notify = 'mod',                          -- send a notification to one player or everyone
     -- self tab
     noclip = 'mod', god = 'admin', invisible = 'mod', waypoint = 'mod', coords = 'mod',
@@ -67,6 +68,18 @@ Config.NotifyStyles = { 'toast', 'tip', 'objective', 'banner' } -- styles the "s
 -- ---------------------------------------------------------------
 Config.MoneyTypes = { 'cash', 'bank', 'gold', 'rol' }  -- currencies give / take offers (rsg-core money types)
 Config.MaxMoneyPerAction = 100000     -- largest amount one give / take may move
+Config.MaxItemsPerAction = 1000       -- most of one item a single give / take may move (weapons: at most 10 at once)
+
+-- Item kits: one button gives every item in the kit. Add your own; the label is shown in the menu.
+Config.ItemKits = {
+    { label = 'Tailor: materials for a full outfit', items = {
+        { 'fabric', 25 }, { 'wool', 15 }, { 'cloth', 15 }, { 'leather', 25 },
+        { 'brass_button', 40 }, { 'twine', 10 }, { 'cotton', 5 }, { 'tanned_fur', 2 },
+    } },
+    { label = 'Tailor: raw materials (to make fabric, cloth and buttons)', items = {
+        { 'cotton', 30 }, { 'wool', 30 }, { 'twine', 20 }, { 'copper', 10 },
+    } },
+}
 Config.Groups = { 'user', 'mod', 'admin', 'superadmin' } -- account groups "set group" may give
 Config.GroupsNeedGod = { superadmin = true }             -- groups only the 'god' rsg level may give
 Config.WarnKickAt = 0                 -- kick at this many warnings (0 = never)
