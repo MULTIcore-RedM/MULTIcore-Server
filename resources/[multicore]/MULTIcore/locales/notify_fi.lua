@@ -1,0 +1,31 @@
+-- MULTIcore ilmoitukset: oletusotsikot (näkyvät, kun tyypillä on title = true tiedostossa config_notify.lua) - Suomi
+Locales = Locales or {}
+local t = Locales['fi'] or {}
+Locales['fi'] = t
+t['notify_title_info']    = 'Ilmoitus'
+t['notify_title_success'] = 'Valmis'
+t['notify_title_error']   = 'Epäonnistui'
+t['notify_title_warning'] = 'Varoitus'
+t['notify_title_money']   = 'Rahat'
+t['notify_title_gold']    = 'Kulta'
+t['notify_title_job']     = 'Työ'
+t['notify_title_police']  = 'Sheriffi'
+t['notify_title_medic']   = 'Lääkäri'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Vedä jokainen ilmoitus haluamaasi paikkaan. Rulla: suurempi tai pienempi. Shift + rulla: leveämpi tai kapeampi.'
+t['notify_editor_save'] = 'Tallenna'
+t['notify_editor_cancel'] = 'Peruuta'
+t['notify_editor_reset'] = 'Palvelimen oletus'
+t['notify_editor_toast'] = 'Viestit'
+t['notify_editor_tip'] = 'Vihjeet'
+t['notify_editor_objective'] = 'Tavoite'
+t['notify_editor_banner'] = 'Banneri'
+t['notify_editor_sample_title'] = 'Ilmoitus'
+t['notify_editor_sample_text'] = 'Tältä viestisi näyttävät.'
+t['notify_editor_sample_tip'] = 'Vihje näkyy tässä.'
+t['notify_editor_sample_objective'] = 'Tavoitteesi näkyy tässä.'
+t['notify_editor_sample_banner'] = 'Banneri'
+t['notify_editor_sample_banner_text'] = 'Isot uutiset näkyvät tässä'
+t['notify_editor_saved'] = 'Ilmoitusten asettelu tallennettu.'
+t['notify_editor_reset_done'] = 'Ilmoitusten asettelu palautettu palvelimen oletukseen.'

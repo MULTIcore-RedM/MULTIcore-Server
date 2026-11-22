@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['ar'] or {}
+Locales['ar'] = t
+t['notify_title_info']    = 'تنبيه'
+t['notify_title_success'] = 'تم'
+t['notify_title_error']   = 'فشل'
+t['notify_title_warning'] = 'تحذير'
+t['notify_title_money']   = 'المال'
+t['notify_title_gold']    = 'الذهب'
+t['notify_title_job']     = 'العمل'
+t['notify_title_police']  = 'الشريف'
+t['notify_title_medic']   = 'الطبيب'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'اسحب كل إشعار إلى حيث تريد. عجلة الفأرة: أكبر أو أصغر. Shift + العجلة: أعرض أو أضيق.'
+t['notify_editor_save'] = 'حفظ'
+t['notify_editor_cancel'] = 'إلغاء'
+t['notify_editor_reset'] = 'افتراضي الخادم'
+t['notify_editor_toast'] = 'الرسائل'
+t['notify_editor_tip'] = 'التلميحات'
+t['notify_editor_objective'] = 'الهدف'
+t['notify_editor_banner'] = 'الشريط'
+t['notify_editor_sample_title'] = 'تنبيه'
+t['notify_editor_sample_text'] = 'هكذا تبدو رسائلك.'
+t['notify_editor_sample_tip'] = 'يظهر التلميح هنا.'
+t['notify_editor_sample_objective'] = 'يظهر هدفك هنا.'
+t['notify_editor_sample_banner'] = 'الشريط'
+t['notify_editor_sample_banner_text'] = 'الأخبار الكبيرة تظهر هنا'
+t['notify_editor_saved'] = 'حُفظ تخطيط الإشعارات.'
+t['notify_editor_reset_done'] = 'أُعيد تخطيط الإشعارات إلى افتراضي الخادم.'

@@ -14,6 +14,8 @@ loadscreen 'html/index.html'
 -- MULTIcharacter closes the loading screen once the character select scene is ready
 loadscreen_manual_shutdown 'yes'
 
+server_script 'server.lua'   -- passes MULTIcore's language to the loading screen
+
 files {
     'html/index.html',
     'html/style.css',

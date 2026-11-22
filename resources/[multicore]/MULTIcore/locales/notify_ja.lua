@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['ja'] or {}
+Locales['ja'] = t
+t['notify_title_info']    = 'お知らせ'
+t['notify_title_success'] = '完了'
+t['notify_title_error']   = '失敗'
+t['notify_title_warning'] = '警告'
+t['notify_title_money']   = 'お金'
+t['notify_title_gold']    = '金'
+t['notify_title_job']     = '仕事'
+t['notify_title_police']  = '保安官'
+t['notify_title_medic']   = '医者'
+
+-- /notifylayout editor
+t['notify_editor_help'] = '各通知を好きな場所へドラッグ。マウスホイール: 拡大・縮小。Shift + ホイール: 幅を広く・狭く。'
+t['notify_editor_save'] = '保存'
+t['notify_editor_cancel'] = 'キャンセル'
+t['notify_editor_reset'] = 'サーバー標準'
+t['notify_editor_toast'] = 'メッセージ'
+t['notify_editor_tip'] = 'ヒント'
+t['notify_editor_objective'] = '目標'
+t['notify_editor_banner'] = 'バナー'
+t['notify_editor_sample_title'] = 'お知らせ'
+t['notify_editor_sample_text'] = 'メッセージはこう表示される。'
+t['notify_editor_sample_tip'] = 'ヒントはここに表示される。'
+t['notify_editor_sample_objective'] = '目標はここに表示される。'
+t['notify_editor_sample_banner'] = 'バナー'
+t['notify_editor_sample_banner_text'] = '大きな知らせはここに'
+t['notify_editor_saved'] = '通知の配置を保存した。'
+t['notify_editor_reset_done'] = '通知の配置をサーバー標準に戻した。'

@@ -1,0 +1,81 @@
+-- MULTIserver: Indonesian
+Locales = Locales or {}
+Locales['id'] = {
+    -- general
+    ['title'] = 'Server',
+    ['no_permission'] = 'Kamu tidak boleh melakukan itu.',
+    ['pagedown_refused'] = 'PageDown tidak pernah dipasang. Pilih tombol lain di config.lua.',
+    ['key_players'] = 'Daftar pemain',
+    ['key_info'] = 'Info server',
+
+    -- logs
+    ['log_queue_full'] = 'Antrean log penuh, log tertua dibuang (%s).',
+    ['log_gave_up'] = 'Log "%s" tidak bisa dikirim ke Discord (status %s), dibuang.',
+    ['log_refused'] = 'Discord menolak log "%s" (status %s). Periksa webhook di convar %s.',
+    ['log_from_client'] = 'Dikirim oleh game milik %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'tidak ada',
+    ['log_char_created_title'] = 'Karakter dibuat',
+    ['log_char_created'] = '%s membuat karakter baru, ID warga **%s**.',
+    ['log_jailed_title'] = 'Dipenjara',
+    ['log_jailed'] = '%s dipenjara selama %s menit (%s) oleh %s.',
+    ['log_released_title'] = 'Dibebaskan',
+    ['log_released'] = '%s dibebaskan (ID warga %s).',
+    ['log_test_title'] = 'Log uji',
+    ['log_test_message'] = 'Ini uji coba log "%s".',
+    ['log_test_sent'] = 'Log uji "%s" dikirim (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Memeriksa whitelist...',
+    ['wl_refused'] = 'Kamu tidak ada di whitelist server ini. Minta staf untuk menambahkanmu.',
+    ['wl_db_error'] = 'Whitelist tidak bisa diperiksa. Coba lagi semenit lagi.',
+    ['wl_usage_add'] = 'Pakai: /%s <id server atau identifier> [catatan]',
+    ['wl_usage_remove'] = 'Pakai: /%s <id server atau identifier>',
+    ['wl_usage_check'] = 'Pakai: /%s <id server atau identifier>',
+    ['wl_added'] = '%s ditambahkan ke whitelist.',
+    ['wl_removed'] = '%s dihapus dari whitelist.',
+    ['wl_bad_identifier'] = '"%s" bukan identifier yang diterima whitelist (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s sudah ada di whitelist.',
+    ['wl_missing'] = '%s tidak ada di whitelist.',
+    ['wl_is_listed'] = '%s ada di whitelist. Catatan: %s',
+    ['wl_not_listed'] = '%s tidak ada di whitelist.',
+    ['wl_log_title'] = 'Whitelist',
+    ['wl_log_added'] = '**%s** ditambahkan oleh %s.',
+    ['wl_log_removed'] = '**%s** dihapus oleh %s.',
+
+    -- queue
+    ['queue_checking'] = 'Mencari tempat kosong...',
+    ['queue_title'] = 'Server penuh',
+    ['queue_text'] = 'Server penuh. Kamu nomor %s dari %s di antrean.',
+    ['queue_position'] = 'Kamu nomor %s dari %s di antrean.',
+    ['queue_priority'] = 'Prioritas %s.',
+    ['queue_wait'] = 'Harap tunggu, kamu akan masuk begitu ada tempat kosong.',
+
+    -- server info
+    ['info_default_desc'] = 'Selamat datang di server. Bersikap baiklah pada pemain lain dan nikmati waktumu.',
+
+    -- page
+    ['ui_players_title'] = 'Pemain',
+    ['ui_search'] = 'Cari',
+    ['ui_refresh'] = 'Segarkan',
+    ['ui_close'] = 'Tutup',
+    ['ui_count'] = '%s / %s online',
+    ['ui_count_only'] = '%s online',
+    ['ui_staff_view'] = 'Tampilan staf',
+    ['ui_no_match'] = 'Tidak ada yang cocok.',
+    ['ui_nobody'] = 'Tidak ada yang online.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Nama',
+    ['ui_col_char'] = 'Karakter',
+    ['ui_col_job'] = 'Pekerjaan',
+    ['ui_col_citizenid'] = 'ID Warga',
+    ['ui_col_license'] = 'Lisensi',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Aturan',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Situs web',
+    ['ui_copy'] = 'Salin',
+    ['ui_copied'] = 'Disalin.',
+    ['ui_copy_failed'] = 'Tidak bisa menyalin. Catat dari layar.',
+}

@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['sk'] or {}
+Locales['sk'] = t
+t['notify_title_info']    = 'Oznámenie'
+t['notify_title_success'] = 'Hotovo'
+t['notify_title_error']   = 'Nepodarilo sa'
+t['notify_title_warning'] = 'Varovanie'
+t['notify_title_money']   = 'Peniaze'
+t['notify_title_gold']    = 'Zlato'
+t['notify_title_job']     = 'Práca'
+t['notify_title_police']  = 'Šerif'
+t['notify_title_medic']   = 'Lekár'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Presuň každé oznámenie, kam chceš. Koliesko myši: väčšie alebo menšie. Shift + koliesko: širšie alebo užšie.'
+t['notify_editor_save'] = 'Uložiť'
+t['notify_editor_cancel'] = 'Zrušiť'
+t['notify_editor_reset'] = 'Predvolené servera'
+t['notify_editor_toast'] = 'Správy'
+t['notify_editor_tip'] = 'Rady'
+t['notify_editor_objective'] = 'Cieľ'
+t['notify_editor_banner'] = 'Pruh'
+t['notify_editor_sample_title'] = 'Oznámenie'
+t['notify_editor_sample_text'] = 'Takto vyzerajú tvoje správy.'
+t['notify_editor_sample_tip'] = 'Tu sa zobrazí rada.'
+t['notify_editor_sample_objective'] = 'Tu sa zobrazí tvoj cieľ.'
+t['notify_editor_sample_banner'] = 'Pruh'
+t['notify_editor_sample_banner_text'] = 'Tu sa zobrazia veľké novinky'
+t['notify_editor_saved'] = 'Rozloženie oznámení uložené.'
+t['notify_editor_reset_done'] = 'Rozloženie oznámení vrátené na predvolené servera.'

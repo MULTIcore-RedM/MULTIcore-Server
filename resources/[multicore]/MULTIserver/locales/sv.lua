@@ -1,0 +1,81 @@
+-- MULTIserver: Svenska
+Locales = Locales or {}
+Locales['sv'] = {
+    -- general
+    ['title'] = 'Server',
+    ['no_permission'] = 'Det får du inte göra.',
+    ['pagedown_refused'] = 'PageDown binds aldrig. Välj en annan tangent i config.lua.',
+    ['key_players'] = 'Spelarlista',
+    ['key_info'] = 'Serverinfo',
+
+    -- logs
+    ['log_queue_full'] = 'Loggkön full, äldsta loggen kastad (%s).',
+    ['log_gave_up'] = 'Loggen "%s" kunde inte skickas till Discord (status %s), kastad.',
+    ['log_refused'] = 'Discord nekade loggen "%s" (status %s). Kontrollera webhooken i convar %s.',
+    ['log_from_client'] = 'Skickad av spelet hos %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'ingen',
+    ['log_char_created_title'] = 'Karaktär skapad',
+    ['log_char_created'] = '%s skapade en ny karaktär, medborgar-id **%s**.',
+    ['log_jailed_title'] = 'Fängslad',
+    ['log_jailed'] = '%s fängslades i %s minuter (%s) av %s.',
+    ['log_released_title'] = 'Frisläppt',
+    ['log_released'] = '%s släpptes (medborgar-id %s).',
+    ['log_test_title'] = 'Testlogg',
+    ['log_test_message'] = 'Detta är ett test av loggen "%s".',
+    ['log_test_sent'] = 'Testloggen "%s" skickad (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Kontrollerar vitlistan...',
+    ['wl_refused'] = 'Du står inte på den här serverns vitlista. Be personalen lägga till dig.',
+    ['wl_db_error'] = 'Vitlistan kunde inte kontrolleras. Försök igen om en minut.',
+    ['wl_usage_add'] = 'Använd: /%s <server-id eller identifierare> [anteckning]',
+    ['wl_usage_remove'] = 'Använd: /%s <server-id eller identifierare>',
+    ['wl_usage_check'] = 'Använd: /%s <server-id eller identifierare>',
+    ['wl_added'] = '%s lades till på vitlistan.',
+    ['wl_removed'] = '%s togs bort från vitlistan.',
+    ['wl_bad_identifier'] = '"%s" är ingen identifierare som vitlistan tar (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s står redan på vitlistan.',
+    ['wl_missing'] = '%s står inte på vitlistan.',
+    ['wl_is_listed'] = '%s står på vitlistan. Anteckning: %s',
+    ['wl_not_listed'] = '%s står inte på vitlistan.',
+    ['wl_log_title'] = 'Vitlista',
+    ['wl_log_added'] = '**%s** tillagd av %s.',
+    ['wl_log_removed'] = '**%s** borttagen av %s.',
+
+    -- queue
+    ['queue_checking'] = 'Letar efter en ledig plats...',
+    ['queue_title'] = 'Servern är full',
+    ['queue_text'] = 'Servern är full. Du är nummer %s av %s i kön.',
+    ['queue_position'] = 'Du är nummer %s av %s i kön.',
+    ['queue_priority'] = 'Prioritet %s.',
+    ['queue_wait'] = 'Vänta, du släpps in så snart en plats blir ledig.',
+
+    -- server info
+    ['info_default_desc'] = 'Välkommen till servern. Var snäll mot andra spelare och trivs.',
+
+    -- page
+    ['ui_players_title'] = 'Spelare',
+    ['ui_search'] = 'Sök',
+    ['ui_refresh'] = 'Uppdatera',
+    ['ui_close'] = 'Stäng',
+    ['ui_count'] = '%s / %s online',
+    ['ui_count_only'] = '%s online',
+    ['ui_staff_view'] = 'Personalvy',
+    ['ui_no_match'] = 'Ingen matchar.',
+    ['ui_nobody'] = 'Ingen är online.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Namn',
+    ['ui_col_char'] = 'Karaktär',
+    ['ui_col_job'] = 'Yrke',
+    ['ui_col_citizenid'] = 'Medborgar-ID',
+    ['ui_col_license'] = 'Licens',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Regler',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Webbplats',
+    ['ui_copy'] = 'Kopiera',
+    ['ui_copied'] = 'Kopierat.',
+    ['ui_copy_failed'] = 'Kunde inte kopiera. Skriv av det från skärmen.',
+}

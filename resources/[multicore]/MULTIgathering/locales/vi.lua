@@ -1,0 +1,57 @@
+-- MULTIgathering: Tiếng Việt
+Locales = Locales or {}
+Locales['vi'] = {
+    -- results
+    ['found'] = "Bạn đã thu được: %s",
+    ['found_nothing_mining'] = "Lần này chỉ có bụi.",
+    ['found_nothing_lumber'] = "Gỗ bị chẻ hỏng. Chẳng có gì đáng giữ.",
+    ['found_nothing_panning'] = "Trong chảo chỉ có cát và sỏi.",
+    ['caught'] = "Bạn giữ lại một con %s (%.2f kg).",
+    ['picked'] = "Bạn đã hái: %s",
+    -- refusals
+    ['need_tool'] = "Bạn cần %s để làm việc đó.",
+    ['need_bait'] = "Bạn đã hết %s.",
+    ['need_rod'] = "Hãy cầm cần câu lên tay trước.",
+    ['no_cast'] = "Con cá đó không cắn mồi của bạn.",
+    ['inventory_full'] = "Túi của bạn đã đầy.",
+    ['depleted'] = "Chỗ này đã khai thác hết. Quay lại sau nhé.",
+    ['too_far'] = "Bạn đã rời khỏi chỗ làm việc.",
+    ['cooldown'] = "Nghỉ lấy hơi đã.",
+    ['no_zone'] = "Ở đây chẳng có gì đáng lấy.",
+    ['busy'] = "Bạn đang làm việc rồi.",
+    ['tool_broke'] = "%s của bạn đã gãy.",
+    ['already_picked'] = "Có người đã hái cây này rồi.",
+    ['already_fishing'] = "Bạn đang câu cá rồi.",
+    ['on_foot'] = "Hãy xuống và đứng trên chân mình trước.",
+    ['need_water'] = "Hãy đứng trong sông hoặc suối để đãi vàng.",
+    -- work
+    ['work_mining'] = "Đang đập đá...",
+    ['work_lumber'] = "Đang chặt gỗ...",
+    ['work_panning'] = "Đang đãi sỏi...",
+    ['prompt_mine'] = "Đào mỏ",
+    ['prompt_chop'] = "Chặt gỗ",
+    ['target_chop'] = "Chặt gỗ",
+    -- fishing prompts
+    ['fish_ready'] = "Sẵn sàng câu",
+    ['fish_waiting'] = "Đang câu",
+    ['fish_hooked'] = "Kéo cá vào",
+    ['fish_caught'] = "Cá cắn câu (%.2f kg)",
+    ['fish_prepare'] = "Chuẩn bị cần",
+    ['fish_cast'] = "Quăng câu",
+    ['fish_hook'] = "Giật câu",
+    ['fish_reset'] = "Thu dây",
+    ['fish_reel_lure'] = "Quay mồi giả",
+    ['fish_reel_in'] = "Kéo vào",
+    ['fish_keep'] = "Giữ lại",
+    ['fish_throw'] = "Thả đi",
+    -- places
+    ['mine_annesburg'] = "Mỏ Annesburg",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Rừng gỗ Strawberry",
+    ['zone_bigvalley'] = "Rừng gỗ Big Valley",
+    ['zone_scarlett'] = "Rừng gỗ Scarlett Meadows",
+    ['zone_roanoke'] = "Rừng gỗ Roanoke",
+    -- admin
+    ['cmd_gatherspot'] = "In dòng điểm thu thập tại chỗ bạn đứng",
+    ['spot_line'] = "Dòng điểm (cũng có trong F8): %s",
+}

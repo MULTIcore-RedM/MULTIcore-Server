@@ -1,0 +1,81 @@
+-- MULTIserver: Greek
+Locales = Locales or {}
+Locales['el'] = {
+    -- general
+    ['title'] = 'Server',
+    ['no_permission'] = 'Δεν μπορείς να το κάνεις αυτό.',
+    ['pagedown_refused'] = 'Το PageDown δεν δεσμεύεται ποτέ. Διάλεξε άλλο πλήκτρο στο config.lua.',
+    ['key_players'] = 'Λίστα παικτών',
+    ['key_info'] = 'Πληροφορίες server',
+
+    -- logs
+    ['log_queue_full'] = 'Η ουρά logs γέμισε, το παλαιότερο log πετάχτηκε (%s).',
+    ['log_gave_up'] = 'Το log "%s" δεν στάλθηκε στο Discord (status %s), πετάχτηκε.',
+    ['log_refused'] = 'Το Discord απέρριψε το log "%s" (status %s). Έλεγξε το webhook στο convar %s.',
+    ['log_from_client'] = 'Στάλθηκε από το παιχνίδι του %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'κανείς',
+    ['log_char_created_title'] = 'Νέος χαρακτήρας',
+    ['log_char_created'] = 'Ο %s έφτιαξε νέο χαρακτήρα, citizen id **%s**.',
+    ['log_jailed_title'] = 'Φυλάκιση',
+    ['log_jailed'] = 'Ο %s φυλακίστηκε για %s λεπτά (%s) από τον %s.',
+    ['log_released_title'] = 'Αποφυλάκιση',
+    ['log_released'] = 'Ο %s αποφυλακίστηκε (citizen id %s).',
+    ['log_test_title'] = 'Δοκιμαστικό log',
+    ['log_test_message'] = 'Δοκιμή του log "%s".',
+    ['log_test_sent'] = 'Το δοκιμαστικό log "%s" στάλθηκε (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Έλεγχος whitelist...',
+    ['wl_refused'] = 'Δεν είσαι στη whitelist αυτού του server. Ζήτα από το staff να σε προσθέσει.',
+    ['wl_db_error'] = 'Η whitelist δεν ελέγχθηκε. Δοκίμασε ξανά σε ένα λεπτό.',
+    ['wl_usage_add'] = 'Χρήση: /%s <server id ή identifier> [σημείωση]',
+    ['wl_usage_remove'] = 'Χρήση: /%s <server id ή identifier>',
+    ['wl_usage_check'] = 'Χρήση: /%s <server id ή identifier>',
+    ['wl_added'] = 'Ο %s προστέθηκε στη whitelist.',
+    ['wl_removed'] = 'Ο %s αφαιρέθηκε από τη whitelist.',
+    ['wl_bad_identifier'] = 'Το "%s" δεν είναι identifier που δέχεται η whitelist (license:, steam:, discord: ...).',
+    ['wl_exists'] = 'Ο %s είναι ήδη στη whitelist.',
+    ['wl_missing'] = 'Ο %s δεν είναι στη whitelist.',
+    ['wl_is_listed'] = 'Ο %s είναι στη whitelist. Σημείωση: %s',
+    ['wl_not_listed'] = 'Ο %s δεν είναι στη whitelist.',
+    ['wl_log_title'] = 'Whitelist',
+    ['wl_log_added'] = '**%s** προστέθηκε από τον %s.',
+    ['wl_log_removed'] = '**%s** αφαιρέθηκε από τον %s.',
+
+    -- queue
+    ['queue_checking'] = 'Ψάχνουμε ελεύθερη θέση...',
+    ['queue_title'] = 'Ο server είναι γεμάτος',
+    ['queue_text'] = 'Ο server είναι γεμάτος. Είσαι νούμερο %s από %s στην ουρά.',
+    ['queue_position'] = 'Είσαι νούμερο %s από %s στην ουρά.',
+    ['queue_priority'] = 'Προτεραιότητα %s.',
+    ['queue_wait'] = 'Περίμενε, θα μπεις μόλις αδειάσει μια θέση.',
+
+    -- server info
+    ['info_default_desc'] = 'Καλώς ήρθες στον server. Να είσαι ευγενικός με τους άλλους παίκτες και καλή διασκέδαση.',
+
+    -- page
+    ['ui_players_title'] = 'Παίκτες',
+    ['ui_search'] = 'Αναζήτηση',
+    ['ui_refresh'] = 'Ανανέωση',
+    ['ui_close'] = 'Κλείσιμο',
+    ['ui_count'] = '%s / %s συνδεδεμένοι',
+    ['ui_count_only'] = '%s συνδεδεμένοι',
+    ['ui_staff_view'] = 'Προβολή staff',
+    ['ui_no_match'] = 'Κανένα αποτέλεσμα.',
+    ['ui_nobody'] = 'Κανείς δεν είναι συνδεδεμένος.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Όνομα',
+    ['ui_col_char'] = 'Χαρακτήρας',
+    ['ui_col_job'] = 'Δουλειά',
+    ['ui_col_citizenid'] = 'Citizen ID',
+    ['ui_col_license'] = 'License',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Κανόνες',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Ιστοσελίδα',
+    ['ui_copy'] = 'Αντιγραφή',
+    ['ui_copied'] = 'Αντιγράφηκε.',
+    ['ui_copy_failed'] = 'Η αντιγραφή απέτυχε. Σημείωσέ το από την οθόνη.',
+}

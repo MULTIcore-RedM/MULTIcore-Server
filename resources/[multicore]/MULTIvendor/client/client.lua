@@ -215,7 +215,7 @@ RegisterNetEvent('MULTIvendor:client:openMenu', function(vendorIndex)
         showSellEverything = Config.SellMenu.ShowSellEverything,
         lang = UiLang(),
         images = ImagePaths(),
-        cyrillic = Config.Locale == 'ru',
+        cyrillic = (({ ru=1, uk=1, bg=1, el=1, zh=1, ja=1, ko=1, ar=1, th=1, vi=1 })[VendorLang()] ~= nil),
     })
 end)
 

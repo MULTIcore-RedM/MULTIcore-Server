@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['pt'] or {}
+Locales['pt'] = t
+t['notify_title_info']    = 'Aviso'
+t['notify_title_success'] = 'Feito'
+t['notify_title_error']   = 'Falhou'
+t['notify_title_warning'] = 'Atenção'
+t['notify_title_money']   = 'Dinheiro'
+t['notify_title_gold']    = 'Ouro'
+t['notify_title_job']     = 'Trabalho'
+t['notify_title_police']  = 'Xerife'
+t['notify_title_medic']   = 'Médico'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Arrasta cada notificação para onde quiseres. Roda do rato: maior ou menor. Shift + roda: mais larga ou mais estreita.'
+t['notify_editor_save'] = 'Guardar'
+t['notify_editor_cancel'] = 'Cancelar'
+t['notify_editor_reset'] = 'Padrão do servidor'
+t['notify_editor_toast'] = 'Mensagens'
+t['notify_editor_tip'] = 'Dicas'
+t['notify_editor_objective'] = 'Objetivo'
+t['notify_editor_banner'] = 'Faixa'
+t['notify_editor_sample_title'] = 'Aviso'
+t['notify_editor_sample_text'] = 'É assim que as tuas mensagens aparecem.'
+t['notify_editor_sample_tip'] = 'Aqui aparece uma dica.'
+t['notify_editor_sample_objective'] = 'Aqui aparece o teu objetivo.'
+t['notify_editor_sample_banner'] = 'Faixa'
+t['notify_editor_sample_banner_text'] = 'As grandes notícias aparecem aqui'
+t['notify_editor_saved'] = 'Disposição das notificações guardada.'
+t['notify_editor_reset_done'] = 'Disposição das notificações reposta no padrão do servidor.'

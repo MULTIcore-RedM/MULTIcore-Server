@@ -7,7 +7,7 @@
 -- ============================================================
 Config = {}
 
-Config.Locale = ''                      -- language for this script ('de', 'fr' ...); empty = server-wide setr multicore_locale, else English
+Config.Locale = ''                      -- language for this script ('de', 'fr' ...); empty = MULTIcore's language (MULTIConfig.Language), else English
 Config.Debug = false                    -- prints extra lines (queue moves, whitelist checks) to the server console
 Config.NotifyDuration = 5000            -- how long command answers stay on screen (ms)
 

@@ -25,7 +25,7 @@
         document.querySelectorAll('[data-l]').forEach((el) => { el.textContent = t(el.dataset.l); });
         document.querySelectorAll('[data-lp]').forEach((el) => { el.placeholder = t(el.dataset.lp); });
     }
-    function setLang(lang) { root.classList.toggle('mc-cyrillic', lang === 'ru'); }
+    function setLang(lang) { root.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(lang)); }
     function esc(s) {
         return String(s == null ? '' : s).replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
     }

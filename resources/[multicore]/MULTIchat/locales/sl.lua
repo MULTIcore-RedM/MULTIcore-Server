@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['sl'] = {
+    ['placeholder'] = "Napiši sporočilo ali /ukaz",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s poskusi %s",
+    ['try_ok'] = "in uspe",
+    ['try_fail'] = "in ne uspe",
+    ['need_text'] = "Za ukazom napiši, kaj se zgodi.",
+    ['too_fast'] = "Malo počasneje.",
+    ['plain_off'] = "Navadno besedilo je tu izklopljeno. Uporabi /me, /do ali /ooc.",
+    ['unknown_command'] = "Neznan ukaz: /%s",
+    ['chat_shown'] = "Klepet prikazan.",
+    ['help_me'] = "Opiši, kaj počne tvoj lik",
+    ['help_do'] = "Opiši, kaj je okoli tvojega lika",
+    ['help_try'] = "Poskusi nekaj: uspe ali ne uspe po naključju",
+    ['help_clear'] = "Počisti klepet",
+    ['help_hide'] = "Skrij ali prikaži klepet",
+    ['param_action'] = "dejanje",
+    ['param_text'] = "besedilo",
+}

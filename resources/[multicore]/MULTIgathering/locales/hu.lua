@@ -1,0 +1,57 @@
+-- MULTIgathering: Magyar
+Locales = Locales or {}
+Locales['hu'] = {
+    -- results
+    ['found'] = "Gyűjtöttél: %s",
+    ['found_nothing_mining'] = "Ezúttal csak por.",
+    ['found_nothing_lumber'] = "A fa rosszul hasadt. Semmi, amit érdemes megtartani.",
+    ['found_nothing_panning'] = "Csak homok és kavics a serpenyőben.",
+    ['caught'] = "Megtartottál egy halat: %s (%.2f kg).",
+    ['picked'] = "Leszedtél: %s",
+    -- refusals
+    ['need_tool'] = "Ehhez kell: %s.",
+    ['need_bait'] = "Elfogyott: %s.",
+    ['need_rod'] = "Előbb vedd kézbe a horgászbotot.",
+    ['no_cast'] = "Az a hal nem a te csalidon volt.",
+    ['inventory_full'] = "Tele van a táskád.",
+    ['depleted'] = "Ez a hely kimerült. Gyere vissza később.",
+    ['too_far'] = "Eltávolodtál a munkádtól.",
+    ['cooldown'] = "Előbb fújd ki magad.",
+    ['no_zone'] = "Itt nincs semmi, amit érdemes elvinni.",
+    ['busy'] = "Már dolgozol.",
+    ['tool_broke'] = "Eltört: %s.",
+    ['already_picked'] = "Valaki már leszedte ezt a növényt.",
+    ['already_fishing'] = "Már horgászol.",
+    ['on_foot'] = "Előbb szállj le, és állj a saját lábadra.",
+    ['need_water'] = "Állj folyóba vagy patakba az aranymosáshoz.",
+    -- work
+    ['work_mining'] = "Kőtörés...",
+    ['work_lumber'] = "Favágás...",
+    ['work_panning'] = "Kavicsmosás...",
+    ['prompt_mine'] = "Bányászat",
+    ['prompt_chop'] = "Favágás",
+    ['target_chop'] = "Favágás",
+    -- fishing prompts
+    ['fish_ready'] = "Kész a horgászatra",
+    ['fish_waiting'] = "Horgászat",
+    ['fish_hooked'] = "Húzd ki a halat",
+    ['fish_caught'] = "Hal a horgon (%.2f kg)",
+    ['fish_prepare'] = "Bot előkészítése",
+    ['fish_cast'] = "Bedobás",
+    ['fish_hook'] = "Bevágás",
+    ['fish_reset'] = "Zsinór behúzása",
+    ['fish_reel_lure'] = "Csali tekerése",
+    ['fish_reel_in'] = "Betekerés",
+    ['fish_keep'] = "Megtart",
+    ['fish_throw'] = "Visszadob",
+    -- places
+    ['mine_annesburg'] = "Annesburg bánya",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Strawberry erdőség",
+    ['zone_bigvalley'] = "Big Valley erdőség",
+    ['zone_scarlett'] = "Scarlett Meadows erdőség",
+    ['zone_roanoke'] = "Roanoke erdőség",
+    -- admin
+    ['cmd_gatherspot'] = "Gyűjtőhely sor kiírása oda, ahol állsz",
+    ['spot_line'] = "Hely sora (F8-ban is): %s",
+}

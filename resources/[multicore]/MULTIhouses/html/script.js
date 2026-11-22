@@ -70,7 +70,7 @@ window.addEventListener('message', function (event) {
     switch (data.action) {
         case 'setLocale':
             Locale = data.locale || {};
-            document.body.classList.toggle('mc-cyrillic', data.lang === 'ru');
+            document.body.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(data.lang));
             applyStaticLocale();
             break;
         case 'openMenu': openMenu(data.menu, data.data); break;

@@ -1,0 +1,81 @@
+-- MULTIserver: Slovenian
+Locales = Locales or {}
+Locales['sl'] = {
+    -- general
+    ['title'] = 'Strežnik',
+    ['no_permission'] = 'Tega ne smeš.',
+    ['pagedown_refused'] = 'PageDown se nikoli ne dodeli. V config.lua izberi drugo tipko.',
+    ['key_players'] = 'Seznam igralcev',
+    ['key_info'] = 'Podatki o strežniku',
+
+    -- logs
+    ['log_queue_full'] = 'Vrsta dnevnikov polna, najstarejši dnevnik zavržen (%s).',
+    ['log_gave_up'] = 'Dnevnika "%s" ni bilo mogoče poslati na Discord (status %s), zavržen.',
+    ['log_refused'] = 'Discord je zavrnil dnevnik "%s" (status %s). Preveri webhook v convar %s.',
+    ['log_from_client'] = 'Poslala igra igralca %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'nihče',
+    ['log_char_created_title'] = 'Lik ustvarjen',
+    ['log_char_created'] = '%s je ustvaril nov lik, ID državljana **%s**.',
+    ['log_jailed_title'] = 'Zaprt',
+    ['log_jailed'] = '%s je bil zaprt za %s minut (%s), zaprl ga je %s.',
+    ['log_released_title'] = 'Izpuščen',
+    ['log_released'] = '%s je bil izpuščen (ID državljana %s).',
+    ['log_test_title'] = 'Testni dnevnik',
+    ['log_test_message'] = 'To je test dnevnika "%s".',
+    ['log_test_sent'] = 'Testni dnevnik "%s" poslan (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Preverjam seznam dovoljenih ...',
+    ['wl_refused'] = 'Nisi na seznamu dovoljenih tega strežnika. Prosi ekipo, naj te doda.',
+    ['wl_db_error'] = 'Seznama dovoljenih ni bilo mogoče preveriti. Poskusi čez minuto.',
+    ['wl_usage_add'] = 'Uporaba: /%s <ID na strežniku ali identifikator> [opomba]',
+    ['wl_usage_remove'] = 'Uporaba: /%s <ID na strežniku ali identifikator>',
+    ['wl_usage_check'] = 'Uporaba: /%s <ID na strežniku ali identifikator>',
+    ['wl_added'] = '%s dodan na seznam dovoljenih.',
+    ['wl_removed'] = '%s odstranjen s seznama dovoljenih.',
+    ['wl_bad_identifier'] = '"%s" ni identifikator, ki ga seznam sprejme (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s je že na seznamu dovoljenih.',
+    ['wl_missing'] = '%s ni na seznamu dovoljenih.',
+    ['wl_is_listed'] = '%s je na seznamu dovoljenih. Opomba: %s',
+    ['wl_not_listed'] = '%s ni na seznamu dovoljenih.',
+    ['wl_log_title'] = 'Seznam dovoljenih',
+    ['wl_log_added'] = '**%s** dodal %s.',
+    ['wl_log_removed'] = '**%s** odstranil %s.',
+
+    -- queue
+    ['queue_checking'] = 'Iščem prosto mesto ...',
+    ['queue_title'] = 'Strežnik je poln',
+    ['queue_text'] = 'Strežnik je poln. V vrsti si %s. od %s.',
+    ['queue_position'] = 'V vrsti si %s. od %s.',
+    ['queue_priority'] = 'Prednost %s.',
+    ['queue_wait'] = 'Počakaj, spustili te bodo noter, takoj ko bo mesto prosto.',
+
+    -- server info
+    ['info_default_desc'] = 'Dobrodošel na strežniku. Bodi prijazen do drugih igralcev in uživaj.',
+
+    -- page
+    ['ui_players_title'] = 'Igralci',
+    ['ui_search'] = 'Iskanje',
+    ['ui_refresh'] = 'Osveži',
+    ['ui_close'] = 'Zapri',
+    ['ui_count'] = '%s / %s na spletu',
+    ['ui_count_only'] = '%s na spletu',
+    ['ui_staff_view'] = 'Pogled ekipe',
+    ['ui_no_match'] = 'Ni zadetkov.',
+    ['ui_nobody'] = 'Nihče ni na spletu.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Ime',
+    ['ui_col_char'] = 'Lik',
+    ['ui_col_job'] = 'Poklic',
+    ['ui_col_citizenid'] = 'ID državljana',
+    ['ui_col_license'] = 'Licenca',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Pravila',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Spletna stran',
+    ['ui_copy'] = 'Kopiraj',
+    ['ui_copied'] = 'Kopirano.',
+    ['ui_copy_failed'] = 'Kopiranje ni uspelo. Prepiši z zaslona.',
+}

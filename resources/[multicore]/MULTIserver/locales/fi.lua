@@ -1,0 +1,81 @@
+-- MULTIserver: Suomi
+Locales = Locales or {}
+Locales['fi'] = {
+    -- general
+    ['title'] = 'Palvelin',
+    ['no_permission'] = 'Et saa tehdä sitä.',
+    ['pagedown_refused'] = 'PageDownia ei koskaan sidota. Valitse toinen näppäin config.lua-tiedostossa.',
+    ['key_players'] = 'Pelaajalista',
+    ['key_info'] = 'Palvelimen tiedot',
+
+    -- logs
+    ['log_queue_full'] = 'Lokijono täynnä, vanhin loki pudotettu (%s).',
+    ['log_gave_up'] = 'Lokia "%s" ei voitu lähettää Discordiin (tila %s), pudotettu.',
+    ['log_refused'] = 'Discord hylkäsi lokin "%s" (tila %s). Tarkista webhook convarissa %s.',
+    ['log_from_client'] = 'Lähettäjä: pelaajan %s peli [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'ei kukaan',
+    ['log_char_created_title'] = 'Hahmo luotu',
+    ['log_char_created'] = '%s loi uuden hahmon, kansalaistunnus **%s**.',
+    ['log_jailed_title'] = 'Vangittu',
+    ['log_jailed'] = '%s vangittiin %s minuutiksi (%s), vangitsija %s.',
+    ['log_released_title'] = 'Vapautettu',
+    ['log_released'] = '%s vapautettiin (kansalaistunnus %s).',
+    ['log_test_title'] = 'Testiloki',
+    ['log_test_message'] = 'Tämä on lokin "%s" testi.',
+    ['log_test_sent'] = 'Testiloki "%s" lähetetty (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Tarkistetaan sallittujen listaa...',
+    ['wl_refused'] = 'Et ole tämän palvelimen sallittujen listalla. Pyydä ylläpitoa lisäämään sinut.',
+    ['wl_db_error'] = 'Sallittujen listaa ei voitu tarkistaa. Yritä minuutin päästä uudelleen.',
+    ['wl_usage_add'] = 'Käyttö: /%s <palvelin-ID tai tunniste> [huomautus]',
+    ['wl_usage_remove'] = 'Käyttö: /%s <palvelin-ID tai tunniste>',
+    ['wl_usage_check'] = 'Käyttö: /%s <palvelin-ID tai tunniste>',
+    ['wl_added'] = '%s lisätty sallittujen listalle.',
+    ['wl_removed'] = '%s poistettu sallittujen listalta.',
+    ['wl_bad_identifier'] = '"%s" ei ole tunniste, jonka lista hyväksyy (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s on jo sallittujen listalla.',
+    ['wl_missing'] = '%s ei ole sallittujen listalla.',
+    ['wl_is_listed'] = '%s on sallittujen listalla. Huomautus: %s',
+    ['wl_not_listed'] = '%s ei ole sallittujen listalla.',
+    ['wl_log_title'] = 'Sallittujen lista',
+    ['wl_log_added'] = '**%s** lisätty, lisääjä %s.',
+    ['wl_log_removed'] = '**%s** poistettu, poistaja %s.',
+
+    -- queue
+    ['queue_checking'] = 'Etsitään vapaata paikkaa...',
+    ['queue_title'] = 'Palvelin on täynnä',
+    ['queue_text'] = 'Palvelin on täynnä. Olet jonossa sijalla %s/%s.',
+    ['queue_position'] = 'Olet jonossa sijalla %s/%s.',
+    ['queue_priority'] = 'Etusija %s.',
+    ['queue_wait'] = 'Odota, pääset sisään heti kun paikka vapautuu.',
+
+    -- server info
+    ['info_default_desc'] = 'Tervetuloa palvelimelle. Ole ystävällinen muille pelaajille ja viihdy.',
+
+    -- page
+    ['ui_players_title'] = 'Pelaajat',
+    ['ui_search'] = 'Hae',
+    ['ui_refresh'] = 'Päivitä',
+    ['ui_close'] = 'Sulje',
+    ['ui_count'] = '%s / %s paikalla',
+    ['ui_count_only'] = '%s paikalla',
+    ['ui_staff_view'] = 'Ylläpitonäkymä',
+    ['ui_no_match'] = 'Ei osumia.',
+    ['ui_nobody'] = 'Kukaan ei ole paikalla.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Nimi',
+    ['ui_col_char'] = 'Hahmo',
+    ['ui_col_job'] = 'Työ',
+    ['ui_col_citizenid'] = 'Kansalaistunnus',
+    ['ui_col_license'] = 'Lisenssi',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Säännöt',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Verkkosivu',
+    ['ui_copy'] = 'Kopioi',
+    ['ui_copied'] = 'Kopioitu.',
+    ['ui_copy_failed'] = 'Kopiointi ei onnistunut. Kirjoita se ruudulta ylös.',
+}

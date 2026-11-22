@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['zh'] = {
+    ['placeholder'] = "输入消息或 /命令",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s 尝试：%s",
+    ['try_ok'] = "——成功了",
+    ['try_fail'] = "——失败了",
+    ['need_text'] = "请在命令后写上发生了什么。",
+    ['too_fast'] = "慢一点。",
+    ['plain_off'] = "这里不能发普通文字。请用 /me、/do 或 /ooc。",
+    ['unknown_command'] = "未知命令：/%s",
+    ['chat_shown'] = "聊天已显示。",
+    ['help_me'] = "描述你的角色在做什么",
+    ['help_do'] = "描述你角色周围的情况",
+    ['help_try'] = "尝试做某事：成败看运气",
+    ['help_clear'] = "清空聊天",
+    ['help_hide'] = "隐藏或显示聊天",
+    ['param_action'] = "动作",
+    ['param_text'] = "文字",
+}

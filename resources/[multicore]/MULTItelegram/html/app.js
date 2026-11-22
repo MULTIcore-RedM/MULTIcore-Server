@@ -233,7 +233,7 @@
         const d = e.data || {};
         if (d.action === 'open') {
             L = d.L || {};
-            root.classList.toggle('mc-cyrillic', d.lang === 'ru');
+            root.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(d.lang));
             applyLocale();
             state = d.state || {};
             selected = null;

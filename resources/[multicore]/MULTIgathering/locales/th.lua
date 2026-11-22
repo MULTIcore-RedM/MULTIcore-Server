@@ -1,0 +1,57 @@
+-- MULTIgathering: Thai (same keys as the English master file)
+Locales = Locales or {}
+Locales['th'] = {
+    -- results
+    ['found'] = "คุณเก็บได้: %s",
+    ['found_nothing_mining'] = "รอบนี้ได้แต่ฝุ่น",
+    ['found_nothing_lumber'] = "ไม้แตกไม่สวย ไม่มีอะไรน่าเก็บ",
+    ['found_nothing_panning'] = "ในกระทะมีแค่ทรายกับกรวด",
+    ['caught'] = "คุณเก็บ%sไว้ (%.2f กก.)",
+    ['picked'] = "คุณเก็บ: %s",
+    -- refusals
+    ['need_tool'] = "คุณต้องมี%sสำหรับเรื่องนี้",
+    ['need_bait'] = "คุณไม่มี%sเหลือแล้ว",
+    ['need_rod'] = "ถือคันเบ็ดในมือก่อน",
+    ['no_cast'] = "ปลาตัวนั้นไม่ได้กินเหยื่อของคุณ",
+    ['inventory_full'] = "กระเป๋าของคุณเต็มแล้ว",
+    ['depleted'] = "จุดนี้หมดแล้ว กลับมาใหม่ทีหลัง",
+    ['too_far'] = "คุณเดินห่างจากงานแล้ว",
+    ['cooldown'] = "พักหายใจก่อน",
+    ['no_zone'] = "ที่นี่ไม่มีอะไรน่าเก็บ",
+    ['busy'] = "คุณกำลังทำงานอยู่",
+    ['tool_broke'] = "%sของคุณพังแล้ว",
+    ['already_picked'] = "มีคนเก็บต้นนี้ไปแล้ว",
+    ['already_fishing'] = "คุณกำลังตกปลาอยู่",
+    ['on_foot'] = "ลงมายืนบนพื้นก่อน",
+    ['need_water'] = "ยืนในแม่น้ำหรือลำธารเพื่อร่อนทอง",
+    -- work
+    ['work_mining'] = "กำลังทุบหิน...",
+    ['work_lumber'] = "กำลังผ่าฟืน...",
+    ['work_panning'] = "กำลังล้างกรวด...",
+    ['prompt_mine'] = "ขุดแร่",
+    ['prompt_chop'] = "ผ่าฟืน",
+    ['target_chop'] = "ผ่าฟืน",
+    -- fishing prompts
+    ['fish_ready'] = "พร้อมตกปลา",
+    ['fish_waiting'] = "กำลังตกปลา",
+    ['fish_hooked'] = "ดึงปลาเข้ามา",
+    ['fish_caught'] = "ปลาติดเบ็ด (%.2f กก.)",
+    ['fish_prepare'] = "เตรียมคันเบ็ด",
+    ['fish_cast'] = "เหวี่ยงเบ็ด",
+    ['fish_hook'] = "กระตุกเบ็ด",
+    ['fish_reset'] = "ม้วนสายกลับ",
+    ['fish_reel_lure'] = "ม้วนเหยื่อปลอม",
+    ['fish_reel_in'] = "ม้วนสาย",
+    ['fish_keep'] = "เก็บไว้",
+    ['fish_throw'] = "ปล่อยคืน",
+    -- places
+    ['mine_annesburg'] = "เหมือง Annesburg",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "ป่าไม้ Strawberry",
+    ['zone_bigvalley'] = "ป่าไม้ Big Valley",
+    ['zone_scarlett'] = "ป่าไม้ Scarlett Meadows",
+    ['zone_roanoke'] = "ป่าไม้ Roanoke",
+    -- admin
+    ['cmd_gatherspot'] = "พิมพ์บรรทัดจุดเก็บของสำหรับที่ที่คุณยืน",
+    ['spot_line'] = "บรรทัดจุด (ดูใน F8 ได้ด้วย): %s",
+}

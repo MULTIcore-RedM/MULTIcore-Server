@@ -2,6 +2,21 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-22 (32 languages)
+
+### New
+- **One line picks the language of every MULTI script:** `MULTIConfig.Language` at the top of `MULTIcore/config_multi.lua`. Menus, notifications, prompts and the loading screen all follow it. A script can still use its own language with `Config.Locale` in its config. Set it to `''` to keep using `setr multicore_locale` in server.cfg.
+- **22 new languages**, so there are now 32: English, German, French, Spanish, Portuguese (Brazil and Portugal), Italian, Polish, Russian, Dutch, Turkish, Romanian, Czech, Hungarian, Ukrainian, Bulgarian, Greek, Swedish, Danish, Norwegian, Finnish, Slovak, Croatian, Serbian (Latin), Slovenian, Chinese (Simplified), Japanese, Korean, Arabic, Indonesian, Vietnamese and Thai.
+- Languages with letters the game fonts don't have (Cyrillic, Greek, Chinese, Japanese, Korean, Arabic, Thai, Vietnamese) switch the menus to the plain fonts so every letter shows.
+- **Character creation: Undress / Dress button** next to the camera buttons. It shows the character without clothes while you shape the body; the chosen clothes are kept and saved as normal. Changing a piece of clothing puts the clothes back on.
+
+### Fixed
+- MULTIvendor now follows the server language; before, it always used its own setting.
+
+### Updating an existing server
+- Copy every folder in `resources/[multicore]` over yours, keeping your own config changes (the new language files are in each script's `locales` folder). New files: `MULTIcore/server/multi/language.lua` and `MULTIloading/server.lua`.
+- In `MULTIcore/config_multi.lua` add the `MULTIConfig.Language` line (copy it from the new file) and set your language there.
+
 ## 2026-11-22 (vendors)
 
 ### New

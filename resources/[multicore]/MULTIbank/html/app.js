@@ -180,7 +180,7 @@
         const d = e.data || {};
         if (d.action === "open") {
             L = d.L || {};
-            root.classList.toggle("mc-cyrillic", d.lang === "ru");
+            root.classList.toggle("mc-cyrillic", /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(d.lang));
             if (!built) { built = true; quick = Array.isArray(d.quick) ? d.quick.filter((v) => Number(v) > 0) : []; quickButtons(); }
             applyLocale();
             render(d.state || {});

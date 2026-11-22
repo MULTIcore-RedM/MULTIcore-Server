@@ -1,0 +1,81 @@
+-- MULTIserver: Dansk
+Locales = Locales or {}
+Locales['da'] = {
+    -- general
+    ['title'] = 'Server',
+    ['no_permission'] = 'Det må du ikke.',
+    ['pagedown_refused'] = 'PageDown bindes aldrig. Vælg en anden tast i config.lua.',
+    ['key_players'] = 'Spillerliste',
+    ['key_info'] = 'Serverinfo',
+
+    -- logs
+    ['log_queue_full'] = 'Logkøen er fuld, ældste log droppet (%s).',
+    ['log_gave_up'] = 'Loggen "%s" kunne ikke sendes til Discord (status %s), droppet.',
+    ['log_refused'] = 'Discord afviste loggen "%s" (status %s). Tjek webhooken i convar %s.',
+    ['log_from_client'] = 'Sendt af spillet hos %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'ingen',
+    ['log_char_created_title'] = 'Karakter oprettet',
+    ['log_char_created'] = '%s lavede en ny karakter, borger-id **%s**.',
+    ['log_jailed_title'] = 'Fængslet',
+    ['log_jailed'] = '%s blev fængslet i %s minutter (%s) af %s.',
+    ['log_released_title'] = 'Løsladt',
+    ['log_released'] = '%s blev løsladt (borger-id %s).',
+    ['log_test_title'] = 'Testlog',
+    ['log_test_message'] = 'Dette er en test af loggen "%s".',
+    ['log_test_sent'] = 'Testloggen "%s" sendt (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Tjekker whitelisten...',
+    ['wl_refused'] = 'Du er ikke på denne servers whitelist. Bed staff om at tilføje dig.',
+    ['wl_db_error'] = 'Whitelisten kunne ikke tjekkes. Prøv igen om et minut.',
+    ['wl_usage_add'] = 'Brug: /%s <server-id eller identifikator> [note]',
+    ['wl_usage_remove'] = 'Brug: /%s <server-id eller identifikator>',
+    ['wl_usage_check'] = 'Brug: /%s <server-id eller identifikator>',
+    ['wl_added'] = '%s tilføjet til whitelisten.',
+    ['wl_removed'] = '%s fjernet fra whitelisten.',
+    ['wl_bad_identifier'] = '"%s" er ikke en identifikator, whitelisten tager (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s er allerede på whitelisten.',
+    ['wl_missing'] = '%s er ikke på whitelisten.',
+    ['wl_is_listed'] = '%s er på whitelisten. Note: %s',
+    ['wl_not_listed'] = '%s er ikke på whitelisten.',
+    ['wl_log_title'] = 'Whitelist',
+    ['wl_log_added'] = '**%s** tilføjet af %s.',
+    ['wl_log_removed'] = '**%s** fjernet af %s.',
+
+    -- queue
+    ['queue_checking'] = 'Leder efter en ledig plads...',
+    ['queue_title'] = 'Serveren er fuld',
+    ['queue_text'] = 'Serveren er fuld. Du er nummer %s af %s i køen.',
+    ['queue_position'] = 'Du er nummer %s af %s i køen.',
+    ['queue_priority'] = 'Prioritet %s.',
+    ['queue_wait'] = 'Vent venligst, du bliver lukket ind, så snart der er en ledig plads.',
+
+    -- server info
+    ['info_default_desc'] = 'Velkommen til serveren. Vær flink mod andre spillere og nyd opholdet.',
+
+    -- page
+    ['ui_players_title'] = 'Spillere',
+    ['ui_search'] = 'Søg',
+    ['ui_refresh'] = 'Opdater',
+    ['ui_close'] = 'Luk',
+    ['ui_count'] = '%s / %s online',
+    ['ui_count_only'] = '%s online',
+    ['ui_staff_view'] = 'Staffvisning',
+    ['ui_no_match'] = 'Ingen passer.',
+    ['ui_nobody'] = 'Ingen er online.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Navn',
+    ['ui_col_char'] = 'Karakter',
+    ['ui_col_job'] = 'Job',
+    ['ui_col_citizenid'] = 'Borger-ID',
+    ['ui_col_license'] = 'Licens',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Regler',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Hjemmeside',
+    ['ui_copy'] = 'Kopiér',
+    ['ui_copied'] = 'Kopieret.',
+    ['ui_copy_failed'] = 'Kunne ikke kopiere. Skriv det af fra skærmen.',
+}

@@ -15,9 +15,9 @@
 
     // ---------- language: chosen language, English fills gaps ----------
     const all = C.texts || {};
-    const lang = String(C.language || 'en').toLowerCase();
+    const lang = String(C.language || (window.nuiHandoverData || {}).multicoreLang || 'en').toLowerCase();
     const T = Object.assign({}, all.en || {}, all[lang] || {});
-    if (lang === 'ru') document.body.classList.add('mc-cyrillic');
+    if (/^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(lang)) document.body.classList.add('mc-cyrillic');
     document.documentElement.lang = lang;
 
     // ---------- static text ----------

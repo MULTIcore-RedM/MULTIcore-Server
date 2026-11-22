@@ -214,7 +214,7 @@ Moderators: use `group.mod` instead. The `add_ace` lines in `server.cfg.example`
 
 | What | Where |
 |---|---|
-| Language for every MULTI script | `setr multicore_locale en` in `server.cfg` (en, de, fr, es, pt-br, it, pl, ru, nl, tr) |
+| Language for every MULTI script | `MULTIConfig.Language = 'en'` in `MULTIcore/config_multi.lua` (32 languages, codes listed there) |
 | Starting money | `RSGConfig.Money.MoneyTypes` in `MULTIcore/config.lua` |
 | Paycheck interval | `RSGConfig.Money.PayCheckTimeOut` in `MULTIcore/config.lua` |
 | Day length, night length, real-time clock, how often the weather changes | `MULTIweather/config.lua` |

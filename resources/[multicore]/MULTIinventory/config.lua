@@ -9,7 +9,7 @@ Config = Config or {}
 -- Without MULTIcore: 'auto' | 'vorp' | 'rsg'   (server-wide: setr multi_framework "...")
 Config.Framework = 'rsg'
 
--- Language: '' = server.cfg  setr multicore_locale "de"  (de en es fr it nl pl pt-br ru tr), else 'en'
+-- Language: '' = MULTIcore's language (MULTIConfig.Language), else 'en'
 Config.Locale = ''
 Config.Debug  = false
 

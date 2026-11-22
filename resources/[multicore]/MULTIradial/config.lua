@@ -6,7 +6,7 @@
 
 Config = {}
 
-Config.Locale = nil                 -- language ('en', 'de' ...); nil = server.cfg `setr multicore_locale`, else 'en'
+Config.Locale = nil                 -- language ('en', 'de' ...); nil = MULTIcore's language (MULTIConfig.Language), else 'en'
 
 Config.Keybind = 'F6'               -- key that opens the menu (name from MULTIcore shared/keybinds.lua)
 Config.HoldToOpen = false           -- false = tap to open, click a button (or Cancel / Esc) to close

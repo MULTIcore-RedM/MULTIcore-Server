@@ -113,7 +113,7 @@
         if (m.action === 'close') { root.classList.add('mc-hidden'); mode = null; return; }
         if (m.action !== 'open') return;
         L = m.L || L;
-        root.classList.toggle('mc-cyrillic', m.lang === 'ru');
+        root.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(m.lang));
         applyLocale();
         mode = m.mode;
         $('players').classList.toggle('mc-hidden', mode !== 'players');

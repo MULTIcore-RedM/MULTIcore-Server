@@ -1,0 +1,81 @@
+-- MULTIserver: Čeština
+Locales = Locales or {}
+Locales['cs'] = {
+    -- general
+    ['title'] = 'Server',
+    ['no_permission'] = 'Tohle nesmíš.',
+    ['pagedown_refused'] = 'PageDown se nikdy nepřiřazuje. Vyber jinou klávesu v config.lua.',
+    ['key_players'] = 'Seznam hráčů',
+    ['key_info'] = 'Info o serveru',
+
+    -- logs
+    ['log_queue_full'] = 'Fronta logů je plná, nejstarší log zahozen (%s).',
+    ['log_gave_up'] = 'Log "%s" nešlo odeslat na Discord (stav %s), zahozen.',
+    ['log_refused'] = 'Discord odmítl log "%s" (stav %s). Zkontroluj webhook v convaru %s.',
+    ['log_from_client'] = 'Odesláno hrou hráče %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'nikdo',
+    ['log_char_created_title'] = 'Postava vytvořena',
+    ['log_char_created'] = '%s si vytvořil novou postavu, citizen id **%s**.',
+    ['log_jailed_title'] = 'Uvězněn',
+    ['log_jailed'] = '%s byl uvězněn na %s minut (%s), zavřel ho %s.',
+    ['log_released_title'] = 'Propuštěn',
+    ['log_released'] = '%s byl propuštěn (citizen id %s).',
+    ['log_test_title'] = 'Testovací log',
+    ['log_test_message'] = 'Tohle je test logu "%s".',
+    ['log_test_sent'] = 'Testovací log "%s" odeslán (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Kontroluje se whitelist...',
+    ['wl_refused'] = 'Nejsi na whitelistu tohoto serveru. Požádej tým, ať tě přidá.',
+    ['wl_db_error'] = 'Whitelist nešlo zkontrolovat. Zkus to za minutu.',
+    ['wl_usage_add'] = 'Použití: /%s <server id nebo identifikátor> [poznámka]',
+    ['wl_usage_remove'] = 'Použití: /%s <server id nebo identifikátor>',
+    ['wl_usage_check'] = 'Použití: /%s <server id nebo identifikátor>',
+    ['wl_added'] = '%s přidán na whitelist.',
+    ['wl_removed'] = '%s odebrán z whitelistu.',
+    ['wl_bad_identifier'] = '"%s" není identifikátor, který whitelist bere (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s už na whitelistu je.',
+    ['wl_missing'] = '%s není na whitelistu.',
+    ['wl_is_listed'] = '%s je na whitelistu. Poznámka: %s',
+    ['wl_not_listed'] = '%s není na whitelistu.',
+    ['wl_log_title'] = 'Whitelist',
+    ['wl_log_added'] = '**%s** přidal %s.',
+    ['wl_log_removed'] = '**%s** odebral %s.',
+
+    -- queue
+    ['queue_checking'] = 'Hledá se volné místo...',
+    ['queue_title'] = 'Server je plný',
+    ['queue_text'] = 'Server je plný. Ve frontě jsi %s. z %s.',
+    ['queue_position'] = 'Ve frontě jsi %s. z %s.',
+    ['queue_priority'] = 'Priorita %s.',
+    ['queue_wait'] = 'Počkej prosím, pustíme tě dovnitř, jakmile se uvolní místo.',
+
+    -- server info
+    ['info_default_desc'] = 'Vítej na serveru. Buď hodný na ostatní hráče a užij si pobyt.',
+
+    -- page
+    ['ui_players_title'] = 'Hráči',
+    ['ui_search'] = 'Hledat',
+    ['ui_refresh'] = 'Obnovit',
+    ['ui_close'] = 'Zavřít',
+    ['ui_count'] = '%s / %s online',
+    ['ui_count_only'] = '%s online',
+    ['ui_staff_view'] = 'Pohled týmu',
+    ['ui_no_match'] = 'Nikdo neodpovídá.',
+    ['ui_nobody'] = 'Nikdo není online.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Jméno',
+    ['ui_col_char'] = 'Postava',
+    ['ui_col_job'] = 'Práce',
+    ['ui_col_citizenid'] = 'Citizen ID',
+    ['ui_col_license'] = 'Licence',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Pravidla',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Web',
+    ['ui_copy'] = 'Kopírovat',
+    ['ui_copied'] = 'Zkopírováno.',
+    ['ui_copy_failed'] = 'Nešlo zkopírovat. Opiš si to z obrazovky.',
+}

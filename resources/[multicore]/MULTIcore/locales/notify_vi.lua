@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['vi'] or {}
+Locales['vi'] = t
+t['notify_title_info']    = 'Thông báo'
+t['notify_title_success'] = 'Xong'
+t['notify_title_error']   = 'Thất bại'
+t['notify_title_warning'] = 'Cảnh báo'
+t['notify_title_money']   = 'Tiền'
+t['notify_title_gold']    = 'Vàng'
+t['notify_title_job']     = 'Công việc'
+t['notify_title_police']  = 'Cảnh sát trưởng'
+t['notify_title_medic']   = 'Bác sĩ'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Kéo từng thông báo đến chỗ bạn muốn. Lăn chuột: to hơn hoặc nhỏ hơn. Shift + lăn chuột: rộng hơn hoặc hẹp hơn.'
+t['notify_editor_save'] = 'Lưu'
+t['notify_editor_cancel'] = 'Hủy'
+t['notify_editor_reset'] = 'Mặc định máy chủ'
+t['notify_editor_toast'] = 'Tin nhắn'
+t['notify_editor_tip'] = 'Gợi ý'
+t['notify_editor_objective'] = 'Mục tiêu'
+t['notify_editor_banner'] = 'Biểu ngữ'
+t['notify_editor_sample_title'] = 'Thông báo'
+t['notify_editor_sample_text'] = 'Tin nhắn của bạn sẽ trông như thế này.'
+t['notify_editor_sample_tip'] = 'Gợi ý hiện ở đây.'
+t['notify_editor_sample_objective'] = 'Mục tiêu của bạn hiện ở đây.'
+t['notify_editor_sample_banner'] = 'Biểu ngữ'
+t['notify_editor_sample_banner_text'] = 'Tin lớn hiện ở đây'
+t['notify_editor_saved'] = 'Đã lưu bố cục thông báo.'
+t['notify_editor_reset_done'] = 'Bố cục thông báo đã về mặc định của máy chủ.'

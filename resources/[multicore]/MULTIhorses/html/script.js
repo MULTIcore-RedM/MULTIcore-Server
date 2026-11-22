@@ -190,7 +190,7 @@ const HorseUI = {
                     break;
                 case 'setLocale':
                     Locale = data.locale || {};
-                    document.body.classList.toggle('mc-cyrillic', data.lang === 'ru');
+                    document.body.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(data.lang));
                     applyStaticLocale();
                     break;
                 case 'shopPurchaseDone':

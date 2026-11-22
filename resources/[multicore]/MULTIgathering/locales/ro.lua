@@ -1,0 +1,57 @@
+-- MULTIgathering: Română
+Locales = Locales or {}
+Locales['ro'] = {
+    -- results
+    ['found'] = "Ai adunat: %s",
+    ['found_nothing_mining'] = "Doar praf de data asta.",
+    ['found_nothing_lumber'] = "Lemnul s-a crăpat prost. Nimic de păstrat.",
+    ['found_nothing_panning'] = "Doar nisip și pietriș în tavă.",
+    ['caught'] = "Ai păstrat: %s (%.2f kg).",
+    ['picked'] = "Ai cules: %s",
+    -- refusals
+    ['need_tool'] = "Ai nevoie de: %s.",
+    ['need_bait'] = "Nu mai ai: %s.",
+    ['need_rod'] = "Ia mai întâi undița în mână.",
+    ['no_cast'] = "Peștele acela nu era la momeala ta.",
+    ['inventory_full'] = "Desaga ta e plină.",
+    ['depleted'] = "Locul ăsta e secătuit. Revino mai târziu.",
+    ['too_far'] = "Te-ai îndepărtat de lucru.",
+    ['cooldown'] = "Trage-ți mai întâi sufletul.",
+    ['no_zone'] = "Nimic de luat pe aici.",
+    ['busy'] = "Deja lucrezi.",
+    ['tool_broke'] = "S-a stricat: %s.",
+    ['already_picked'] = "Cineva a cules deja planta asta.",
+    ['already_fishing'] = "Deja pescuiești.",
+    ['on_foot'] = "Coboară și stai mai întâi pe picioarele tale.",
+    ['need_water'] = "Stai într-un râu sau pârâu ca să speli aur.",
+    -- work
+    ['work_mining'] = "Spargi piatra...",
+    ['work_lumber'] = "Tai lemne...",
+    ['work_panning'] = "Speli pietrișul...",
+    ['prompt_mine'] = "Minerit",
+    ['prompt_chop'] = "Taie lemne",
+    ['target_chop'] = "Taie lemne",
+    -- fishing prompts
+    ['fish_ready'] = "Gata de pescuit",
+    ['fish_waiting'] = "Pescuiești",
+    ['fish_hooked'] = "Trage peștele",
+    ['fish_caught'] = "Pește pe fir (%.2f kg)",
+    ['fish_prepare'] = "Pregătește undița",
+    ['fish_cast'] = "Aruncă",
+    ['fish_hook'] = "Agață",
+    ['fish_reset'] = "Strânge firul",
+    ['fish_reel_lure'] = "Mulinează nada",
+    ['fish_reel_in'] = "Mulinează",
+    ['fish_keep'] = "Păstrează",
+    ['fish_throw'] = "Eliberează",
+    -- places
+    ['mine_annesburg'] = "Mina Annesburg",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Pădurea Strawberry",
+    ['zone_bigvalley'] = "Pădurea Big Valley",
+    ['zone_scarlett'] = "Pădurea Scarlett Meadows",
+    ['zone_roanoke'] = "Pădurea Roanoke",
+    -- admin
+    ['cmd_gatherspot'] = "Afișează o linie de loc de adunat pentru unde stai",
+    ['spot_line'] = "Linie loc (și în F8): %s",
+}

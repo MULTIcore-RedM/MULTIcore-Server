@@ -1,0 +1,81 @@
+-- MULTIserver: Tiếng Việt
+Locales = Locales or {}
+Locales['vi'] = {
+    -- general
+    ['title'] = 'Máy chủ',
+    ['no_permission'] = 'Bạn không được làm vậy.',
+    ['pagedown_refused'] = 'PageDown không bao giờ được gán. Hãy chọn phím khác trong config.lua.',
+    ['key_players'] = 'Danh sách người chơi',
+    ['key_info'] = 'Thông tin máy chủ',
+
+    -- logs
+    ['log_queue_full'] = 'Hàng đợi log đầy, đã bỏ log cũ nhất (%s).',
+    ['log_gave_up'] = 'Không gửi được log "%s" tới Discord (mã %s), đã bỏ.',
+    ['log_refused'] = 'Discord từ chối log "%s" (mã %s). Kiểm tra webhook trong convar %s.',
+    ['log_from_client'] = 'Gửi từ game của %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'không ai',
+    ['log_char_created_title'] = 'Tạo nhân vật',
+    ['log_char_created'] = '%s đã tạo nhân vật mới, ID công dân **%s**.',
+    ['log_jailed_title'] = 'Bỏ tù',
+    ['log_jailed'] = '%s bị tù %s phút (%s) bởi %s.',
+    ['log_released_title'] = 'Được thả',
+    ['log_released'] = '%s đã được thả (ID công dân %s).',
+    ['log_test_title'] = 'Log thử',
+    ['log_test_message'] = 'Đây là bản thử của log "%s".',
+    ['log_test_sent'] = 'Đã gửi log thử "%s" (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Đang kiểm tra whitelist...',
+    ['wl_refused'] = 'Bạn không có trong whitelist của máy chủ này. Hãy nhờ ban quản trị thêm bạn.',
+    ['wl_db_error'] = 'Không kiểm tra được whitelist. Thử lại sau một phút.',
+    ['wl_usage_add'] = 'Cách dùng: /%s <id máy chủ hoặc định danh> [ghi chú]',
+    ['wl_usage_remove'] = 'Cách dùng: /%s <id máy chủ hoặc định danh>',
+    ['wl_usage_check'] = 'Cách dùng: /%s <id máy chủ hoặc định danh>',
+    ['wl_added'] = 'Đã thêm %s vào whitelist.',
+    ['wl_removed'] = 'Đã xóa %s khỏi whitelist.',
+    ['wl_bad_identifier'] = '"%s" không phải định danh mà whitelist nhận (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s đã có trong whitelist.',
+    ['wl_missing'] = '%s không có trong whitelist.',
+    ['wl_is_listed'] = '%s có trong whitelist. Ghi chú: %s',
+    ['wl_not_listed'] = '%s không có trong whitelist.',
+    ['wl_log_title'] = 'Whitelist',
+    ['wl_log_added'] = '**%s** được thêm bởi %s.',
+    ['wl_log_removed'] = '**%s** bị xóa bởi %s.',
+
+    -- queue
+    ['queue_checking'] = 'Đang tìm chỗ trống...',
+    ['queue_title'] = 'Máy chủ đã đầy',
+    ['queue_text'] = 'Máy chủ đã đầy. Bạn đứng thứ %s trên %s trong hàng chờ.',
+    ['queue_position'] = 'Bạn đứng thứ %s trên %s trong hàng chờ.',
+    ['queue_priority'] = 'Ưu tiên %s.',
+    ['queue_wait'] = 'Xin chờ, bạn sẽ được vào ngay khi có chỗ trống.',
+
+    -- server info
+    ['info_default_desc'] = 'Chào mừng đến máy chủ. Hãy tử tế với người chơi khác và chúc bạn vui vẻ.',
+
+    -- page
+    ['ui_players_title'] = 'Người chơi',
+    ['ui_search'] = 'Tìm',
+    ['ui_refresh'] = 'Làm mới',
+    ['ui_close'] = 'Đóng',
+    ['ui_count'] = '%s / %s trực tuyến',
+    ['ui_count_only'] = '%s trực tuyến',
+    ['ui_staff_view'] = 'Chế độ quản trị',
+    ['ui_no_match'] = 'Không ai khớp.',
+    ['ui_nobody'] = 'Không có ai trực tuyến.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Tên',
+    ['ui_col_char'] = 'Nhân vật',
+    ['ui_col_job'] = 'Nghề',
+    ['ui_col_citizenid'] = 'ID công dân',
+    ['ui_col_license'] = 'License',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Luật',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Trang web',
+    ['ui_copy'] = 'Sao chép',
+    ['ui_copied'] = 'Đã sao chép.',
+    ['ui_copy_failed'] = 'Không sao chép được. Hãy chép lại từ màn hình.',
+}

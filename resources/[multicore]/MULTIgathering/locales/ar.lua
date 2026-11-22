@@ -1,0 +1,57 @@
+-- MULTIgathering: Arabic (same keys as the English master file)
+Locales = Locales or {}
+Locales['ar'] = {
+    -- results
+    ['found'] = "جمعت: %s",
+    ['found_nothing_mining'] = "لا شيء سوى الغبار هذه المرة.",
+    ['found_nothing_lumber'] = "انشق الخشب بشكل سيئ. لا شيء يستحق.",
+    ['found_nothing_panning'] = "رمل وحصى فقط في الصحن.",
+    ['caught'] = "احتفظت بـ %s (%.2f كغ).",
+    ['picked'] = "قطفت: %s",
+    -- refusals
+    ['need_tool'] = "تحتاج إلى %s لذلك.",
+    ['need_bait'] = "لم يبقَ لديك %s.",
+    ['need_rod'] = "أمسك صنارتك بيدك أولًا.",
+    ['no_cast'] = "تلك السمكة لم تكن على طُعمك.",
+    ['inventory_full'] = "حقيبتك ممتلئة.",
+    ['depleted'] = "استُنفد هذا المكان. عد لاحقًا.",
+    ['too_far'] = "ابتعدت عن عملك.",
+    ['cooldown'] = "التقط أنفاسك أولًا.",
+    ['no_zone'] = "لا شيء يستحق الأخذ هنا.",
+    ['busy'] = "أنت تعمل بالفعل.",
+    ['tool_broke'] = "انكسر %s.",
+    ['already_picked'] = "قطف أحدهم هذه النبتة بالفعل.",
+    ['already_fishing'] = "أنت تصطاد بالفعل.",
+    ['on_foot'] = "انزل وقف على قدميك أولًا.",
+    ['need_water'] = "قف في نهر أو جدول لتغربل الذهب.",
+    -- work
+    ['work_mining'] = "جارٍ تكسير الصخر...",
+    ['work_lumber'] = "جارٍ تقطيع الخشب...",
+    ['work_panning'] = "جارٍ غسل الحصى...",
+    ['prompt_mine'] = "تعدين",
+    ['prompt_chop'] = "قطع الخشب",
+    ['target_chop'] = "قطع الخشب",
+    -- fishing prompts
+    ['fish_ready'] = "جاهز للصيد",
+    ['fish_waiting'] = "تصطاد",
+    ['fish_hooked'] = "اسحب السمكة",
+    ['fish_caught'] = "سمكة على الخيط (%.2f كغ)",
+    ['fish_prepare'] = "جهّز الصنارة",
+    ['fish_cast'] = "ارمِ",
+    ['fish_hook'] = "اشبك الخطاف",
+    ['fish_reset'] = "لفّ الخيط",
+    ['fish_reel_lure'] = "لفّ الطُعم",
+    ['fish_reel_in'] = "اسحب",
+    ['fish_keep'] = "احتفظ",
+    ['fish_throw'] = "أعدها للماء",
+    -- places
+    ['mine_annesburg'] = "منجم Annesburg",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "غابة Strawberry",
+    ['zone_bigvalley'] = "غابة Big Valley",
+    ['zone_scarlett'] = "غابة Scarlett Meadows",
+    ['zone_roanoke'] = "غابة Roanoke",
+    -- admin
+    ['cmd_gatherspot'] = "اطبع سطر موقع جمع لمكان وقوفك",
+    ['spot_line'] = "سطر الموقع (أيضًا في F8): %s",
+}

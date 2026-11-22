@@ -5,7 +5,7 @@
 -- ============================================================
 Config = {}
 
-Config.Locale = ''                  -- language for this script ('de', 'fr' ...); empty = server-wide setr multicore_locale, else English
+Config.Locale = ''                  -- language for this script ('de', 'fr' ...); empty = MULTIcore's language (MULTIConfig.Language), else English
 Config.Debug = false                -- prints every telegram action to the server console
 Config.NotifyDuration = 6000        -- how long telegram notifications stay on screen (ms)
 Config.CheckIntervalMs = 1000       -- how often the client checks clerk distance and walking away from the counter (ms)

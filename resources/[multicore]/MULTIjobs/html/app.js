@@ -349,7 +349,7 @@
             tab = m.tab || null;
             sel = null;
             nearby = null;
-            root.classList.toggle('mc-cyrillic', m.lang === 'ru');
+            root.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(m.lang));
             applyLocale();
             say('');
             root.classList.remove('mc-hidden');

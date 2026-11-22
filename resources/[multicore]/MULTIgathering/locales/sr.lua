@@ -1,0 +1,57 @@
+-- MULTIgathering: Serbian
+Locales = Locales or {}
+Locales['sr'] = {
+    -- results
+    ['found'] = "Sakupio si: %s",
+    ['found_nothing_mining'] = "Ovog puta samo prašina.",
+    ['found_nothing_lumber'] = "Drvo se loše rascepilo. Ništa vredno.",
+    ['found_nothing_panning'] = "Samo pesak i šljunak u tavi.",
+    ['caught'] = "Zadržao si: %s (%.2f kg).",
+    ['picked'] = "Ubrao si: %s",
+    -- refusals
+    ['need_tool'] = "Za to ti treba %s.",
+    ['need_bait'] = "Nemaš više: %s.",
+    ['need_rod'] = "Prvo uzmi štap za pecanje u ruke.",
+    ['no_cast'] = "Ta riba nije bila na tvom mamcu.",
+    ['inventory_full'] = "Torba ti je puna.",
+    ['depleted'] = "Ovo mesto je iscrpljeno. Vrati se kasnije.",
+    ['too_far'] = "Udaljio si se od posla.",
+    ['cooldown'] = "Prvo dođi do daha.",
+    ['no_zone'] = "Ovde nema ničeg vrednog.",
+    ['busy'] = "Već radiš.",
+    ['tool_broke'] = "Slomio ti se alat: %s.",
+    ['already_picked'] = "Neko je već ubrao ovu biljku.",
+    ['already_fishing'] = "Već pecaš.",
+    ['on_foot'] = "Prvo siđi i stani na svoje noge.",
+    ['need_water'] = "Stani u reku ili potok da ispiraš zlato.",
+    -- work
+    ['work_mining'] = "Lomiš kamen...",
+    ['work_lumber'] = "Sečeš drva...",
+    ['work_panning'] = "Ispiraš šljunak...",
+    ['prompt_mine'] = "Kopaj",
+    ['prompt_chop'] = "Seci drva",
+    ['target_chop'] = "Seci drva",
+    -- fishing prompts
+    ['fish_ready'] = "Spreman za pecanje",
+    ['fish_waiting'] = "Pecanje",
+    ['fish_hooked'] = "Izvuci ribu",
+    ['fish_caught'] = "Riba na udici (%.2f kg)",
+    ['fish_prepare'] = "Spremi štap",
+    ['fish_cast'] = "Zabaci",
+    ['fish_hook'] = "Zakači",
+    ['fish_reset'] = "Namotaj najlon",
+    ['fish_reel_lure'] = "Namotaj varalicu",
+    ['fish_reel_in'] = "Namotaj",
+    ['fish_keep'] = "Zadrži",
+    ['fish_throw'] = "Pusti",
+    -- places
+    ['mine_annesburg'] = "Rudnik Annesburg",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Šuma Strawberry",
+    ['zone_bigvalley'] = "Šuma Big Valley",
+    ['zone_scarlett'] = "Šuma Scarlett Meadows",
+    ['zone_roanoke'] = "Šuma Roanoke",
+    -- admin
+    ['cmd_gatherspot'] = "Ispiši liniju mesta za sakupljanje gde stojiš",
+    ['spot_line'] = "Linija mesta (i u F8): %s",
+}

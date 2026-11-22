@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['id'] or {}
+Locales['id'] = t
+t['notify_title_info']    = 'Pemberitahuan'
+t['notify_title_success'] = 'Selesai'
+t['notify_title_error']   = 'Gagal'
+t['notify_title_warning'] = 'Peringatan'
+t['notify_title_money']   = 'Uang'
+t['notify_title_gold']    = 'Emas'
+t['notify_title_job']     = 'Kerja'
+t['notify_title_police']  = 'Sheriff'
+t['notify_title_medic']   = 'Dokter'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Seret setiap notifikasi ke tempat yang kamu mau. Roda mouse: lebih besar atau kecil. Shift + roda: lebih lebar atau sempit.'
+t['notify_editor_save'] = 'Simpan'
+t['notify_editor_cancel'] = 'Batal'
+t['notify_editor_reset'] = 'Bawaan server'
+t['notify_editor_toast'] = 'Pesan'
+t['notify_editor_tip'] = 'Petunjuk'
+t['notify_editor_objective'] = 'Tujuan'
+t['notify_editor_banner'] = 'Spanduk'
+t['notify_editor_sample_title'] = 'Pemberitahuan'
+t['notify_editor_sample_text'] = 'Beginilah tampilan pesanmu.'
+t['notify_editor_sample_tip'] = 'Petunjuk muncul di sini.'
+t['notify_editor_sample_objective'] = 'Tujuanmu muncul di sini.'
+t['notify_editor_sample_banner'] = 'Spanduk'
+t['notify_editor_sample_banner_text'] = 'Berita besar muncul di sini'
+t['notify_editor_saved'] = 'Tata letak notifikasi disimpan.'
+t['notify_editor_reset_done'] = 'Tata letak notifikasi dikembalikan ke bawaan server.'

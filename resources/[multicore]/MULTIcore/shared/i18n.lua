@@ -16,8 +16,10 @@
 --
 -- Language choice (first one set wins):
 --   1. Config.Locale in the script's config.lua  (e.g. 'de')
---   2. server.cfg:  setr multicore_locale de    (all MULTI scripts at once)
+--   2. MULTIConfig.Language in MULTIcore/config_multi.lua (all MULTI scripts at once;
+--      MULTIcore copies it to the convar multicore_locale; '' = server.cfg setr multicore_locale)
 --   3. 'en'
+-- Languages shipped: en de fr es pt-br it pl ru nl tr ro cs hu uk bg el sv da no fi pt sk hr sr sl zh ja ko ar id vi th
 -- A missing line falls back to English, then to the key itself, so a
 -- half-finished translation never breaks a script.
 --
@@ -55,5 +57,12 @@ function _LT()
     return out
 end
 
---- The language code in use (for NUI, e.g. to switch to the Cyrillic font preset for 'ru').
+--- The language code in use (for NUI, e.g. to switch to the plain font preset).
 function _LCode() return lang() end
+
+-- Languages whose letters the game fonts do not have: NUI pages swap to the plain
+-- font preset (class mc-cyrillic) for these.
+local PLAIN = { ru = true, uk = true, bg = true, el = true, zh = true, ja = true, ko = true, ar = true, th = true, vi = true }
+
+--- true when the language in use needs the plain font preset (Cyrillic, Greek, Asian, Arabic ...).
+function _LPlainFont(code) return PLAIN[code or lang()] == true end

@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['fi'] = {
+    ['placeholder'] = "Kirjoita viesti tai /komento",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s yrittää: %s",
+    ['try_ok'] = "ja onnistuu",
+    ['try_fail'] = "ja epäonnistuu",
+    ['need_text'] = "Kirjoita komennon perään, mitä tapahtuu.",
+    ['too_fast'] = "Hiljennä vähän tahtia.",
+    ['plain_off'] = "Pelkkä teksti ei ole täällä käytössä. Käytä /me, /do tai /ooc.",
+    ['unknown_command'] = "Tuntematon komento: /%s",
+    ['chat_shown'] = "Chat näkyvissä.",
+    ['help_me'] = "Kuvaile, mitä hahmosi tekee",
+    ['help_do'] = "Kuvaile hahmosi ympäristöä",
+    ['help_try'] = "Yritä jotain: onnistuu tai epäonnistuu sattumalta",
+    ['help_clear'] = "Tyhjennä chat",
+    ['help_hide'] = "Piilota tai näytä chat",
+    ['param_action'] = "toiminto",
+    ['param_text'] = "teksti",
+}

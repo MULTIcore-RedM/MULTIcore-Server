@@ -69,7 +69,7 @@
         S.spawnPresets = d.spawnPresets || { horses: [], wagons: [] };
         S.world = d.world || {};
         S.ui = Object.assign(S.ui, d.ui || {});
-        $('#app').classList.toggle('mc-cyrillic', d.localeCode === 'ru');
+        $('#app').classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(d.localeCode));
         translatePage();
         $('#level').textContent = T(d.level === 'admin' ? 'level_admin' : 'level_mod');
         applyPerms();

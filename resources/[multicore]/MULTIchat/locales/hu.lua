@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['hu'] = {
+    ['placeholder'] = "Írj üzenetet vagy /parancsot",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s megpróbálja: %s",
+    ['try_ok'] = "és sikerül",
+    ['try_fail'] = "és nem sikerül",
+    ['need_text'] = "Írd a parancs után, mi történik.",
+    ['too_fast'] = "Lassíts egy kicsit.",
+    ['plain_off'] = "Itt nincs sima szöveg. Használd a /me, /do vagy /ooc parancsot.",
+    ['unknown_command'] = "Ismeretlen parancs: /%s",
+    ['chat_shown'] = "Chat megjelenítve.",
+    ['help_me'] = "Írd le, mit csinál a karaktered",
+    ['help_do'] = "Írd le, mi van a karaktered körül",
+    ['help_try'] = "Próbálj meg valamit: a szerencsén múlik",
+    ['help_clear'] = "Chat törlése",
+    ['help_hide'] = "Chat elrejtése vagy megjelenítése",
+    ['param_action'] = "cselekvés",
+    ['param_text'] = "szöveg",
+}

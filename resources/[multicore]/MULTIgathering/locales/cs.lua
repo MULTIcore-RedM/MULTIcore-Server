@@ -1,0 +1,57 @@
+-- MULTIgathering: Čeština
+Locales = Locales or {}
+Locales['cs'] = {
+    -- results
+    ['found'] = "Nasbíral jsi: %s",
+    ['found_nothing_mining'] = "Tentokrát jen prach.",
+    ['found_nothing_lumber'] = "Dřevo se špatně rozštíplo. Nic k ponechání.",
+    ['found_nothing_panning'] = "V pánvi jen písek a štěrk.",
+    ['caught'] = "Nechal sis: %s (%.2f kg).",
+    ['picked'] = "Natrhal jsi: %s",
+    -- refusals
+    ['need_tool'] = "Na to potřebuješ: %s.",
+    ['need_bait'] = "Už ti nezbývá: %s.",
+    ['need_rod'] = "Nejdřív vezmi do ruky prut.",
+    ['no_cast'] = "Ta ryba nebyla na tvé návnadě.",
+    ['inventory_full'] = "Brašnu máš plnou.",
+    ['depleted'] = "Tohle místo je vytěžené. Vrať se později.",
+    ['too_far'] = "Vzdálil ses od práce.",
+    ['cooldown'] = "Nejdřív popadni dech.",
+    ['no_zone'] = "Tady není nic k vzetí.",
+    ['busy'] = "Už pracuješ.",
+    ['tool_broke'] = "Rozbilo se ti: %s.",
+    ['already_picked'] = "Tuhle rostlinu už někdo natrhal.",
+    ['already_fishing'] = "Už rybaříš.",
+    ['on_foot'] = "Nejdřív sesedni a postav se na vlastní nohy.",
+    ['need_water'] = "Pro rýžování zlata se postav do řeky nebo potoka.",
+    -- work
+    ['work_mining'] = "Lámeš kámen...",
+    ['work_lumber'] = "Štípeš dřevo...",
+    ['work_panning'] = "Propíráš štěrk...",
+    ['prompt_mine'] = "Těžit",
+    ['prompt_chop'] = "Štípat dřevo",
+    ['target_chop'] = "Štípat dřevo",
+    -- fishing prompts
+    ['fish_ready'] = "Připraven rybařit",
+    ['fish_waiting'] = "Rybaříš",
+    ['fish_hooked'] = "Vytáhni rybu",
+    ['fish_caught'] = "Ryba na háčku (%.2f kg)",
+    ['fish_prepare'] = "Připravit prut",
+    ['fish_cast'] = "Nahodit",
+    ['fish_hook'] = "Zaseknout",
+    ['fish_reset'] = "Navinout vlasec",
+    ['fish_reel_lure'] = "Navíjet nástrahu",
+    ['fish_reel_in'] = "Navinout",
+    ['fish_keep'] = "Nechat si",
+    ['fish_throw'] = "Pustit zpět",
+    -- places
+    ['mine_annesburg'] = "Důl Annesburg",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Lesy u Strawberry",
+    ['zone_bigvalley'] = "Lesy Big Valley",
+    ['zone_scarlett'] = "Lesy Scarlett Meadows",
+    ['zone_roanoke'] = "Lesy Roanoke",
+    -- admin
+    ['cmd_gatherspot'] = "Vypíše řádek sběrného místa tam, kde stojíš",
+    ['spot_line'] = "Řádek místa (i v F8): %s",
+}

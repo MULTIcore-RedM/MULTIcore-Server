@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['ko'] or {}
+Locales['ko'] = t
+t['notify_title_info']    = '알림'
+t['notify_title_success'] = '완료'
+t['notify_title_error']   = '실패'
+t['notify_title_warning'] = '경고'
+t['notify_title_money']   = '돈'
+t['notify_title_gold']    = '금'
+t['notify_title_job']     = '일'
+t['notify_title_police']  = '보안관'
+t['notify_title_medic']   = '의사'
+
+-- /notifylayout editor
+t['notify_editor_help'] = '알림을 원하는 위치로 끌어다 놓으세요. 마우스 휠: 크게 또는 작게. Shift + 휠: 넓게 또는 좁게.'
+t['notify_editor_save'] = '저장'
+t['notify_editor_cancel'] = '취소'
+t['notify_editor_reset'] = '서버 기본값'
+t['notify_editor_toast'] = '메시지'
+t['notify_editor_tip'] = '도움말'
+t['notify_editor_objective'] = '목표'
+t['notify_editor_banner'] = '배너'
+t['notify_editor_sample_title'] = '알림'
+t['notify_editor_sample_text'] = '메시지는 이렇게 보입니다.'
+t['notify_editor_sample_tip'] = '도움말이 여기에 표시됩니다.'
+t['notify_editor_sample_objective'] = '목표가 여기에 표시됩니다.'
+t['notify_editor_sample_banner'] = '배너'
+t['notify_editor_sample_banner_text'] = '큰 소식이 여기에 표시됩니다'
+t['notify_editor_saved'] = '알림 배치를 저장했습니다.'
+t['notify_editor_reset_done'] = '알림 배치를 서버 기본값으로 되돌렸습니다.'

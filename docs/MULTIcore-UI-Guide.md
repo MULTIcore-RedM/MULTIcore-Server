@@ -37,7 +37,7 @@ Red Dead Redemption 2's own menus: **black see-through panels, white lettering, 
 5. **Sizes go through `--mc-scale`:** `calc(440px * var(--mc-scale))`, so a server owner can make every MULTI screen bigger at once.
 6. **Prefix your own classes** with two letters for your script (`mx-col`, `mx-row`), so they never clash with `mc-` theme classes.
 7. **Ship an empty, commented `html/custom.css`** and list it in `files {}`.
-8. **No words in the HTML or JS.** Every visible word comes from the locale table Lua sends (`_LT()`); mark elements with `data-l="key"` and fill them in JS. Add `mc-cyrillic` to the root when the language is `ru`.
+8. **No words in the HTML or JS.** Every visible word comes from the locale table Lua sends (`_LT()`); mark elements with `data-l="key"` and fill them in JS. Add `mc-cyrillic` to the root when `_LPlainFont()` is true (ru uk bg el zh ja ko ar th vi).
 9. **Player text goes in with `textContent`, never `innerHTML`.**
 10. **Hide with `mc-hidden`.** Fade in once with `mc-fade`. Nothing animates forever.
 11. **Placement:**

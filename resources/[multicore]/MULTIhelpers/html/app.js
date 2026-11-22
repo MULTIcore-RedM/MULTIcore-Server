@@ -66,7 +66,7 @@
         RESERVED = {};
         Object.keys(KEYS).forEach(function (n) { RESERVED[KEYS[n]] = n; });
         GRID_COLS = Math.max(1, Number(CFG.menu.gridColumns) || 4);
-        document.querySelectorAll('.mc-root').forEach(function (r) { r.classList.toggle('mc-cyrillic', s.lang === 'ru'); });
+        document.querySelectorAll('.mc-root').forEach(function (r) { r.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(s.lang)); });
         var root = document.documentElement.style;
         if (CFG.menu.offsetTop) root.setProperty('--mh-menu-top', CFG.menu.offsetTop);
         if (CFG.menu.offsetSide) root.setProperty('--mh-menu-side', CFG.menu.offsetSide);

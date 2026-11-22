@@ -27,8 +27,8 @@
         document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = t(el.getAttribute('data-t')); });
         document.querySelectorAll('[data-ph]').forEach(function (el) { el.placeholder = t(el.getAttribute('data-ph')); });
         if (data && data.lang) {
-            ui.classList.toggle('mc-cyrillic', data.lang === 'ru');
-            toastStack.classList.toggle('mc-cyrillic', data.lang === 'ru');
+            ui.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(data.lang));
+            toastStack.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(data.lang));
         }
     }
 

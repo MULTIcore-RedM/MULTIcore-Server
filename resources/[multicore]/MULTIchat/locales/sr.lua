@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['sr'] = {
+    ['placeholder'] = "Napiši poruku ili /komandu",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s pokušava da %s",
+    ['try_ok'] = "i uspeva",
+    ['try_fail'] = "i ne uspeva",
+    ['need_text'] = "Napiši šta se dešava posle komande.",
+    ['too_fast'] = "Malo uspori.",
+    ['plain_off'] = "Običan tekst je ovde isključen. Koristi /me, /do ili /ooc.",
+    ['unknown_command'] = "Nepoznata komanda: /%s",
+    ['chat_shown'] = "Čet je prikazan.",
+    ['help_me'] = "Opiši šta tvoj lik radi",
+    ['help_do'] = "Opiši šta je oko tvog lika",
+    ['help_try'] = "Pokušaj nešto: uspeh ili neuspeh je slučajan",
+    ['help_clear'] = "Očisti svoj čet",
+    ['help_hide'] = "Sakrij ili prikaži čet",
+    ['param_action'] = "radnja",
+    ['param_text'] = "tekst",
+}

@@ -22,7 +22,7 @@
         document.querySelectorAll('[data-ph]').forEach(function (el) { el.placeholder = t(el.getAttribute('data-ph')); });
         document.querySelectorAll('[data-title]').forEach(function (el) { el.title = t(el.getAttribute('data-title')); });
         if (data && data.lang) {
-            document.querySelectorAll('.mc-root').forEach(function (el) { el.classList.toggle('mc-cyrillic', data.lang === 'ru'); });
+            document.querySelectorAll('.mc-root').forEach(function (el) { el.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(data.lang)); });
         }
     }
 

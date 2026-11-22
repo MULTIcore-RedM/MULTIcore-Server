@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['el'] or {}
+Locales['el'] = t
+t['notify_title_info']    = 'Ειδοποίηση'
+t['notify_title_success'] = 'Έγινε'
+t['notify_title_error']   = 'Απέτυχε'
+t['notify_title_warning'] = 'Προσοχή'
+t['notify_title_money']   = 'Χρήματα'
+t['notify_title_gold']    = 'Χρυσός'
+t['notify_title_job']     = 'Δουλειά'
+t['notify_title_police']  = 'Σερίφης'
+t['notify_title_medic']   = 'Γιατρός'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Σύρε κάθε ειδοποίηση όπου τη θέλεις. Ροδέλα: μεγαλύτερη ή μικρότερη. Shift + ροδέλα: φαρδύτερη ή στενότερη.'
+t['notify_editor_save'] = 'Αποθήκευση'
+t['notify_editor_cancel'] = 'Άκυρο'
+t['notify_editor_reset'] = 'Προεπιλογή server'
+t['notify_editor_toast'] = 'Μηνύματα'
+t['notify_editor_tip'] = 'Συμβουλές'
+t['notify_editor_objective'] = 'Στόχος'
+t['notify_editor_banner'] = 'Banner'
+t['notify_editor_sample_title'] = 'Ειδοποίηση'
+t['notify_editor_sample_text'] = 'Έτσι φαίνονται τα μηνύματά σου.'
+t['notify_editor_sample_tip'] = 'Εδώ εμφανίζεται μια συμβουλή.'
+t['notify_editor_sample_objective'] = 'Εδώ εμφανίζεται ο στόχος σου.'
+t['notify_editor_sample_banner'] = 'Banner'
+t['notify_editor_sample_banner_text'] = 'Εδώ εμφανίζονται τα μεγάλα νέα'
+t['notify_editor_saved'] = 'Η διάταξη ειδοποιήσεων αποθηκεύτηκε.'
+t['notify_editor_reset_done'] = 'Η διάταξη ειδοποιήσεων επανήλθε στην προεπιλογή του server.'

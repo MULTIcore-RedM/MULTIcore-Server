@@ -212,7 +212,7 @@
                 input.maxLength = Number(m.maxLength) || 256;
                 input.placeholder = text.placeholder || '';
                 root.style.setProperty('--mch-scale', Number(m.scale) || 1);
-                root.classList.toggle('mc-cyrillic', m.lang === 'ru');
+                root.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(m.lang));
                 Object.keys(m.styles || {}).forEach(function (k) {
                     var s = m.styles[k] || {};
                     ['text', 'bg', 'good', 'bad'].forEach(function (f) {

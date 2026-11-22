@@ -1,0 +1,81 @@
+-- MULTIserver: Magyar
+Locales = Locales or {}
+Locales['hu'] = {
+    -- general
+    ['title'] = 'Szerver',
+    ['no_permission'] = 'Ezt nem teheted meg.',
+    ['pagedown_refused'] = 'A PageDown sosincs kiosztva. Válassz másik billentyűt a config.lua-ban.',
+    ['key_players'] = 'Játékoslista',
+    ['key_info'] = 'Szerver infó',
+
+    -- logs
+    ['log_queue_full'] = 'A napló sor megtelt, a legrégebbi bejegyzés elveszett (%s).',
+    ['log_gave_up'] = 'A(z) "%s" naplót nem sikerült elküldeni Discordra (állapot %s), eldobva.',
+    ['log_refused'] = 'A Discord elutasította a(z) "%s" naplót (állapot %s). Ellenőrizd a webhookot a(z) %s convarban.',
+    ['log_from_client'] = 'Küldte %s játéka [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'senki',
+    ['log_char_created_title'] = 'Karakter létrehozva',
+    ['log_char_created'] = '%s új karaktert készített, polgár azonosító: **%s**.',
+    ['log_jailed_title'] = 'Börtönbe zárva',
+    ['log_jailed'] = '%s börtönbe került %s percre (%s), elzárta: %s.',
+    ['log_released_title'] = 'Szabadon engedve',
+    ['log_released'] = '%s szabadult (polgár azonosító %s).',
+    ['log_test_title'] = 'Teszt napló',
+    ['log_test_message'] = 'Ez a(z) "%s" napló tesztje.',
+    ['log_test_sent'] = 'Teszt napló "%s" elküldve (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Fehérlista ellenőrzése...',
+    ['wl_refused'] = 'Nem vagy rajta a szerver fehérlistáján. Kérd meg a stábot, hogy vegyenek fel.',
+    ['wl_db_error'] = 'A fehérlistát nem sikerült ellenőrizni. Próbáld újra egy perc múlva.',
+    ['wl_usage_add'] = 'Használat: /%s <szerver id vagy azonosító> [megjegyzés]',
+    ['wl_usage_remove'] = 'Használat: /%s <szerver id vagy azonosító>',
+    ['wl_usage_check'] = 'Használat: /%s <szerver id vagy azonosító>',
+    ['wl_added'] = '%s felvéve a fehérlistára.',
+    ['wl_removed'] = '%s törölve a fehérlistáról.',
+    ['wl_bad_identifier'] = 'A(z) "%s" nem olyan azonosító, amit a fehérlista elfogad (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s már rajta van a fehérlistán.',
+    ['wl_missing'] = '%s nincs rajta a fehérlistán.',
+    ['wl_is_listed'] = '%s rajta van a fehérlistán. Megjegyzés: %s',
+    ['wl_not_listed'] = '%s nincs rajta a fehérlistán.',
+    ['wl_log_title'] = 'Fehérlista',
+    ['wl_log_added'] = '**%s** felvéve, felvette: %s.',
+    ['wl_log_removed'] = '**%s** törölve, törölte: %s.',
+
+    -- queue
+    ['queue_checking'] = 'Szabad hely keresése...',
+    ['queue_title'] = 'A szerver tele van',
+    ['queue_text'] = 'A szerver tele van. A sorban %s. vagy a(z) %s közül.',
+    ['queue_position'] = 'A sorban %s. vagy a(z) %s közül.',
+    ['queue_priority'] = 'Elsőbbség: %s.',
+    ['queue_wait'] = 'Kérlek, várj, amint felszabadul egy hely, beengedünk.',
+
+    -- server info
+    ['info_default_desc'] = 'Üdv a szerveren. Légy kedves a többi játékossal, és érezd jól magad.',
+
+    -- page
+    ['ui_players_title'] = 'Játékosok',
+    ['ui_search'] = 'Keresés',
+    ['ui_refresh'] = 'Frissítés',
+    ['ui_close'] = 'Bezárás',
+    ['ui_count'] = '%s / %s online',
+    ['ui_count_only'] = '%s online',
+    ['ui_staff_view'] = 'Stáb nézet',
+    ['ui_no_match'] = 'Nincs találat.',
+    ['ui_nobody'] = 'Senki sincs online.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Név',
+    ['ui_col_char'] = 'Karakter',
+    ['ui_col_job'] = 'Munka',
+    ['ui_col_citizenid'] = 'Polgár ID',
+    ['ui_col_license'] = 'Licenc',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Szabályok',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Weboldal',
+    ['ui_copy'] = 'Másolás',
+    ['ui_copied'] = 'Másolva.',
+    ['ui_copy_failed'] = 'Nem sikerült másolni. Írd le a képernyőről.',
+}

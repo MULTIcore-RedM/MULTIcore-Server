@@ -1,0 +1,57 @@
+-- MULTIgathering: Suomi
+Locales = Locales or {}
+Locales['fi'] = {
+    -- results
+    ['found'] = "Keräsit: %s",
+    ['found_nothing_mining'] = "Pelkkää pölyä tällä kertaa.",
+    ['found_nothing_lumber'] = "Puu halkesi huonosti. Ei mitään talteen otettavaa.",
+    ['found_nothing_panning'] = "Vaskoolissa pelkkää hiekkaa ja soraa.",
+    ['caught'] = "Pidit kalan: %s (%.2f kg).",
+    ['picked'] = "Poimit: %s",
+    -- refusals
+    ['need_tool'] = "Tarvitset siihen: %s.",
+    ['need_bait'] = "Sinulla ei ole enää syöttiä: %s.",
+    ['need_rod'] = "Ota ensin onki käteen.",
+    ['no_cast'] = "Se kala ei ollut syötissäsi.",
+    ['inventory_full'] = "Laukkusi on täynnä.",
+    ['depleted'] = "Tämä paikka on tyhjennetty. Tule myöhemmin uudestaan.",
+    ['too_far'] = "Siirryit pois työsi luota.",
+    ['cooldown'] = "Vedä ensin henkeä.",
+    ['no_zone'] = "Täältä ei saa mitään arvokasta.",
+    ['busy'] = "Olet jo töissä.",
+    ['tool_broke'] = "Välineesi meni rikki: %s.",
+    ['already_picked'] = "Joku poimi tämän kasvin jo.",
+    ['already_fishing'] = "Kalastat jo.",
+    ['on_foot'] = "Laskeudu ensin omille jaloillesi.",
+    ['need_water'] = "Seiso joessa tai purossa vaskataksesi kultaa.",
+    -- work
+    ['work_mining'] = "Louhitaan kiveä...",
+    ['work_lumber'] = "Hakataan puita...",
+    ['work_panning'] = "Huuhdotaan soraa...",
+    ['prompt_mine'] = "Louhi",
+    ['prompt_chop'] = "Hakkaa puuta",
+    ['target_chop'] = "Hakkaa puuta",
+    -- fishing prompts
+    ['fish_ready'] = "Valmiina kalastamaan",
+    ['fish_waiting'] = "Kalastetaan",
+    ['fish_hooked'] = "Vedä kala sisään",
+    ['fish_caught'] = "Kala koukussa (%.2f kg)",
+    ['fish_prepare'] = "Valmistele vapa",
+    ['fish_cast'] = "Heitä",
+    ['fish_hook'] = "Tartuta",
+    ['fish_reset'] = "Kelaa siima sisään",
+    ['fish_reel_lure'] = "Kelaa uistinta",
+    ['fish_reel_in'] = "Kelaa sisään",
+    ['fish_keep'] = "Pidä",
+    ['fish_throw'] = "Päästä vapaaksi",
+    -- places
+    ['mine_annesburg'] = "Annesburgin kaivos",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Strawberryn metsät",
+    ['zone_bigvalley'] = "Big Valleyn metsät",
+    ['zone_scarlett'] = "Scarlett Meadowsin metsät",
+    ['zone_roanoke'] = "Roanoken metsät",
+    -- admin
+    ['cmd_gatherspot'] = "Tulosta keräyspaikan rivi sijainnistasi",
+    ['spot_line'] = "Paikkarivi (myös F8:ssa): %s",
+}

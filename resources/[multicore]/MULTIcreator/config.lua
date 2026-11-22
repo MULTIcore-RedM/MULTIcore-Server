@@ -9,7 +9,7 @@ Config = {}
 
 Config.Debug = false               -- print extra info to the F8 / server console
 Config.DebugReport = false         -- true = the creator reports its state (ped, room, camera) to the server console
-Config.Locale = ''                -- language for this script ('' = server-wide setr multicore_locale, else 'en'); texts are in locales/*.lua
+Config.Locale = ''                -- language for this script ('' = MULTIcore's language (MULTIConfig.Language), else 'en'); texts are in locales/*.lua
 
 -- ---------------------------------------------------------------
 -- Creator room (where a new character is built)

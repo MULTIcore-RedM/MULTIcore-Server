@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['sr'] or {}
+Locales['sr'] = t
+t['notify_title_info']    = 'Obaveštenje'
+t['notify_title_success'] = 'Gotovo'
+t['notify_title_error']   = 'Neuspeh'
+t['notify_title_warning'] = 'Upozorenje'
+t['notify_title_money']   = 'Novac'
+t['notify_title_gold']    = 'Zlato'
+t['notify_title_job']     = 'Posao'
+t['notify_title_police']  = 'Šerif'
+t['notify_title_medic']   = 'Doktor'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Prevuci svako obaveštenje gde želiš. Točkić: veće ili manje. Shift + točkić: šire ili uže.'
+t['notify_editor_save'] = 'Sačuvaj'
+t['notify_editor_cancel'] = 'Otkaži'
+t['notify_editor_reset'] = 'Podrazumevano'
+t['notify_editor_toast'] = 'Poruke'
+t['notify_editor_tip'] = 'Saveti'
+t['notify_editor_objective'] = 'Cilj'
+t['notify_editor_banner'] = 'Baner'
+t['notify_editor_sample_title'] = 'Obaveštenje'
+t['notify_editor_sample_text'] = 'Ovako izgledaju tvoje poruke.'
+t['notify_editor_sample_tip'] = 'Ovde se prikazuje savet.'
+t['notify_editor_sample_objective'] = 'Ovde se prikazuje tvoj cilj.'
+t['notify_editor_sample_banner'] = 'Baner'
+t['notify_editor_sample_banner_text'] = 'Ovde se prikazuju velike vesti'
+t['notify_editor_saved'] = 'Raspored obaveštenja je sačuvan.'
+t['notify_editor_reset_done'] = 'Raspored obaveštenja je vraćen na podrazumevani za server.'

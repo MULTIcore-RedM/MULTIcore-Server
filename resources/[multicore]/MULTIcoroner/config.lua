@@ -4,7 +4,7 @@
 -- ============================================================
 Config = {}
 
-Config.Locale = ''                  -- language for this script ('de', 'fr' ...); empty = server-wide setr multicore_locale, else English
+Config.Locale = ''                  -- language for this script ('de', 'fr' ...); empty = MULTIcore's language (MULTIConfig.Language), else English
 Config.Debug = false                -- prints target, access and SQL checks to the console; /coronerdebug (admins) prints a summary
 
 ---------------------------------

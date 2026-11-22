@@ -55,6 +55,7 @@ client_scripts {
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
+    'server/multi/language.lua', -- MULTIConfig.Language -> setr multicore_locale (before anything reads it)
     'server/main.lua',
     'server/multi/schema.lua',
     'server/functions.lua',

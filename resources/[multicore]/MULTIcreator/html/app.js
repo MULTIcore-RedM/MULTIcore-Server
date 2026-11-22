@@ -28,6 +28,10 @@
     let D = null;        // data from the client
     let C = {};          // config from the client
     let mode = 'create';
+    let undressed = false;   // 'Undress' button: the character is shown without clothes (the saved look keeps them)
+    let undressBtn = null;
+    function showUndressBtn() { if (undressBtn) { undressBtn.textContent = t(undressed ? 'btn_dress' : 'btn_undress'); undressBtn.classList.toggle('active', undressed); } }
+    const shownLook = () => undressed ? Object.assign({}, look, { comps: {} }) : look;
     let look = null;     // { skin, comps }
     let info = {};
     let ui = {};         // menu positions that are not stored in the look (tone, shape, style ...)
@@ -135,11 +139,12 @@
     // ---------------------------------------------------------------
 
     function queue(kind) {
+        if (kind === 'comps' && undressed) { undressed = false; kind = 'all'; showUndressBtn(); }   // changing clothes puts them back on
         applyKind = (applyKind && applyKind !== kind) ? 'all' : kind;
         clearTimeout(applyTimer);
         applyTimer = setTimeout(() => {
             const k = applyKind; applyKind = null;
-            post('apply', { kind: k, look: look });
+            post('apply', { kind: k, look: shownLook() });
         }, C.applyDelay || 0);
     }
 
@@ -257,7 +262,7 @@
         busy = true;
         defaultLook(sx);
         info.gender = sx;
-        post('sex', { sex: sx, look: look }).then(() => { busy = false; draw(); });
+        post('sex', { sex: sx, look: shownLook() }).then(() => { busy = false; draw(); });
         draw();
     }
 
@@ -544,6 +549,11 @@
             b.onclick = () => { camZone = z; post('camera', { zone: z }); w.querySelectorAll('.mc-btn').forEach((x) => x.classList.toggle('active', x === b)); };
             w.appendChild(b);
         });
+        if (mode !== 'barber') {
+            undressBtn = el('button', 'mc-btn small');
+            undressBtn.onclick = () => { undressed = !undressed; showUndressBtn(); post('apply', { kind: 'comps', look: shownLook() }); };
+            w.appendChild(undressBtn); showUndressBtn();
+        }
         $('hints').innerHTML = '';
         [['A / D', t('hint_rotate')], ['⇔', t('hint_drag')], ['↕', t('hint_zoom')]].forEach(([k, txt]) => {
             const s = el('span'); s.append(el('span', 'mc-key', k), document.createTextNode(txt + '  '));
@@ -585,9 +595,10 @@
     }
 
     function open(msg) {
+        undressed = false; undressBtn = null;
         L = msg.locale || {};
         D = msg.data; C = msg.config || {}; mode = msg.mode === 'barber' ? 'barber' : 'create';
-        document.getElementById('app').classList.toggle('mc-cyrillic', msg.lang === 'ru');
+        document.getElementById('app').classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(msg.lang));
         busy = false; cancelArmed = false; ovSel = null; $('error').textContent = '';
         $('btn-finish').disabled = false;
         if (msg.look && msg.look.skin) {
@@ -599,7 +610,7 @@
             readUi();
         } else {
             defaultLook(msg.sex === 'female' ? 'female' : 'male');
-            post('apply', { kind: 'all', look: look });
+            post('apply', { kind: 'all', look: shownLook() });
         }
         info = { gender: look.skin.sex, age: '', birthdate: '' };
         labels();

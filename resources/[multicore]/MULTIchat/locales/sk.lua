@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['sk'] = {
+    ['placeholder'] = "Napíš správu alebo /príkaz",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s skúša %s",
+    ['try_ok'] = "a darí sa",
+    ['try_fail'] = "a nedarí sa",
+    ['need_text'] = "Napíš za príkaz, čo sa deje.",
+    ['too_fast'] = "Trochu spomaľ.",
+    ['plain_off'] = "Obyčajný text je tu vypnutý. Použi /me, /do alebo /ooc.",
+    ['unknown_command'] = "Neznámy príkaz: /%s",
+    ['chat_shown'] = "Chat zobrazený.",
+    ['help_me'] = "Opíš, čo robí tvoja postava",
+    ['help_do'] = "Opíš, čo je okolo tvojej postavy",
+    ['help_try'] = "Skús niečo: podarí sa alebo nie náhodou",
+    ['help_clear'] = "Vyčistiť chat",
+    ['help_hide'] = "Skryť alebo zobraziť chat",
+    ['param_action'] = "akcia",
+    ['param_text'] = "text",
+}

@@ -139,7 +139,7 @@
         const want = d.tab ? tabs.indexOf(d.tab) : -1;
         tab = want >= 0 ? want : (data.favs.length ? 0 : 1);
         sel = 0;
-        root.classList.toggle('mc-cyrillic', d.lang === 'ru');
+        root.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(d.lang));
         applyLocale();
         $('stopKey').textContent = d.cancelKey || '';
         $('stopPrompt').classList.toggle('mc-hidden', !d.cancelKey);

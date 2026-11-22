@@ -1,0 +1,57 @@
+-- MULTIgathering: Indonesian
+Locales = Locales or {}
+Locales['id'] = {
+    -- results
+    ['found'] = "Kamu mengumpulkan: %s",
+    ['found_nothing_mining'] = "Kali ini cuma debu.",
+    ['found_nothing_lumber'] = "Kayunya terbelah buruk. Tak ada yang layak disimpan.",
+    ['found_nothing_panning'] = "Cuma pasir dan kerikil di wajan.",
+    ['caught'] = "Kamu menyimpan %s (%.2f kg).",
+    ['picked'] = "Kamu memetik: %s",
+    -- refusals
+    ['need_tool'] = "Kamu butuh %s untuk itu.",
+    ['need_bait'] = "%s-mu sudah habis.",
+    ['need_rod'] = "Pegang dulu joran pancingmu.",
+    ['no_cast'] = "Ikan itu tidak memakan umpanmu.",
+    ['inventory_full'] = "Tasmu penuh.",
+    ['depleted'] = "Tempat ini sudah habis. Kembali nanti.",
+    ['too_far'] = "Kamu menjauh dari pekerjaanmu.",
+    ['cooldown'] = "Tarik napas dulu.",
+    ['no_zone'] = "Tak ada yang layak diambil di sini.",
+    ['busy'] = "Kamu sedang bekerja.",
+    ['tool_broke'] = "%s-mu rusak.",
+    ['already_picked'] = "Tanaman ini sudah dipetik orang.",
+    ['already_fishing'] = "Kamu sedang memancing.",
+    ['on_foot'] = "Turun dulu dan berdiri di atas kakimu sendiri.",
+    ['need_water'] = "Berdirilah di sungai atau kali untuk mendulang emas.",
+    -- work
+    ['work_mining'] = "Memecah batu...",
+    ['work_lumber'] = "Menebang kayu...",
+    ['work_panning'] = "Mencuci kerikil...",
+    ['prompt_mine'] = "Tambang",
+    ['prompt_chop'] = "Tebang kayu",
+    ['target_chop'] = "Tebang kayu",
+    -- fishing prompts
+    ['fish_ready'] = "Siap memancing",
+    ['fish_waiting'] = "Memancing",
+    ['fish_hooked'] = "Tarik ikannya",
+    ['fish_caught'] = "Ikan di kail (%.2f kg)",
+    ['fish_prepare'] = "Siapkan joran",
+    ['fish_cast'] = "Lempar",
+    ['fish_hook'] = "Sentak kail",
+    ['fish_reset'] = "Gulung tali",
+    ['fish_reel_lure'] = "Gulung umpan",
+    ['fish_reel_in'] = "Gulung",
+    ['fish_keep'] = "Simpan",
+    ['fish_throw'] = "Lepaskan",
+    -- places
+    ['mine_annesburg'] = "Tambang Annesburg",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Hutan Kayu Strawberry",
+    ['zone_bigvalley'] = "Hutan Kayu Big Valley",
+    ['zone_scarlett'] = "Hutan Kayu Scarlett Meadows",
+    ['zone_roanoke'] = "Hutan Kayu Roanoke",
+    -- admin
+    ['cmd_gatherspot'] = "Cetak baris tempat pengumpulan untuk posisimu",
+    ['spot_line'] = "Baris tempat (juga di F8): %s",
+}

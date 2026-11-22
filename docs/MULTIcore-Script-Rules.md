@@ -36,8 +36,8 @@ The full UI rules, every theme class and a working example menu are in `MULTIcor
 ## Text
 
 - **No text in code.** Every line goes in `locales/en.lua` (the master) as `['key'] = "Sold %s nuggets"`, then `_L('key', 3)` in Lua and `_LT()` to send all lines to your NUI page.
-- Ship all 10 languages with the same keys: `en, de, fr, es, pt-br, it, pl, ru, nl, tr`. A missing line falls back to English.
-- Put the class `mc-cyrillic` on your NUI root when the language is `ru`.
+- Ship the 32 languages with the same keys: `en de fr es pt-br pt it pl ru nl tr ro cs hu uk bg el sv da no fi sk hr sr sl zh ja ko ar id vi th`. A missing line falls back to English.
+- Put the class `mc-cyrillic` on your NUI root when `_LPlainFont()` is true (ru uk bg el zh ja ko ar th vi: the game fonts lack those letters).
 
 ## Settings
 

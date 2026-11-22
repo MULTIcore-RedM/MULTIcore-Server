@@ -5,7 +5,7 @@
 MULTIcore runs RSG and VORP scripts unchanged. It also has its own short API for scripts made **only for MULTIcore**. A MULTIcore script:
 
 - needs no SQL file (items register themselves at start),
-- speaks 10 languages through `_L('key')`,
+- speaks 32 languages through `_L('key')`,
 - matches every other MULTI script's look (black panels, white text, game fonts),
 - uses MULTItarget (MULTIcore's target system) for world interaction, with hold-key prompts as fallback.
 
@@ -114,7 +114,7 @@ end, function() if zone then MCI.RemoveZone(zone) end MCI.RemovePrompt('my_count
 
 ## Text and settings
 - **No text in code.** Every line goes in `locales/en.lua` (the master) as `['key'] = 'Sold %s nuggets'`, then `_L('key', 3)`. Ship `de, fr, es, pt-br, it, pl, ru, nl, tr` with the same keys; a missing line falls back to English.
-- **Language:** `Config.Locale = 'de'` for one script, or `setr multicore_locale de` in server.cfg for all.
+- **Language:** `Config.Locale = 'de'` for one script, or `MULTIConfig.Language = 'de'` in `MULTIcore/config_multi.lua` for all (32 languages, codes listed there). `_LPlainFont()` says whether NUI should use the plain font preset.
 - **Settings:** everything a server owner might change goes in a commented `config.lua`, one line each.
 - **Look:** for your own NUI page, link `nui://MULTIcore/html/theme/multi.css` first and an empty `custom.css` last. For small menus use ox_lib (`lib.registerContext`, `lib.inputDialog`).
 

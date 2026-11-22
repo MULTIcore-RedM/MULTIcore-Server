@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['sv'] or {}
+Locales['sv'] = t
+t['notify_title_info']    = 'Meddelande'
+t['notify_title_success'] = 'Klart'
+t['notify_title_error']   = 'Misslyckades'
+t['notify_title_warning'] = 'Varning'
+t['notify_title_money']   = 'Pengar'
+t['notify_title_gold']    = 'Guld'
+t['notify_title_job']     = 'Arbete'
+t['notify_title_police']  = 'Sheriff'
+t['notify_title_medic']   = 'Doktor'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Dra varje meddelande dit du vill ha det. Mushjul: större eller mindre. Shift + hjul: bredare eller smalare.'
+t['notify_editor_save'] = 'Spara'
+t['notify_editor_cancel'] = 'Avbryt'
+t['notify_editor_reset'] = 'Serverstandard'
+t['notify_editor_toast'] = 'Meddelanden'
+t['notify_editor_tip'] = 'Tips'
+t['notify_editor_objective'] = 'Mål'
+t['notify_editor_banner'] = 'Banderoll'
+t['notify_editor_sample_title'] = 'Meddelande'
+t['notify_editor_sample_text'] = 'Så här ser dina meddelanden ut.'
+t['notify_editor_sample_tip'] = 'Ett tips visas här.'
+t['notify_editor_sample_objective'] = 'Ditt mål visas här.'
+t['notify_editor_sample_banner'] = 'Banderoll'
+t['notify_editor_sample_banner_text'] = 'Stora nyheter visas här'
+t['notify_editor_saved'] = 'Meddelandelayout sparad.'
+t['notify_editor_reset_done'] = 'Meddelandelayouten återställd till serverstandard.'

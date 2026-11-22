@@ -1,0 +1,57 @@
+-- MULTIgathering: 한국어
+Locales = Locales or {}
+Locales['ko'] = {
+    -- results
+    ['found'] = "채집함: %s",
+    ['found_nothing_mining'] = "이번엔 먼지뿐입니다.",
+    ['found_nothing_lumber'] = "나무가 엉망으로 쪼개졌습니다. 쓸 만한 게 없습니다.",
+    ['found_nothing_panning'] = "접시에 모래와 자갈뿐입니다.",
+    ['caught'] = "%s을(를) 챙겼습니다 (%.2f kg).",
+    ['picked'] = "채취함: %s",
+    -- refusals
+    ['need_tool'] = "그러려면 %s이(가) 필요합니다.",
+    ['need_bait'] = "%s이(가) 다 떨어졌습니다.",
+    ['need_rod'] = "먼저 낚싯대를 손에 드세요.",
+    ['no_cast'] = "그 물고기는 미끼를 문 게 아닙니다.",
+    ['inventory_full'] = "가방이 가득 찼습니다.",
+    ['depleted'] = "이곳은 다 캐냈습니다. 나중에 다시 오세요.",
+    ['too_far'] = "작업 자리에서 벗어났습니다.",
+    ['cooldown'] = "먼저 숨 좀 돌리세요.",
+    ['no_zone'] = "여기엔 가져갈 만한 게 없습니다.",
+    ['busy'] = "이미 작업 중입니다.",
+    ['tool_broke'] = "%s이(가) 부러졌습니다.",
+    ['already_picked'] = "누군가 이미 이 식물을 땄습니다.",
+    ['already_fishing'] = "이미 낚시 중입니다.",
+    ['on_foot'] = "먼저 내려서 두 발로 서세요.",
+    ['need_water'] = "사금을 채취하려면 강이나 개울에 서세요.",
+    -- work
+    ['work_mining'] = "바위 깨는 중...",
+    ['work_lumber'] = "장작 패는 중...",
+    ['work_panning'] = "자갈 씻는 중...",
+    ['prompt_mine'] = "채굴",
+    ['prompt_chop'] = "장작 패기",
+    ['target_chop'] = "장작 패기",
+    -- fishing prompts
+    ['fish_ready'] = "낚시 준비 완료",
+    ['fish_waiting'] = "낚시 중",
+    ['fish_hooked'] = "물고기를 끌어오세요",
+    ['fish_caught'] = "물고기가 걸렸습니다 (%.2f kg)",
+    ['fish_prepare'] = "낚싯대 준비",
+    ['fish_cast'] = "던지기",
+    ['fish_hook'] = "챔질",
+    ['fish_reset'] = "줄 감기",
+    ['fish_reel_lure'] = "루어 감기",
+    ['fish_reel_in'] = "끌어올리기",
+    ['fish_keep'] = "챙기기",
+    ['fish_throw'] = "놓아주기",
+    -- places
+    ['mine_annesburg'] = "Annesburg 광산",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Strawberry 벌목지",
+    ['zone_bigvalley'] = "Big Valley 벌목지",
+    ['zone_scarlett'] = "Scarlett Meadows 벌목지",
+    ['zone_roanoke'] = "Roanoke 벌목지",
+    -- admin
+    ['cmd_gatherspot'] = "서 있는 곳의 채집 지점 줄을 출력",
+    ['spot_line'] = "지점 줄 (F8에도 있음): %s",
+}

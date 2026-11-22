@@ -5,7 +5,7 @@
 
 Config = {}
 
--- Config.Locale = 'en'           -- language for this script only (else setr multicore_locale, else English)
+-- Config.Locale = 'en'           -- language for this script only (else MULTIcore's language (MULTIConfig.Language), else English)
 
 Config.OpenKey = 0x9720FCEE       -- MpTextChatAll (T): opens the chat box
 Config.Scale = 1.0                -- size of the chat (1 = normal, 1.2 = 20% bigger)

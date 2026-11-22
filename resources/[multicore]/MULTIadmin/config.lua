@@ -6,7 +6,7 @@
 -- ============================================================
 Config = {}
 
-Config.Locale = ''                -- '' = server-wide `setr multicore_locale xx` (else 'en'); or force one: 'de', 'fr', ...
+Config.Locale = ''                -- '' = MULTIcore's language (MULTIConfig.Language), else 'en'; or force one: 'de', 'fr', ...
 
 -- ---------------------------------------------------------------
 -- Opening the menu

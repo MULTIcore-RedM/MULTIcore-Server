@@ -6,7 +6,7 @@
 
 Config = {}
 
--- Config.Locale = 'en'           -- language for this script only (else setr multicore_locale, else English)
+-- Config.Locale = 'en'           -- language for this script only (else MULTIcore's language (MULTIConfig.Language), else English)
 
 -- ---------------------------------------------------------------
 -- Time

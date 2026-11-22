@@ -3,6 +3,17 @@
 -- ============================================================
 MULTIConfig = {}
 
+-- Language of every MULTI script (menus, notifications, prompts, the loading screen).
+-- One of: en de fr es pt-br it pl ru nl tr ro cs hu uk bg el sv da no fi pt sk hr sr sl zh ja ko ar id vi th
+--   en English, de German, fr French, es Spanish, pt-br Portuguese (Brazil), pt Portuguese (Portugal),
+--   it Italian, pl Polish, ru Russian, nl Dutch, tr Turkish, ro Romanian, cs Czech, hu Hungarian,
+--   uk Ukrainian, bg Bulgarian, el Greek, sv Swedish, da Danish, no Norwegian, fi Finnish, sk Slovak,
+--   hr Croatian, sr Serbian (Latin), sl Slovenian, zh Chinese (Simplified), ja Japanese, ko Korean,
+--   ar Arabic, id Indonesian, vi Vietnamese, th Thai
+-- Default 'en'. '' = use server.cfg  setr multicore_locale <code>  instead.
+-- A script can still use its own language with Config.Locale in its config.lua.
+MULTIConfig.Language = 'en'
+
 MULTIConfig.Vorp = {
     -- Which player identifier VORP scripts see as user / character "identifier".
     -- 'steam' is what most VORP servers use; players without Steam fall back to 'license'.

@@ -1,0 +1,57 @@
+-- MULTIgathering: Greek
+Locales = Locales or {}
+Locales['el'] = {
+    -- results
+    ['found'] = "Μάζεψες: %s",
+    ['found_nothing_mining'] = "Τίποτα, μόνο σκόνη αυτή τη φορά.",
+    ['found_nothing_lumber'] = "Το ξύλο έσπασε άσχημα. Τίποτα χρήσιμο.",
+    ['found_nothing_panning'] = "Μόνο άμμος και χαλίκι στο τηγάνι.",
+    ['caught'] = "Κράτησες ένα %s (%.2f kg).",
+    ['picked'] = "Μάζεψες: %s",
+    -- refusals
+    ['need_tool'] = "Χρειάζεσαι %s γι' αυτό.",
+    ['need_bait'] = "Δεν σου έμεινε άλλο %s.",
+    ['need_rod'] = "Πιάσε πρώτα το καλάμι σου.",
+    ['no_cast'] = "Αυτό το ψάρι δεν ήταν στο δόλωμά σου.",
+    ['inventory_full'] = "Το σακίδιό σου είναι γεμάτο.",
+    ['depleted'] = "Εδώ δεν έμεινε τίποτα. Έλα αργότερα.",
+    ['too_far'] = "Απομακρύνθηκες από τη δουλειά σου.",
+    ['cooldown'] = "Πάρε πρώτα μια ανάσα.",
+    ['no_zone'] = "Δεν υπάρχει τίποτα αξιόλογο εδώ.",
+    ['busy'] = "Ήδη δουλεύεις.",
+    ['tool_broke'] = "Το %s σου έσπασε.",
+    ['already_picked'] = "Κάποιος μάζεψε ήδη αυτό το φυτό.",
+    ['already_fishing'] = "Ήδη ψαρεύεις.",
+    ['on_foot'] = "Κατέβα πρώτα και στάσου στα πόδια σου.",
+    ['need_water'] = "Στάσου σε ποτάμι ή ρυάκι για να ψάξεις χρυσό.",
+    -- work
+    ['work_mining'] = "Σπάζεις πέτρα...",
+    ['work_lumber'] = "Κόβεις ξύλα...",
+    ['work_panning'] = "Πλένεις χαλίκι...",
+    ['prompt_mine'] = "Εξόρυξη",
+    ['prompt_chop'] = "Κόψε ξύλα",
+    ['target_chop'] = "Κόψε ξύλα",
+    -- fishing prompts
+    ['fish_ready'] = "Έτοιμος για ψάρεμα",
+    ['fish_waiting'] = "Ψάρεμα",
+    ['fish_hooked'] = "Τράβα το ψάρι",
+    ['fish_caught'] = "Ψάρι στην πετονιά (%.2f kg)",
+    ['fish_prepare'] = "Ετοίμασε το καλάμι",
+    ['fish_cast'] = "Ρίξε",
+    ['fish_hook'] = "Κάρφωσε",
+    ['fish_reset'] = "Μάζεψε την πετονιά",
+    ['fish_reel_lure'] = "Μάζεψε το δόλωμα",
+    ['fish_reel_in'] = "Μάζεψε",
+    ['fish_keep'] = "Κράτα",
+    ['fish_throw'] = "Πέτα πίσω",
+    -- places
+    ['mine_annesburg'] = "Ορυχείο Annesburg",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Δάσος υλοτομίας Strawberry",
+    ['zone_bigvalley'] = "Δάσος υλοτομίας Big Valley",
+    ['zone_scarlett'] = "Δάσος υλοτομίας Scarlett Meadows",
+    ['zone_roanoke'] = "Δάσος υλοτομίας Roanoke",
+    -- admin
+    ['cmd_gatherspot'] = "Γράψε μια γραμμή σημείου συλλογής για εκεί που στέκεσαι",
+    ['spot_line'] = "Γραμμή σημείου (και στο F8): %s",
+}

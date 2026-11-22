@@ -1,0 +1,81 @@
+-- MULTIserver: Chinese (Simplified)
+Locales = Locales or {}
+Locales['zh'] = {
+    -- general
+    ['title'] = '服务器',
+    ['no_permission'] = '你不能这么做。',
+    ['pagedown_refused'] = 'PageDown 永远不会被绑定。请在 config.lua 里换一个按键。',
+    ['key_players'] = '玩家列表',
+    ['key_info'] = '服务器信息',
+
+    -- logs
+    ['log_queue_full'] = '日志队列已满，已丢弃最早的日志（%s）。',
+    ['log_gave_up'] = '日志“%s”无法发送到 Discord（状态 %s），已丢弃。',
+    ['log_refused'] = 'Discord 拒绝了日志“%s”（状态 %s）。请检查 convar %s 中的 webhook。',
+    ['log_from_client'] = '由 %s [%s] 的游戏发送',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = '无人',
+    ['log_char_created_title'] = '角色已创建',
+    ['log_char_created'] = '%s 创建了新角色，公民 ID **%s**。',
+    ['log_jailed_title'] = '入狱',
+    ['log_jailed'] = '%s 被关押 %s 分钟（%s），执行者：%s。',
+    ['log_released_title'] = '获释',
+    ['log_released'] = '%s 已获释（公民 ID %s）。',
+    ['log_test_title'] = '测试日志',
+    ['log_test_message'] = '这是日志“%s”的测试。',
+    ['log_test_sent'] = '测试日志“%s”已发送（%s）。',
+
+    -- whitelist
+    ['wl_checking'] = '正在检查白名单……',
+    ['wl_refused'] = '你不在本服务器的白名单上。请联系管理人员添加。',
+    ['wl_db_error'] = '无法检查白名单。请一分钟后再试。',
+    ['wl_usage_add'] = '用法：/%s <服务器 ID 或标识符> [备注]',
+    ['wl_usage_remove'] = '用法：/%s <服务器 ID 或标识符>',
+    ['wl_usage_check'] = '用法：/%s <服务器 ID 或标识符>',
+    ['wl_added'] = '%s 已加入白名单。',
+    ['wl_removed'] = '%s 已移出白名单。',
+    ['wl_bad_identifier'] = '“%s”不是白名单接受的标识符（license:、steam:、discord: ……）。',
+    ['wl_exists'] = '%s 已在白名单上。',
+    ['wl_missing'] = '%s 不在白名单上。',
+    ['wl_is_listed'] = '%s 在白名单上。备注：%s',
+    ['wl_not_listed'] = '%s 不在白名单上。',
+    ['wl_log_title'] = '白名单',
+    ['wl_log_added'] = '**%s** 已被 %s 添加。',
+    ['wl_log_removed'] = '**%s** 已被 %s 移除。',
+
+    -- queue
+    ['queue_checking'] = '正在寻找空位……',
+    ['queue_title'] = '服务器已满',
+    ['queue_text'] = '服务器已满。你在队列中排第 %s 位，共 %s 人。',
+    ['queue_position'] = '你在队列中排第 %s 位，共 %s 人。',
+    ['queue_priority'] = '优先级 %s。',
+    ['queue_wait'] = '请稍候，有空位时会立刻让你进入。',
+
+    -- server info
+    ['info_default_desc'] = '欢迎来到本服务器。请善待其他玩家，祝你玩得愉快。',
+
+    -- page
+    ['ui_players_title'] = '玩家',
+    ['ui_search'] = '搜索',
+    ['ui_refresh'] = '刷新',
+    ['ui_close'] = '关闭',
+    ['ui_count'] = '%s / %s 在线',
+    ['ui_count_only'] = '%s 在线',
+    ['ui_staff_view'] = '管理视图',
+    ['ui_no_match'] = '没有匹配的人。',
+    ['ui_nobody'] = '没有人在线。',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = '名字',
+    ['ui_col_char'] = '角色',
+    ['ui_col_job'] = '职业',
+    ['ui_col_citizenid'] = '公民 ID',
+    ['ui_col_license'] = 'License',
+    ['ui_col_ping'] = '延迟',
+    ['ui_rules'] = '规则',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = '网站',
+    ['ui_copy'] = '复制',
+    ['ui_copied'] = '已复制。',
+    ['ui_copy_failed'] = '无法复制。请照着屏幕抄下来。',
+}

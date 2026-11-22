@@ -1,0 +1,81 @@
+-- MULTIserver: 한국어
+Locales = Locales or {}
+Locales['ko'] = {
+    -- general
+    ['title'] = '서버',
+    ['no_permission'] = '그렇게 할 수 없습니다.',
+    ['pagedown_refused'] = 'PageDown은 지정할 수 없습니다. config.lua에서 다른 키를 고르세요.',
+    ['key_players'] = '플레이어 목록',
+    ['key_info'] = '서버 정보',
+
+    -- logs
+    ['log_queue_full'] = '로그 대기열이 가득 차서 가장 오래된 로그를 버렸습니다 (%s).',
+    ['log_gave_up'] = '로그 "%s"을(를) Discord로 보내지 못해 버렸습니다 (상태 %s).',
+    ['log_refused'] = 'Discord가 로그 "%s"을(를) 거부했습니다 (상태 %s). convar %s의 웹훅을 확인하세요.',
+    ['log_from_client'] = '%s [%s]의 게임에서 보냄',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = '없음',
+    ['log_char_created_title'] = '캐릭터 생성',
+    ['log_char_created'] = '%s이(가) 새 캐릭터를 만들었습니다. 시민 ID **%s**.',
+    ['log_jailed_title'] = '수감',
+    ['log_jailed'] = '%s 수감: %s분 (%s), 처리자: %s.',
+    ['log_released_title'] = '석방',
+    ['log_released'] = '%s 석방됨 (시민 ID %s).',
+    ['log_test_title'] = '테스트 로그',
+    ['log_test_message'] = '로그 "%s"의 테스트입니다.',
+    ['log_test_sent'] = '테스트 로그 "%s" 전송함 (%s).',
+
+    -- whitelist
+    ['wl_checking'] = '화이트리스트 확인 중...',
+    ['wl_refused'] = '이 서버의 화이트리스트에 없습니다. 운영진에게 추가를 요청하세요.',
+    ['wl_db_error'] = '화이트리스트를 확인할 수 없습니다. 잠시 후 다시 시도하세요.',
+    ['wl_usage_add'] = '사용법: /%s <서버 ID 또는 식별자> [메모]',
+    ['wl_usage_remove'] = '사용법: /%s <서버 ID 또는 식별자>',
+    ['wl_usage_check'] = '사용법: /%s <서버 ID 또는 식별자>',
+    ['wl_added'] = '%s을(를) 화이트리스트에 추가했습니다.',
+    ['wl_removed'] = '%s을(를) 화이트리스트에서 뺐습니다.',
+    ['wl_bad_identifier'] = '"%s"은(는) 화이트리스트에 쓸 수 있는 식별자가 아닙니다 (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s은(는) 이미 화이트리스트에 있습니다.',
+    ['wl_missing'] = '%s은(는) 화이트리스트에 없습니다.',
+    ['wl_is_listed'] = '%s은(는) 화이트리스트에 있습니다. 메모: %s',
+    ['wl_not_listed'] = '%s은(는) 화이트리스트에 없습니다.',
+    ['wl_log_title'] = '화이트리스트',
+    ['wl_log_added'] = '**%s** 추가됨 (처리자: %s).',
+    ['wl_log_removed'] = '**%s** 제거됨 (처리자: %s).',
+
+    -- queue
+    ['queue_checking'] = '빈자리를 찾는 중...',
+    ['queue_title'] = '서버가 가득 찼습니다',
+    ['queue_text'] = '서버가 가득 찼습니다. 대기 순번 %s / %s.',
+    ['queue_position'] = '대기 순번 %s / %s.',
+    ['queue_priority'] = '우선순위 %s.',
+    ['queue_wait'] = '잠시 기다려 주세요. 자리가 나는 대로 들어갑니다.',
+
+    -- server info
+    ['info_default_desc'] = '서버에 오신 것을 환영합니다. 다른 플레이어에게 친절하게 대하고 즐거운 시간 보내세요.',
+
+    -- page
+    ['ui_players_title'] = '플레이어',
+    ['ui_search'] = '검색',
+    ['ui_refresh'] = '새로고침',
+    ['ui_close'] = '닫기',
+    ['ui_count'] = '%s / %s 접속 중',
+    ['ui_count_only'] = '%s 접속 중',
+    ['ui_staff_view'] = '운영진 보기',
+    ['ui_no_match'] = '일치하는 사람이 없습니다.',
+    ['ui_nobody'] = '접속한 사람이 없습니다.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = '이름',
+    ['ui_col_char'] = '캐릭터',
+    ['ui_col_job'] = '직업',
+    ['ui_col_citizenid'] = '시민 ID',
+    ['ui_col_license'] = '라이선스',
+    ['ui_col_ping'] = '핑',
+    ['ui_rules'] = '규칙',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = '웹사이트',
+    ['ui_copy'] = '복사',
+    ['ui_copied'] = '복사했습니다.',
+    ['ui_copy_failed'] = '복사할 수 없습니다. 화면을 보고 적어 두세요.',
+}

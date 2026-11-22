@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['da'] = {
+    ['placeholder'] = "Skriv en besked eller /kommando",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s prøver at %s",
+    ['try_ok'] = "og det lykkes",
+    ['try_fail'] = "og det mislykkes",
+    ['need_text'] = "Skriv hvad der sker efter kommandoen.",
+    ['too_fast'] = "Sæt lige farten lidt ned.",
+    ['plain_off'] = "Almindelig tekst er slået fra her. Brug /me, /do eller /ooc.",
+    ['unknown_command'] = "Ukendt kommando: /%s",
+    ['chat_shown'] = "Chatten vises.",
+    ['help_me'] = "Beskriv hvad din karakter gør",
+    ['help_do'] = "Beskriv hvad der er omkring din karakter",
+    ['help_try'] = "Prøv noget: lykkes eller mislykkes tilfældigt",
+    ['help_clear'] = "Ryd din chat",
+    ['help_hide'] = "Skjul eller vis chatten",
+    ['param_action'] = "handling",
+    ['param_text'] = "tekst",
+}

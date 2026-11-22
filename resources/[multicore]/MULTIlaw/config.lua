@@ -5,7 +5,7 @@
 -- ============================================================
 Config = {}
 
-Config.Locale = nil                 -- nil = server-wide `setr multicore_locale`, or a code such as 'de'
+Config.Locale = nil                 -- nil = MULTIcore's language (MULTIConfig.Language), or a code such as 'de'
 Config.Debug = false                -- true = print what the server decides (refusals, compat calls)
 Config.NotifyDuration = 5000        -- how long MULTIlaw's notifications stay (ms)
 

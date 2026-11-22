@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['ja'] = {
+    ['placeholder'] = "メッセージか /コマンド を入力",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s の試み: %s",
+    ['try_ok'] = "→ 成功",
+    ['try_fail'] = "→ 失敗",
+    ['need_text'] = "コマンドの後に何が起きるか書いてくれ。",
+    ['too_fast'] = "少し落ち着け。",
+    ['plain_off'] = "ここでは普通の文は使えない。/me、/do か /ooc を使え。",
+    ['unknown_command'] = "不明なコマンド: /%s",
+    ['chat_shown'] = "チャットを表示した。",
+    ['help_me'] = "キャラクターの行動を描写する",
+    ['help_do'] = "キャラクターの周りの様子を描写する",
+    ['help_try'] = "何かを試す：成否は運次第",
+    ['help_clear'] = "チャットを消去",
+    ['help_hide'] = "チャットの表示を切り替え",
+    ['param_action'] = "行動",
+    ['param_text'] = "文",
+}

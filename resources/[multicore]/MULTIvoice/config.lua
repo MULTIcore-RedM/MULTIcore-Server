@@ -9,7 +9,7 @@
 
 Config = {}
 
--- Config.Locale = 'en'           -- language for this script only (else setr multicore_locale, else English)
+-- Config.Locale = 'en'           -- language for this script only (else MULTIcore's language (MULTIConfig.Language), else English)
 
 -- Voice ranges, cycled with Config.CycleKey or /voice. 'label' is a locale key (shown on the HUD).
 Config.Ranges = {

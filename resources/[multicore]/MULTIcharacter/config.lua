@@ -8,7 +8,7 @@
 -- ============================================================
 Config = {}
 
--- Language for this script ('en', 'de', 'fr', 'es', 'pt-br', 'it', 'pl', 'ru', 'nl', 'tr'); nil = server.cfg `setr multicore_locale`, else 'en'
+-- Language for this script (any code listed in MULTIcore/config_multi.lua); nil = MULTIcore's language (MULTIConfig.Language), else 'en'
 Config.Locale = nil
 
 -- Most characters per account (the account's own users.char slot count also applies; the smaller wins)

@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['vi'] = {
+    ['placeholder'] = "Nhập tin nhắn hoặc /lệnh",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s thử %s",
+    ['try_ok'] = "và thành công",
+    ['try_fail'] = "và thất bại",
+    ['need_text'] = "Hãy viết điều xảy ra sau lệnh.",
+    ['too_fast'] = "Chậm lại một chút.",
+    ['plain_off'] = "Ở đây không dùng chữ thường. Hãy dùng /me, /do hoặc /ooc.",
+    ['unknown_command'] = "Lệnh không rõ: /%s",
+    ['chat_shown'] = "Đã hiện khung chat.",
+    ['help_me'] = "Mô tả việc nhân vật của bạn làm",
+    ['help_do'] = "Mô tả những gì quanh nhân vật",
+    ['help_try'] = "Thử làm gì đó: thành hay bại tùy may rủi",
+    ['help_clear'] = "Xóa khung chat",
+    ['help_hide'] = "Ẩn hoặc hiện khung chat",
+    ['param_action'] = "hành động",
+    ['param_text'] = "nội dung",
+}

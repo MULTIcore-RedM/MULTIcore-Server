@@ -4,8 +4,8 @@ Config = {}
 -- GENERAL SETTINGS
 -- ============================================================================
 
--- Active locale. Available: de, en, es, fr, it, nl, pl, pt-br, ru, tr
-Config.Locale = 'en'
+-- Language: MULTIcore's language (MULTIConfig.Language in MULTIcore/config_multi.lua) unless set here
+Config.Locale = ''                  -- language for this script ('de', 'fr' ...); empty = MULTIcore's language (MULTIConfig.Language), else English
 
 -- Keybind that opens the vendor menu when standing at a prompt
 Config.Keybind = 'J'

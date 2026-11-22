@@ -46,7 +46,7 @@ MULTItarget never draws a dot, marker or sprite in the world.
 | `Config.Keys` | see file | Control hashes for target (Left Alt), click (left mouse) and the controls turned off while targeting |
 | `Config.Zone` | see file | Heights for PolyZone-style boxes and polys made through rsg-target / qb-target calls |
 
-Colours and sizes: `html/custom.css` (loaded last). Text: `locales/` (10 languages).
+Colours and sizes: `html/custom.css` (loaded last). Text: `locales/` (32 languages).
 
 ## API (same calls as ox_target)
 

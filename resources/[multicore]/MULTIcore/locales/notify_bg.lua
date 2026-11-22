@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['bg'] or {}
+Locales['bg'] = t
+t['notify_title_info']    = 'Известие'
+t['notify_title_success'] = 'Готово'
+t['notify_title_error']   = 'Неуспех'
+t['notify_title_warning'] = 'Внимание'
+t['notify_title_money']   = 'Пари'
+t['notify_title_gold']    = 'Злато'
+t['notify_title_job']     = 'Работа'
+t['notify_title_police']  = 'Шериф'
+t['notify_title_medic']   = 'Лекар'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Влачете всяко известие където искате. Колелце на мишката: по-голямо или по-малко. Shift + колелце: по-широко или по-тясно.'
+t['notify_editor_save'] = 'Запази'
+t['notify_editor_cancel'] = 'Отказ'
+t['notify_editor_reset'] = 'По подразбиране'
+t['notify_editor_toast'] = 'Съобщения'
+t['notify_editor_tip'] = 'Подсказки'
+t['notify_editor_objective'] = 'Задача'
+t['notify_editor_banner'] = 'Банер'
+t['notify_editor_sample_title'] = 'Известие'
+t['notify_editor_sample_text'] = 'Така изглеждат вашите съобщения.'
+t['notify_editor_sample_tip'] = 'Тук се показва подсказка.'
+t['notify_editor_sample_objective'] = 'Тук се показва задачата ви.'
+t['notify_editor_sample_banner'] = 'Банер'
+t['notify_editor_sample_banner_text'] = 'Тук се показват големи новини'
+t['notify_editor_saved'] = 'Разположението на известията е запазено.'
+t['notify_editor_reset_done'] = 'Разположението на известията е върнато по подразбиране за сървъра.'

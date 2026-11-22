@@ -20,7 +20,7 @@
     }
     function applyStatic() {
         document.querySelectorAll('[data-l]').forEach(function (el) { el.textContent = L(el.getAttribute('data-l')); });
-        $('app').classList.toggle('mc-cyrillic', st.lang === 'ru');
+        $('app').classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(st.lang));
     }
 
     function post(name, data) {

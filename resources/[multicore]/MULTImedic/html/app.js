@@ -55,7 +55,7 @@
         switch (d.action) {
             case 'open':
                 L = d.L || {};
-                root.classList.toggle('mc-cyrillic', d.lang === 'ru');
+                root.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(d.lang));
                 root.classList.toggle('cursor', !!d.cursor);
                 st = {
                     remaining: d.remaining || 0, medics: d.medics || 0, cooldown: 0,

@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['da'] or {}
+Locales['da'] = t
+t['notify_title_info']    = 'Meddelelse'
+t['notify_title_success'] = 'Færdig'
+t['notify_title_error']   = 'Mislykkedes'
+t['notify_title_warning'] = 'Advarsel'
+t['notify_title_money']   = 'Penge'
+t['notify_title_gold']    = 'Guld'
+t['notify_title_job']     = 'Arbejde'
+t['notify_title_police']  = 'Sherif'
+t['notify_title_medic']   = 'Doktor'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Træk hver besked derhen, hvor du vil have den. Musehjul: større eller mindre. Shift + hjul: bredere eller smallere.'
+t['notify_editor_save'] = 'Gem'
+t['notify_editor_cancel'] = 'Annuller'
+t['notify_editor_reset'] = 'Serverstandard'
+t['notify_editor_toast'] = 'Beskeder'
+t['notify_editor_tip'] = 'Tips'
+t['notify_editor_objective'] = 'Mål'
+t['notify_editor_banner'] = 'Banner'
+t['notify_editor_sample_title'] = 'Meddelelse'
+t['notify_editor_sample_text'] = 'Sådan ser dine beskeder ud.'
+t['notify_editor_sample_tip'] = 'Et tip vises her.'
+t['notify_editor_sample_objective'] = 'Dit mål vises her.'
+t['notify_editor_sample_banner'] = 'Banner'
+t['notify_editor_sample_banner_text'] = 'Store nyheder vises her'
+t['notify_editor_saved'] = 'Beskedlayout gemt.'
+t['notify_editor_reset_done'] = 'Beskedlayout sat tilbage til serverstandard.'

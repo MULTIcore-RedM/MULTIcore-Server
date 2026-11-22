@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['zh'] or {}
+Locales['zh'] = t
+t['notify_title_info']    = '提示'
+t['notify_title_success'] = '完成'
+t['notify_title_error']   = '失败'
+t['notify_title_warning'] = '警告'
+t['notify_title_money']   = '金钱'
+t['notify_title_gold']    = '黄金'
+t['notify_title_job']     = '工作'
+t['notify_title_police']  = '警长'
+t['notify_title_medic']   = '医生'
+
+-- /notifylayout editor
+t['notify_editor_help'] = '把每个通知拖到你想要的位置。鼠标滚轮：放大或缩小。Shift + 滚轮：加宽或变窄。'
+t['notify_editor_save'] = '保存'
+t['notify_editor_cancel'] = '取消'
+t['notify_editor_reset'] = '服务器默认'
+t['notify_editor_toast'] = '消息'
+t['notify_editor_tip'] = '提示'
+t['notify_editor_objective'] = '目标'
+t['notify_editor_banner'] = '横幅'
+t['notify_editor_sample_title'] = '提示'
+t['notify_editor_sample_text'] = '你的消息会这样显示。'
+t['notify_editor_sample_tip'] = '提示显示在这里。'
+t['notify_editor_sample_objective'] = '你的目标显示在这里。'
+t['notify_editor_sample_banner'] = '横幅'
+t['notify_editor_sample_banner_text'] = '大消息显示在这里'
+t['notify_editor_saved'] = '通知布局已保存。'
+t['notify_editor_reset_done'] = '通知布局已恢复为服务器默认。'

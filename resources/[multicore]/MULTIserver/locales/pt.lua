@@ -1,0 +1,81 @@
+-- MULTIserver: Português (Portugal)
+Locales = Locales or {}
+Locales['pt'] = {
+    -- general
+    ['title'] = 'Servidor',
+    ['no_permission'] = 'Não podes fazer isso.',
+    ['pagedown_refused'] = 'O PageDown nunca é atribuído. Escolhe outra tecla no config.lua.',
+    ['key_players'] = 'Lista de jogadores',
+    ['key_info'] = 'Informação do servidor',
+
+    -- logs
+    ['log_queue_full'] = 'Fila de registos cheia, o registo mais antigo foi descartado (%s).',
+    ['log_gave_up'] = 'Não foi possível enviar o registo "%s" para o Discord (estado %s), descartado.',
+    ['log_refused'] = 'O Discord recusou o registo "%s" (estado %s). Verifica o webhook na convar %s.',
+    ['log_from_client'] = 'Enviado pelo jogo de %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'ninguém',
+    ['log_char_created_title'] = 'Personagem criada',
+    ['log_char_created'] = '%s criou uma personagem nova, ID de cidadão **%s**.',
+    ['log_jailed_title'] = 'Preso',
+    ['log_jailed'] = '%s foi preso por %s minutos (%s) por %s.',
+    ['log_released_title'] = 'Libertado',
+    ['log_released'] = '%s foi libertado (ID de cidadão %s).',
+    ['log_test_title'] = 'Registo de teste',
+    ['log_test_message'] = 'Isto é um teste do registo "%s".',
+    ['log_test_sent'] = 'Registo de teste "%s" enviado (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'A verificar a whitelist...',
+    ['wl_refused'] = 'Não estás na whitelist deste servidor. Pede à equipa para te adicionar.',
+    ['wl_db_error'] = 'Não foi possível verificar a whitelist. Tenta outra vez daqui a um minuto.',
+    ['wl_usage_add'] = 'Uso: /%s <ID do servidor ou identificador> [nota]',
+    ['wl_usage_remove'] = 'Uso: /%s <ID do servidor ou identificador>',
+    ['wl_usage_check'] = 'Uso: /%s <ID do servidor ou identificador>',
+    ['wl_added'] = '%s adicionado à whitelist.',
+    ['wl_removed'] = '%s retirado da whitelist.',
+    ['wl_bad_identifier'] = '"%s" não é um identificador que a whitelist aceite (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s já está na whitelist.',
+    ['wl_missing'] = '%s não está na whitelist.',
+    ['wl_is_listed'] = '%s está na whitelist. Nota: %s',
+    ['wl_not_listed'] = '%s não está na whitelist.',
+    ['wl_log_title'] = 'Whitelist',
+    ['wl_log_added'] = '**%s** adicionado por %s.',
+    ['wl_log_removed'] = '**%s** retirado por %s.',
+
+    -- queue
+    ['queue_checking'] = 'À procura de um lugar livre...',
+    ['queue_title'] = 'O servidor está cheio',
+    ['queue_text'] = 'O servidor está cheio. És o número %s de %s na fila.',
+    ['queue_position'] = 'És o número %s de %s na fila.',
+    ['queue_priority'] = 'Prioridade %s.',
+    ['queue_wait'] = 'Aguarda, vais entrar assim que houver um lugar livre.',
+
+    -- server info
+    ['info_default_desc'] = 'Bem-vindo ao servidor. Sê simpático com os outros jogadores e aproveita a estadia.',
+
+    -- page
+    ['ui_players_title'] = 'Jogadores',
+    ['ui_search'] = 'Procurar',
+    ['ui_refresh'] = 'Atualizar',
+    ['ui_close'] = 'Fechar',
+    ['ui_count'] = '%s / %s online',
+    ['ui_count_only'] = '%s online',
+    ['ui_staff_view'] = 'Vista da equipa',
+    ['ui_no_match'] = 'Ninguém corresponde.',
+    ['ui_nobody'] = 'Não está ninguém online.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Nome',
+    ['ui_col_char'] = 'Personagem',
+    ['ui_col_job'] = 'Trabalho',
+    ['ui_col_citizenid'] = 'ID de cidadão',
+    ['ui_col_license'] = 'Licença',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Regras',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Site',
+    ['ui_copy'] = 'Copiar',
+    ['ui_copied'] = 'Copiado.',
+    ['ui_copy_failed'] = 'Não foi possível copiar. Aponta-o a partir do ecrã.',
+}

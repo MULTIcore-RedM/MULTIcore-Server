@@ -6,7 +6,7 @@
 
 Config = {}
 
-Config.Locale = nil                 -- language for this script ('de', 'fr', ...); nil = server's multicore_locale, else 'en'
+Config.Locale = nil                 -- language for this script ('de', 'fr', ...); nil = MULTIcore's language (MULTIConfig.Language), else 'en'
 Config.Debug = false                -- print debug lines (menu opens, inputs, bars) to the F8 console
 
 -- ------------------------------------------------------------ menu (vorp_menu)

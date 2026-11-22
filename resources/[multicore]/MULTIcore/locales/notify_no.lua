@@ -1,0 +1,31 @@
+-- MULTIcore varsler: standardtitler (vises når en type har title = true i config_notify.lua) - Norsk (bokmål)
+Locales = Locales or {}
+local t = Locales['no'] or {}
+Locales['no'] = t
+t['notify_title_info']    = 'Melding'
+t['notify_title_success'] = 'Fullført'
+t['notify_title_error']   = 'Mislyktes'
+t['notify_title_warning'] = 'Advarsel'
+t['notify_title_money']   = 'Penger'
+t['notify_title_gold']    = 'Gull'
+t['notify_title_job']     = 'Arbeid'
+t['notify_title_police']  = 'Sheriff'
+t['notify_title_medic']   = 'Doktor'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Dra hvert varsel dit du vil ha det. Musehjul: større eller mindre. Shift + hjul: bredere eller smalere.'
+t['notify_editor_save'] = 'Lagre'
+t['notify_editor_cancel'] = 'Avbryt'
+t['notify_editor_reset'] = 'Serverstandard'
+t['notify_editor_toast'] = 'Meldinger'
+t['notify_editor_tip'] = 'Tips'
+t['notify_editor_objective'] = 'Mål'
+t['notify_editor_banner'] = 'Banner'
+t['notify_editor_sample_title'] = 'Melding'
+t['notify_editor_sample_text'] = 'Slik ser meldingene dine ut.'
+t['notify_editor_sample_tip'] = 'Et tips vises her.'
+t['notify_editor_sample_objective'] = 'Målet ditt vises her.'
+t['notify_editor_sample_banner'] = 'Banner'
+t['notify_editor_sample_banner_text'] = 'Store nyheter vises her'
+t['notify_editor_saved'] = 'Varseloppsett lagret.'
+t['notify_editor_reset_done'] = 'Varseloppsettet er satt tilbake til serverstandard.'

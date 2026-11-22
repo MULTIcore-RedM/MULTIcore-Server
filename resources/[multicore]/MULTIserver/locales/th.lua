@@ -1,0 +1,81 @@
+-- MULTIserver: Thai (same keys as the English master file)
+Locales = Locales or {}
+Locales['th'] = {
+    -- general
+    ['title'] = 'เซิร์ฟเวอร์',
+    ['no_permission'] = 'คุณทำแบบนั้นไม่ได้',
+    ['pagedown_refused'] = 'ไม่ผูกปุ่ม PageDown เด็ดขาด เลือกปุ่มอื่นใน config.lua',
+    ['key_players'] = 'รายชื่อผู้เล่น',
+    ['key_info'] = 'ข้อมูลเซิร์ฟเวอร์',
+
+    -- logs
+    ['log_queue_full'] = 'คิวบันทึกเต็ม ทิ้งบันทึกเก่าสุด (%s)',
+    ['log_gave_up'] = 'ส่งบันทึก "%s" ไป Discord ไม่ได้ (สถานะ %s) จึงทิ้งไป',
+    ['log_refused'] = 'Discord ปฏิเสธบันทึก "%s" (สถานะ %s) ตรวจ webhook ใน convar %s',
+    ['log_from_client'] = 'ส่งจากเกมของ %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'ไม่มีใคร',
+    ['log_char_created_title'] = 'สร้างตัวละคร',
+    ['log_char_created'] = '%s สร้างตัวละครใหม่ citizen id **%s**',
+    ['log_jailed_title'] = 'ถูกจำคุก',
+    ['log_jailed'] = '%s ถูกจำคุก %s นาที (%s) โดย %s',
+    ['log_released_title'] = 'ปล่อยตัว',
+    ['log_released'] = '%s ถูกปล่อยตัว (citizen id %s)',
+    ['log_test_title'] = 'บันทึกทดสอบ',
+    ['log_test_message'] = 'นี่คือการทดสอบบันทึก "%s"',
+    ['log_test_sent'] = 'ส่งบันทึกทดสอบ "%s" แล้ว (%s)',
+
+    -- whitelist
+    ['wl_checking'] = 'กำลังตรวจไวท์ลิสต์...',
+    ['wl_refused'] = 'คุณไม่อยู่ในไวท์ลิสต์ของเซิร์ฟเวอร์นี้ ขอให้ทีมงานเพิ่มคุณ',
+    ['wl_db_error'] = 'ตรวจไวท์ลิสต์ไม่ได้ ลองใหม่ในอีกหนึ่งนาที',
+    ['wl_usage_add'] = 'วิธีใช้: /%s <server id หรือ identifier> [หมายเหตุ]',
+    ['wl_usage_remove'] = 'วิธีใช้: /%s <server id หรือ identifier>',
+    ['wl_usage_check'] = 'วิธีใช้: /%s <server id หรือ identifier>',
+    ['wl_added'] = 'เพิ่ม %s ในไวท์ลิสต์แล้ว',
+    ['wl_removed'] = 'ลบ %s ออกจากไวท์ลิสต์แล้ว',
+    ['wl_bad_identifier'] = '"%s" ไม่ใช่ identifier ที่ไวท์ลิสต์รับ (license:, steam:, discord: ...)',
+    ['wl_exists'] = '%s อยู่ในไวท์ลิสต์แล้ว',
+    ['wl_missing'] = '%s ไม่อยู่ในไวท์ลิสต์',
+    ['wl_is_listed'] = '%s อยู่ในไวท์ลิสต์ หมายเหตุ: %s',
+    ['wl_not_listed'] = '%s ไม่อยู่ในไวท์ลิสต์',
+    ['wl_log_title'] = 'ไวท์ลิสต์',
+    ['wl_log_added'] = '**%s** ถูกเพิ่มโดย %s',
+    ['wl_log_removed'] = '**%s** ถูกลบโดย %s',
+
+    -- queue
+    ['queue_checking'] = 'กำลังหาที่ว่าง...',
+    ['queue_title'] = 'เซิร์ฟเวอร์เต็ม',
+    ['queue_text'] = 'เซิร์ฟเวอร์เต็ม คุณอยู่ลำดับที่ %s จาก %s ในคิว',
+    ['queue_position'] = 'คุณอยู่ลำดับที่ %s จาก %s ในคิว',
+    ['queue_priority'] = 'ลำดับความสำคัญ %s',
+    ['queue_wait'] = 'โปรดรอ คุณจะได้เข้าทันทีที่มีที่ว่าง',
+
+    -- server info
+    ['info_default_desc'] = 'ยินดีต้อนรับสู่เซิร์ฟเวอร์ ใจดีกับผู้เล่นคนอื่นและเล่นให้สนุก',
+
+    -- page
+    ['ui_players_title'] = 'ผู้เล่น',
+    ['ui_search'] = 'ค้นหา',
+    ['ui_refresh'] = 'รีเฟรช',
+    ['ui_close'] = 'ปิด',
+    ['ui_count'] = 'ออนไลน์ %s / %s',
+    ['ui_count_only'] = 'ออนไลน์ %s',
+    ['ui_staff_view'] = 'มุมมองทีมงาน',
+    ['ui_no_match'] = 'ไม่มีใครตรงกัน',
+    ['ui_nobody'] = 'ไม่มีใครออนไลน์',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'ชื่อ',
+    ['ui_col_char'] = 'ตัวละคร',
+    ['ui_col_job'] = 'อาชีพ',
+    ['ui_col_citizenid'] = 'Citizen ID',
+    ['ui_col_license'] = 'License',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'กฎ',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'เว็บไซต์',
+    ['ui_copy'] = 'คัดลอก',
+    ['ui_copied'] = 'คัดลอกแล้ว',
+    ['ui_copy_failed'] = 'คัดลอกไม่ได้ จดจากหน้าจอแทน',
+}

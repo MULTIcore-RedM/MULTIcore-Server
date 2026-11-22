@@ -1,0 +1,57 @@
+-- MULTIgathering: Japanese
+Locales = Locales or {}
+Locales['ja'] = {
+    -- results
+    ['found'] = "採集した: %s",
+    ['found_nothing_mining'] = "今回は土ぼこりだけだ。",
+    ['found_nothing_lumber'] = "木がうまく割れなかった。使えるものはない。",
+    ['found_nothing_panning'] = "皿には砂と砂利しかない。",
+    ['caught'] = "%s を持ち帰ることにした（%.2f kg）。",
+    ['picked'] = "摘み取った: %s",
+    -- refusals
+    ['need_tool'] = "それには%sが必要だ。",
+    ['need_bait'] = "%sがもうない。",
+    ['need_rod'] = "先に釣り竿を手に持て。",
+    ['no_cast'] = "その魚は餌にかかっていなかった。",
+    ['inventory_full'] = "カバンがいっぱいだ。",
+    ['depleted'] = "ここは掘り尽くした。また後で来よう。",
+    ['too_far'] = "作業場所から離れた。",
+    ['cooldown'] = "まず息を整えろ。",
+    ['no_zone'] = "ここには取る価値のあるものはない。",
+    ['busy'] = "もう作業中だ。",
+    ['tool_broke'] = "%sが壊れた。",
+    ['already_picked'] = "この草はもう誰かに摘まれた。",
+    ['already_fishing'] = "もう釣りをしている。",
+    ['on_foot'] = "先に降りて自分の足で立て。",
+    ['need_water'] = "砂金を採るには川か小川に入れ。",
+    -- work
+    ['work_mining'] = "岩を砕いている…",
+    ['work_lumber'] = "薪を割っている…",
+    ['work_panning'] = "砂利を洗っている…",
+    ['prompt_mine'] = "掘る",
+    ['prompt_chop'] = "木を切る",
+    ['target_chop'] = "木を切る",
+    -- fishing prompts
+    ['fish_ready'] = "釣りの準備完了",
+    ['fish_waiting'] = "釣り中",
+    ['fish_hooked'] = "魚を引き寄せろ",
+    ['fish_caught'] = "魚がかかった（%.2f kg）",
+    ['fish_prepare'] = "竿を構える",
+    ['fish_cast'] = "投げる",
+    ['fish_hook'] = "合わせる",
+    ['fish_reset'] = "糸を巻き取る",
+    ['fish_reel_lure'] = "ルアーを巻く",
+    ['fish_reel_in'] = "巻き上げる",
+    ['fish_keep'] = "持ち帰る",
+    ['fish_throw'] = "放す",
+    -- places
+    ['mine_annesburg'] = "Annesburg 鉱山",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Strawberry 林地",
+    ['zone_bigvalley'] = "Big Valley 林地",
+    ['zone_scarlett'] = "Scarlett Meadows 林地",
+    ['zone_roanoke'] = "Roanoke 林地",
+    -- admin
+    ['cmd_gatherspot'] = "今立っている場所の採集ポイント行を出力",
+    ['spot_line'] = "採集ポイント行（F8 にも表示）: %s",
+}

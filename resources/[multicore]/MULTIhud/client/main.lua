@@ -145,7 +145,7 @@ local function sendConfig()
         gap = Config.Hud.Gap,
         colors = Config.Hud.Colors,
         locale = _LT(),
-        cyrillic = _LCode() == 'ru',
+        cyrillic = _LPlainFont(),
         money = {
             gold = Config.Money.ShowGold, bank = Config.Money.ShowBank, bloodmoney = Config.Money.ShowBloodmoney,
         },

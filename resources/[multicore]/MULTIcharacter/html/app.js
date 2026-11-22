@@ -85,8 +85,8 @@
         switch (d.action) {
             case 'open':
                 T = d.text || T;
-                document.body.classList.toggle('mc-cyrillic', d.lang === 'ru');
-                $('app').classList.toggle('mc-cyrillic', d.lang === 'ru');
+                document.body.classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(d.lang));
+                $('app').classList.toggle('mc-cyrillic', /^(ru|uk|bg|el|zh|ja|ko|ar|th|vi)$/.test(d.lang));
                 if (d.rotateThrottle) throttle = Number(d.rotateThrottle) || throttle;
                 applyText();
                 show('select');

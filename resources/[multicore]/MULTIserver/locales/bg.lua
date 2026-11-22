@@ -1,0 +1,81 @@
+-- MULTIserver: Български
+Locales = Locales or {}
+Locales['bg'] = {
+    -- general
+    ['title'] = 'Сървър',
+    ['no_permission'] = 'Нямате право да правите това.',
+    ['pagedown_refused'] = 'PageDown никога не се задава. Изберете друг клавиш в config.lua.',
+    ['key_players'] = 'Списък с играчи',
+    ['key_info'] = 'Инфо за сървъра',
+
+    -- logs
+    ['log_queue_full'] = 'Опашката с логове е пълна, най-старият лог е изхвърлен (%s).',
+    ['log_gave_up'] = 'Логът "%s" не можа да се изпрати в Discord (статус %s), изхвърлен.',
+    ['log_refused'] = 'Discord отказа лога "%s" (статус %s). Проверете уебхука в convar %s.',
+    ['log_from_client'] = 'Изпратено от играта на %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'никой',
+    ['log_char_created_title'] = 'Създаден герой',
+    ['log_char_created'] = '%s създаде нов герой, citizen id **%s**.',
+    ['log_jailed_title'] = 'В затвора',
+    ['log_jailed'] = '%s е затворен за %s минути (%s) от %s.',
+    ['log_released_title'] = 'Освободен',
+    ['log_released'] = '%s е освободен (citizen id %s).',
+    ['log_test_title'] = 'Тестов лог',
+    ['log_test_message'] = 'Това е тест на лога "%s".',
+    ['log_test_sent'] = 'Тестовият лог "%s" е изпратен (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Проверка на белия списък...',
+    ['wl_refused'] = 'Не сте в белия списък на този сървър. Помолете екипа да ви добави.',
+    ['wl_db_error'] = 'Белият списък не можа да се провери. Опитайте след минута.',
+    ['wl_usage_add'] = 'Употреба: /%s <server id или идентификатор> [бележка]',
+    ['wl_usage_remove'] = 'Употреба: /%s <server id или идентификатор>',
+    ['wl_usage_check'] = 'Употреба: /%s <server id или идентификатор>',
+    ['wl_added'] = '%s е добавен в белия списък.',
+    ['wl_removed'] = '%s е премахнат от белия списък.',
+    ['wl_bad_identifier'] = '"%s" не е идентификатор, който белият списък приема (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s вече е в белия списък.',
+    ['wl_missing'] = '%s не е в белия списък.',
+    ['wl_is_listed'] = '%s е в белия списък. Бележка: %s',
+    ['wl_not_listed'] = '%s не е в белия списък.',
+    ['wl_log_title'] = 'Бял списък',
+    ['wl_log_added'] = '**%s** добавен от %s.',
+    ['wl_log_removed'] = '**%s** премахнат от %s.',
+
+    -- queue
+    ['queue_checking'] = 'Търсим свободно място...',
+    ['queue_title'] = 'Сървърът е пълен',
+    ['queue_text'] = 'Сървърът е пълен. Вие сте %s от %s на опашката.',
+    ['queue_position'] = 'Вие сте %s от %s на опашката.',
+    ['queue_priority'] = 'Приоритет %s.',
+    ['queue_wait'] = 'Моля, изчакайте, ще ви пуснем веднага щом се освободи място.',
+
+    -- server info
+    ['info_default_desc'] = 'Добре дошли на сървъра. Бъдете добри към другите играчи и приятна игра.',
+
+    -- page
+    ['ui_players_title'] = 'Играчи',
+    ['ui_search'] = 'Търсене',
+    ['ui_refresh'] = 'Обнови',
+    ['ui_close'] = 'Затвори',
+    ['ui_count'] = '%s / %s на линия',
+    ['ui_count_only'] = '%s на линия',
+    ['ui_staff_view'] = 'Изглед за екипа',
+    ['ui_no_match'] = 'Няма съвпадения.',
+    ['ui_nobody'] = 'Никой не е на линия.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Име',
+    ['ui_col_char'] = 'Герой',
+    ['ui_col_job'] = 'Работа',
+    ['ui_col_citizenid'] = 'Citizen ID',
+    ['ui_col_license'] = 'Лиценз',
+    ['ui_col_ping'] = 'Пинг',
+    ['ui_rules'] = 'Правила',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Сайт',
+    ['ui_copy'] = 'Копирай',
+    ['ui_copied'] = 'Копирано.',
+    ['ui_copy_failed'] = 'Не можа да се копира. Препишете го от екрана.',
+}

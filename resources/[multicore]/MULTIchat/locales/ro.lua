@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['ro'] = {
+    ['placeholder'] = "Scrie un mesaj sau /comandă",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s încearcă să %s",
+    ['try_ok'] = "și reușește",
+    ['try_fail'] = "și dă greș",
+    ['need_text'] = "Scrie ce se întâmplă după comandă.",
+    ['too_fast'] = "Mai încet puțin.",
+    ['plain_off'] = "Textul simplu e oprit aici. Folosește /me, /do sau /ooc.",
+    ['unknown_command'] = "Comandă necunoscută: /%s",
+    ['chat_shown'] = "Chatul e afișat.",
+    ['help_me'] = "Descrie ce face personajul tău",
+    ['help_do'] = "Descrie ce e în jurul personajului tău",
+    ['help_try'] = "Încearcă ceva: reușește sau nu, la noroc",
+    ['help_clear'] = "Golește chatul",
+    ['help_hide'] = "Ascunde sau arată chatul",
+    ['param_action'] = "acțiune",
+    ['param_text'] = "text",
+}

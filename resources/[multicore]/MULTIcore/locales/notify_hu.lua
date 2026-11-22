@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['hu'] or {}
+Locales['hu'] = t
+t['notify_title_info']    = 'Értesítés'
+t['notify_title_success'] = 'Kész'
+t['notify_title_error']   = 'Sikertelen'
+t['notify_title_warning'] = 'Figyelem'
+t['notify_title_money']   = 'Pénz'
+t['notify_title_gold']    = 'Arany'
+t['notify_title_job']     = 'Munka'
+t['notify_title_police']  = 'Seriff'
+t['notify_title_medic']   = 'Orvos'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Húzd az értesítéseket oda, ahová szeretnéd. Egérgörgő: nagyobb vagy kisebb. Shift + görgő: szélesebb vagy keskenyebb.'
+t['notify_editor_save'] = 'Mentés'
+t['notify_editor_cancel'] = 'Mégse'
+t['notify_editor_reset'] = 'Szerver alapértéke'
+t['notify_editor_toast'] = 'Üzenetek'
+t['notify_editor_tip'] = 'Tippek'
+t['notify_editor_objective'] = 'Feladat'
+t['notify_editor_banner'] = 'Szalag'
+t['notify_editor_sample_title'] = 'Értesítés'
+t['notify_editor_sample_text'] = 'Így néznek ki az üzeneteid.'
+t['notify_editor_sample_tip'] = 'Itt jelenik meg egy tipp.'
+t['notify_editor_sample_objective'] = 'Itt jelenik meg a feladatod.'
+t['notify_editor_sample_banner'] = 'Szalag'
+t['notify_editor_sample_banner_text'] = 'Itt jelennek meg a nagy hírek'
+t['notify_editor_saved'] = 'Értesítések elrendezése mentve.'
+t['notify_editor_reset_done'] = 'Értesítések elrendezése visszaállítva a szerver alapértékére.'

@@ -1,0 +1,57 @@
+-- MULTIgathering: Български
+Locales = Locales or {}
+Locales['bg'] = {
+    -- results
+    ['found'] = "Събрахте: %s",
+    ['found_nothing_mining'] = "Само прах този път.",
+    ['found_nothing_lumber'] = "Дървото се нацепи лошо. Нищо за взимане.",
+    ['found_nothing_panning'] = "Само пясък и чакъл в тигана.",
+    ['caught'] = "Задържахте: %s (%.2f кг).",
+    ['picked'] = "Откъснахте: %s",
+    -- refusals
+    ['need_tool'] = "Нужен ви е %s за това.",
+    ['need_bait'] = "Не ви остана: %s.",
+    ['need_rod'] = "Първо вземете въдицата в ръка.",
+    ['no_cast'] = "Тази риба не беше на вашата стръв.",
+    ['inventory_full'] = "Чантата ви е пълна.",
+    ['depleted'] = "Това място е изчерпано. Елате по-късно.",
+    ['too_far'] = "Отдалечихте се от работата си.",
+    ['cooldown'] = "Първо си поемете дъх.",
+    ['no_zone'] = "Тук няма нищо ценно.",
+    ['busy'] = "Вече работите.",
+    ['tool_broke'] = "Счупи се: %s.",
+    ['already_picked'] = "Някой вече е откъснал това растение.",
+    ['already_fishing'] = "Вече ловите риба.",
+    ['on_foot'] = "Първо слезте и застанете на крака.",
+    ['need_water'] = "Застанете в река или поток, за да промивате злато.",
+    -- work
+    ['work_mining'] = "Трошите скала...",
+    ['work_lumber'] = "Цепите дърва...",
+    ['work_panning'] = "Промивате чакъл...",
+    ['prompt_mine'] = "Копай",
+    ['prompt_chop'] = "Цепи дърва",
+    ['target_chop'] = "Цепи дърва",
+    -- fishing prompts
+    ['fish_ready'] = "Готови за риболов",
+    ['fish_waiting'] = "Риболов",
+    ['fish_hooked'] = "Изтеглете рибата",
+    ['fish_caught'] = "Риба на кукичката (%.2f кг)",
+    ['fish_prepare'] = "Приготви въдицата",
+    ['fish_cast'] = "Хвърли",
+    ['fish_hook'] = "Закачи",
+    ['fish_reset'] = "Навий кордата",
+    ['fish_reel_lure'] = "Води примамката",
+    ['fish_reel_in'] = "Навивай",
+    ['fish_keep'] = "Задръж",
+    ['fish_throw'] = "Пусни",
+    -- places
+    ['mine_annesburg'] = "Мината в Annesburg",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Гората при Strawberry",
+    ['zone_bigvalley'] = "Гората в Big Valley",
+    ['zone_scarlett'] = "Гората в Scarlett Meadows",
+    ['zone_roanoke'] = "Гората в Roanoke",
+    -- admin
+    ['cmd_gatherspot'] = "Изведи ред за място за събиране там, където стоите",
+    ['spot_line'] = "Ред за мястото (и в F8): %s",
+}

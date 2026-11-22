@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['ro'] or {}
+Locales['ro'] = t
+t['notify_title_info']    = 'Anunț'
+t['notify_title_success'] = 'Gata'
+t['notify_title_error']   = 'Eșuat'
+t['notify_title_warning'] = 'Atenție'
+t['notify_title_money']   = 'Bani'
+t['notify_title_gold']    = 'Aur'
+t['notify_title_job']     = 'Muncă'
+t['notify_title_police']  = 'Șerif'
+t['notify_title_medic']   = 'Doctor'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'Trage fiecare notificare unde vrei. Rotița: mai mare sau mai mică. Shift + rotița: mai lată sau mai îngustă.'
+t['notify_editor_save'] = 'Salvează'
+t['notify_editor_cancel'] = 'Anulează'
+t['notify_editor_reset'] = 'Implicit server'
+t['notify_editor_toast'] = 'Mesaje'
+t['notify_editor_tip'] = 'Indicii'
+t['notify_editor_objective'] = 'Obiectiv'
+t['notify_editor_banner'] = 'Banner'
+t['notify_editor_sample_title'] = 'Anunț'
+t['notify_editor_sample_text'] = 'Așa arată mesajele tale.'
+t['notify_editor_sample_tip'] = 'Aici apare un indiciu.'
+t['notify_editor_sample_objective'] = 'Aici apare obiectivul tău.'
+t['notify_editor_sample_banner'] = 'Banner'
+t['notify_editor_sample_banner_text'] = 'Aici apar veștile mari'
+t['notify_editor_saved'] = 'Aranjarea notificărilor a fost salvată.'
+t['notify_editor_reset_done'] = 'Aranjarea notificărilor e iar cea implicită a serverului.'

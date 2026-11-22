@@ -1,0 +1,57 @@
+-- MULTIgathering: Norsk (bokmål)
+Locales = Locales or {}
+Locales['no'] = {
+    -- results
+    ['found'] = "Du samlet: %s",
+    ['found_nothing_mining'] = "Bare støv denne gangen.",
+    ['found_nothing_lumber'] = "Veden kløvde seg dårlig. Ingenting verdt å ta vare på.",
+    ['found_nothing_panning'] = "Bare sand og grus i pannen.",
+    ['caught'] = "Du beholdt en %s (%.2f kg).",
+    ['picked'] = "Du plukket: %s",
+    -- refusals
+    ['need_tool'] = "Du trenger en %s til det.",
+    ['need_bait'] = "Du har ikke mer %s.",
+    ['need_rod'] = "Ta fiskestanga i hånden først.",
+    ['no_cast'] = "Den fisken bet ikke på agnet ditt.",
+    ['inventory_full'] = "Vesken din er full.",
+    ['depleted'] = "Denne plassen er tømt. Kom tilbake senere.",
+    ['too_far'] = "Du gikk bort fra arbeidet ditt.",
+    ['cooldown'] = "Pust ut litt først.",
+    ['no_zone'] = "Ingenting verdt å ta her.",
+    ['busy'] = "Du er allerede i arbeid.",
+    ['tool_broke'] = "Din %s gikk i stykker.",
+    ['already_picked'] = "Noen har allerede plukket denne planten.",
+    ['already_fishing'] = "Du fisker allerede.",
+    ['on_foot'] = "Gå av og stå på egne bein først.",
+    ['need_water'] = "Stå i en elv eller bekk for å vaske gull.",
+    -- work
+    ['work_mining'] = "Hugger stein...",
+    ['work_lumber'] = "Hugger ved...",
+    ['work_panning'] = "Vasker grus...",
+    ['prompt_mine'] = "Gruv",
+    ['prompt_chop'] = "Hugg ved",
+    ['target_chop'] = "Hugg ved",
+    -- fishing prompts
+    ['fish_ready'] = "Klar til å fiske",
+    ['fish_waiting'] = "Fisker",
+    ['fish_hooked'] = "Dra inn fisken",
+    ['fish_caught'] = "Fisk på kroken (%.2f kg)",
+    ['fish_prepare'] = "Gjør klar stanga",
+    ['fish_cast'] = "Kast",
+    ['fish_hook'] = "Kroke fisken",
+    ['fish_reset'] = "Sveiv inn snøret",
+    ['fish_reel_lure'] = "Sveiv sluket",
+    ['fish_reel_in'] = "Sveiv inn",
+    ['fish_keep'] = "Behold",
+    ['fish_throw'] = "Slipp ut",
+    -- places
+    ['mine_annesburg'] = "Annesburg-gruven",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Strawberry-skogen",
+    ['zone_bigvalley'] = "Big Valley-skogen",
+    ['zone_scarlett'] = "Scarlett Meadows-skogen",
+    ['zone_roanoke'] = "Roanoke-skogen",
+    -- admin
+    ['cmd_gatherspot'] = "Skriv ut en sankeplass-linje for der du står",
+    ['spot_line'] = "Plasslinje (også i F8): %s",
+}

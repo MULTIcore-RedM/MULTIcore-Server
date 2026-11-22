@@ -1,0 +1,81 @@
+-- MULTIserver: Українська
+Locales = Locales or {}
+Locales['uk'] = {
+    -- general
+    ['title'] = 'Сервер',
+    ['no_permission'] = 'Вам не можна цього робити.',
+    ['pagedown_refused'] = 'PageDown ніколи не призначається. Виберіть іншу клавішу в config.lua.',
+    ['key_players'] = 'Список гравців',
+    ['key_info'] = 'Про сервер',
+
+    -- logs
+    ['log_queue_full'] = 'Черга логів повна, найстаріший лог відкинуто (%s).',
+    ['log_gave_up'] = 'Лог "%s" не вдалося надіслати в Discord (статус %s), відкинуто.',
+    ['log_refused'] = 'Discord відхилив лог "%s" (статус %s). Перевірте вебхук у convar %s.',
+    ['log_from_client'] = 'Надіслано з гри %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'ніхто',
+    ['log_char_created_title'] = 'Персонажа створено',
+    ['log_char_created'] = '%s створив нового персонажа, citizen id **%s**.',
+    ['log_jailed_title'] = 'Ув’язнено',
+    ['log_jailed'] = '%s ув’язнено на %s хв (%s), хто: %s.',
+    ['log_released_title'] = 'Звільнено',
+    ['log_released'] = '%s звільнено (citizen id %s).',
+    ['log_test_title'] = 'Тестовий лог',
+    ['log_test_message'] = 'Це перевірка логу "%s".',
+    ['log_test_sent'] = 'Тестовий лог "%s" надіслано (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Перевіряємо вайтлист...',
+    ['wl_refused'] = 'Вас немає у вайтлисті цього сервера. Попросіть адміністрацію додати вас.',
+    ['wl_db_error'] = 'Не вдалося перевірити вайтлист. Спробуйте за хвилину.',
+    ['wl_usage_add'] = 'Використання: /%s <server id або ідентифікатор> [примітка]',
+    ['wl_usage_remove'] = 'Використання: /%s <server id або ідентифікатор>',
+    ['wl_usage_check'] = 'Використання: /%s <server id або ідентифікатор>',
+    ['wl_added'] = '%s додано до вайтлиста.',
+    ['wl_removed'] = '%s прибрано з вайтлиста.',
+    ['wl_bad_identifier'] = '"%s" — не той ідентифікатор, який приймає вайтлист (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s уже є у вайтлисті.',
+    ['wl_missing'] = '%s немає у вайтлисті.',
+    ['wl_is_listed'] = '%s є у вайтлисті. Примітка: %s',
+    ['wl_not_listed'] = '%s немає у вайтлисті.',
+    ['wl_log_title'] = 'Вайтлист',
+    ['wl_log_added'] = '**%s** додав %s.',
+    ['wl_log_removed'] = '**%s** прибрав %s.',
+
+    -- queue
+    ['queue_checking'] = 'Шукаємо вільне місце...',
+    ['queue_title'] = 'Сервер заповнений',
+    ['queue_text'] = 'Сервер заповнений. Ви %s з %s у черзі.',
+    ['queue_position'] = 'Ви %s з %s у черзі.',
+    ['queue_priority'] = 'Пріоритет %s.',
+    ['queue_wait'] = 'Зачекайте, вас впустять, щойно звільниться місце.',
+
+    -- server info
+    ['info_default_desc'] = 'Ласкаво просимо на сервер. Будьте ввічливі з іншими гравцями й гарної гри.',
+
+    -- page
+    ['ui_players_title'] = 'Гравці',
+    ['ui_search'] = 'Пошук',
+    ['ui_refresh'] = 'Оновити',
+    ['ui_close'] = 'Закрити',
+    ['ui_count'] = '%s / %s онлайн',
+    ['ui_count_only'] = '%s онлайн',
+    ['ui_staff_view'] = 'Для адміністрації',
+    ['ui_no_match'] = 'Нікого не знайдено.',
+    ['ui_nobody'] = 'Нікого немає онлайн.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Ім’я',
+    ['ui_col_char'] = 'Персонаж',
+    ['ui_col_job'] = 'Робота',
+    ['ui_col_citizenid'] = 'Citizen ID',
+    ['ui_col_license'] = 'Ліцензія',
+    ['ui_col_ping'] = 'Пінг',
+    ['ui_rules'] = 'Правила',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Сайт',
+    ['ui_copy'] = 'Копіювати',
+    ['ui_copied'] = 'Скопійовано.',
+    ['ui_copy_failed'] = 'Не вдалося скопіювати. Перепишіть з екрана.',
+}

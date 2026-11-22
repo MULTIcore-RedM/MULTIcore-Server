@@ -1,0 +1,31 @@
+-- MULTIcore notifications: default titles (shown when a type has title = true in config_notify.lua)
+Locales = Locales or {}
+local t = Locales['th'] or {}
+Locales['th'] = t
+t['notify_title_info']    = 'แจ้งเตือน'
+t['notify_title_success'] = 'เรียบร้อย'
+t['notify_title_error']   = 'ล้มเหลว'
+t['notify_title_warning'] = 'คำเตือน'
+t['notify_title_money']   = 'เงิน'
+t['notify_title_gold']    = 'ทองคำ'
+t['notify_title_job']     = 'งาน'
+t['notify_title_police']  = 'นายอำเภอ'
+t['notify_title_medic']   = 'หมอ'
+
+-- /notifylayout editor
+t['notify_editor_help'] = 'ลากการแจ้งเตือนแต่ละอันไปที่ที่ต้องการ ล้อเมาส์: ใหญ่ขึ้นหรือเล็กลง Shift + ล้อ: กว้างขึ้นหรือแคบลง'
+t['notify_editor_save'] = 'บันทึก'
+t['notify_editor_cancel'] = 'ยกเลิก'
+t['notify_editor_reset'] = 'ค่าเริ่มต้นเซิร์ฟเวอร์'
+t['notify_editor_toast'] = 'ข้อความ'
+t['notify_editor_tip'] = 'คำแนะนำ'
+t['notify_editor_objective'] = 'เป้าหมาย'
+t['notify_editor_banner'] = 'แบนเนอร์'
+t['notify_editor_sample_title'] = 'แจ้งเตือน'
+t['notify_editor_sample_text'] = 'ข้อความของคุณจะหน้าตาแบบนี้'
+t['notify_editor_sample_tip'] = 'คำแนะนำจะแสดงตรงนี้'
+t['notify_editor_sample_objective'] = 'เป้าหมายของคุณจะแสดงตรงนี้'
+t['notify_editor_sample_banner'] = 'แบนเนอร์'
+t['notify_editor_sample_banner_text'] = 'ข่าวใหญ่จะแสดงตรงนี้'
+t['notify_editor_saved'] = 'บันทึกตำแหน่งการแจ้งเตือนแล้ว'
+t['notify_editor_reset_done'] = 'ตั้งตำแหน่งการแจ้งเตือนกลับเป็นค่าเริ่มต้นเซิร์ฟเวอร์แล้ว'

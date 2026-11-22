@@ -1,0 +1,81 @@
+-- MULTIserver: Arabic (same keys as the English master file)
+Locales = Locales or {}
+Locales['ar'] = {
+    -- general
+    ['title'] = 'الخادم',
+    ['no_permission'] = 'لا يحق لك فعل ذلك.',
+    ['pagedown_refused'] = 'لا يُربط PageDown أبدًا. اختر مفتاحًا آخر في config.lua.',
+    ['key_players'] = 'قائمة اللاعبين',
+    ['key_info'] = 'معلومات الخادم',
+
+    -- logs
+    ['log_queue_full'] = 'طابور السجلات ممتلئ، حُذف أقدم سجل (%s).',
+    ['log_gave_up'] = 'تعذّر إرسال السجل "%s" إلى Discord (الحالة %s)، فحُذف.',
+    ['log_refused'] = 'رفض Discord السجل "%s" (الحالة %s). تحقق من الـ webhook في convar %s.',
+    ['log_from_client'] = 'أرسلته لعبة %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'لا أحد',
+    ['log_char_created_title'] = 'إنشاء شخصية',
+    ['log_char_created'] = '%s أنشأ شخصية جديدة، رقم المواطن **%s**.',
+    ['log_jailed_title'] = 'سجن',
+    ['log_jailed'] = 'سُجن %s لمدة %s دقيقة (%s) بواسطة %s.',
+    ['log_released_title'] = 'إطلاق سراح',
+    ['log_released'] = 'أُطلق سراح %s (رقم المواطن %s).',
+    ['log_test_title'] = 'سجل تجريبي',
+    ['log_test_message'] = 'هذا اختبار للسجل "%s".',
+    ['log_test_sent'] = 'أُرسل السجل التجريبي "%s" (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'جارٍ فحص القائمة البيضاء...',
+    ['wl_refused'] = 'أنت لست في القائمة البيضاء لهذا الخادم. اطلب من الطاقم إضافتك.',
+    ['wl_db_error'] = 'تعذّر فحص القائمة البيضاء. حاول بعد دقيقة.',
+    ['wl_usage_add'] = 'الاستخدام: /%s <رقم الخادم أو المعرّف> [ملاحظة]',
+    ['wl_usage_remove'] = 'الاستخدام: /%s <رقم الخادم أو المعرّف>',
+    ['wl_usage_check'] = 'الاستخدام: /%s <رقم الخادم أو المعرّف>',
+    ['wl_added'] = 'أُضيف %s إلى القائمة البيضاء.',
+    ['wl_removed'] = 'أُزيل %s من القائمة البيضاء.',
+    ['wl_bad_identifier'] = '"%s" ليس معرّفًا تقبله القائمة البيضاء (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s في القائمة البيضاء بالفعل.',
+    ['wl_missing'] = '%s ليس في القائمة البيضاء.',
+    ['wl_is_listed'] = '%s في القائمة البيضاء. ملاحظة: %s',
+    ['wl_not_listed'] = '%s ليس في القائمة البيضاء.',
+    ['wl_log_title'] = 'القائمة البيضاء',
+    ['wl_log_added'] = '**%s** أضافه %s.',
+    ['wl_log_removed'] = '**%s** أزاله %s.',
+
+    -- queue
+    ['queue_checking'] = 'جارٍ البحث عن مكان شاغر...',
+    ['queue_title'] = 'الخادم ممتلئ',
+    ['queue_text'] = 'الخادم ممتلئ. أنت رقم %s من %s في الطابور.',
+    ['queue_position'] = 'أنت رقم %s من %s في الطابور.',
+    ['queue_priority'] = 'الأولوية %s.',
+    ['queue_wait'] = 'يرجى الانتظار، ستدخل حالما يتوفر مكان.',
+
+    -- server info
+    ['info_default_desc'] = 'أهلًا بك في الخادم. كن لطيفًا مع اللاعبين الآخرين واستمتع بإقامتك.',
+
+    -- page
+    ['ui_players_title'] = 'اللاعبون',
+    ['ui_search'] = 'بحث',
+    ['ui_refresh'] = 'تحديث',
+    ['ui_close'] = 'إغلاق',
+    ['ui_count'] = '%s / %s متصل',
+    ['ui_count_only'] = '%s متصل',
+    ['ui_staff_view'] = 'عرض الطاقم',
+    ['ui_no_match'] = 'لا أحد يطابق.',
+    ['ui_nobody'] = 'لا أحد متصل.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'الرقم',
+    ['ui_col_name'] = 'الاسم',
+    ['ui_col_char'] = 'الشخصية',
+    ['ui_col_job'] = 'الوظيفة',
+    ['ui_col_citizenid'] = 'رقم المواطن',
+    ['ui_col_license'] = 'الترخيص',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'القوانين',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'الموقع',
+    ['ui_copy'] = 'نسخ',
+    ['ui_copied'] = 'نُسخ.',
+    ['ui_copy_failed'] = 'تعذّر النسخ. دوّنه من الشاشة.',
+}

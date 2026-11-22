@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['id'] = {
+    ['placeholder'] = "Ketik pesan atau /perintah",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s mencoba %s",
+    ['try_ok'] = "dan berhasil",
+    ['try_fail'] = "dan gagal",
+    ['need_text'] = "Tulis apa yang terjadi setelah perintah.",
+    ['too_fast'] = "Pelan-pelan sedikit.",
+    ['plain_off'] = "Teks biasa dimatikan di sini. Pakai /me, /do atau /ooc.",
+    ['unknown_command'] = "Perintah tidak dikenal: /%s",
+    ['chat_shown'] = "Obrolan ditampilkan.",
+    ['help_me'] = "Jelaskan apa yang dilakukan karaktermu",
+    ['help_do'] = "Jelaskan apa yang ada di sekitar karaktermu",
+    ['help_try'] = "Coba sesuatu: berhasil atau gagal secara acak",
+    ['help_clear'] = "Bersihkan obrolanmu",
+    ['help_hide'] = "Sembunyikan atau tampilkan obrolan",
+    ['param_action'] = "tindakan",
+    ['param_text'] = "teks",
+}

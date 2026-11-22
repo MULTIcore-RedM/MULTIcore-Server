@@ -1,10 +1,19 @@
 -- Locale helper. Loaded after all locale files.
--- Uses Config.Locale with English fallback, supports %s formatting.
+-- Language: Config.Locale, else MULTIcore's language (setr multicore_locale), else English.
+-- A missing line falls back to English. Supports %s formatting.
+function VendorLang()
+    local l = Config.Locale
+    if type(l) ~= 'string' or l == '' then l = GetConvar('multicore_locale', '') end
+    if l == '' then l = 'en' end
+    return l
+end
+
 function _L(key, ...)
-    local locale = Locales[Config.Locale] or Locales['en']
-    local str = locale and locale[key] or ('MISSING: ' .. key)
-    if ... then
-        return string.format(str, ...)
+    local locale = Locales[VendorLang()] or {}
+    local str = locale[key] or (Locales['en'] and Locales['en'][key]) or ('MISSING: ' .. key)
+    if select('#', ...) > 0 then
+        local ok, out = pcall(string.format, str, ...)
+        if ok then return out end
     end
     return str
 end

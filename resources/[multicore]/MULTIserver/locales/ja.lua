@@ -1,0 +1,81 @@
+-- MULTIserver: Japanese
+Locales = Locales or {}
+Locales['ja'] = {
+    -- general
+    ['title'] = 'サーバー',
+    ['no_permission'] = 'それはできない。',
+    ['pagedown_refused'] = 'PageDown は割り当てられない。config.lua で別のキーを選んでくれ。',
+    ['key_players'] = 'プレイヤー一覧',
+    ['key_info'] = 'サーバー情報',
+
+    -- logs
+    ['log_queue_full'] = 'ログの待ち行列が満杯のため、最も古いログを破棄した（%s）。',
+    ['log_gave_up'] = 'ログ「%s」を Discord に送れなかった（ステータス %s）。破棄した。',
+    ['log_refused'] = 'Discord がログ「%s」を拒否した（ステータス %s）。convar %s の webhook を確認してくれ。',
+    ['log_from_client'] = '%s [%s] のゲームから送信',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'なし',
+    ['log_char_created_title'] = 'キャラクター作成',
+    ['log_char_created'] = '%s が新しいキャラクターを作成。市民ID **%s**。',
+    ['log_jailed_title'] = '投獄',
+    ['log_jailed'] = '%s が %s 分間投獄された（%s）。執行者: %s。',
+    ['log_released_title'] = '釈放',
+    ['log_released'] = '%s が釈放された（市民ID %s）。',
+    ['log_test_title'] = 'テストログ',
+    ['log_test_message'] = 'これはログ「%s」のテストだ。',
+    ['log_test_sent'] = 'テストログ「%s」を送信した（%s）。',
+
+    -- whitelist
+    ['wl_checking'] = 'ホワイトリストを確認中…',
+    ['wl_refused'] = 'このサーバーのホワイトリストに登録されていない。スタッフに追加を頼んでくれ。',
+    ['wl_db_error'] = 'ホワイトリストを確認できなかった。1分後にもう一度試してくれ。',
+    ['wl_usage_add'] = '使い方: /%s <サーバーID または識別子> [メモ]',
+    ['wl_usage_remove'] = '使い方: /%s <サーバーID または識別子>',
+    ['wl_usage_check'] = '使い方: /%s <サーバーID または識別子>',
+    ['wl_added'] = '%s をホワイトリストに追加した。',
+    ['wl_removed'] = '%s をホワイトリストから削除した。',
+    ['wl_bad_identifier'] = '「%s」はホワイトリストで使える識別子ではない（license:、steam:、discord: …）。',
+    ['wl_exists'] = '%s は既にホワイトリストにいる。',
+    ['wl_missing'] = '%s はホワイトリストにいない。',
+    ['wl_is_listed'] = '%s はホワイトリストにいる。メモ: %s',
+    ['wl_not_listed'] = '%s はホワイトリストにいない。',
+    ['wl_log_title'] = 'ホワイトリスト',
+    ['wl_log_added'] = '**%s** を追加。実行者: %s。',
+    ['wl_log_removed'] = '**%s** を削除。実行者: %s。',
+
+    -- queue
+    ['queue_checking'] = '空きを探している…',
+    ['queue_title'] = 'サーバーは満員',
+    ['queue_text'] = 'サーバーは満員だ。待ち順は %s 番目（全 %s 人）。',
+    ['queue_position'] = '待ち順は %s 番目（全 %s 人）。',
+    ['queue_priority'] = '優先度 %s。',
+    ['queue_wait'] = 'お待ちを。空きが出しだい入れる。',
+
+    -- server info
+    ['info_default_desc'] = 'サーバーへようこそ。他のプレイヤーに親切に、楽しんでいってくれ。',
+
+    -- page
+    ['ui_players_title'] = 'プレイヤー',
+    ['ui_search'] = '検索',
+    ['ui_refresh'] = '更新',
+    ['ui_close'] = '閉じる',
+    ['ui_count'] = '%s / %s 人がオンライン',
+    ['ui_count_only'] = '%s 人がオンライン',
+    ['ui_staff_view'] = 'スタッフ表示',
+    ['ui_no_match'] = '該当者なし。',
+    ['ui_nobody'] = '誰もオンラインにいない。',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = '名前',
+    ['ui_col_char'] = 'キャラクター',
+    ['ui_col_job'] = '職業',
+    ['ui_col_citizenid'] = '市民ID',
+    ['ui_col_license'] = 'License',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'ルール',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'ウェブサイト',
+    ['ui_copy'] = 'コピー',
+    ['ui_copied'] = 'コピーした。',
+    ['ui_copy_failed'] = 'コピーできなかった。画面から書き写してくれ。',
+}

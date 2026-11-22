@@ -5,7 +5,7 @@
 -- ============================================================
 Config = Config or {}
 
-Config.Locale = ''                  -- language for this script ('de', 'fr' ...); empty = server-wide setr multicore_locale, else English
+Config.Locale = ''                  -- language for this script ('de', 'fr' ...); empty = MULTIcore's language (MULTIConfig.Language), else English
 Config.Debug = false                -- prints every lock change, refusal and admin save to the server console
 Config.NotifyDuration = 4000        -- how long notifications stay on screen (ms)
 

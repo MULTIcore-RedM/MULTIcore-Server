@@ -1,0 +1,57 @@
+-- MULTIgathering: Slovenian
+Locales = Locales or {}
+Locales['sl'] = {
+    -- results
+    ['found'] = "Nabral si: %s",
+    ['found_nothing_mining'] = "Tokrat samo prah.",
+    ['found_nothing_lumber'] = "Les se je slabo razcepil. Nič uporabnega.",
+    ['found_nothing_panning'] = "V ponvi le pesek in prod.",
+    ['caught'] = "Obdržal si: %s (%.2f kg).",
+    ['picked'] = "Nabral si: %s",
+    -- refusals
+    ['need_tool'] = "Za to potrebuješ: %s.",
+    ['need_bait'] = "Zmanjkalo ti je: %s.",
+    ['need_rod'] = "Najprej vzemi ribiško palico v roke.",
+    ['no_cast'] = "Ta riba ni bila na tvoji vabi.",
+    ['inventory_full'] = "Tvoja torba je polna.",
+    ['depleted'] = "To mesto je izčrpano. Pridi pozneje.",
+    ['too_far'] = "Oddaljil si se od dela.",
+    ['cooldown'] = "Najprej si oddahni.",
+    ['no_zone'] = "Tu ni ničesar vrednega.",
+    ['busy'] = "Že delaš.",
+    ['tool_broke'] = "Zlomilo se je: %s.",
+    ['already_picked'] = "To rastlino je nekdo že nabral.",
+    ['already_fishing'] = "Že ribariš.",
+    ['on_foot'] = "Najprej sestopi in stoj na svojih nogah.",
+    ['need_water'] = "Za izpiranje zlata stopi v reko ali potok.",
+    -- work
+    ['work_mining'] = "Lomiš skalo ...",
+    ['work_lumber'] = "Sekaš les ...",
+    ['work_panning'] = "Izpiraš prod ...",
+    ['prompt_mine'] = "Kopaj",
+    ['prompt_chop'] = "Sekaj les",
+    ['target_chop'] = "Sekaj les",
+    -- fishing prompts
+    ['fish_ready'] = "Pripravljen na ribolov",
+    ['fish_waiting'] = "Ribariš",
+    ['fish_hooked'] = "Potegni ribo ven",
+    ['fish_caught'] = "Riba na trnku (%.2f kg)",
+    ['fish_prepare'] = "Pripravi palico",
+    ['fish_cast'] = "Vrzi",
+    ['fish_hook'] = "Zatakni trnek",
+    ['fish_reset'] = "Navij vrvico",
+    ['fish_reel_lure'] = "Navij vabo",
+    ['fish_reel_in'] = "Navij",
+    ['fish_keep'] = "Obdrži",
+    ['fish_throw'] = "Spusti nazaj",
+    -- places
+    ['mine_annesburg'] = "Rudnik Annesburg",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Gozd Strawberry",
+    ['zone_bigvalley'] = "Gozd Big Valley",
+    ['zone_scarlett'] = "Gozd Scarlett Meadows",
+    ['zone_roanoke'] = "Gozd Roanoke",
+    -- admin
+    ['cmd_gatherspot'] = "Izpiši vrstico nabiralnega mesta za tvoj položaj",
+    ['spot_line'] = "Vrstica mesta (tudi v F8): %s",
+}

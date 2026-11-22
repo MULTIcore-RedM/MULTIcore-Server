@@ -6,7 +6,7 @@
 -- ============================================================
 Config = {}
 
-Config.Locale = ''                  -- default '' (language for this script; empty = setr multicore_locale, else English)
+Config.Locale = ''                  -- default '' (language for this script; empty = MULTIcore's language (MULTIConfig.Language), else English)
 Config.Debug = false                -- default false (prints every craft and every refusal to the server console)
 
 ---------------------------------

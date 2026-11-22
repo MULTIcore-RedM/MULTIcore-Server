@@ -1,0 +1,57 @@
+-- MULTIgathering: Português (Portugal)
+Locales = Locales or {}
+Locales['pt'] = {
+    -- results
+    ['found'] = "Recolheste: %s",
+    ['found_nothing_mining'] = "Desta vez só pó.",
+    ['found_nothing_lumber'] = "A madeira rachou mal. Nada que valha a pena.",
+    ['found_nothing_panning'] = "Só areia e cascalho na bateia.",
+    ['caught'] = "Ficaste com: %s (%.2f kg).",
+    ['picked'] = "Apanhaste: %s",
+    -- refusals
+    ['need_tool'] = "Para isso precisas de: %s.",
+    ['need_bait'] = "Já não tens: %s.",
+    ['need_rod'] = "Pega primeiro na cana de pesca.",
+    ['no_cast'] = "Esse peixe não estava no teu isco.",
+    ['inventory_full'] = "A tua bolsa está cheia.",
+    ['depleted'] = "Este sítio está esgotado. Volta mais tarde.",
+    ['too_far'] = "Afastaste-te do trabalho.",
+    ['cooldown'] = "Recupera o fôlego primeiro.",
+    ['no_zone'] = "Aqui não há nada que valha a pena.",
+    ['busy'] = "Já estás a trabalhar.",
+    ['tool_broke'] = "Partiu-se: %s.",
+    ['already_picked'] = "Alguém já apanhou esta planta.",
+    ['already_fishing'] = "Já estás a pescar.",
+    ['on_foot'] = "Desmonta e põe-te de pé primeiro.",
+    ['need_water'] = "Entra num rio ou ribeiro para procurar ouro.",
+    -- work
+    ['work_mining'] = "A partir rocha...",
+    ['work_lumber'] = "A cortar lenha...",
+    ['work_panning'] = "A lavar cascalho...",
+    ['prompt_mine'] = "Minerar",
+    ['prompt_chop'] = "Cortar lenha",
+    ['target_chop'] = "Cortar lenha",
+    -- fishing prompts
+    ['fish_ready'] = "Pronto para pescar",
+    ['fish_waiting'] = "A pescar",
+    ['fish_hooked'] = "Puxa o peixe",
+    ['fish_caught'] = "Peixe na linha (%.2f kg)",
+    ['fish_prepare'] = "Preparar a cana",
+    ['fish_cast'] = "Lançar",
+    ['fish_hook'] = "Ferrar",
+    ['fish_reset'] = "Recolher a linha",
+    ['fish_reel_lure'] = "Puxar a amostra",
+    ['fish_reel_in'] = "Enrolar",
+    ['fish_keep'] = "Ficar",
+    ['fish_throw'] = "Devolver",
+    -- places
+    ['mine_annesburg'] = "Mina de Annesburg",
+    ['mine_gaptooth'] = "Gaptooth Breach",
+    ['zone_strawberry'] = "Madeireira de Strawberry",
+    ['zone_bigvalley'] = "Madeireira de Big Valley",
+    ['zone_scarlett'] = "Madeireira de Scarlett Meadows",
+    ['zone_roanoke'] = "Madeireira de Roanoke",
+    -- admin
+    ['cmd_gatherspot'] = "Mostra uma linha de ponto de recolha para onde estás",
+    ['spot_line'] = "Linha do ponto (também no F8): %s",
+}

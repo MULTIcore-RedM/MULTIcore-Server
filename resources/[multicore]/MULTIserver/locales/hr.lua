@@ -1,0 +1,81 @@
+-- MULTIserver: Hrvatski
+Locales = Locales or {}
+Locales['hr'] = {
+    -- general
+    ['title'] = 'Poslužitelj',
+    ['no_permission'] = 'To ne smiješ.',
+    ['pagedown_refused'] = 'PageDown se nikad ne dodjeljuje. Odaberi drugu tipku u config.lua.',
+    ['key_players'] = 'Popis igrača',
+    ['key_info'] = 'Podaci o poslužitelju',
+
+    -- logs
+    ['log_queue_full'] = 'Red zapisa je pun, najstariji zapis odbačen (%s).',
+    ['log_gave_up'] = 'Zapis "%s" nije moguće poslati na Discord (status %s), odbačen.',
+    ['log_refused'] = 'Discord je odbio zapis "%s" (status %s). Provjeri webhook u convaru %s.',
+    ['log_from_client'] = 'Poslala igra igrača %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'nitko',
+    ['log_char_created_title'] = 'Lik izrađen',
+    ['log_char_created'] = '%s je izradio novog lika, ID građanina **%s**.',
+    ['log_jailed_title'] = 'Zatvoren',
+    ['log_jailed'] = '%s je zatvoren na %s minuta (%s), zatvorio ga je %s.',
+    ['log_released_title'] = 'Pušten',
+    ['log_released'] = '%s je pušten (ID građanina %s).',
+    ['log_test_title'] = 'Probni zapis',
+    ['log_test_message'] = 'Ovo je proba zapisa "%s".',
+    ['log_test_sent'] = 'Probni zapis "%s" poslan (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Provjeravam whitelistu...',
+    ['wl_refused'] = 'Nisi na whitelisti ovog poslužitelja. Zamoli osoblje da te doda.',
+    ['wl_db_error'] = 'Whitelistu nije moguće provjeriti. Pokušaj ponovno za minutu.',
+    ['wl_usage_add'] = 'Upotreba: /%s <ID na poslužitelju ili identifikator> [bilješka]',
+    ['wl_usage_remove'] = 'Upotreba: /%s <ID na poslužitelju ili identifikator>',
+    ['wl_usage_check'] = 'Upotreba: /%s <ID na poslužitelju ili identifikator>',
+    ['wl_added'] = '%s dodan na whitelistu.',
+    ['wl_removed'] = '%s uklonjen s whiteliste.',
+    ['wl_bad_identifier'] = '"%s" nije identifikator koji whitelista prihvaća (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s je već na whitelisti.',
+    ['wl_missing'] = '%s nije na whitelisti.',
+    ['wl_is_listed'] = '%s je na whitelisti. Bilješka: %s',
+    ['wl_not_listed'] = '%s nije na whitelisti.',
+    ['wl_log_title'] = 'Whitelista',
+    ['wl_log_added'] = '**%s** dodao je %s.',
+    ['wl_log_removed'] = '**%s** uklonio je %s.',
+
+    -- queue
+    ['queue_checking'] = 'Tražim slobodno mjesto...',
+    ['queue_title'] = 'Poslužitelj je pun',
+    ['queue_text'] = 'Poslužitelj je pun. Ti si %s. od %s u redu.',
+    ['queue_position'] = 'Ti si %s. od %s u redu.',
+    ['queue_priority'] = 'Prioritet %s.',
+    ['queue_wait'] = 'Pričekaj, ući ćeš čim se oslobodi mjesto.',
+
+    -- server info
+    ['info_default_desc'] = 'Dobro došao na poslužitelj. Budi pristojan prema drugim igračima i uživaj.',
+
+    -- page
+    ['ui_players_title'] = 'Igrači',
+    ['ui_search'] = 'Traži',
+    ['ui_refresh'] = 'Osvježi',
+    ['ui_close'] = 'Zatvori',
+    ['ui_count'] = '%s / %s na mreži',
+    ['ui_count_only'] = '%s na mreži',
+    ['ui_staff_view'] = 'Pogled osoblja',
+    ['ui_no_match'] = 'Nitko ne odgovara.',
+    ['ui_nobody'] = 'Nitko nije na mreži.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Ime',
+    ['ui_col_char'] = 'Lik',
+    ['ui_col_job'] = 'Posao',
+    ['ui_col_citizenid'] = 'ID građanina',
+    ['ui_col_license'] = 'Licenca',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Pravila',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Web stranica',
+    ['ui_copy'] = 'Kopiraj',
+    ['ui_copied'] = 'Kopirano.',
+    ['ui_copy_failed'] = 'Kopiranje nije uspjelo. Prepiši sa zaslona.',
+}

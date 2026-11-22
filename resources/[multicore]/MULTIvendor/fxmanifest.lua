@@ -21,6 +21,10 @@ shared_scripts {
     'locales/pt-br.lua',
     'locales/ru.lua',
     'locales/tr.lua',
+    'locales/ro.lua', 'locales/cs.lua', 'locales/hu.lua', 'locales/uk.lua', 'locales/bg.lua', 'locales/el.lua',
+    'locales/sv.lua', 'locales/da.lua', 'locales/no.lua', 'locales/fi.lua', 'locales/pt.lua', 'locales/sk.lua',
+    'locales/hr.lua', 'locales/sr.lua', 'locales/sl.lua', 'locales/zh.lua', 'locales/ja.lua', 'locales/ko.lua',
+    'locales/ar.lua', 'locales/id.lua', 'locales/vi.lua', 'locales/th.lua',
     'locales/locales.lua',
 }
 

@@ -197,7 +197,7 @@ local function lookOf()
 end
 
 local function layout()
-    local l = { cyrillic = _LCode and _LCode() == 'ru' or false, look = lookOf() }
+    local l = { cyrillic = _LPlainFont and _LPlainFont() or false, look = lookOf() }
     for style in pairs(STYLES) do l[style] = placeOf(style) end
     return l
 end

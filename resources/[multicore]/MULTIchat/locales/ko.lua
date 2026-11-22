@@ -1,0 +1,21 @@
+Locales = Locales or {}
+Locales['ko'] = {
+    ['placeholder'] = "메시지 또는 /명령어 입력",
+    ['me_line'] = "* %s %s",
+    ['do_line'] = "* %s (( %s ))",
+    ['try_line'] = "* %s - 시도: %s",
+    ['try_ok'] = "성공",
+    ['try_fail'] = "실패",
+    ['need_text'] = "명령어 뒤에 무슨 일이 일어나는지 적으세요.",
+    ['too_fast'] = "조금 천천히 하세요.",
+    ['plain_off'] = "여기서는 일반 대화가 꺼져 있습니다. /me, /do 또는 /ooc 를 쓰세요.",
+    ['unknown_command'] = "알 수 없는 명령어: /%s",
+    ['chat_shown'] = "채팅을 표시합니다.",
+    ['help_me'] = "캐릭터가 하는 행동을 묘사",
+    ['help_do'] = "캐릭터 주변 상황을 묘사",
+    ['help_try'] = "시도하기: 운에 따라 성공 또는 실패",
+    ['help_clear'] = "채팅 지우기",
+    ['help_hide'] = "채팅 숨기기 또는 보이기",
+    ['param_action'] = "행동",
+    ['param_text'] = "내용",
+}

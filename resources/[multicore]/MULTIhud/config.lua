@@ -4,7 +4,7 @@
 
 Config = {}
 
-Config.Locale = nil                -- language for this script ('en', 'de', ...); nil = server.cfg `setr multicore_locale`, else 'en'
+Config.Locale = nil                -- language for this script ('en', 'de', ...); nil = MULTIcore's language (MULTIConfig.Language), else 'en'
 Config.Debug = false               -- print needs changes to the server console
 
 ---------------------------------------------------------------------------

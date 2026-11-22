@@ -1,0 +1,81 @@
+-- MULTIserver: Română
+Locales = Locales or {}
+Locales['ro'] = {
+    -- general
+    ['title'] = 'Server',
+    ['no_permission'] = 'Nu ai voie să faci asta.',
+    ['pagedown_refused'] = 'PageDown nu se leagă niciodată. Alege altă tastă în config.lua.',
+    ['key_players'] = 'Lista jucătorilor',
+    ['key_info'] = 'Informații server',
+
+    -- logs
+    ['log_queue_full'] = 'Coada de loguri e plină, cel mai vechi log a fost aruncat (%s).',
+    ['log_gave_up'] = 'Logul "%s" nu a putut fi trimis pe Discord (status %s), aruncat.',
+    ['log_refused'] = 'Discord a refuzat logul "%s" (status %s). Verifică webhook-ul din convarul %s.',
+    ['log_from_client'] = 'Trimis de jocul lui %s [%s]',
+    ['log_who'] = '**%s** [%s] (%s)',
+    ['log_nobody'] = 'nimeni',
+    ['log_char_created_title'] = 'Personaj creat',
+    ['log_char_created'] = '%s a făcut un personaj nou, citizen id **%s**.',
+    ['log_jailed_title'] = 'Închis',
+    ['log_jailed'] = '%s a fost închis pentru %s minute (%s) de %s.',
+    ['log_released_title'] = 'Eliberat',
+    ['log_released'] = '%s a fost eliberat (citizen id %s).',
+    ['log_test_title'] = 'Log de test',
+    ['log_test_message'] = 'Acesta e un test al logului "%s".',
+    ['log_test_sent'] = 'Log de test "%s" trimis (%s).',
+
+    -- whitelist
+    ['wl_checking'] = 'Se verifică whitelist-ul...',
+    ['wl_refused'] = 'Nu ești pe whitelist-ul acestui server. Roagă staff-ul să te adauge.',
+    ['wl_db_error'] = 'Whitelist-ul nu a putut fi verificat. Încearcă iar peste un minut.',
+    ['wl_usage_add'] = 'Folosire: /%s <id server sau identificator> [notă]',
+    ['wl_usage_remove'] = 'Folosire: /%s <id server sau identificator>',
+    ['wl_usage_check'] = 'Folosire: /%s <id server sau identificator>',
+    ['wl_added'] = '%s adăugat pe whitelist.',
+    ['wl_removed'] = '%s scos de pe whitelist.',
+    ['wl_bad_identifier'] = '"%s" nu e un identificator acceptat de whitelist (license:, steam:, discord: ...).',
+    ['wl_exists'] = '%s e deja pe whitelist.',
+    ['wl_missing'] = '%s nu e pe whitelist.',
+    ['wl_is_listed'] = '%s e pe whitelist. Notă: %s',
+    ['wl_not_listed'] = '%s nu e pe whitelist.',
+    ['wl_log_title'] = 'Whitelist',
+    ['wl_log_added'] = '**%s** adăugat de %s.',
+    ['wl_log_removed'] = '**%s** scos de %s.',
+
+    -- queue
+    ['queue_checking'] = 'Se caută un loc liber...',
+    ['queue_title'] = 'Serverul e plin',
+    ['queue_text'] = 'Serverul e plin. Ești numărul %s din %s la coadă.',
+    ['queue_position'] = 'Ești numărul %s din %s la coadă.',
+    ['queue_priority'] = 'Prioritate %s.',
+    ['queue_wait'] = 'Te rugăm să aștepți, vei intra imediat ce se eliberează un loc.',
+
+    -- server info
+    ['info_default_desc'] = 'Bun venit pe server. Fii cumsecade cu ceilalți jucători și distracție plăcută.',
+
+    -- page
+    ['ui_players_title'] = 'Jucători',
+    ['ui_search'] = 'Caută',
+    ['ui_refresh'] = 'Reîmprospătează',
+    ['ui_close'] = 'Închide',
+    ['ui_count'] = '%s / %s online',
+    ['ui_count_only'] = '%s online',
+    ['ui_staff_view'] = 'Vedere staff',
+    ['ui_no_match'] = 'Nicio potrivire.',
+    ['ui_nobody'] = 'Nimeni nu e online.',
+    ['ui_no_job'] = '-',
+    ['ui_col_id'] = 'ID',
+    ['ui_col_name'] = 'Nume',
+    ['ui_col_char'] = 'Personaj',
+    ['ui_col_job'] = 'Slujbă',
+    ['ui_col_citizenid'] = 'Citizen ID',
+    ['ui_col_license'] = 'Licență',
+    ['ui_col_ping'] = 'Ping',
+    ['ui_rules'] = 'Reguli',
+    ['ui_discord'] = 'Discord',
+    ['ui_website'] = 'Site',
+    ['ui_copy'] = 'Copiază',
+    ['ui_copied'] = 'Copiat.',
+    ['ui_copy_failed'] = 'Nu s-a putut copia. Scrie-l de pe ecran.',
+}

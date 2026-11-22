@@ -7,7 +7,7 @@
 
 Config = Config or {}
 
-Config.Locale = nil                 -- default nil (use setr multicore_locale, else 'en'); e.g. 'de'
+Config.Locale = nil                 -- default nil (use MULTIcore's language (MULTIConfig.Language), else 'en'); e.g. 'de'
 Config.Debug = false                -- default false (true = print every reward and refusal in the server console)
 
 ---------------------------------
