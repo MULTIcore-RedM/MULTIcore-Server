@@ -81,6 +81,7 @@ ensure MULTIlaw
 ensure MULTIserver
 ensure MULTIradial
 ensure MULTItelegram
+ensure MULTIhouses     # houses: buy, pay off, land tax, guest keys, stash, wardrobe, door locks
 ensure MULTIwagons
 ensure MULTIvoice       # proximity voice (N to talk, U for range); answers pma-voice
 ensure MULTIweather     # one clock and one sky for everyone; weather changes by itself

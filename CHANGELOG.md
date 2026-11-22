@@ -2,6 +2,22 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-22 (houses)
+
+### New
+- **MULTIhouses: houses.** 50 houses across the map, each with a map blip. Hold **Left Alt** at a house to view and buy it:
+  - pay a 20% deposit in cash and pay off the rest over time;
+  - one house per character;
+  - give guest keys to other characters;
+  - a storage chest and a wardrobe for your outfits in every house;
+  - lock and unlock the doors;
+  - optional land tax, paid from the house's own credit, with telegram reminders;
+  - break-ins with a `lockpick`, with an alert to the law.
+- New item: `lockpick` (added by itself on the first start).
+
+### Updating an existing server
+- Copy `resources/[multicore]/MULTIhouses` into your server and add `ensure MULTIhouses` after `ensure MULTItelegram` in `server.cfg`. Its tables are made on the first start.
+
 ## 2026-11-21 (character creator fix)
 
 ### Fixed
