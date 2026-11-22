@@ -24,12 +24,22 @@ local function isRunning(res)
 end
 Helpers.IsRunning = isRunning
 
+-- GetResourceState follows `provide`, so 'vorp_inputs' reports MULTIhelpers' own state while
+-- it starts. Only a resource that really has that name counts as the real one.
+local function realRunning(res)
+    if res == GetCurrentResourceName() then return false end
+    for i = 0, GetNumResources() - 1 do
+        if GetResourceByFindIndex(i) == res then return isRunning(res) end
+    end
+    return false
+end
+
 --- Register `fn` as exports.MULTIhelpers:<exportName> and as exports.<res>:<exportName>
 --- for every name in `standsInFor`. Skips a VORP name whose real resource is running.
 function Helpers.Export(exportName, fn, standsInFor)
     exports(exportName, fn)
     for _, res in ipairs(standsInFor or {}) do
-        if isRunning(res) and res ~= GetCurrentResourceName() then
+        if realRunning(res) then
             print('^1[MULTIhelpers] ' .. _L('warn_running', res, res) .. '^7')
         else
             answerAs(res, exportName, fn)
