@@ -2,6 +2,17 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-22 (vendors)
+
+### New
+- **MULTIvendor: vendor NPCs who buy your goods**, made by **Mack**. Vendors around the map each buy their own kind of goods: produce, pelts, herbs, jewellery, fossils and more. Walk up and use the prompt, pick what to sell and how many, or sell everything that vendor buys at once.
+- Sales are checked on the server: you must stand at the vendor, you are paid only for items actually taken from your satchel, and amounts must be whole numbers.
+- Vendor prices follow the store rule: no vendor pays more than half of what a store sells the item for, so nothing can be bought and sold again for profit.
+- 10 languages, the black and white MULTIcore look.
+
+### Updating an existing server
+- Copy `resources/[multicore]/MULTIvendor` into your server and add `ensure MULTIvendor` after `ensure MULTIhouses` in `server.cfg`.
+
 ## 2026-11-22 (give items from the admin menu)
 
 ### New
