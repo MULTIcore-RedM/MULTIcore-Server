@@ -2,6 +2,11 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-23 (last location fix)
+
+### Fixed
+- **Last location spawn:** your game now sends your real position to the server every few seconds, so "last location" puts you back where you logged out. Loading a character no longer overwrites the saved spot with the character select spot. How often it sends is `MULTIConfig.PositionSyncMs` in `MULTIcore/config_multi.lua` (default 5000 ms).
+
 ## 2026-11-22 (32 languages)
 
 ### New

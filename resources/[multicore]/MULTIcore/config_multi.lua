@@ -77,3 +77,7 @@ MULTIConfig.ServerPaid = {
     Types = { leo = true, medic = true, doj = true },
     Jobs = {},          -- extra job names, e.g. { telegraph = true }
 }
+
+-- How often the owning client reports its real coordinates to the server, so "last location"
+-- keeps advancing even when the server cannot read the remote ped at save time.
+MULTIConfig.PositionSyncMs = 5000

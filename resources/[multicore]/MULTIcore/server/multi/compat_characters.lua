@@ -286,10 +286,9 @@ if cfg.CharactersTable ~= false then
     RSGCore.Player.Save = function(source, ...)
         local P = RSGCore.Players[source]
         if not P or ready[source] ~= P.PlayerData.id then return origSave(source, ...) end
-        -- the read below waits on the database; keep where the ped is now (it may be gone after, on a drop)
-        local ped = GetPlayerPed(source)
-        local c = ped and ped ~= 0 and GetEntityCoords(ped)
-        if c and (c.x ~= 0.0 or c.y ~= 0.0 or c.z ~= 0.0) then P.PlayerData.position = { x = c.x, y = c.y, z = c.z } end
+        -- RSGCore.Player.Save records the position itself, AFTER its no-save-area check.
+        -- Do not copy the ped coords into PlayerData.position here: that overwrites the
+        -- fallback with the character-select coordinates and breaks "last location".
         local args, result = { ... }, nil
         sync(P, true, function() result = origSave(source, table.unpack(args)) end)
         return result

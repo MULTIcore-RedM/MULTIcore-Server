@@ -569,6 +569,14 @@ local function savePlayerRow(PlayerData, position)
     })
 end
 
+-- x/y/z plus heading in one plain table (the position JSON column), so "last location" also faces the right way
+local function positionTable(c, heading)
+    if not c then return nil end
+    local x, y, z = tonumber(c.x), tonumber(c.y), tonumber(c.z)
+    if not x or not y or not z then return nil end
+    return { x = x, y = y, z = z, w = tonumber(heading or c.w or c.h or c.heading) or 0.0 }
+end
+
 ---MULTIcore: writes a new character's row straight away and returns its id (players.id).
 function RSGCore.Player.InsertNew(PlayerData)
     local params = {
@@ -616,33 +624,25 @@ function RSGCore.Player.InNoSaveArea(coords)
     return false
 end
 
---- Where the player really stands, as { x, y, z, w = heading }, or nil when there is no ped
---- (mid-disconnect) or they stand in a no-save area (the character select scene).
-local function livePosition(source)
-    local ped = GetPlayerPed(source)
-    if not ped or ped == 0 or not DoesEntityExist(ped) then return nil end
-    local c = GetEntityCoords(ped)
-    if c.x == 0.0 and c.y == 0.0 and c.z == 0.0 then return nil end
-    if RSGCore.Player.InNoSaveArea(c) then return nil end
-    return { x = c.x, y = c.y, z = c.z, w = GetEntityHeading(ped) }
-end
-
---- Keeps PlayerData.position on the player's real spot. A save made after the ped has gone
---- (logging out, closing the game) then still stores where they were, not where they logged in.
-function RSGCore.Player.TrackPosition(source)
+--- Explicit client -> server position sync: the owning client knows where it really is.
+--- The server only validates the no-save areas before remembering the position.
+function RSGCore.Player.UpdatePosition(source, coords)
+    if type(coords) ~= 'table' then return false end
     local Player = RSGCore.Players[source]
-    if not Player or not Player.PlayerData then return end
-    local pos = livePosition(source)
-    if pos then Player.PlayerData.position = pos end
+    if not Player or not Player.PlayerData then return false end
+    local pos = positionTable(coords)
+    if not pos or (pos.x == 0.0 and pos.y == 0.0 and pos.z == 0.0) then return false end
+    if RSGCore.Player.InNoSaveArea(pos) then return false end
+    Player.PlayerData.position = pos
+    return true
 end
 
--- how often the last real position is noted (cheap: no database write, only memory)
-local TRACK_POSITION_MS = 10000
-CreateThread(function()
-    while true do
-        Wait(TRACK_POSITION_MS)
-        for src in pairs(RSGCore.Players) do RSGCore.Player.TrackPosition(src) end
-    end
+RegisterNetEvent('MULTIcore:server:updatePosition', function(coords)
+    RSGCore.Player.UpdatePosition(source, coords)
+end)
+
+exports('UpdatePlayerPosition', function(source, coords)
+    return RSGCore.Player.UpdatePosition(tonumber(source), coords)
 end)
 
 function RSGCore.Player.Save(source)
@@ -651,9 +651,19 @@ function RSGCore.Player.Save(source)
         return RSGCore.ShowError(resourceName, 'ERROR RSGCore.PLAYER.SAVE - PLAYERDATA IS EMPTY!')
     end
     local PlayerData = Player.PlayerData
-    -- the real spot now; if there is none (mid-disconnect, select scene) the last real spot noted
-    RSGCore.Player.TrackPosition(source)
-    local pcoords = PlayerData.position
+    local ped = GetPlayerPed(source)
+    local heading = (ped and ped ~= 0 and GetEntityHeading) and GetEntityHeading(ped) or nil
+    local live = (ped and ped ~= 0) and positionTable(GetEntityCoords(ped), heading) or nil
+    -- keep the last known position if the ped is not available (e.g. mid-disconnect), instead of saving 0,0,0,
+    -- and when the player is in a no-save area (character select scene)
+    if not live or (live.x == 0.0 and live.y == 0.0 and live.z == 0.0) or RSGCore.Player.InNoSaveArea(live) then
+        live = nil
+    end
+    local pcoords = live or positionTable(PlayerData.position) or PlayerData.position
+    if pcoords and pcoords.x and pcoords.y and pcoords.z then
+        -- keep the in-memory copy in step with the row (compat mirror + next login's "last location")
+        PlayerData.position = pcoords
+    end
     savePlayerRow(PlayerData, pcoords)
     if GetResourceState('rsg-inventory') == 'started' then exports['rsg-inventory']:SaveInventory(source) end
     RSGCore.ShowSuccess(resourceName, PlayerData.name .. ' PLAYER SAVED!')
