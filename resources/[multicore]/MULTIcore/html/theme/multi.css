@@ -57,6 +57,24 @@
     --mc-shadow: none;
     --mc-radius: 0;
     --mc-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+
+    /* pieces the presets (MULTIConfig.UIPreset) change; pages may use them too */
+    --mc-panel-bg: linear-gradient(180deg, rgba(0, 0, 0, calc(var(--mc-panel) - 0.08)) 0%, rgba(0, 0, 0, var(--mc-panel)) 12%, rgba(0, 0, 0, var(--mc-panel)) 88%, rgba(0, 0, 0, calc(var(--mc-panel) - 0.08)) 100%);
+    --mc-panel-border: 0;
+    --mc-panel-radius: 0;
+    --mc-panel-outline: 0 solid transparent;   /* inner frame line */
+    --mc-panel-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.35);
+    --mc-row-bg: var(--mc-paper-2);
+    --mc-row-active-bg: rgba(0, 0, 0, 0.75);
+    --mc-row-active-ink: var(--mc-ink);
+    --mc-row-active-frame: 2px solid var(--mc-ink);
+    --mc-row-radius: 0;
+    --mc-row-clip: none;                        /* clip-path of the picked row */
+    --mc-field-bg: rgba(0, 0, 0, 0.6);          /* buttons, inputs */
+    --mc-btn-primary-bg: var(--mc-ink);
+    --mc-btn-primary-ink: #000;
+    --mc-btn-radius: 0;
+    --mc-brand-filter: none;                    /* colour of the MC mark */
 }
 
 /* ---------- base ---------- */
@@ -74,11 +92,12 @@
 
 /* ---------- panel: black, fading softly at the edges like the game's menus ---------- */
 .mc-panel {
-    background: linear-gradient(180deg, rgba(0, 0, 0, calc(var(--mc-panel) - 0.08)) 0%, rgba(0, 0, 0, var(--mc-panel)) 12%, rgba(0, 0, 0, var(--mc-panel)) 88%, rgba(0, 0, 0, calc(var(--mc-panel) - 0.08)) 100%);
-    border: 0;
-    outline: 0;
-    border-radius: 0;
-    box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.35);
+    background: var(--mc-panel-bg);
+    border: var(--mc-panel-border);
+    outline: var(--mc-panel-outline);
+    outline-offset: -10px;
+    border-radius: var(--mc-panel-radius);
+    box-shadow: var(--mc-panel-shadow);
     padding: 20px 24px;
 }
 /* big centred title, as on store and camp menus */
@@ -136,14 +155,13 @@
 .mc-row {
     position: relative;
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    padding: 9px 14px; background: var(--mc-paper-2);
-    border: 0; border-radius: 0; cursor: pointer;
+    padding: 9px 14px; background: var(--mc-row-bg);    border: 0; border-radius: var(--mc-row-radius); cursor: pointer;
     font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-ui);
     color: var(--mc-ink);
 }
 .mc-row:hover { background: var(--mc-paper-3); }
-.mc-row.active { background: rgba(0, 0, 0, 0.75); }
-.mc-row.active::after { content: ''; position: absolute; inset: 0; border: 2px solid var(--mc-ink); pointer-events: none; }
+.mc-row.active { background: var(--mc-row-active-bg); color: var(--mc-row-active-ink); clip-path: var(--mc-row-clip); }
+.mc-row.active::after { content: ''; position: absolute; inset: 0; border: var(--mc-row-active-frame); border-radius: var(--mc-row-radius); pointer-events: none; }
 .mc-row .mc-sub { color: var(--mc-ink-dim); font-family: var(--mc-font-body); font-weight: 400; font-size: var(--mc-size-small); }
 .mc-row.disabled { color: var(--mc-ink-faint); cursor: default; }
 
@@ -152,13 +170,13 @@
     font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-ui);
     text-transform: uppercase; letter-spacing: 0.05em;
     padding: 9px 20px; cursor: pointer; color: var(--mc-ink);
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid var(--mc-line-strong); border-radius: 0;
+    background: var(--mc-field-bg);
+    border: 1px solid var(--mc-line-strong); border-radius: var(--mc-btn-radius);
     box-shadow: none; text-shadow: var(--mc-text-shadow);
 }
 .mc-btn:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--mc-ink); }
 .mc-btn:disabled { opacity: 0.35; cursor: default; }
-.mc-btn.primary { background: var(--mc-ink); border-color: var(--mc-ink); color: #000; text-shadow: none; }
+.mc-btn.primary { background: var(--mc-btn-primary-bg); border-color: var(--mc-btn-primary-bg); color: var(--mc-btn-primary-ink); text-shadow: none; }
 .mc-btn.primary:hover { background: rgba(255, 255, 255, 0.85); }
 .mc-btn.danger { border-color: var(--mc-red); color: #fff; }
 .mc-btn.danger:hover { background: var(--mc-red); }
@@ -170,7 +188,7 @@
 .mc-field label { font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-transform: uppercase; letter-spacing: 0.06em; color: var(--mc-ink-dim); }
 .mc-input, .mc-select, .mc-textarea {
     font-family: var(--mc-font-body); font-size: var(--mc-size-body); color: var(--mc-ink);
-    background: rgba(0, 0, 0, 0.6); border: 1px solid var(--mc-line); border-radius: 0;
+    background: var(--mc-field-bg); border: 1px solid var(--mc-line); border-radius: var(--mc-btn-radius);
     padding: 8px 10px; outline: none;
 }
 .mc-input:focus, .mc-select:focus, .mc-textarea:focus { border-color: var(--mc-ink); }
@@ -241,7 +259,7 @@
     height: var(--mc-brand-size); width: calc(var(--mc-brand-size) * 1.9);
     object-fit: cover; object-position: 50% 50%;
     opacity: var(--mc-brand-opacity);
-    border: 0; box-shadow: none; filter: none; background: none;
+    border: 0; box-shadow: none; filter: var(--mc-brand-filter); background: none;
     pointer-events: none; user-select: none; -webkit-user-drag: none;
 }
 .mc-brand.mc-brand-above { margin: 0 auto 6px; }
@@ -269,3 +287,95 @@
     --mc-font-body: 'PT Serif', serif;
     --mc-font-hand: 'PT Serif', serif;
 }
+
+/* =========================================================================
+   UI presets (MULTIConfig.UIPreset in MULTIcore/config_multi.lua)
+     'classic'    the base game's black menus (everything above)
+     'parchment'  old paper, dark ink, a brush stroke under the picked row
+     'modern'     dark card with a silver frame and rounded corners
+   preset.js puts the class mc-preset-<name> on every MULTI page.
+   ========================================================================= */
+
+/* ---------- parchment ---------- */
+html.mc-preset-parchment {
+    --mc-ink: #2b1d12;
+    --mc-ink-dim: rgba(43, 29, 18, 0.78);
+    --mc-ink-faint: rgba(43, 29, 18, 0.5);
+    --mc-paper: #e6d4ab;
+    --mc-paper-2: rgba(110, 80, 40, 0.07);
+    --mc-paper-3: rgba(70, 45, 20, 0.14);
+    --mc-line: rgba(60, 40, 20, 0.28);
+    --mc-line-strong: rgba(50, 32, 15, 0.65);
+    --mc-accent: #2b1d12;
+    --mc-accent-ink: #f1e4c4;
+    --mc-red: #8e2418;
+    --mc-bad: #8e2418;
+    --mc-good: #3f6a2a;
+    --mc-gold: #7a5a1c;
+    --mc-text-shadow: none;
+    --mc-panel-bg:
+        radial-gradient(ellipse at 50% 45%, rgba(255, 248, 225, 0.55) 0%, rgba(255, 248, 225, 0) 60%),
+        radial-gradient(ellipse at 15% 85%, rgba(120, 80, 30, 0.18) 0%, rgba(120, 80, 30, 0) 40%),
+        radial-gradient(ellipse at 85% 10%, rgba(120, 80, 30, 0.16) 0%, rgba(120, 80, 30, 0) 38%),
+        linear-gradient(180deg, #e9d8b0 0%, #dfc899 55%, #d4b985 100%);
+    --mc-panel-border: 1px solid rgba(90, 60, 25, 0.55);
+    --mc-panel-radius: 2px;
+    --mc-panel-outline: 1px solid rgba(60, 40, 20, 0.55);
+    --mc-panel-shadow: inset 0 0 70px rgba(110, 70, 25, 0.55), 0 8px 30px rgba(0, 0, 0, 0.55);
+    --mc-row-bg: transparent;
+    --mc-row-active-bg: #2b1d12;
+    --mc-row-active-ink: #f1e4c4;
+    --mc-row-active-frame: 0 solid transparent;
+    --mc-row-clip: polygon(0 18%, 2% 4%, 30% 0, 62% 5%, 98% 0, 100% 22%, 99% 78%, 100% 96%, 70% 100%, 35% 95%, 3% 100%, 1% 82%);
+    --mc-field-bg: rgba(255, 250, 235, 0.35);
+    --mc-btn-primary-bg: #2b1d12;
+    --mc-btn-primary-ink: #f1e4c4;
+    --mc-brand-filter: brightness(0.22) sepia(0.6);
+}
+html.mc-preset-parchment .mc-row { border-bottom: 1px solid var(--mc-line); }
+html.mc-preset-parchment .mc-row.active .mc-sub,
+html.mc-preset-parchment .mc-row.active .tag { color: rgba(241, 228, 196, 0.75); }
+html.mc-preset-parchment .mc-tab.active { border-bottom-color: var(--mc-ink); }
+html.mc-preset-parchment .mc-btn:hover { background: rgba(70, 45, 20, 0.12); border-color: var(--mc-ink); }
+html.mc-preset-parchment .mc-btn.primary:hover { background: #45301e; }
+html.mc-preset-parchment .mc-btn.danger { color: var(--mc-red); }
+html.mc-preset-parchment .mc-btn.danger:hover { background: var(--mc-red); color: #f1e4c4; }
+html.mc-preset-parchment .mc-key { border-color: var(--mc-ink); background: rgba(255, 250, 235, 0.4); }
+html.mc-preset-parchment .mc-select { background-image: linear-gradient(45deg, transparent 50%, #2b1d12 50%), linear-gradient(135deg, #2b1d12 50%, transparent 50%); }
+html.mc-preset-parchment .mc-select option { background: #e6d4ab; color: #2b1d12; }
+html.mc-preset-parchment .mc-slider input[type=range] { background: rgba(43, 29, 18, 0.3); }
+html.mc-preset-parchment .mc-scroll::-webkit-scrollbar-thumb,
+html.mc-preset-parchment ::-webkit-scrollbar-thumb { background: rgba(43, 29, 18, 0.6); }
+html.mc-preset-parchment .mc-scroll::-webkit-scrollbar-track,
+html.mc-preset-parchment ::-webkit-scrollbar-track { background: rgba(43, 29, 18, 0.12); }
+
+/* ---------- modern ---------- */
+html.mc-preset-modern {
+    --mc-ink: #ececec;
+    --mc-ink-dim: rgba(236, 236, 236, 0.7);
+    --mc-ink-faint: rgba(236, 236, 236, 0.4);
+    --mc-paper: #121212;
+    --mc-paper-2: rgba(255, 255, 255, 0.03);
+    --mc-paper-3: rgba(255, 255, 255, 0.07);
+    --mc-line: rgba(255, 255, 255, 0.14);
+    --mc-line-strong: rgba(220, 220, 220, 0.5);
+    --mc-text-shadow: none;
+    --mc-panel-bg: linear-gradient(180deg, rgba(24, 24, 24, 0.97) 0%, rgba(12, 12, 12, 0.97) 100%);
+    --mc-panel-border: 1px solid rgba(225, 225, 225, 0.6);
+    --mc-panel-radius: 14px;
+    --mc-panel-outline: 1px solid rgba(255, 255, 255, 0.16);
+    --mc-panel-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    --mc-row-bg: transparent;
+    --mc-row-active-bg: linear-gradient(180deg, #3a3a3a 0%, #242424 100%);
+    --mc-row-active-ink: #ffffff;
+    --mc-row-active-frame: 1px solid rgba(255, 255, 255, 0.28);
+    --mc-row-radius: 4px;
+    --mc-field-bg: rgba(255, 255, 255, 0.04);
+    --mc-btn-primary-bg: #d9d9d9;
+    --mc-btn-primary-ink: #111;
+    --mc-btn-radius: 4px;
+    --mc-brand-filter: grayscale(1) brightness(1.7);
+}
+html.mc-preset-modern .mc-row { border-bottom: 1px solid var(--mc-line); }
+html.mc-preset-modern .mc-btn:hover { background: rgba(255, 255, 255, 0.08); }
+html.mc-preset-modern .mc-key { border-radius: 4px; }

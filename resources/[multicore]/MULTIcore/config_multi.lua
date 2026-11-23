@@ -14,6 +14,13 @@ MULTIConfig = {}
 -- A script can still use its own language with Config.Locale in its config.lua.
 MULTIConfig.Language = 'en'
 
+-- Look of every MULTI menu, panel and dialog (one line, no other change needed):
+--   'classic'    the base game's black menus with white lettering (default)
+--   'parchment'  old paper with dark ink and a brush stroke under the picked row
+--   'modern'     a dark card with a silver frame and rounded corners
+-- '' = use server.cfg  setr multicore_ui_preset <name>  instead.
+MULTIConfig.UIPreset = 'classic'
+
 MULTIConfig.Vorp = {
     -- Which player identifier VORP scripts see as user / character "identifier".
     -- 'steam' is what most VORP servers use; players without Steam fall back to 'license'.
