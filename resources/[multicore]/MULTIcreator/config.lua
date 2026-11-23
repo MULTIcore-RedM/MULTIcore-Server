@@ -75,16 +75,47 @@ Config.OverlayVariants = {         -- how many sheet variants (var) each overlay
 -- Clothing shown in the creator (category keys from MULTIcore data/clothes.lua). tint = show palette / tint controls.
 -- Categories a sex does not have (skirts on mp_male ...) are left out on their own.
 Config.CreatorClothing = {
+    -- head and neck
     { key = 'hats', tint = true },
+    { key = 'hair_accessories', tint = true },
+    { key = 'eyewear', tint = true },
+    { key = 'masks', tint = true },
+    { key = 'neckwear', tint = true },
+    { key = 'neckties', tint = true },
+    -- body
     { key = 'shirts_full', tint = true },
     { key = 'vests', tint = true },
+    { key = 'suspenders', tint = true },
     { key = 'coats', tint = true },
-    { key = 'neckwear', tint = true },
+    { key = 'coats_closed', tint = true },
+    { key = 'cloaks', tint = true },
+    { key = 'ponchos', tint = true },
+    -- hands
+    { key = 'gloves', tint = false },
+    { key = 'gauntlets', tint = true },
+    { key = 'jewelry_rings_right', tint = true },
+    { key = 'jewelry_rings_left', tint = true },
+    { key = 'jewelry_bracelets', tint = true },
+    -- belts and gear
+    { key = 'belts', tint = true },
+    { key = 'belt_buckles', tint = true },
+    { key = 'gunbelts', tint = true },
+    { key = 'gunbelt_accs', tint = true },
+    { key = 'holsters_left', tint = true },
+    { key = 'loadouts', tint = true },
+    { key = 'satchels', tint = true },
+    -- legs and feet
     { key = 'pants', tint = true },
     { key = 'skirts', tint = true },
     { key = 'dresses', tint = true },
+    { key = 'chaps', tint = true },
     { key = 'boots', tint = true },
-    { key = 'gloves', tint = false },
+    { key = 'spats', tint = true },
+    { key = 'boot_accessories', tint = true },   -- spurs
+    -- extras
+    { key = 'badges', tint = true },
+    { key = 'armor', tint = true },
+    { key = 'accessories', tint = true },
 }
 
 -- Starting clothes of a new look (index into the category, see data/clothes.lua). Players can change them.
