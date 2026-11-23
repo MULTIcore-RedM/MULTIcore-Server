@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "두건을 얼굴 위로 올리기",
     "ws_sug_bandanaOff": "두건 내리기",
     "ws_sug_collar": "셔츠 깃 열기 또는 닫기",
-    "ws_sug_sleeves": "셔츠 소매 걷기 또는 내리기"
+    "ws_sug_sleeves": "셔츠 소매 걷기 또는 내리기",
+    "store_piece_label": "%s, 스타일 %d",
+    "ui_full_catalogue": "가게의 모든 스타일",
+    "ui_buy_all": "고른 것 모두 사기 (%d) · %s",
+    "ui_store_bought_n": "%d개를 %s에 샀습니다.",
+    "ui_take_off_one": "벗기"
 }

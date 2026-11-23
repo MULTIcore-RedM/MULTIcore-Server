@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "バンダナを上げて顔を覆う",
     "ws_sug_bandanaOff": "バンダナを下げる",
     "ws_sug_collar": "シャツの襟を開ける・閉める",
-    "ws_sug_sleeves": "シャツの袖をまくる・下ろす"
+    "ws_sug_sleeves": "シャツの袖をまくる・下ろす",
+    "store_piece_label": "%s・スタイル%d",
+    "ui_full_catalogue": "店の全スタイル",
+    "ui_buy_all": "選んだものをすべて買う（%d）・%s",
+    "ui_store_bought_n": "%d点を%sで購入しました。",
+    "ui_take_off_one": "脱ぐ"
 }

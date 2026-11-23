@@ -288,5 +288,10 @@
     "outfit_full": "Your wardrobe is full. Delete an outfit first.",
     "outfit_nothing_worn": "You are not wearing anything to save.",
     "outfit_gone": "That outfit is no longer saved.",
-    "outfit_too_far": "Go to a clothes store or a wardrobe for that."
+    "outfit_too_far": "Go to a clothes store or a wardrobe for that.",
+    "store_piece_label": "%s, style %d",
+    "ui_full_catalogue": "Every style the store carries",
+    "ui_buy_all": "Buy everything picked (%d) · %s",
+    "ui_store_bought_n": "%d bought for %s.",
+    "ui_take_off_one": "Take it off"
 }

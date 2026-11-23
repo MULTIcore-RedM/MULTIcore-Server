@@ -288,5 +288,10 @@
     "outfit_full": "Tu armario está lleno. Borra primero un atuendo.",
     "outfit_nothing_worn": "No llevas nada que guardar.",
     "outfit_gone": "Ese atuendo ya no está guardado.",
-    "outfit_too_far": "Para eso ve a una tienda de ropa o a un armario."
+    "outfit_too_far": "Para eso ve a una tienda de ropa o a un armario.",
+    "store_piece_label": "%s, modelo %d",
+    "ui_full_catalogue": "Todos los modelos de la tienda",
+    "ui_buy_all": "Comprar todo lo elegido (%d) · %s",
+    "ui_store_bought_n": "%d comprado(s) por %s.",
+    "ui_take_off_one": "Quitárselo"
 }

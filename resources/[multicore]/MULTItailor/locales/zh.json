@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "把头巾拉上遮住脸",
     "ws_sug_bandanaOff": "把头巾拉下",
     "ws_sug_collar": "敞开或扣上衬衫领口",
-    "ws_sug_sleeves": "卷起或放下衬衫袖子"
+    "ws_sug_sleeves": "卷起或放下衬衫袖子",
+    "store_piece_label": "%s，款式 %d",
+    "ui_full_catalogue": "店内所有款式",
+    "ui_buy_all": "购买全部已选（%d）· %s",
+    "ui_store_bought_n": "已购买 %d 件，花费 %s。",
+    "ui_take_off_one": "脱下"
 }

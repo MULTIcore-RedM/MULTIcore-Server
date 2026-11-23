@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Trage bandana pe față",
     "ws_sug_bandanaOff": "Trage bandana jos",
     "ws_sug_collar": "Deschide sau închide gulerul cămășii",
-    "ws_sug_sleeves": "Suflecă sau lasă jos mânecile cămășii"
+    "ws_sug_sleeves": "Suflecă sau lasă jos mânecile cămășii",
+    "store_piece_label": "%s, model %d",
+    "ui_full_catalogue": "Toate modelele magazinului",
+    "ui_buy_all": "Cumpără tot ce ai ales (%d) · %s",
+    "ui_store_bought_n": "%d cumpărate pentru %s.",
+    "ui_take_off_one": "Dă-l jos"
 }

@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Vedä huivi kasvoillesi",
     "ws_sug_bandanaOff": "Vedä huivi alas",
     "ws_sug_collar": "Avaa tai sulje paidan kaulus",
-    "ws_sug_sleeves": "Kääri paidan hihat ylös tai alas"
+    "ws_sug_sleeves": "Kääri paidan hihat ylös tai alas",
+    "store_piece_label": "%s, malli %d",
+    "ui_full_catalogue": "Kaikki kaupan mallit",
+    "ui_buy_all": "Osta kaikki valitut (%d) · %s",
+    "ui_store_bought_n": "%d ostettu hintaan %s.",
+    "ui_take_off_one": "Riisu"
 }

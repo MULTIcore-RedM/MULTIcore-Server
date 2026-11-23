@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Natiahni si šatku cez tvár",
     "ws_sug_bandanaOff": "Stiahni si šatku",
     "ws_sug_collar": "Zapni alebo rozopni golier košele",
-    "ws_sug_sleeves": "Vyhrň alebo spusti rukávy košele"
+    "ws_sug_sleeves": "Vyhrň alebo spusti rukávy košele",
+    "store_piece_label": "%s, strih %d",
+    "ui_full_catalogue": "Všetky strihy v obchode",
+    "ui_buy_all": "Kúpiť všetko vybrané (%d) · %s",
+    "ui_store_bought_n": "Kúpené %d za %s.",
+    "ui_take_off_one": "Vyzliecť"
 }

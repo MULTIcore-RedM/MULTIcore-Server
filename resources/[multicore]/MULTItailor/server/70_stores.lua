@@ -141,13 +141,78 @@ local function linesFor(s)
     return out
 end
 
+-- Full catalogue: every Designer category that has a store price, with that price at this store.
+local function catalogueCategories(s)
+    local out = {}
+    for _, c in ipairs(Config.Designer.categories or {}) do
+        local price = TL.storePrice({ cat = c.id }, s)
+        if price then out[#out + 1] = { id = c.id, label = c.label, group = c.group, price = price } end
+    end
+    return out
+end
+
+-- "Hat, style 12" (or the piece's own title when the clothing data has one)
+local function pieceLabel(c, sex, m)
+    local cat = TS.catalogue()
+    local model = cat and cat[sex] and cat[sex][c.id] and cat[sex][c.id][m]
+    if model and type(model.title) == 'string' and model.title ~= '' then return model.title end
+    return L('store_piece_label', c.label, m)
+end
+
 lib.callback.register('multitailor:store:open', function(src, storeId)
     if not TA.rate(src, 'default') then return nil, L('err_slow') end
     local s = type(storeId) == 'string' and stores[storeId]
     if not s or not s.enabled then return nil, L('err_store_closed') end
     if not near(src, s) then return nil, L('err_too_far') end
-    return { storeId = s.id, label = s.label, town = s.town, lines = linesFor(s), cash = TA.money(src),
-             sex = TA.sex(src) or 'male', format = TA.clothingFormat(), sexLabels = Config.Designer.sexLabels }
+    local payload = { storeId = s.id, label = s.label, town = s.town, cash = TA.money(src),
+                      sex = TA.sex(src) or 'male', format = TA.clothingFormat(), sexLabels = Config.Designer.sexLabels }
+    if Config.Stores.fullCatalogue ~= false and TS.catalogue() then
+        payload.categories = catalogueCategories(s)   -- the client adds the style / colour counts itself
+    else
+        payload.lines = linesFor(s)
+    end
+    return payload
+end)
+
+-- Full catalogue: { storeId, sex, cat, m (style), v (colour) }. The hash and the price are worked out here.
+lib.callback.register('multitailor:store:buyPiece', function(src, data)
+    data = type(data) == 'table' and data or {}
+    if Config.Stores.fullCatalogue == false then return { ok = false, error = L('err_bad_line') } end
+    if not TA.rate(src, 'buy') then return { ok = false, error = L('err_slow') } end
+    if busy[src] then return { ok = false, error = L('err_busy') } end
+    local s = type(data.storeId) == 'string' and stores[data.storeId]
+    if not s or not s.enabled then return { ok = false, error = L('err_store_closed') } end
+    if not near(src, s) then return { ok = false, error = L('err_too_far') } end
+    local sex = (data.sex == 'female' or data.sex == 'male') and data.sex or nil
+    local c = type(data.cat) == 'string' and TS.category(data.cat)
+    local m, v = TU.int(data.m, 1, 100000), TU.int(data.v, 1, 1000)
+    local hash = sex and c and m and v and TS.resolve(sex, c.id, m, v)
+    local price = hash and TL.storePrice({ cat = c.id }, s)
+    if not hash or not price then return { ok = false, error = L('err_bad_line') } end
+    if TA.clothingFormat() == 'unavailable' then return { ok = false, error = L('err_inventory_missing') } end
+    busy[src] = true
+    local res
+    local ok, e = pcall(function()
+        if TA.money(src) + 1e-9 < price then res = { ok = false, error = L('err_no_money', price) } return end
+        if not TA.takeMoney(src, price) then res = { ok = false, error = L('err_no_money', price) } return end
+        local label = pieceLabel(c, sex, m)
+        local okG, gerr = TA.givePiece(src, {
+            cat = c.id, hash = hash, sex = sex, m = m, v = v,
+            label = label, description = L('store_item_desc', label, s.label),
+        })
+        if not okG then
+            TA.giveMoney(src, price)
+            TU.debug('store give failed: %s', tostring(gerr))
+            res = { ok = false, error = (gerr == 'inventory_missing') and L('err_inventory_missing') or L('err_no_room') }
+            return
+        end
+        TriggerEvent('MULTItailor:storePurchase', src, { storeId = s.id, cat = c.id, m = m, colour = v, price = price })
+        TA.notify(src, L('store_bought', label, price), 'success')
+        res = { ok = true, cash = TA.money(src), label = label, price = price }
+    end)
+    busy[src] = nil
+    if not ok then print(('^1[MULTItailor] store purchase failed: %s^0'):format(tostring(e))) return { ok = false, error = L('err_generic') } end
+    return res
 end)
 
 lib.callback.register('multitailor:store:buy', function(src, data)

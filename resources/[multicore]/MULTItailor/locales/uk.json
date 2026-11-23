@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Натягти бандану на обличчя",
     "ws_sug_bandanaOff": "Опустити бандану",
     "ws_sug_collar": "Розстебнути чи застебнути комір",
-    "ws_sug_sleeves": "Закотити чи опустити рукави"
+    "ws_sug_sleeves": "Закотити чи опустити рукави",
+    "store_piece_label": "%s, фасон %d",
+    "ui_full_catalogue": "Усі фасони крамниці",
+    "ui_buy_all": "Купити все вибране (%d) · %s",
+    "ui_store_bought_n": "Куплено: %d за %s.",
+    "ui_take_off_one": "Зняти"
 }

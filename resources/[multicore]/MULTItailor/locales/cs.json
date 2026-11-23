@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Vytáhni si šátek přes obličej",
     "ws_sug_bandanaOff": "Stáhni si šátek dolů",
     "ws_sug_collar": "Zapni nebo rozepni límec košile",
-    "ws_sug_sleeves": "Vyhrň nebo stáhni rukávy košile"
+    "ws_sug_sleeves": "Vyhrň nebo stáhni rukávy košile",
+    "store_piece_label": "%s, střih %d",
+    "ui_full_catalogue": "Všechny střihy v obchodě",
+    "ui_buy_all": "Koupit vše vybrané (%d) · %s",
+    "ui_store_bought_n": "Koupeno %d za %s.",
+    "ui_take_off_one": "Sundat"
 }

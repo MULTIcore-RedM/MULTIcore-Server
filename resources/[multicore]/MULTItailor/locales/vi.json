@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Kéo khăn lên che mặt",
     "ws_sug_bandanaOff": "Kéo khăn xuống",
     "ws_sug_collar": "Mở hoặc cài cổ áo sơ mi",
-    "ws_sug_sleeves": "Xắn hoặc thả tay áo sơ mi"
+    "ws_sug_sleeves": "Xắn hoặc thả tay áo sơ mi",
+    "store_piece_label": "%s, kiểu %d",
+    "ui_full_catalogue": "Mọi kiểu cửa hàng có",
+    "ui_buy_all": "Mua tất cả đã chọn (%d) · %s",
+    "ui_store_bought_n": "Đã mua %d với giá %s.",
+    "ui_take_off_one": "Cởi ra"
 }

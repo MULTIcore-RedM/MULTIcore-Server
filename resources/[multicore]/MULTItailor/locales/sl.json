@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Potegni ruto čez obraz",
     "ws_sug_bandanaOff": "Spusti ruto",
     "ws_sug_collar": "Zapni ali odpni ovratnik srajce",
-    "ws_sug_sleeves": "Zavihaj ali spusti rokave srajce"
+    "ws_sug_sleeves": "Zavihaj ali spusti rokave srajce",
+    "store_piece_label": "%s, kroj %d",
+    "ui_full_catalogue": "Vsi kroji v trgovini",
+    "ui_buy_all": "Kupi vse izbrano (%d) · %s",
+    "ui_store_bought_n": "Kupljeno %d za %s.",
+    "ui_take_off_one": "Sleci"
 }

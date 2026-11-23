@@ -288,5 +288,10 @@
     "outfit_full": "Twoja szafa jest pełna. Najpierw usuń jakiś strój.",
     "outfit_nothing_worn": "Nie masz na sobie nic do zapisania.",
     "outfit_gone": "Ten strój nie jest już zapisany.",
-    "outfit_too_far": "Do tego musisz pójść do sklepu odzieżowego lub do szafy."
+    "outfit_too_far": "Do tego musisz pójść do sklepu odzieżowego lub do szafy.",
+    "store_piece_label": "%s, fason %d",
+    "ui_full_catalogue": "Każdy fason w sklepie",
+    "ui_buy_all": "Kup wszystko wybrane (%d) · %s",
+    "ui_store_bought_n": "Kupiono %d za %s.",
+    "ui_take_off_one": "Zdejmij"
 }

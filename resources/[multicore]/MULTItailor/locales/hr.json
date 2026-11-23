@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Podigni maramu preko lica",
     "ws_sug_bandanaOff": "Spusti maramu",
     "ws_sug_collar": "Otvori ili zatvori ovratnik košulje",
-    "ws_sug_sleeves": "Zavrni ili spusti rukave košulje"
+    "ws_sug_sleeves": "Zavrni ili spusti rukave košulje",
+    "store_piece_label": "%s, kroj %d",
+    "ui_full_catalogue": "Svi krojevi u trgovini",
+    "ui_buy_all": "Kupi sve odabrano (%d) · %s",
+    "ui_store_bought_n": "Kupljeno %d za %s.",
+    "ui_take_off_one": "Skini"
 }

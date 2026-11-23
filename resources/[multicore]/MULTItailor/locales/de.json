@@ -288,5 +288,10 @@
     "outfit_full": "Dein Kleiderschrank ist voll. Lösch zuerst ein Outfit.",
     "outfit_nothing_worn": "Du trägst nichts, was man speichern könnte.",
     "outfit_gone": "Dieses Outfit ist nicht mehr gespeichert.",
-    "outfit_too_far": "Geh dafür zu einem Kleiderladen oder einem Kleiderschrank."
+    "outfit_too_far": "Geh dafür zu einem Kleiderladen oder einem Kleiderschrank.",
+    "store_piece_label": "%s, Modell %d",
+    "ui_full_catalogue": "Jedes Modell im Laden",
+    "ui_buy_all": "Alles Ausgewählte kaufen (%d) · %s",
+    "ui_store_bought_n": "%d gekauft für %s.",
+    "ui_take_off_one": "Ausziehen"
 }

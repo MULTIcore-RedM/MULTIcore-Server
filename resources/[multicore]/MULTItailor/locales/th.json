@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "ดึงผ้าโพกหน้าขึ้นปิดหน้า",
     "ws_sug_bandanaOff": "ดึงผ้าโพกหน้าลง",
     "ws_sug_collar": "เปิดหรือปิดคอเสื้อ",
-    "ws_sug_sleeves": "พับแขนเสื้อขึ้นหรือลง"
+    "ws_sug_sleeves": "พับแขนเสื้อขึ้นหรือลง",
+    "store_piece_label": "%s แบบที่ %d",
+    "ui_full_catalogue": "ทุกแบบที่ร้านมี",
+    "ui_buy_all": "ซื้อทั้งหมดที่เลือก (%d) · %s",
+    "ui_store_bought_n": "ซื้อ %d ชิ้นในราคา %s",
+    "ui_take_off_one": "ถอดออก"
 }

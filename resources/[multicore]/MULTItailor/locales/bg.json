@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Вдигнете банданата на лицето",
     "ws_sug_bandanaOff": "Свалете банданата",
     "ws_sug_collar": "Разкопчайте или закопчайте яката",
-    "ws_sug_sleeves": "Навийте или спуснете ръкавите"
+    "ws_sug_sleeves": "Навийте или спуснете ръкавите",
+    "store_piece_label": "%s, модел %d",
+    "ui_full_catalogue": "Всички модели в магазина",
+    "ui_buy_all": "Купи всичко избрано (%d) · %s",
+    "ui_store_bought_n": "Купени: %d за %s.",
+    "ui_take_off_one": "Свали"
 }

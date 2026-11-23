@@ -288,5 +288,10 @@
     "outfit_full": "Il tuo guardaroba è pieno. Elimina prima un abito.",
     "outfit_nothing_worn": "Non indossi niente da salvare.",
     "outfit_gone": "Quell'abito non è più salvato.",
-    "outfit_too_far": "Per questo vai in un negozio di abiti o a un guardaroba."
+    "outfit_too_far": "Per questo vai in un negozio di abiti o a un guardaroba.",
+    "store_piece_label": "%s, modello %d",
+    "ui_full_catalogue": "Tutti i modelli del negozio",
+    "ui_buy_all": "Compra tutto il scelto (%d) · %s",
+    "ui_store_bought_n": "%d acquistati per %s.",
+    "ui_take_off_one": "Toglilo"
 }

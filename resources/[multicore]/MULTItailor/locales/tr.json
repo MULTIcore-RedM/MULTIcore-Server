@@ -288,5 +288,10 @@
     "outfit_full": "Gardırobun dolu. Önce bir kıyafet sil.",
     "outfit_nothing_worn": "Kaydedecek bir şey giymiyorsun.",
     "outfit_gone": "O kıyafet artık kayıtlı değil.",
-    "outfit_too_far": "Bunun için bir giyim dükkânına ya da gardıroba git."
+    "outfit_too_far": "Bunun için bir giyim dükkânına ya da gardıroba git.",
+    "store_piece_label": "%s, model %d",
+    "ui_full_catalogue": "Mağazadaki her model",
+    "ui_buy_all": "Seçilenlerin hepsini al (%d) · %s",
+    "ui_store_bought_n": "%d tanesi %s karşılığında alındı.",
+    "ui_take_off_one": "Çıkar"
 }

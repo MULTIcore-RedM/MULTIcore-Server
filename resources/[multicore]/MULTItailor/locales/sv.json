@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Dra upp bandanan över ansiktet",
     "ws_sug_bandanaOff": "Dra ner bandanan",
     "ws_sug_collar": "Öppna eller knäpp skjortkragen",
-    "ws_sug_sleeves": "Kavla upp eller ner skjortärmarna"
+    "ws_sug_sleeves": "Kavla upp eller ner skjortärmarna",
+    "store_piece_label": "%s, modell %d",
+    "ui_full_catalogue": "Varje modell i butiken",
+    "ui_buy_all": "Köp allt valt (%d) · %s",
+    "ui_store_bought_n": "%d köpta för %s.",
+    "ui_take_off_one": "Ta av"
 }

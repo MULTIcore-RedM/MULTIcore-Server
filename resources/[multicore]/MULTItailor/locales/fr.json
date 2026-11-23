@@ -288,5 +288,10 @@
     "outfit_full": "Votre garde-robe est pleine. Supprimez d'abord une tenue.",
     "outfit_nothing_worn": "Vous ne portez rien à enregistrer.",
     "outfit_gone": "Cette tenue n'est plus enregistrée.",
-    "outfit_too_far": "Rendez-vous dans une boutique de vêtements ou devant une garde-robe pour cela."
+    "outfit_too_far": "Rendez-vous dans une boutique de vêtements ou devant une garde-robe pour cela.",
+    "store_piece_label": "%s, modèle %d",
+    "ui_full_catalogue": "Tous les modèles de la boutique",
+    "ui_buy_all": "Acheter toute la sélection (%d) · %s",
+    "ui_store_bought_n": "%d acheté(s) pour %s.",
+    "ui_take_off_one": "Retirer"
 }

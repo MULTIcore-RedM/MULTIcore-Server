@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "ارفع منديلك على وجهك",
     "ws_sug_bandanaOff": "أنزل منديلك",
     "ws_sug_collar": "افتح ياقة قميصك أو أغلقها",
-    "ws_sug_sleeves": "اطوِ أكمام قميصك أو أنزلها"
+    "ws_sug_sleeves": "اطوِ أكمام قميصك أو أنزلها",
+    "store_piece_label": "%s، الطراز %d",
+    "ui_full_catalogue": "كل الطرز في المتجر",
+    "ui_buy_all": "شراء كل ما اخترته (%d) · %s",
+    "ui_store_bought_n": "تم شراء %d مقابل %s.",
+    "ui_take_off_one": "اخلعه"
 }

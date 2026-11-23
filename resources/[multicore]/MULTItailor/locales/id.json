@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Naikkan bandanamu menutupi wajah",
     "ws_sug_bandanaOff": "Turunkan bandanamu",
     "ws_sug_collar": "Buka atau tutup kerah kemejamu",
-    "ws_sug_sleeves": "Gulung atau turunkan lengan kemejamu"
+    "ws_sug_sleeves": "Gulung atau turunkan lengan kemejamu",
+    "store_piece_label": "%s, model %d",
+    "ui_full_catalogue": "Semua model di toko",
+    "ui_buy_all": "Beli semua yang dipilih (%d) · %s",
+    "ui_store_bought_n": "%d dibeli seharga %s.",
+    "ui_take_off_one": "Lepas"
 }

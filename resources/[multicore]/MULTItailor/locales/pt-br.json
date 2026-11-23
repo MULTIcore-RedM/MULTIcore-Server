@@ -288,5 +288,10 @@
     "outfit_full": "Seu guarda-roupa está cheio. Exclua um traje primeiro.",
     "outfit_nothing_worn": "Você não está vestindo nada para salvar.",
     "outfit_gone": "Esse traje não está mais salvo.",
-    "outfit_too_far": "Vá a uma loja de roupas ou a um guarda-roupa para isso."
+    "outfit_too_far": "Vá a uma loja de roupas ou a um guarda-roupa para isso.",
+    "store_piece_label": "%s, modelo %d",
+    "ui_full_catalogue": "Todos os modelos da loja",
+    "ui_buy_all": "Comprar tudo o que escolheu (%d) · %s",
+    "ui_store_bought_n": "%d comprado(s) por %s.",
+    "ui_take_off_one": "Tirar"
 }

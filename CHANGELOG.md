@@ -2,6 +2,21 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-23 (clothes stores: the full catalogue)
+
+### Changed
+- **MULTItailor clothes stores sell every piece the game has,** not just a short list of ready-made lines. That is 31 categories: hats, spectacles, masks, neckerchiefs, ties, shirts, vests, suspenders, coats, ponchos, cloaks, dresses, trousers, skirts, chaps, spats, boots, spurs, gloves, gauntlets, bracelets, rings, belts, buckles, gunbelts, holsters, bandoliers, satchels and accessories.
+  - Pick a style and a colour with the arrows. It is tried on you at once.
+  - Buy one piece, or **Buy everything picked** in one go.
+  - One price per category, set in `Config.Stores.prices` in `config/stores.lua`. Remove a category from that list to keep it off the shelves.
+  - `Config.Stores.fullCatalogue = false` goes back to the ready-made lines.
+
+### Fixed
+- **Clothes store clerks** no longer vanish or end up under the store floor. `/tailorclerks` shows each clerk near you in F8.
+
+### Updating
+Copy `MULTItailor/config/stores.lua`, `MULTItailor/server/70_stores.lua`, `MULTItailor/client/70_stores.lua`, `MULTItailor/html/app.js` and the `MULTItailor/locales` folder from `resources/[multicore]`. Keep a copy of your own `config/stores.lua` changes first.
+
 ## 2026-11-23 (update guide and small fixes)
 
 ### Update guide: everything since 2026-11-22

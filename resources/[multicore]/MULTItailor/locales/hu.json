@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Húzd a kendőt az arcodra",
     "ws_sug_bandanaOff": "Húzd le a kendődet",
     "ws_sug_collar": "Gombold ki vagy be az inggallérod",
-    "ws_sug_sleeves": "Tűrd fel vagy le az ingujjad"
+    "ws_sug_sleeves": "Tűrd fel vagy le az ingujjad",
+    "store_piece_label": "%s, %d. fazon",
+    "ui_full_catalogue": "A bolt összes fazonja",
+    "ui_buy_all": "Minden kiválasztott megvétele (%d) · %s",
+    "ui_store_bought_n": "%d megvéve %s összegért.",
+    "ui_take_off_one": "Levétel"
 }

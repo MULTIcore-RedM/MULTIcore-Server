@@ -71,11 +71,27 @@ Config.Stores = {
 
     -- Price per category ($, 1910, about $20/h; clothing $5-150). Below the player tailors' price for the same garment
     -- (materials x markup) - ready-made is plain, cheap and undyed.
+    -- In the full catalogue every category with a price here is for sale; leave one out (or set it to 0) to keep
+    -- that kind of piece off the store shelves (the player tailors can still make it).
     prices = {
-        hat = 18.00, shirt = 12.00, vest = 15.00, coat = 35.00, coat_closed = 40.00, pants = 18.00,
-        skirt = 18.00, boots = 30.00, gloves = 10.00, neckwear = 5.00, necktie = 5.00, belt = 8.00,
-        suspenders = 6.00,
+        -- head & neck
+        hat = 18.00, eyewear = 6.00, mask = 4.00, neckwear = 5.00, necktie = 5.00,
+        -- shirts, vests & coats
+        shirt = 12.00, vest = 15.00, suspenders = 6.00, coat = 35.00, coat_closed = 40.00,
+        poncho = 20.00, cloak = 30.00, dress = 45.00,
+        -- trousers, skirts & boots
+        pants = 18.00, skirt = 18.00, chaps = 22.00, spats = 8.00, boots = 30.00, spurs = 10.00,
+        -- gloves & jewellery
+        gloves = 10.00, gauntlets = 14.00, bracelet = 12.00, ring_r = 15.00, ring_l = 15.00,
+        -- belts & gear
+        belt = 8.00, buckle = 6.00, gunbelt = 25.00, holster = 12.00, loadouts = 15.00, satchel = 20.00,
+        accessories = 8.00,
     },
+
+    -- Full catalogue: the store shows every style and every colour the game has, in every priced category
+    -- (as many as the tailor's Outfit Designer: thousands of pieces). Pick a style and a colour with the arrows,
+    -- it is tried on you at once, buy it. false = only the ready-made lines in `catalogue` below.
+    fullCatalogue = true,
 
     --[[
         Catalogue lines. sex = 'male' | 'female'; cat = a Config.Designer.categories id.

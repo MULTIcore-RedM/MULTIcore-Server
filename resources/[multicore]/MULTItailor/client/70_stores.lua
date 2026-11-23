@@ -239,6 +239,24 @@ function TStoreC.open(id)
     if TC.view or S.open then return end
     local payload, err = lib.callback.await('multitailor:store:open', false, id)
     if not payload then return TC.notify(err or L('err_store_closed'), 'error') end
+    if payload.categories then
+        -- full catalogue: how many styles each category has, and how many colours each style
+        local cat = TCN.catalogue()
+        if not cat then return TC.notify(L('err_no_catalogue', '-'), 'error') end
+        payload.catalogue = {}
+        for _, sex in ipairs({ 'male', 'female' }) do
+            local out = {}
+            for _, c in ipairs(payload.categories) do
+                local models = cat[sex] and cat[sex][c.id]
+                if models and #models > 0 then
+                    local v = {}
+                    for i, m in ipairs(models) do v[i] = #m.hashes end
+                    out[c.id] = v
+                end
+            end
+            payload.catalogue[sex] = out
+        end
+    end
     S.open, S.store, S.payload, S.view, S.fitting = true, id, payload, 'full', {}
     payload.pedSex = mySex()
     payload.preview = multiInv() and 'multi' or 'ped'
@@ -266,6 +284,24 @@ TC.on('store', 'preview', function(data)
     S.fitting[l.cat] = { cat = l.cat, vorp = l.vorp, hash = colour.hash, sex = l.sex, label = l.label }
     applyFitting()
     return { ok = true }
+end)
+
+-- full catalogue: { cat, m (style), v (colour) } tried on your own character
+TC.on('store', 'previewPiece', function(data)
+    local c = type(data.cat) == 'string' and TS.category(data.cat)
+    local m, v = TU.int(data.m, 1, 100000), TU.int(data.v, 1, 1000)
+    if not c or not m or not v then return { ok = false } end
+    local hash = TS.resolve(mySex(), c.id, m, v)
+    if not hash then return { ok = false } end
+    S.fitting[c.id] = { cat = c.id, vorp = c.vorp, hash = hash, sex = mySex(), label = c.label }
+    applyFitting()
+    return { ok = true }
+end)
+
+TC.on('store', 'buyPiece', function(data)
+    if not S.store then return { ok = false } end
+    return lib.callback.await('multitailor:store:buyPiece', false,
+        { storeId = S.store, sex = data.sex, cat = data.cat, m = data.m, v = data.v }) or { ok = false }
 end)
 
 TC.on('store', 'unpreview', function(data)

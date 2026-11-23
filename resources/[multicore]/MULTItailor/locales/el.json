@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Ανέβασε το μαντήλι στο πρόσωπο",
     "ws_sug_bandanaOff": "Κατέβασε το μαντήλι",
     "ws_sug_collar": "Άνοιξε ή κλείσε τον γιακά",
-    "ws_sug_sleeves": "Σήκωσε ή κατέβασε τα μανίκια"
+    "ws_sug_sleeves": "Σήκωσε ή κατέβασε τα μανίκια",
+    "store_piece_label": "%s, σχέδιο %d",
+    "ui_full_catalogue": "Όλα τα σχέδια του καταστήματος",
+    "ui_buy_all": "Αγορά όλων των επιλεγμένων (%d) · %s",
+    "ui_store_bought_n": "Αγοράστηκαν %d για %s.",
+    "ui_take_off_one": "Βγάλ' το"
 }

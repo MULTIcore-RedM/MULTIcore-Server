@@ -288,5 +288,10 @@
     "outfit_full": "Je kledingkast is vol. Verwijder eerst een outfit.",
     "outfit_nothing_worn": "Je draagt niets om te bewaren.",
     "outfit_gone": "Die outfit is niet meer bewaard.",
-    "outfit_too_far": "Ga daarvoor naar een kledingwinkel of een kledingkast."
+    "outfit_too_far": "Ga daarvoor naar een kledingwinkel of een kledingkast.",
+    "store_piece_label": "%s, model %d",
+    "ui_full_catalogue": "Elk model in de winkel",
+    "ui_buy_all": "Alles gekozen kopen (%d) · %s",
+    "ui_store_bought_n": "%d gekocht voor %s.",
+    "ui_take_off_one": "Uittrekken"
 }

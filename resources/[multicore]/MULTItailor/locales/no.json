@@ -335,5 +335,10 @@
     "ws_sug_bandanaOn": "Dra bandanaen opp over ansiktet",
     "ws_sug_bandanaOff": "Dra bandanaen ned",
     "ws_sug_collar": "Åpne eller lukk skjortekragen",
-    "ws_sug_sleeves": "Brett skjorteermene opp eller ned"
+    "ws_sug_sleeves": "Brett skjorteermene opp eller ned",
+    "store_piece_label": "%s, modell %d",
+    "ui_full_catalogue": "Alle modellene i butikken",
+    "ui_buy_all": "Kjøp alt som er valgt (%d) · %s",
+    "ui_store_bought_n": "%d kjøpt for %s.",
+    "ui_take_off_one": "Ta av"
 }

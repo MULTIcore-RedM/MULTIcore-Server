@@ -987,12 +987,170 @@
         },
     };
 
+    /* ================================================================== clothes store: full catalogue */
+    // data.categories = [{ id, label, group, price }], data.catalogue[sex][cat] = [colours per style]
+    const Shop = {
+        init(st) {
+            st.group = 'Head';
+            st.sel = { male: {}, female: {} };     // [sex][cat] = { m, v }  (m = style, 1-based)
+            const has = (g) => Shop.cats(st).some((c) => c.group === g);
+            if (!has(st.group)) { const g = GROUPS.find(([k]) => has(k)); if (g) st.group = g[0]; }
+            return st;
+        },
+        cats(st) {
+            const s = st || S;
+            const avail = (s.data.catalogue && s.data.catalogue[s.sex]) || {};
+            return (s.data.categories || []).filter((c) => avail[c.id] && avail[c.id].length);
+        },
+        styles(id) { return ((S.data.catalogue || {})[S.sex] || {})[id] || []; },
+        def(id) { return (S.data.categories || []).find((c) => c.id === id); },
+        sel(id) { return S.sel[S.sex][id]; },
+        render() {
+            const d = S.data;
+            const sexLabels = d.sexLabels || { male: "Gentleman's", female: "Lady's" };
+            const canTry = S.sex === d.pedSex;
+            const worn = Object.keys(S.worn).length;
+            const picked = Shop.picked();
+            const total = picked.reduce((n, p) => n + Number(p.c.price || 0), 0);
+            return `
+              <div class="tl-plate">
+                <div class="ib-accent"></div>
+                ${head(d.town || '', d.label || 'Clothes Store', t('ui_full_catalogue', 'Every style the store carries'))}
+                <div class="tl-bar">
+                  <div class="ib-chips">${['male', 'female'].map((s) => `<button type="button" class="ib-chip${S.sex === s ? ' is-active' : ''}" data-act="sex" data-sex="${s}">${esc(sexLabels[s] || s)}</button>`).join('')}</div>
+                  ${viewBar(S)}
+                </div>
+                <div class="ib-chips tl-groups">
+                  ${GROUPS.map(([g, key, l]) => {
+                      const list = Shop.cats().filter((c) => c.group === g);
+                      if (!list.length) return '';
+                      const n = list.filter((c) => Shop.sel(c.id)).length;
+                      return `<button type="button" class="ib-chip${S.group === g ? ' is-active' : ''}" data-act="group" data-group="${g}">${esc(t(key, l))}${n ? ` <span class="ib-chip__count">${n}</span>` : ''}</button>`;
+                  }).join('')}
+                </div>
+                ${canTry ? '' : `<div class="ib-hint tl-pad">${esc(t('ui_no_try', 'You can buy these as a gift, but not try them on.'))}</div>`}
+                <div class="tl-list ib-scroll">${Shop.renderCats(canTry)}</div>
+                <footer class="tl-foot">
+                  <div class="ib-row ib-row--between">
+                    <span class="ib-badge ib-badge--muted">${esc(t('ui_cash', 'Cash %s', money(d.cash)))}</span>
+                    <button type="button" class="ib-btn ib-btn--sm ib-btn--ghost" data-act="undress"${worn ? '' : ' disabled'}>${esc(t('ui_take_off', 'Take off what I tried (%d)', worn))}</button>
+                  </div>
+                  <button type="button" class="ib-btn ib-btn--primary" data-act="buyall"${picked.length && !S.busy ? '' : ' disabled'}>${esc(t('ui_buy_all', 'Buy everything picked (%d) · %s', picked.length, money(total)))}</button>
+                  <div class="ib-hint">${esc(d.format === 'multi' ? t('ui_store_hint_multi', 'Bought clothes go into your pockets: put them on from the equipment panel of your inventory.') : t('ui_store_hint_outfit', 'Bought clothes go into your pockets: use the garment to put it on.'))}</div>
+                  <p class="ib-msg tl-msg" data-msg></p>
+                </footer>
+              </div>`;
+        },
+        renderCats() {
+            const list = Shop.cats().filter((c) => c.group === S.group);
+            if (!list.length) return `<div class="ib-empty">${esc(t('ui_store_empty', 'Nothing of this kind for sale here.'))}</div>`;
+            return list.map((c) => {
+                const styles = Shop.styles(c.id);
+                const p = Shop.sel(c.id);
+                const m = p ? p.m : 0;
+                const colours = m ? (styles[m - 1] || 1) : 0;
+                return `
+                  <div class="tl-cat${p ? ' is-on' : ''}" data-cat="${esc(c.id)}">
+                    <div class="tl-cat__head">
+                      <span class="tl-cat__name">${esc(c.label)}</span>
+                      <span class="tl-cat__sel">${m ? esc(t('ui_style_of', 'Style %d of %d', m, styles.length)) : `<span class="ib-faint">${esc(t('ui_none_styles', 'None · %d styles', styles.length))}</span>`}</span>
+                      <span class="ib-item__price">${money(c.price)}</span>
+                    </div>
+                    <div class="tl-cat__ctrl">
+                      <span class="tl-ctl-label">${esc(t('ui_style', 'Style'))}</span>
+                      <div class="ib-stepper">
+                        <button type="button" data-act="m" data-d="-1">&#x2039;</button>
+                        <input type="number" min="0" max="${styles.length}" value="${m}" data-field="m">
+                        <button type="button" data-act="m" data-d="1">&#x203A;</button>
+                      </div>
+                      <span class="tl-ctl-label">${esc(t('ui_colour', 'Colour'))}</span>
+                      <div class="ib-stepper">
+                        <button type="button" data-act="v" data-d="-1"${colours > 1 ? '' : ' disabled'}>&#x2039;</button>
+                        <input type="number" min="1" max="${colours || 1}" value="${m ? p.v : 0}" data-field="v"${colours > 1 ? '' : ' disabled'}>
+                        <button type="button" data-act="v" data-d="1"${colours > 1 ? '' : ' disabled'}>&#x203A;</button>
+                      </div>
+                      <span class="ib-grow"></span>
+                      <button type="button" class="ib-btn ib-btn--sm ib-btn--ghost ib-btn--danger" data-act="none"${m ? '' : ' disabled'} title="${esc(t('ui_take_off_one', 'Take it off'))}">&#x2715;</button>
+                      <button type="button" class="ib-btn ib-btn--sm ib-btn--primary" data-act="buy"${m && !S.busy ? '' : ' disabled'}>${esc(t('ui_buy', 'Buy'))}</button>
+                    </div>
+                  </div>`;
+            }).join('');
+        },
+        picked() {
+            const out = [];
+            Object.keys(S.sel[S.sex]).forEach((id) => { const c = Shop.def(id); if (c) out.push({ c, p: S.sel[S.sex][id] }); });
+            return out;
+        },
+        // pick a style / colour; it is tried on at once (when the figure matches yours)
+        set(id, m, v) {
+            const styles = Shop.styles(id);
+            m = Math.max(0, Math.min(styles.length, m));
+            if (!m) {
+                delete S.sel[S.sex][id];
+                if (S.worn[id]) { delete S.worn[id]; act('unpreview', { cat: id }); }
+                return render();
+            }
+            const colours = styles[m - 1] || 1;
+            v = ((v - 1) % colours + colours) % colours + 1;
+            S.sel[S.sex][id] = { m, v };
+            const tryOn = S.sex === S.data.pedSex;
+            if (tryOn) S.worn[id] = true;
+            render();
+            if (tryOn) throttle('pv_' + id, 120, () => act('previewPiece', { cat: id, m, v }));
+        },
+        async buy(list) {
+            S.busy = true;
+            render();
+            let bought = 0, spent = 0, err = null;
+            for (const { c, p } of list) {
+                const res = await act('buyPiece', { sex: S.sex, cat: c.id, m: p.m, v: p.v });
+                if (!S) return;
+                if (res && res.ok) {
+                    bought += 1; spent += Number(res.price || c.price || 0);
+                    if (res.cash != null) S.data.cash = res.cash;
+                } else { err = (res && res.error) || t('ui_failed', 'That did not work.'); break; }
+            }
+            S.busy = false;
+            render();
+            if (bought) msg(t('ui_store_bought_n', '%d bought for %s.', bought, money(spent)), err ? 'bad' : 'ok');
+            if (err) msg(bought ? `${t('ui_store_bought_n', '%d bought for %s.', bought, money(spent))} ${err}` : err, 'bad');
+        },
+        click(btn) {
+            const a = btn.dataset.act;
+            const catEl = btn.closest('[data-cat]');
+            const id = catEl && catEl.dataset.cat;
+            if (a === 'sex') { S.sex = btn.dataset.sex; if (!Shop.cats().some((c) => c.group === S.group)) { const g = GROUPS.find(([k]) => Shop.cats().some((c) => c.group === k)); if (g) S.group = g[0]; } return render(); }
+            if (a === 'group') { S.group = btn.dataset.group; return render(); }
+            if (a === 'view') { S.view = btn.dataset.view; act('view', { view: S.view }); return render(); }
+            if (a === 'rotate') return act('rotate', { dir: Number(btn.dataset.dir) || 1 });
+            if (a === 'undress') { S.worn = {}; render(); return act('unpreview', {}); }
+            if (a === 'buyall') return Shop.buy(Shop.picked());
+            if (!id) return;
+            const p = Shop.sel(id);
+            const d = Number(btn.dataset.d) || 0;
+            if (a === 'm') return Shop.set(id, (p ? p.m : 0) + d, 1);
+            if (a === 'v' && p) return Shop.set(id, p.m, p.v + d);
+            if (a === 'none') return Shop.set(id, 0, 0);
+            if (a === 'buy' && p) { const c = Shop.def(id); if (c) return Shop.buy([{ c, p }]); }
+        },
+        change(el) {
+            const f = el.dataset && el.dataset.field;
+            const catEl = el.closest('[data-cat]');
+            const id = catEl && catEl.dataset.cat;
+            if (!id) return;
+            const p = Shop.sel(id);
+            if (f === 'm') return Shop.set(id, clampInt(el.value, 0, Shop.styles(id).length), 1);
+            if (f === 'v' && p) return Shop.set(id, p.m, clampInt(el.value, 1, 999));
+        },
+    };
+
     /* ================================================================== clothes store */
     const Store = {
         docked: true,
         init(data) {
             const sex = data.sex === 'female' ? 'female' : 'male';
             const st = { data, sex, cat: null, view: 'full', pick: {}, worn: {}, busy: false };
+            if (data.categories) return Shop.init(st);
             (data.lines || []).forEach((l) => { st.pick[l.id] = (l.colours[0] || {}).n || 1; });
             st.cat = Store.cats(st)[0] || null;
             return st;
@@ -1004,7 +1162,9 @@
             return seen;
         },
         catLabel(cat) { const l = (S.data.lines || []).find((x) => x.cat === cat); return l ? l.catLabel : cat; },
+        change(el) { if (S.data.categories) return Shop.change(el); },
         render() {
+            if (S.data.categories) return Shop.render();
             const d = S.data;
             const sexLabels = d.sexLabels || { male: "Gentleman's", female: "Lady's" };
             const lines = (d.lines || []).filter((l) => l.sex === S.sex && l.cat === S.cat);
@@ -1054,6 +1214,7 @@
               </div>`;
         },
         async click(btn) {
+            if (S.data.categories) return Shop.click(btn);
             const a = btn.dataset.act;
             if (a === 'sex') { S.sex = btn.dataset.sex; S.cat = Store.cats()[0] || null; return render(); }
             if (a === 'cat') { S.cat = btn.dataset.cat; return render(); }
@@ -1103,6 +1264,7 @@
             if (name === 'close') return Promise.resolve({ ok: true });
             const a = body.act;
             if (a === 'buy' && body.view === 'store') return Promise.resolve({ ok: true, cash: 12.5 });
+            if (a === 'buyPiece') return Promise.resolve({ ok: true, cash: 12.5, price: 18 });
             if (a === 'cut') return Promise.resolve({ ok: true, quality: 'Fine' });
             if (a === 'craft') return Promise.resolve({ ok: true, made: 4 });
             return Promise.resolve({ ok: true });
