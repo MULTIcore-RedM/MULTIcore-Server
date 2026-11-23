@@ -1,0 +1,112 @@
+/* MULTIhelpers: bcc-minigames stand-in, plain skill checks in the base-game look.
+   Colours and fonts come from multi.css (and its presets); restyle in custom.css. */
+
+.mg-wrap { position: absolute; left: 0; right: 0; bottom: 12vh; display: flex; justify-content: center; pointer-events: none; z-index: 40; }
+.mg-wrap.mg-lockpick, .mg-wrap.mg-rps, .mg-wrap.mg-hammertime, .mg-wrap.mg-cowmilker { top: 0; bottom: 0; align-items: center; }
+.mg-wrap.mg-diceroller { top: 0; bottom: auto; padding-top: 12vh; }
+.mg-panel {
+    --mg-zone: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.55);
+    pointer-events: auto; min-width: 380px; padding: 18px 26px 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.mg-stage { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.mg-foot { justify-content: center; color: var(--mc-ink); min-height: 1em; }
+.mg-foot:empty { display: none; }
+.mg-prompt { display: inline-flex; align-items: center; }
+
+/* hit / miss flash on the panel: the frame lights up once */
+.mg-panel.mg-good { animation: mg-good 0.35s ease-out 1; }
+.mg-panel.mg-bad { animation: mg-bad 0.35s ease-out 1; }
+.mg-panel.mg-tie { animation: mg-tie 0.35s ease-out 1; }
+@keyframes mg-good { from { box-shadow: inset 0 0 0 2px var(--mc-good); } to { box-shadow: inset 0 0 0 2px transparent; } }
+@keyframes mg-bad { from { box-shadow: inset 0 0 0 2px var(--mc-bad); } to { box-shadow: inset 0 0 0 2px transparent; } }
+@keyframes mg-tie { from { box-shadow: inset 0 0 0 2px var(--mc-ink); } to { box-shadow: inset 0 0 0 2px transparent; } }
+
+/* attempts / stages as small squares */
+.mg-pips { display: flex; gap: 6px; }
+.mg-pip { width: 10px; height: 10px; border: 1px solid var(--mc-line-strong); background: transparent; }
+.mg-pip.on { background: var(--mc-ink); border-color: var(--mc-ink); }
+.mg-steps .mg-pip.on { background: var(--mc-good); border-color: var(--mc-good); }
+
+/* ---------------------------------------------------------------- skillcheck */
+.mg-bigkey .mc-key { min-width: 40px; height: 40px; margin: 0; font-size: calc(var(--mc-size-ui) * 1.3); }
+.mg-track { position: relative; width: 360px; height: 10px; background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.6); border: 1px solid var(--mc-line-strong); }
+.mg-zone { position: absolute; top: 0; bottom: 0; background: var(--mg-zone); }
+.mg-needle { position: absolute; top: -6px; bottom: -6px; width: 3px; margin-left: -1px; background: var(--mc-ink); box-shadow: 0 0 4px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 0.8); }
+.mg-ring { position: relative; width: 150px; height: 150px; border-radius: 50%; border: 1px solid var(--mc-line-strong); background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.5); }
+.mg-ring-zone { position: absolute; inset: 0; border-radius: 50%; }
+.mg-ring-hole { position: absolute; inset: 14px; border-radius: 50%; background: var(--mc-paper); border: 1px solid var(--mc-line); }
+.mg-ring-marker { position: absolute; inset: 0; pointer-events: none; }
+.mg-ring-marker::before { content: ''; position: absolute; left: 50%; top: -4px; width: 4px; height: 22px; margin-left: -2px; background: var(--mc-ink); }
+.mg-panel-skillcheck .mg-stage { flex-direction: column; }
+
+/* ---------------------------------------------------------------- lockpick */
+.mg-lock { position: relative; width: 210px; height: 210px; border-radius: 50%; cursor: crosshair; border: 2px solid var(--mc-line-strong); background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.5); }
+.mg-lock-glow { position: absolute; inset: -2px; border-radius: 50%; border: 2px solid var(--mc-good); opacity: 0; pointer-events: none; transition: opacity 0.1s linear; }
+.mg-lock-core { position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; background: var(--mc-paper); border: 1px solid var(--mc-line-strong); }
+.mg-lock-core::after { content: ''; position: absolute; left: 50%; top: 12px; width: 6px; height: 20px; margin-left: -3px; background: var(--mc-ink-faint); }
+.mg-pick { position: absolute; inset: 0; pointer-events: none; }
+.mg-pick::before { content: ''; position: absolute; left: 50%; top: 8px; width: 4px; height: 96px; margin-left: -2px; background: var(--mc-ink); }
+.mg-pick::after { content: ''; position: absolute; left: 50%; top: 4px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--mc-ink); }
+
+/* ---------------------------------------------------------------- rock paper scissors */
+.mg-rps-board { display: flex; align-items: center; gap: 26px; }
+.mg-rps-hand {
+    width: 92px; height: 92px; display: flex; align-items: center; justify-content: center;
+    font-family: var(--mc-font-title); font-size: 52px; color: var(--mc-ink);
+    border: 1px solid var(--mc-line-strong); background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.4);
+}
+.mg-rps-vs { color: var(--mc-ink-faint); font-size: var(--mc-size-heading); }
+.mg-rps-verdict { min-height: 1.3em; font-size: var(--mc-size-heading); color: var(--mc-ink); }
+.mg-rps-row { justify-content: center; }
+.mg-rps-row.mg-off { opacity: 0.35; pointer-events: none; }
+.mg-rps-btn { display: inline-flex; align-items: center; gap: 8px; }
+.mg-rps-icon { font-size: 1.3em; line-height: 1; text-transform: none; }
+.mg-rps-icon, .mg-rps-hand { font-family: 'Segoe UI Symbol', var(--mc-font-ui); font-variant-emoji: text; }
+
+/* ---------------------------------------------------------------- hammertime */
+.mg-panel-hammertime .mg-stage { flex-direction: row; align-items: stretch; gap: 18px; }
+.mg-plank {
+    position: relative; width: 380px; height: 120px; cursor: pointer; display: flex; align-items: flex-end; justify-content: space-around; padding: 0 20px 18px;
+    border: 1px solid var(--mc-line-strong);
+    background: repeating-linear-gradient(0deg, rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 0.08) 0 2px, transparent 2px 14px), var(--mg-wood);
+}
+.mg-wood-light { --mg-wood: linear-gradient(180deg, #c9a571, #b58c55); }
+.mg-wood-medium { --mg-wood: linear-gradient(180deg, #8a5d33, #74491f); }
+.mg-wood-dark { --mg-wood: linear-gradient(180deg, #4f3320, #3b2414); }
+.mg-nail { --sink: 0; position: relative; width: 22px; height: 70px; display: flex; flex-direction: column; align-items: center; transform: translateY(calc(var(--sink) * 52px)); transition: transform 0.12s ease-out; }
+.mg-nail-head { width: 22px; height: 6px; background: var(--mg-steel, #9da3a8); border-radius: 2px; }
+.mg-nail-shaft { width: 5px; flex: 1; background: linear-gradient(90deg, #7e868c, #b8bec2); }
+.mg-nail.mg-current .mg-nail-head { box-shadow: 0 0 0 2px var(--mc-ink); }
+.mg-nail.mg-done { opacity: 0.85; }
+.mg-nail.mg-bent { transform: translateY(calc(var(--sink) * 52px)) rotate(14deg); }
+.mg-meter { position: relative; width: 16px; border: 1px solid var(--mc-line-strong); background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.6); }
+.mg-meter-sweet { position: absolute; left: 0; right: 0; background: var(--mg-zone); }
+.mg-meter-fill { position: absolute; left: 3px; right: 3px; bottom: 0; height: 0; border-top: 3px solid var(--mc-ink); }
+
+/* ---------------------------------------------------------------- cowmilker */
+.mg-milk { display: flex; align-items: center; gap: 22px; }
+.mg-teat { transition: transform 0.08s ease-out; }
+.mg-teat .mc-key { min-width: 38px; height: 38px; margin: 0; font-size: var(--mc-size-ui); }
+.mg-teat.mg-press { transform: translateY(4px); }
+.mg-pail { position: relative; width: 110px; height: 120px; overflow: hidden; border: 2px solid var(--mc-line-strong); border-top-width: 0; border-radius: 0 0 14px 14px; background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.45); }
+.mg-pail-milk { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.8); transition: height 0.15s ease-out; }
+html.mc-preset-parchment .mg-pail-milk { background: rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 0.95); }
+.mg-pail-amount { position: absolute; left: 0; right: 0; top: 8px; text-align: center; font-family: var(--mc-font-ui); font-weight: 700; font-size: var(--mc-size-heading); color: var(--mc-ink); mix-blend-mode: difference; }
+html.mc-preset-parchment .mg-pail-amount { mix-blend-mode: normal; }
+.mg-time { width: 300px; height: 6px; }
+.mg-time-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: var(--mc-ink); }
+
+/* ---------------------------------------------------------------- dice roller */
+.mg-panel.mg-panel-diceroller { min-width: 0; }
+.mg-tray { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 520px; }
+.mg-die {
+    position: relative; width: 54px; height: 54px; display: flex; align-items: center; justify-content: center;
+    font-family: var(--mc-font-title); font-size: 26px; color: var(--mc-ink);
+    border: 2px solid var(--mc-ink); border-radius: 8px; background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.55);
+}
+.mg-die::after { content: attr(data-sides); position: absolute; right: 3px; bottom: 1px; font-family: var(--mc-font-ui); font-size: 10px; color: var(--mc-ink-faint); }
+.mg-die.mg-rolling { animation: mg-tumble 0.25s linear infinite; }
+@keyframes mg-tumble { 0% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } 100% { transform: rotate(-8deg); } }
+.mg-dice-total { margin: 0; min-height: 1em; }
+.mg-dice-total:empty { display: none; }

@@ -31,4 +31,15 @@ Locales['ro'] = {
     ['warn_running'] = "%s rulează - scoate \"ensure %s\" din server.cfg, MULTIhelpers îi ține locul.",
     ['warn_started'] = "%s a pornit lângă MULTIhelpers - scoate \"ensure %s\" din server.cfg.",
     ['callback_error'] = "eroare callback: %s",
+    -- skill bar (syn_minigame) and QB progress bar
+    ['skill_hint'] = "Apasă %s în zona marcată",
+    ['progress_busy'] = "Deja faci ceva",
+    ['progress_dead'] = "Nu poți face asta cât ești mort",
+    -- bcc-minigames stand-in: rock, paper, scissors
+    ["mg_rock"] = "Piatră",
+    ["mg_paper"] = "Hârtie",
+    ["mg_scissors"] = "Foarfece",
+    ["mg_win"] = "Ai câștigat",
+    ["mg_lose"] = "Ai pierdut",
+    ["mg_tie"] = "Egalitate",
 }

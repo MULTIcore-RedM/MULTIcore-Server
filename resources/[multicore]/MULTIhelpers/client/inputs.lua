@@ -100,3 +100,23 @@ end)
 AddEventHandler('vorpinputs:getInputsWithInputType', function(button, placeholder, inputType, cb)
     askAsync(simpleSpec(button, placeholder, inputType), GetInvokingResource(), cb)
 end)
+
+-- ------------------------------------------------------------ gum_inputs
+--   TriggerEvent('guminputs:getInput', buttonText, placeholder, function(value) end)
+--     value = the typed text, or the string 'close' when the player cancels
+--   TriggerEvent('guminputs:getAnswer', question, yesText, noText, function(answer) end)
+--     answer = true (first button) or false
+-- Own code, written from gum_inputs' public API description.
+Helpers.On('gum_inputs', 'guminputs:getInput', function(button, placeholder, cb)
+    Helpers.OpenDialog(simpleSpec(button, placeholder), function(result)
+        if Helpers.Callable(cb) then Helpers.SafeCall(cb, result == nil and 'close' or result) end
+    end, GetInvokingResource())
+end)
+
+Helpers.On('gum_inputs', 'guminputs:getAnswer', function(question, yesText, noText, cb)
+    Helpers.OpenDialog({
+        kind = 'yesno', header = question, button = yesText, cancelButton = noText,
+    }, function(result)
+        if Helpers.Callable(cb) then Helpers.SafeCall(cb, result ~= nil) end
+    end, GetInvokingResource())
+end)

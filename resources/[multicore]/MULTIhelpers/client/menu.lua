@@ -332,6 +332,8 @@ function MenuData.CloseAll(showRadar, soundClose, fireEventClose)
         -- one close sound for the lot
         closeMenu(m, showRadar, n == 1 and soundClose ~= false, fireEventClose)
     end
+    -- tpz_menu_base scripts listen for this when their menus are shut from outside
+    if #list > 0 then TriggerEvent('tpz_menu_base:onForcedClosed') end
 end
 
 function MenuData.GetOpened(mtype, namespace, name)
@@ -503,7 +505,8 @@ AddEventHandler('onResourceStop', function(res)
 end)
 
 -- ------------------------------------------------------------ exports
-Helpers.Export('GetMenuData', function() return MenuData end, { 'vorp_menu' })
+-- menuapi (the old VORP name), gum_menu and tpz_menu_base hand out the same MenuData
+Helpers.Export('GetMenuData', function() return MenuData end, { 'vorp_menu', 'menuapi', 'gum_menu', 'tpz_menu_base' })
 -- the docs list these next to GetMenuData as core functions, so they answer straight off the export too
 Helpers.Export('CloseAll', MenuData.CloseAll, { 'vorp_menu' })
 Helpers.Export('RegisterControls', MenuData.RegisterControls, { 'vorp_menu' })
@@ -519,5 +522,24 @@ end)
 AddEventHandler('vorp_menu:getData', function(cb)
     if type(cb) == 'function' or type(cb) == 'table' then return cb(MenuData) end
 end)
+
+-- gum_menu and tpz_menu_base: TriggerEvent('gum_menu:getData', function(call) MenuData = call end)
+Helpers.On('gum_menu', 'gum_menu:getData', function(cb)
+    if Helpers.Callable(cb) then cb(MenuData) end
+end)
+Helpers.On('tpz_menu_base', 'tpz_menu_base:getData', function(cb)
+    if Helpers.Callable(cb) then cb(MenuData) end
+end)
+
+--- tpz_menu_base extra: exports.tpz_menu_base:UpdateCurrentSubtextDescription(text)
+--- puts new text in the description box of the row that is selected on the menu in front.
+Helpers.ExportAs('UpdateCurrentSubtextDescription', function(text)
+    local m = top()
+    if not m then return end
+    local el = m.data.elements[m.index]
+    if type(el) ~= 'table' then return end
+    el.desc = text
+    markDirty(m)
+end, { 'tpz_menu_base' })
 
 Helpers.MenuData = MenuData

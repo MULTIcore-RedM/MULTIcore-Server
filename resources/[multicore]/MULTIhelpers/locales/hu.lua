@@ -31,4 +31,15 @@ Locales['hu'] = {
     ['warn_running'] = "%s fut - töröld az \"ensure %s\" sort a server.cfg-ből, a MULTIhelpers helyettesíti.",
     ['warn_started'] = "%s elindult a MULTIhelpers mellett - töröld az \"ensure %s\" sort a server.cfg-ből.",
     ['callback_error'] = "callback hiba: %s",
+    -- skill bar (syn_minigame) and QB progress bar
+    ['skill_hint'] = "Nyomd meg: %s, a jelölt sávban",
+    ['progress_busy'] = "Már csinálsz valamit",
+    ['progress_dead'] = "Ezt nem teheted meg halottan",
+    -- bcc-minigames stand-in: rock, paper, scissors
+    ["mg_rock"] = "Kő",
+    ["mg_paper"] = "Papír",
+    ["mg_scissors"] = "Olló",
+    ["mg_win"] = "Nyertél",
+    ["mg_lose"] = "Vesztettél",
+    ["mg_tie"] = "Döntetlen",
 }

@@ -2,6 +2,26 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-23 (drop-in scripts: menu, input, progress, notification and minigame stand-ins)
+
+### New
+- **MULTIhelpers 0.2.0** now stands in for the menu and helper resources that RedM scripts from many developers depend on. Scripts that need one of these work without it: just drop the script in. Everything is drawn in the MULTI look and follows the three UI presets.
+  - **Menus:**
+    - `menuapi`, `gum_menu` and `tpz_menu_base` (the same MenuData as `vorp_menu`).
+    - `rsg-menu`, `qb-menu` and `qbr-menu`.
+    - `feather-menu` (v1, used by Feather and BCC scripts).
+  - **Input boxes:** `rsg-input`, `qb-input`, `qbr-input`, `fx-input` and `gum_inputs`.
+  - **Progress bars:** `progressbar` (needed by RSG v1 and QBR scripts) and `feather-progressbar`.
+  - **Notifications:** `redemrp_notification`, `gum_notify`, `rsg_notify`, `pNotify` and `bln_notify`. All are shown as MULTIcore notifications.
+  - **Minigames:** `syn_minigame` / `fx-minigame` (skill bar) and `bcc-minigames` (skill check, lockpick, rock-paper-scissors, hammertime, cow milker, dice).
+- **uiprompt:** a new resource for scripts that include `@uiprompt/uiprompt.lua`.
+- **syn_ scripts:** the `MenuData` error is fixed. The older `menuapi:getData` event is answered now.
+
+### Updating
+- Copy `MULTIhelpers` and `uiprompt` from `resources/[multicore]`.
+- Add `ensure uiprompt` after `ensure MULTIhelpers` in server.cfg. Both must start before your other scripts.
+- Remove any `ensure` lines for the resources listed above. If one of them does run, MULTIhelpers steps aside for it.
+
 ## 2026-11-23 (admin chat commands)
 
 ### New

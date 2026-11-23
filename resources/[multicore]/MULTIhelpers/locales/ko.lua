@@ -31,4 +31,15 @@ Locales['ko'] = {
     ['warn_running'] = "%s 실행 중 - server.cfg에서 \"ensure %s\"를 지우세요. MULTIhelpers가 대신합니다.",
     ['warn_started'] = "%s이(가) MULTIhelpers와 함께 시작됨 - server.cfg에서 \"ensure %s\"를 지우세요.",
     ['callback_error'] = "콜백 오류: %s",
+    -- skill bar (syn_minigame) and QB progress bar
+    ['skill_hint'] = "표시된 구간에서 %s 키를 눌러",
+    ['progress_busy'] = "이미 다른 일을 하는 중이다",
+    ['progress_dead'] = "죽은 상태에서는 할 수 없다",
+    -- bcc-minigames stand-in: rock, paper, scissors
+    ["mg_rock"] = "바위",
+    ["mg_paper"] = "보",
+    ["mg_scissors"] = "가위",
+    ["mg_win"] = "이겼습니다",
+    ["mg_lose"] = "졌습니다",
+    ["mg_tie"] = "비겼습니다",
 }

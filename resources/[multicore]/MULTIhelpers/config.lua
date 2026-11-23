@@ -65,3 +65,28 @@ Config.Progress = {
     ShowPercent = true,             -- show the percentage inside the circle themes
     ProgressBarsStartUI = true,     -- also answer the old exports.progressBars:startUI(time, text) when progressBars is not running
 }
+
+-- ------------------------------------------------------------ notifications (redemrp_notification, gum_notify, rsg_notify, pNotify, bln_notify)
+-- All of them are drawn by MULTIcore's notifications (MULTIcore/config_notify.lua sets the look).
+Config.Notify = {
+    DefaultDuration = 5000,         -- ms on screen when a call gives no time
+    GumStyle = 'toast',             -- MULTIcore style for gum_notify ('toast', 'tip', 'objective', 'banner')
+    RsgBottomStyle = 'tip',         -- MULTIcore style for rsg_notify's bottom-centre text
+    BlnTipStyle = 'tip',            -- MULTIcore style for bln_notify tips and TIP_* templates
+}
+
+-- ------------------------------------------------------------ skill bar (syn_minigame, fx-minigame)
+Config.Minigame = {
+    Key = 'E',                      -- key the player presses (browser KeyboardEvent.key, not case sensitive)
+    MinZone = 4,                    -- narrowest target zone, in % of the bar (a skillGap below this is widened)
+    MaxZone = 50,                   -- widest target zone, in % of the bar
+    ZoneFrom = 30,                  -- the zone never starts before this % of the bar
+    ZoneTo = 95,                    -- ... and never ends after this %
+    MinSweep = 600,                 -- fastest sweep in ms (a lower difficulty is slowed to this)
+}
+
+-- ------------------------------------------------------------ QB-style progress bar (progressbar, RSG v1 / QBR scripts)
+Config.QBProgress = {
+    CancelKeys = { 0x8CC9CD42, 0x156F7119 },   -- controls that cancel a bar with canCancel = true (X, Backspace)
+    BusyMessage = true,             -- tell the player when a second bar is refused (already busy)
+}

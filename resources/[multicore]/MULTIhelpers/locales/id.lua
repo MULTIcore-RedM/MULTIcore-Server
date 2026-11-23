@@ -31,4 +31,15 @@ Locales['id'] = {
     ['warn_running'] = "%s sedang berjalan - hapus \"ensure %s\" dari server.cfg, MULTIhelpers menggantikannya.",
     ['warn_started'] = "%s dijalankan bersama MULTIhelpers - hapus \"ensure %s\" dari server.cfg.",
     ['callback_error'] = "galat callback: %s",
+    -- skill bar (syn_minigame) and QB progress bar
+    ['skill_hint'] = "Tekan %s di zona yang ditandai",
+    ['progress_busy'] = "Kamu sedang melakukan sesuatu",
+    ['progress_dead'] = "Tidak bisa melakukannya saat mati",
+    -- bcc-minigames stand-in: rock, paper, scissors
+    ["mg_rock"] = "Batu",
+    ["mg_paper"] = "Kertas",
+    ["mg_scissors"] = "Gunting",
+    ["mg_win"] = "Kamu menang",
+    ["mg_lose"] = "Kamu kalah",
+    ["mg_tie"] = "Seri",
 }

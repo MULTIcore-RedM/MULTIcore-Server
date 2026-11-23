@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
     <script src="nui://MULTIcore/html/theme/preset.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="feather/feather.css">
+    <link rel="stylesheet" href="minigames/minigames.css">
     <link rel="stylesheet" href="custom.css">
 </head>
 <body>
@@ -50,6 +52,17 @@
         </div>
     </div>
 
+    <!-- syn_minigame / fx-minigame skill bar -->
+    <div id="skill" class="mc-root mc-panel mh-skill mc-hidden">
+        <div class="mh-skill-track">
+            <div class="mh-skill-zone" id="skill-zone"></div>
+            <div class="mh-skill-marker" id="skill-marker"></div>
+        </div>
+        <div class="mh-skill-hint" id="skill-hint"></div>
+    </div>
+
     <script src="app.js"></script>
+    <script src="feather/feather.js"></script>
+    <script src="minigames/minigames.js"></script>
 </body>
 </html>

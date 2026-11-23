@@ -31,4 +31,15 @@ Locales['tr'] = {
     ['warn_running'] = "%s çalışıyor - server.cfg dosyasından \"ensure %s\" satırını kaldırın, MULTIhelpers onun yerini tutar.",
     ['warn_started'] = "%s, MULTIhelpers ile birlikte başlatıldı - server.cfg dosyasından \"ensure %s\" satırını kaldırın.",
     ['callback_error'] = "callback hatası: %s",
+    -- skill bar (syn_minigame) and QB progress bar
+    ['skill_hint'] = "İşaretli alanda %s tuşuna bas",
+    ['progress_busy'] = "Zaten bir şey yapıyorsun",
+    ['progress_dead'] = "Ölüyken bunu yapamazsın",
+    -- bcc-minigames stand-in: rock, paper, scissors
+    ["mg_rock"] = "Taş",
+    ["mg_paper"] = "Kâğıt",
+    ["mg_scissors"] = "Makas",
+    ["mg_win"] = "Kazandın",
+    ["mg_lose"] = "Kaybettin",
+    ["mg_tie"] = "Berabere",
 }

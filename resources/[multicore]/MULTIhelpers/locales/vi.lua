@@ -31,4 +31,15 @@ Locales['vi'] = {
     ['warn_running'] = "%s đang chạy - hãy xóa \"ensure %s\" khỏi server.cfg, MULTIhelpers sẽ thay thế nó.",
     ['warn_started'] = "%s khởi động cùng MULTIhelpers - hãy xóa \"ensure %s\" khỏi server.cfg.",
     ['callback_error'] = "lỗi callback: %s",
+    -- skill bar (syn_minigame) and QB progress bar
+    ['skill_hint'] = "Nhấn %s trong vùng được đánh dấu",
+    ['progress_busy'] = "Bạn đang bận làm việc khác",
+    ['progress_dead'] = "Không thể làm điều đó khi đã chết",
+    -- bcc-minigames stand-in: rock, paper, scissors
+    ["mg_rock"] = "Búa",
+    ["mg_paper"] = "Bao",
+    ["mg_scissors"] = "Kéo",
+    ["mg_win"] = "Bạn thắng",
+    ["mg_lose"] = "Bạn thua",
+    ["mg_tie"] = "Hòa",
 }

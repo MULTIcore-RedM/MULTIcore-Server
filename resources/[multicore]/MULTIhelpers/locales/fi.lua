@@ -31,4 +31,15 @@ Locales['fi'] = {
     ['warn_running'] = "%s on käynnissä - poista \"ensure %s\" server.cfg-tiedostosta, MULTIhelpers korvaa sen.",
     ['warn_started'] = "%s käynnistyi MULTIhelpersin rinnalla - poista \"ensure %s\" server.cfg-tiedostosta.",
     ['callback_error'] = "callback-virhe: %s",
+    -- skill bar (syn_minigame) and QB progress bar
+    ['skill_hint'] = "Paina %s merkityllä alueella",
+    ['progress_busy'] = "Teet jo jotain",
+    ['progress_dead'] = "Et voi tehdä sitä kuolleena",
+    -- bcc-minigames stand-in: rock, paper, scissors
+    ["mg_rock"] = "Kivi",
+    ["mg_paper"] = "Paperi",
+    ["mg_scissors"] = "Sakset",
+    ["mg_win"] = "Voitit",
+    ["mg_lose"] = "Hävisit",
+    ["mg_tie"] = "Tasapeli",
 }

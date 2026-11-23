@@ -31,4 +31,15 @@ Locales['el'] = {
     ['warn_running'] = "Το %s τρέχει - αφαίρεσε το \"ensure %s\" από το server.cfg, το MULTIhelpers το αντικαθιστά.",
     ['warn_started'] = "Το %s ξεκίνησε μαζί με το MULTIhelpers - αφαίρεσε το \"ensure %s\" από το server.cfg.",
     ['callback_error'] = "σφάλμα callback: %s",
+    -- skill bar (syn_minigame) and QB progress bar
+    ['skill_hint'] = "Πάτα %s στη σημειωμένη ζώνη",
+    ['progress_busy'] = "Ήδη κάνεις κάτι",
+    ['progress_dead'] = "Δεν μπορείς να το κάνεις όσο είσαι νεκρός",
+    -- bcc-minigames stand-in: rock, paper, scissors
+    ["mg_rock"] = "Πέτρα",
+    ["mg_paper"] = "Χαρτί",
+    ["mg_scissors"] = "Ψαλίδι",
+    ["mg_win"] = "Κέρδισες",
+    ["mg_lose"] = "Έχασες",
+    ["mg_tie"] = "Ισοπαλία",
 }

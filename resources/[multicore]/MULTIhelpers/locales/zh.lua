@@ -31,4 +31,15 @@ Locales['zh'] = {
     ['warn_running'] = "%s 正在运行 - 请从 server.cfg 中删除 \"ensure %s\"，MULTIhelpers 会代替它。",
     ['warn_started'] = "%s 与 MULTIhelpers 一起启动了 - 请从 server.cfg 中删除 \"ensure %s\"。",
     ['callback_error'] = "回调错误：%s",
+    -- skill bar (syn_minigame) and QB progress bar
+    ['skill_hint'] = "在标记区域内按 %s",
+    ['progress_busy'] = "你已经在做别的事了",
+    ['progress_dead'] = "死亡时无法这样做",
+    -- bcc-minigames stand-in: rock, paper, scissors
+    ["mg_rock"] = "石头",
+    ["mg_paper"] = "布",
+    ["mg_scissors"] = "剪刀",
+    ["mg_win"] = "你赢了",
+    ["mg_lose"] = "你输了",
+    ["mg_tie"] = "平局",
 }

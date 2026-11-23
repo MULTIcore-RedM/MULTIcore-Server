@@ -196,6 +196,9 @@
                     row.className = cls;
                     var h = e.itemHeight || M.itemHeight;
                     if (h) row.style.minHeight = h;
+                    if (e.image && selectable(e)) {   // tpz_menu_base: a small picture before the label
+                        var ri = document.createElement('img'); ri.className = 'mh-row-img'; ri.src = String(e.image); row.appendChild(ri);
+                    }
                     var label = document.createElement('span');
                     label.className = 'mh-label';
                     setHtml(label, e.label);
@@ -289,6 +292,18 @@
                 (icon === 'money' ? '$' + amt.toFixed(2) : esc(amt)) + '</span><span class="mc-note"></span>';
             setHtml(p.lastChild, e.descPrice.text);
             box.appendChild(p); any = true;
+        }
+        if (Array.isArray(e.descriptionimages) && e.descriptionimages.length) {   // tpz_menu_base
+            var di = document.createElement('div'); di.className = 'mh-desc-imgs';
+            e.descriptionimages.forEach(function (im) {
+                if (!im || !im.src) return;
+                var it = document.createElement('div'); it.className = 'mh-desc-img';
+                var pic = document.createElement('img'); pic.src = String(im.src); it.appendChild(pic);
+                if (im.count !== undefined && im.count !== null) { var c = document.createElement('span'); c.className = 'mh-desc-count'; c.textContent = String(im.count); it.appendChild(c); }
+                if (im.text) { var tx = document.createElement('span'); tx.className = 'mh-desc-imgtext'; setHtml(tx, im.text); it.appendChild(tx); }
+                di.appendChild(it);
+            });
+            box.appendChild(di); any = true;
         }
         if (e.footerText) {
             var f = document.createElement('div'); f.className = 'mh-footer'; setHtml(f, e.footerText);
@@ -528,8 +543,66 @@
         $('progress').classList.add('mc-hidden');
     }
 
+    // ================================================================ skill bar (syn_minigame taskBar)
+    // A marker sweeps once across the bar; press the key while it is inside the marked zone.
+    var S = null, sraf = 0, shide = 0;
+
+    function skillShow(d) {
+        clearTimeout(shide);
+        cancelAnimationFrame(sraf);
+        S = d;
+        S.pos = 0;
+        var from = Math.max(0, Math.min(100, Number(d.zoneStart) || 50));
+        var w = Math.max(1, Math.min(100 - from, Number(d.zoneWidth) || 10));
+        S.from = from; S.to = from + w;
+        var zone = $('skill-zone');
+        zone.style.left = from + '%';
+        zone.style.width = w + '%';
+        $('skill-marker').style.left = '0%';
+        setHtml($('skill-hint'), d.hint || '');
+        var root = $('skill');
+        root.classList.remove('mc-hidden', 'hit', 'miss');
+        var t0 = performance.now(), dur = Math.max(200, Number(d.duration) || 3000);
+        function tick(now) {
+            if (S !== d) return;
+            var p = Math.min(100, ((now - t0) / dur) * 100);
+            S.pos = p;
+            $('skill-marker').style.left = p + '%';
+            if (p >= 100) { skillDone(false); return; }
+            sraf = requestAnimationFrame(tick);
+        }
+        sraf = requestAnimationFrame(tick);
+    }
+
+    function skillDone(ok) {
+        if (!S) return;
+        var token = S.token;
+        S = null;
+        cancelAnimationFrame(sraf);
+        $('skill').classList.add(ok ? 'hit' : 'miss');
+        shide = setTimeout(function () { $('skill').classList.add('mc-hidden'); }, 400);
+        post('skill', { token: token, ok: ok });
+    }
+
+    function skillHide() {
+        S = null;
+        cancelAnimationFrame(sraf);
+        $('skill').classList.add('mc-hidden');
+    }
+
     // ================================================================ input
     window.addEventListener('keydown', function (ev) {
+        if (S) {
+            if (ev.repeat) return;
+            if (String(ev.key).toLowerCase() === String(S.key || 'e').toLowerCase()) {
+                ev.preventDefault();
+                skillDone(S.pos >= S.from && S.pos <= S.to);
+            } else if (ev.key === 'Escape') {
+                ev.preventDefault();
+                skillDone(false);
+            }
+            return;
+        }
         if (D) {
             if (ev.key === 'Escape') { ev.preventDefault(); answer(false); }
             else if (ev.key === 'Enter' && D.kind === 'yesno') { ev.preventDefault(); answer(true); }
@@ -581,9 +654,11 @@
             case 'dialogClose': closeDialog(); break;
             case 'progressShow': progressShow(m.data || {}); break;
             case 'progressHide': progressHide(); break;
+            case 'skillShow': skillShow(m.data || {}); break;
+            case 'skillHide': skillHide(); break;
         }
     });
 
     // for the render preview
-    window.MH = { menuShow: menuShow, openDialog: openDialog, progressShow: progressShow, applySettings: applySettings };
+    window.MH = { menuShow: menuShow, openDialog: openDialog, progressShow: progressShow, skillShow: skillShow, applySettings: applySettings };
 })();

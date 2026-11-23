@@ -33,6 +33,7 @@ local function realRunning(res)
     end
     return false
 end
+Helpers.RealRunning = realRunning
 
 --- Register `fn` as exports.MULTIhelpers:<exportName> and as exports.<res>:<exportName>
 --- for every name in `standsInFor`. Skips a VORP name whose real resource is running.
@@ -45,6 +46,35 @@ function Helpers.Export(exportName, fn, standsInFor)
             answerAs(res, exportName, fn)
         end
     end
+end
+
+--- Like Helpers.Export, but only under the other names, not as exports.MULTIhelpers:<exportName>.
+--- For export names that several stand-ins share (initiate, send, tip ...).
+function Helpers.ExportAs(exportName, fn, standsInFor)
+    for _, res in ipairs(standsInFor or {}) do
+        if realRunning(res) then
+            print('^1[MULTIhelpers] ' .. _L('warn_running', res, res) .. '^7')
+        else
+            answerAs(res, exportName, fn)
+        end
+    end
+end
+
+--- An event of a stand-in name: answered only while the real resource is not running.
+--- net = true also takes it from the server (TriggerClientEvent) or from clients.
+function Helpers.On(res, eventName, fn, net)
+    local handler = function(...)
+        if realRunning(res) then return end
+        return fn(...)
+    end
+    if net then RegisterNetEvent(eventName, handler) else AddEventHandler(eventName, handler) end
+end
+
+--- Functions handed over by another resource arrive as callable tables (function references).
+function Helpers.Callable(f)
+    if type(f) == 'function' then return true end
+    local mt = type(f) == 'table' and getmetatable(f) or nil
+    return mt ~= nil and mt.__call ~= nil
 end
 
 -- The real resource started after us: step aside so the two do not fight over the export.

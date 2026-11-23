@@ -63,7 +63,7 @@ local function removeBar(b)
     return false
 end
 
-local function start(message, ms, cb, theme, color, width, focus)
+local function startBar(message, ms, cb, theme, color, width, focus)
     ms = math.max(0, math.floor(tonumber(ms) or 0))
     if theme ~= 'linear' and theme ~= 'circle' and theme ~= 'innercircle' then theme = Cfg.DefaultTheme or 'linear' end
     if type(width) == 'number' then width = width .. 'px' end
@@ -85,6 +85,19 @@ local function start(message, ms, cb, theme, color, width, focus)
         redraw()
         if b.callback then Helpers.SafeCall(b.callback) end
     end)
+    return b
+end
+
+-- the export hands back nothing (the bar record holds the caller's callback)
+local function startForCaller(...)
+    startBar(...)
+end
+
+--- Drop one bar (from Helpers.ProgressStart) without calling its callback. true when it was still running.
+function Helpers.ProgressCancel(b)
+    if not b or not removeBar(b) then return false end
+    redraw()
+    return true
 end
 
 local function info(b)
@@ -109,8 +122,8 @@ AddEventHandler('onClientResourceStop', function(res)
 end)
 
 -- ------------------------------------------------------------ exports
-local api = { start = start }
-Helpers.ProgressStart = start
+local api = { start = startForCaller }
+Helpers.ProgressStart = startBar   -- returns the bar, for Helpers.ProgressCancel
 
 Helpers.Export('initiate', function() return api end, { 'vorp_progressbar' })
 
@@ -129,6 +142,6 @@ end, { 'vorp_progressbar' })
 
 if Cfg.ProgressBarsStartUI then
     Helpers.Export('startUI', function(ms, text)
-        start(text, ms, nil, nil, nil, nil, false)
+        startBar(text, ms, nil, nil, nil, nil, false)
     end, { 'progressBars' })
 end

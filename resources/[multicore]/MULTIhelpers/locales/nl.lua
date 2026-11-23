@@ -31,4 +31,15 @@ Locales['nl'] = {
     ['warn_running'] = "%s draait - haal \"ensure %s\" uit server.cfg, MULTIhelpers vervangt het.",
     ['warn_started'] = "%s is naast MULTIhelpers gestart - haal \"ensure %s\" uit server.cfg.",
     ['callback_error'] = "fout in callback: %s",
+    -- skill bar (syn_minigame) and QB progress bar
+    ['skill_hint'] = "Druk op %s in het gemarkeerde vak",
+    ['progress_busy'] = "Je bent al met iets bezig",
+    ['progress_dead'] = "Dat kan niet terwijl je dood bent",
+    -- bcc-minigames stand-in: rock, paper, scissors
+    ["mg_rock"] = "Steen",
+    ["mg_paper"] = "Papier",
+    ["mg_scissors"] = "Schaar",
+    ["mg_win"] = "Je wint",
+    ["mg_lose"] = "Je verliest",
+    ["mg_tie"] = "Gelijkspel",
 }

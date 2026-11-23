@@ -31,4 +31,15 @@ Locales['sl'] = {
     ['warn_running'] = "%s teče - odstrani \"ensure %s\" iz server.cfg, MULTIhelpers ga nadomešča.",
     ['warn_started'] = "%s se je zagnal poleg MULTIhelpers - odstrani \"ensure %s\" iz server.cfg.",
     ['callback_error'] = "napaka povratnega klica: %s",
+    -- skill bar (syn_minigame) and QB progress bar
+    ['skill_hint'] = "Pritisni %s v označenem območju",
+    ['progress_busy'] = "Nekaj že počneš",
+    ['progress_dead'] = "Tega ne moreš, ko si mrtev",
+    -- bcc-minigames stand-in: rock, paper, scissors
+    ["mg_rock"] = "Kamen",
+    ["mg_paper"] = "Papir",
+    ["mg_scissors"] = "Škarje",
+    ["mg_win"] = "Zmagaš",
+    ["mg_lose"] = "Izgubiš",
+    ["mg_tie"] = "Neodločeno",
 }

@@ -31,4 +31,15 @@ Locales['no'] = {
     ['warn_running'] = "%s kjører - fjern \"ensure %s\" fra server.cfg, MULTIhelpers tar over for den.",
     ['warn_started'] = "%s startet ved siden av MULTIhelpers - fjern \"ensure %s\" fra server.cfg.",
     ['callback_error'] = "callback-feil: %s",
+    -- skill bar (syn_minigame) and QB progress bar
+    ['skill_hint'] = "Trykk %s i det merkede feltet",
+    ['progress_busy'] = "Du holder allerede på med noe",
+    ['progress_dead'] = "Det går ikke mens du er død",
+    -- bcc-minigames stand-in: rock, paper, scissors
+    ["mg_rock"] = "Stein",
+    ["mg_paper"] = "Papir",
+    ["mg_scissors"] = "Saks",
+    ["mg_win"] = "Du vinner",
+    ["mg_lose"] = "Du taper",
+    ["mg_tie"] = "Uavgjort",
 }
