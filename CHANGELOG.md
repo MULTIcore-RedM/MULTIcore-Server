@@ -2,6 +2,36 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-23 (update guide and small fixes)
+
+### Update guide: everything since 2026-11-22
+If your server is from before 2026-11-23, do all of this once instead of following each entry below.
+
+1. **Keep your settings.** Copy every `config.lua`, the `config` folders, `MULTIcore/config_multi.lua` and `MULTIcore/config_notify.lua` somewhere safe.
+2. **Copy every folder in `resources/[multicore]`** over yours. New folders: `MULTIfarming`, `MULTIhotel`, `MULTIbathing` and `uiprompt`.
+3. **Put your settings back,** then add the new settings from the new files:
+   - `MULTIcore/config_multi.lua`: `MULTIConfig.UIPreset` (`'classic'`, `'parchment'` or `'modern'`) and `MULTIConfig.PositionSyncMs`.
+   - `MULTIadmin/config.lua`: the `Config.ChatCommands` block.
+   - `MULTIgathering/config.lua`: `ChopsPerTree`, `TreeRegrowMinutes` and `TreeReach` under Lumber.
+   - `MULTIstores/config/products.lua`: take the new file, or copy its seeds, hoe, watering can and crop lines into yours.
+   - `MULTIinventory/config/aliases.lua` is new; take it as it is.
+4. **server.cfg:**
+   - after `ensure MULTIhelpers` add `ensure uiprompt`;
+   - after `ensure MULTIgathering` add `ensure MULTIfarming`;
+   - after `ensure MULTIhouses` add `ensure MULTIhotel` and `ensure MULTIbathing`;
+   - remove any `ensure` line for a resource MULTIhelpers now stands in for: `menuapi`, `gum_menu`, `tpz_menu_base`, `rsg-menu`, `qb-menu`, `qbr-menu`, `feather-menu`, `rsg-input`, `qb-input`, `qbr-input`, `fx-input`, `gum_inputs`, `progressbar`, `feather-progressbar`, `redemrp_notification`, `gum_notify`, `rsg_notify`, `pNotify`, `bln_notify`, `syn_minigame`, `fx-minigame`, `bcc-minigames`. Keeping one is fine too: MULTIhelpers steps aside for it.
+5. **Restart the server.** New tables (farming, hotel) are made on the first start. Nothing else needs SQL.
+
+What players get: farming, hotels, bath houses, felled trees, every clothing piece in the creator, admin chat commands with help in the chat box, three UI looks, and scripts from other developers that just work.
+
+### Fixed
+- **MULTIwagons:** upgrades now work for wagons whose model names have capital letters (`Huntercart01` ...).
+- **MULTIhelpers:** the `vorp_menu`, `vorp_inputs` and `vorp_progressbar` stand-ins now always switch on when the real resource isn't running.
+
+### New for script developers
+- **MULTIinventory `MoveStack`** moves weapons too (stack id `w<weaponId>`), so a script such as an item placer can put a gun down and hand the same gun back.
+- **MULTItarget `hasZoneNear(coords, radius, ignore)`** returns true when another script's zone is close, so your script can keep out of its way.
+
 ## 2026-11-23 (other developers' item, weapon and ammo names)
 
 ### New

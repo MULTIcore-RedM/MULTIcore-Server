@@ -893,8 +893,24 @@ local function mergeLanterns(existing, mackLanterns)
     return out
 end
 
+-- Step 2c: model names are looked up in lower case (the wagon list and the database use
+-- lower case), so lower-case every key list.lua gives in mixed case ("Huntercart01").
+for _, tbl in pairs(Custom) do
+    if type(tbl) == 'table' then
+        local mixed = {}
+        for k in pairs(tbl) do
+            if type(k) == 'string' and k ~= k:lower() then mixed[#mixed + 1] = k end
+        end
+        for _, k in ipairs(mixed) do
+            if tbl[k:lower()] == nil then tbl[k:lower()] = tbl[k] end
+            tbl[k] = nil
+        end
+    end
+end
+
 -- Step 3: apply the merge for every mack model.
-for model, data in pairs(MackData) do
+for mackModel, data in pairs(MackData) do
+    local model = type(mackModel) == 'string' and mackModel:lower() or mackModel
     if type(data) == 'table' then
         if data.extras then
             Custom.extra[model] = mergeExtras(Custom.extra[model], data.extras)
