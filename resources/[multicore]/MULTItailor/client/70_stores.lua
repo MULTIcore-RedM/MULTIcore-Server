@@ -48,14 +48,19 @@ end
 
 local function spawnClerk(s)
     local h = loadModel(s.model or C().defaultModel)
-    if not h then return end
+    if not h then
+        print(('^3[MULTItailor] clerk model for store %s did not load^7'):format(tostring(s.id)))
+        return
+    end
     local ped = CreatePed(h, s.clerk.x, s.clerk.y, s.clerk.z, s.clerk.w or 0.0, false, false, false, false)
     SetModelAsNoLongerNeeded(h)
     local t = GetGameTimer() + 2000
     while not DoesEntityExist(ped) and GetGameTimer() < t do Wait(0) end
     if not DoesEntityExist(ped) then return end
+    -- ours, not an ambient ped: without this the game's population cleanup may delete the clerk
+    SetEntityAsMissionEntity(ped, true, true)
     Citizen.InvokeNative(0x283978A15512B2FE, ped, true)
-    PlaceEntityOnGroundProperly(ped)
+    PlaceEntityOnGroundProperly(ped, true)
     SetEntityInvincible(ped, true)
     SetEntityCanBeDamaged(ped, false)
     SetBlockingOfNonTemporaryEvents(ped, true)
@@ -102,6 +107,8 @@ CreateThread(function()
         local me = GetEntityCoords(PlayerPedId())
         for id, s in pairs(stores) do
             local d = #(me - vector3(s.clerk.x, s.clerk.y, s.clerk.z))
+            -- a clerk that is gone (cleared by the game or another script) is spawned again
+            if clerks[id] and not DoesEntityExist(clerks[id]) then TT.removeEntity(clerks[id]) clerks[id] = nil end
             if d < SPAWN_DIST and not clerks[id] then spawnClerk(s)
             elseif d > DESPAWN_DIST and clerks[id] then removeClerk(id) end
         end
