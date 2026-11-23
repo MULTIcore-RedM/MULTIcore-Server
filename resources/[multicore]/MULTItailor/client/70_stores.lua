@@ -17,7 +17,7 @@ local clerks = {}        -- [id] = ped
 local blips = {}
 local S = { open = false, store = nil, payload = nil, cam = nil, view = 'full', fitting = {}, touched = false }
 
-local SPAWN_DIST, DESPAWN_DIST = 60.0, 75.0
+local SPAWN_DIST, DESPAWN_DIST = 40.0, 55.0
 
 local function C() return Config.Stores end
 
@@ -52,15 +52,20 @@ local function spawnClerk(s)
         print(('^3[MULTItailor] clerk model for store %s did not load^7'):format(tostring(s.id)))
         return
     end
-    local ped = CreatePed(h, s.clerk.x, s.clerk.y, s.clerk.z, s.clerk.w or 0.0, false, false, false, false)
+    -- The store spots are where a player stands (body centre), so the feet go 1 m lower, as MULTIstores
+    -- does. No "place on ground": inside a building whose floor is not loaded yet that dropped the clerk
+    -- under the floor, where the freeze below kept him.
+    local ped = CreatePed(h, s.clerk.x, s.clerk.y, s.clerk.z + (C().clerkZOffset or -1.0), s.clerk.w or 0.0, false, false, false, false)
     SetModelAsNoLongerNeeded(h)
     local t = GetGameTimer() + 2000
     while not DoesEntityExist(ped) and GetGameTimer() < t do Wait(0) end
-    if not DoesEntityExist(ped) then return end
+    if not DoesEntityExist(ped) then
+        print(('^3[MULTItailor] clerk for store %s could not be made^7'):format(tostring(s.id)))
+        return
+    end
     -- ours, not an ambient ped: without this the game's population cleanup may delete the clerk
     SetEntityAsMissionEntity(ped, true, true)
     Citizen.InvokeNative(0x283978A15512B2FE, ped, true)
-    PlaceEntityOnGroundProperly(ped, true)
     SetEntityInvincible(ped, true)
     SetEntityCanBeDamaged(ped, false)
     SetBlockingOfNonTemporaryEvents(ped, true)
@@ -115,6 +120,25 @@ CreateThread(function()
         Wait(1500)
     end
 end)
+
+-- /tailorclerks: F8 shows each clothes store clerk near you - made or not, where he stands, visible or not
+RegisterCommand('tailorclerks', function()
+    local me = GetEntityCoords(PlayerPedId())
+    for id, s in pairs(stores) do
+        local spot = vector3(s.clerk.x, s.clerk.y, s.clerk.z)
+        local d = #(me - spot)
+        if d < 150.0 then
+            local ped = clerks[id]
+            if ped and DoesEntityExist(ped) then
+                local c = GetEntityCoords(ped)
+                print(('[MULTItailor] %s: clerk at %.2f %.2f %.2f (spot %.2f %.2f %.2f), visible %s, you are %.1f m away')
+                    :format(id, c.x, c.y, c.z, spot.x, spot.y, spot.z, tostring(IsEntityVisible(ped)), d))
+            else
+                print(('[MULTItailor] %s: no clerk (spot %.2f %.2f %.2f, you are %.1f m away)'):format(id, spot.x, spot.y, spot.z, d))
+            end
+        end
+    end
+end, false)
 
 -- ---------------------------------------------------------------- try-on
 local function multiInv()
