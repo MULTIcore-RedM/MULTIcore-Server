@@ -54,4 +54,15 @@ Locales['sr'] = {
     -- admin
     ['cmd_gatherspot'] = "Ispiši liniju mesta za sakupljanje gde stojiš",
     ['spot_line'] = "Linija mesta (i u F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Ovo drvo je posečeno. Nađi drugo.",
+    ["mine_custom"] = "Rudnik",
+    ["cmd_minespot"] = "Dodaj ili ukloni stenu na kojoj stojiš",
+    ["cmd_minespot_action"] = "add ili remove",
+    ["cmd_minespot_rewards"] = "šta daje: tabela iz config/mining.lua",
+    ["cmd_minespot_radius"] = "koliko blizu igrači moraju da stoje (metri, podrazumevano 6)",
+    ["minespot_added"] = "Stena dodata (%s). Igrači sada mogu da je kopaju.",
+    ["minespot_removed"] = "Stena uklonjena.",
+    ["minespot_none"] = "Nema stene dodate u igri u krugu od 10 m.",
+    ["minespot_usage"] = "Upotreba: /minespot add <%s> [radijus]  ili  /minespot remove",
 }

@@ -54,4 +54,15 @@ Locales['ar'] = {
     -- admin
     ['cmd_gatherspot'] = "اطبع سطر موقع جمع لمكان وقوفك",
     ['spot_line'] = "سطر الموقع (أيضًا في F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "هذه الشجرة مقطوعة. ابحث عن غيرها.",
+    ["mine_custom"] = "منجم",
+    ["cmd_minespot"] = "أضف أو أزل جدارًا صخريًا حيث تقف",
+    ["cmd_minespot_action"] = "add أو remove",
+    ["cmd_minespot_rewards"] = "ما يعطيه: جدول من config/mining.lua",
+    ["cmd_minespot_radius"] = "كم يجب أن يقترب اللاعبون (أمتار، الافتراضي 6)",
+    ["minespot_added"] = "أُضيف الجدار الصخري (%s). يمكن التعدين فيه الآن.",
+    ["minespot_removed"] = "أُزيل الجدار الصخري.",
+    ["minespot_none"] = "لا يوجد جدار صخري مضاف في اللعبة ضمن 10 م.",
+    ["minespot_usage"] = "الاستخدام: /minespot add <%s> [نصف القطر]  أو  /minespot remove",
 }

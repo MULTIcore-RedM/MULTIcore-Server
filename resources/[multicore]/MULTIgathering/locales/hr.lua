@@ -54,4 +54,15 @@ Locales['hr'] = {
     -- admin
     ['cmd_gatherspot'] = "Ispiši redak mjesta skupljanja za mjesto gdje stojiš",
     ['spot_line'] = "Redak mjesta (i u F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Ovo stablo je posječeno. Nađi drugo.",
+    ["mine_custom"] = "Rudnik",
+    ["cmd_minespot"] = "Dodaj ili ukloni stijenu na kojoj stojiš",
+    ["cmd_minespot_action"] = "add ili remove",
+    ["cmd_minespot_rewards"] = "što daje: tablica iz config/mining.lua",
+    ["cmd_minespot_radius"] = "koliko blizu igrači moraju stajati (metri, zadano 6)",
+    ["minespot_added"] = "Stijena dodana (%s). Igrači je sada mogu kopati.",
+    ["minespot_removed"] = "Stijena uklonjena.",
+    ["minespot_none"] = "Nema stijene dodane u igri unutar 10 m.",
+    ["minespot_usage"] = "Uporaba: /minespot add <%s> [radijus]  ili  /minespot remove",
 }

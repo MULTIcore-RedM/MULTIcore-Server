@@ -54,4 +54,15 @@ Locales['bg'] = {
     -- admin
     ['cmd_gatherspot'] = "Изведи ред за място за събиране там, където стоите",
     ['spot_line'] = "Ред за мястото (и в F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Това дърво е отсечено. Намери друго.",
+    ["mine_custom"] = "Мина",
+    ["cmd_minespot"] = "Добави или премахни скална стена, където стоиш",
+    ["cmd_minespot_action"] = "add или remove",
+    ["cmd_minespot_rewards"] = "какво дава: таблица от config/mining.lua",
+    ["cmd_minespot_radius"] = "колко близо трябва да стоят играчите (метри, по подразбиране 6)",
+    ["minespot_added"] = "Скалната стена е добавена (%s). Вече може да се копае.",
+    ["minespot_removed"] = "Скалната стена е премахната.",
+    ["minespot_none"] = "Няма добавена в играта стена в радиус 10 м.",
+    ["minespot_usage"] = "Употреба: /minespot add <%s> [радиус]  или  /minespot remove",
 }

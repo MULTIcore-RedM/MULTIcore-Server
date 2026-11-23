@@ -54,4 +54,15 @@ Locales['sk'] = {
     -- admin
     ['cmd_gatherspot'] = "Vypíše riadok zberného miesta tam, kde stojíš",
     ['spot_line'] = "Riadok miesta (aj v F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Tento strom je vyrúbaný. Nájdi iný.",
+    ["mine_custom"] = "Baňa",
+    ["cmd_minespot"] = "Pridať alebo odobrať skalnú stenu tam, kde stojíš",
+    ["cmd_minespot_action"] = "add alebo remove",
+    ["cmd_minespot_rewards"] = "čo dáva: tabuľka z config/mining.lua",
+    ["cmd_minespot_radius"] = "ako blízko musia hráči stáť (metre, predvolene 6)",
+    ["minespot_added"] = "Skalná stena pridaná (%s). Hráči ju môžu ťažiť.",
+    ["minespot_removed"] = "Skalná stena odobratá.",
+    ["minespot_none"] = "Žiadna stena pridaná v hre do 10 m.",
+    ["minespot_usage"] = "Použitie: /minespot add <%s> [polomer]  alebo  /minespot remove",
 }

@@ -80,6 +80,7 @@ ensure MULTIcrafting
 ensure MULTIdoors
 ensure MULTIemotes
 ensure MULTIgathering
+ensure MULTIfarming
 ensure MULTIhorses
 ensure MULTIhunting
 ensure MULTIlaw

@@ -48,4 +48,15 @@ Locales['tr'] = {
     ['zone_roanoke'] = "Roanoke Ormanı",
     ['cmd_gatherspot'] = "Durduğun yer için bir toplama noktası satırı yazdırır",
     ['spot_line'] = "Nokta satırı (F8'de de): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Bu ağaç kesildi. Başka birini bul.",
+    ["mine_custom"] = "Maden",
+    ["cmd_minespot"] = "Durduğun yere kaya yüzü ekle veya kaldır",
+    ["cmd_minespot_action"] = "add veya remove",
+    ["cmd_minespot_rewards"] = "ne verdiği: config/mining.lua içindeki bir tablo",
+    ["cmd_minespot_radius"] = "oyuncuların ne kadar yakın durması gerektiği (metre, varsayılan 6)",
+    ["minespot_added"] = "Kaya yüzü eklendi (%s). Oyuncular artık kazabilir.",
+    ["minespot_removed"] = "Kaya yüzü kaldırıldı.",
+    ["minespot_none"] = "10 m içinde oyunda eklenmiş kaya yüzü yok.",
+    ["minespot_usage"] = "Kullanım: /minespot add <%s> [yarıçap]  veya  /minespot remove",
 }

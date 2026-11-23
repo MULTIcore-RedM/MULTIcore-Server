@@ -48,4 +48,15 @@ Locales['pl'] = {
     ['zone_roanoke'] = "Las Roanoke",
     ['cmd_gatherspot'] = "Wypisuje linię miejsca zbiorów dla twojej pozycji",
     ['spot_line'] = "Linia miejsca (także w F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "To drzewo jest ścięte. Znajdź inne.",
+    ["mine_custom"] = "Kopalnia",
+    ["cmd_minespot"] = "Dodaj lub usuń ścianę skalną w miejscu, gdzie stoisz",
+    ["cmd_minespot_action"] = "add lub remove",
+    ["cmd_minespot_rewards"] = "co daje: tabela z config/mining.lua",
+    ["cmd_minespot_radius"] = "jak blisko muszą stać gracze (metry, domyślnie 6)",
+    ["minespot_added"] = "Dodano ścianę skalną (%s). Gracze mogą ją kopać.",
+    ["minespot_removed"] = "Usunięto ścianę skalną.",
+    ["minespot_none"] = "Brak dodanej w grze ściany w promieniu 10 m.",
+    ["minespot_usage"] = "Użycie: /minespot add <%s> [promień]  lub  /minespot remove",
 }

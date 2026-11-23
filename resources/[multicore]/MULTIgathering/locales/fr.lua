@@ -48,4 +48,15 @@ Locales['fr'] = {
     ['zone_roanoke'] = "Forêt de Roanoke",
     ['cmd_gatherspot'] = "Affiche une ligne de lieu de récolte pour votre position",
     ['spot_line'] = "Ligne de lieu (aussi dans F8) : %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Cet arbre est abattu. Trouvez-en un autre.",
+    ["mine_custom"] = "Mine",
+    ["cmd_minespot"] = "Ajouter ou retirer une paroi rocheuse là où vous êtes",
+    ["cmd_minespot_action"] = "add ou remove",
+    ["cmd_minespot_rewards"] = "ce qu'elle donne : une table de config/mining.lua",
+    ["cmd_minespot_radius"] = "à quelle distance les joueurs doivent se tenir (mètres, 6 par défaut)",
+    ["minespot_added"] = "Paroi ajoutée (%s). Les joueurs peuvent la miner.",
+    ["minespot_removed"] = "Paroi retirée.",
+    ["minespot_none"] = "Aucune paroi ajoutée en jeu à moins de 10 m.",
+    ["minespot_usage"] = "Usage : /minespot add <%s> [rayon]  ou  /minespot remove",
 }

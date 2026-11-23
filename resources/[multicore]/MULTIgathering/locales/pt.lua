@@ -54,4 +54,15 @@ Locales['pt'] = {
     -- admin
     ['cmd_gatherspot'] = "Mostra uma linha de ponto de recolha para onde estás",
     ['spot_line'] = "Linha do ponto (também no F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Esta árvore foi abatida. Procura outra.",
+    ["mine_custom"] = "Mina",
+    ["cmd_minespot"] = "Adicionar ou remover uma parede de rocha onde estás",
+    ["cmd_minespot_action"] = "add ou remove",
+    ["cmd_minespot_rewards"] = "o que dá: uma tabela de config/mining.lua",
+    ["cmd_minespot_radius"] = "a que distância os jogadores devem estar (metros, 6 por defeito)",
+    ["minespot_added"] = "Parede adicionada (%s). Já se pode minerar.",
+    ["minespot_removed"] = "Parede removida.",
+    ["minespot_none"] = "Nenhuma parede adicionada no jogo a menos de 10 m.",
+    ["minespot_usage"] = "Uso: /minespot add <%s> [raio]  ou  /minespot remove",
 }

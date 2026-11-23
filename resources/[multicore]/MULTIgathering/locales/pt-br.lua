@@ -48,4 +48,15 @@ Locales['pt-br'] = {
     ['zone_roanoke'] = "Mata de Roanoke",
     ['cmd_gatherspot'] = "Mostra uma linha de ponto de coleta para onde você está",
     ['spot_line'] = "Linha do ponto (também no F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Esta árvore foi derrubada. Procure outra.",
+    ["mine_custom"] = "Mina",
+    ["cmd_minespot"] = "Adicionar ou remover uma parede de rocha onde você está",
+    ["cmd_minespot_action"] = "add ou remove",
+    ["cmd_minespot_rewards"] = "o que dá: uma tabela de config/mining.lua",
+    ["cmd_minespot_radius"] = "a que distância os jogadores devem ficar (metros, padrão 6)",
+    ["minespot_added"] = "Parede adicionada (%s). Já dá para minerar.",
+    ["minespot_removed"] = "Parede removida.",
+    ["minespot_none"] = "Nenhuma parede adicionada no jogo a menos de 10 m.",
+    ["minespot_usage"] = "Uso: /minespot add <%s> [raio]  ou  /minespot remove",
 }

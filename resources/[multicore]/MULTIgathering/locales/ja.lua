@@ -54,4 +54,15 @@ Locales['ja'] = {
     -- admin
     ['cmd_gatherspot'] = "今立っている場所の採集ポイント行を出力",
     ['spot_line'] = "採集ポイント行（F8 にも表示）: %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "この木は切り倒された。別の木を探そう。",
+    ["mine_custom"] = "鉱山",
+    ["cmd_minespot"] = "立っている場所に岩壁を追加または削除する",
+    ["cmd_minespot_action"] = "add または remove",
+    ["cmd_minespot_rewards"] = "得られる物: config/mining.lua の報酬表",
+    ["cmd_minespot_radius"] = "プレイヤーが立つ必要のある距離（メートル、既定 6）",
+    ["minespot_added"] = "岩壁を追加しました（%s）。すぐ採掘できます。",
+    ["minespot_removed"] = "岩壁を削除しました。",
+    ["minespot_none"] = "10 m 以内にゲーム内で追加した岩壁はありません。",
+    ["minespot_usage"] = "使い方: /minespot add <%s> [半径]  または  /minespot remove",
 }

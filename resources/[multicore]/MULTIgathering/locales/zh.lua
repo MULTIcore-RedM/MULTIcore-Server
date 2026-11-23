@@ -54,4 +54,15 @@ Locales['zh'] = {
     -- admin
     ['cmd_gatherspot'] = "输出你所站位置的采集点配置行",
     ['spot_line'] = "采集点配置行（F8 中也有）：%s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "这棵树已被砍倒。去找另一棵。",
+    ["mine_custom"] = "矿场",
+    ["cmd_minespot"] = "在你站的位置添加或移除岩壁",
+    ["cmd_minespot_action"] = "add 或 remove",
+    ["cmd_minespot_rewards"] = "产出：config/mining.lua 中的奖励表",
+    ["cmd_minespot_radius"] = "玩家需要站多近（米，默认 6）",
+    ["minespot_added"] = "已添加岩壁（%s）。玩家现在可以开采。",
+    ["minespot_removed"] = "已移除岩壁。",
+    ["minespot_none"] = "10 米内没有游戏中添加的岩壁。",
+    ["minespot_usage"] = "用法：/minespot add <%s> [半径]  或  /minespot remove",
 }

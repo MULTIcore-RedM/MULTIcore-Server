@@ -62,6 +62,49 @@ local function lumberZoneAt(src)
     return nil
 end
 
+---------------------------------
+-- single trees: each tree gives Config.Lumber.ChopsPerTree chops, then it is "felled" until it regrows
+---------------------------------
+MG.TreeState = {}   -- [key] = { left, refillAt }
+
+--- "x,y,z" from the client -> vector3, key | nil
+local function parseTree(target)
+    if type(target) ~= 'string' then return nil end
+    local x, y, z = target:match('^(%-?[%d%.]+),(%-?[%d%.]+),(%-?[%d%.]+)$')
+    x, y, z = tonumber(x), tonumber(y), tonumber(z)
+    if not (x and y and z) then return nil end
+    return vector3(x, y, z), ('%d_%d'):format(math.floor(x + 0.5), math.floor(y + 0.5))
+end
+
+local function treeLeft(key)
+    local st = MG.TreeState[key]
+    if not st then return Config.Lumber.ChopsPerTree end
+    if st.refillAt and MG.Now() >= st.refillAt then
+        MG.TreeState[key] = nil
+        return Config.Lumber.ChopsPerTree
+    end
+    return st.left
+end
+
+local function useTree(key)
+    local left = treeLeft(key) - 1
+    if left <= 0 then
+        MG.TreeState[key] = { left = 0, refillAt = MG.Now() + (tonumber(Config.Lumber.TreeRegrowMinutes) or 20) * 60000 }
+    else
+        MG.TreeState[key] = { left = left }
+    end
+end
+
+--- tree the player works on → key | nil (no single-tree rule) | false, err
+local function checkTree(src, target)
+    if (tonumber(Config.Lumber.ChopsPerTree) or 0) <= 0 then return nil end
+    local pos, key = parseTree(target)
+    if not pos then return nil end
+    if not MG.PlayerNear(src, pos, tonumber(Config.Lumber.TreeReach) or 6.0) then return false, 'too_far' end
+    if treeLeft(key) <= 0 then return false, 'tree_done' end
+    return key
+end
+
 local function inPanningZone(src)
     local zones = Config.PanningZones or {}
     if #zones == 0 then return true end
@@ -128,8 +171,14 @@ function MG.Start(src, activity, target)
     if not MG.Has(pid, cfg.Tool) then return false, 'need_tool' end
     local place, perr = checkPlace(src, activity, target)
     if not place then return false, perr end
+    local tree
+    if activity == 'lumber' then
+        local terr
+        tree, terr = checkTree(src, target)
+        if tree == false then return false, terr end
+    end
 
-    MG.Pending[src] = { activity = activity, target = place, startedAt = now, duration = cfg.DurationMs }
+    MG.Pending[src] = { activity = activity, target = place, tree = tree, treeTarget = tree and target or nil, startedAt = now, duration = cfg.DurationMs }
     MG.Debug(('%s started %s at %s'):format(src, activity, tostring(place)))
     return true, cfg.DurationMs
 end
@@ -158,6 +207,10 @@ function MG.Finish(src)
     else place, perr = checkPlace(src, p.activity, nil) end
     if not place then return false, perr end
     if place ~= p.target then return false, 'too_far' end
+    if p.tree then
+        local key, terr = checkTree(src, p.treeTarget)
+        if key == false then return false, terr end
+    end
 
     local list = MG.Roll(rewardTable(p.activity, place))
     MG.NextAt[src] = MG.NextAt[src] or {}
@@ -173,6 +226,7 @@ function MG.Finish(src)
         given = res
     end
     if MG.Spots[place] then useCharge(place) end
+    if p.tree then useTree(p.tree) end
     MG.MaybeBreak(src, pid, cfg.Tool, cfg.ToolBreakChance)
 
     MG.Debug(('%s finished %s at %s: %s'):format(src, p.activity, tostring(place), MG.Summary(given)))

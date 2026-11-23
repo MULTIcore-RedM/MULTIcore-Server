@@ -54,4 +54,15 @@ Locales['hu'] = {
     -- admin
     ['cmd_gatherspot'] = "Gyűjtőhely sor kiírása oda, ahol állsz",
     ['spot_line'] = "Hely sora (F8-ban is): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Ezt a fát kivágták. Keress egy másikat.",
+    ["mine_custom"] = "Bánya",
+    ["cmd_minespot"] = "Sziklafal hozzáadása vagy törlése ott, ahol állsz",
+    ["cmd_minespot_action"] = "add vagy remove",
+    ["cmd_minespot_rewards"] = "mit ad: egy tábla a config/mining.lua-ból",
+    ["cmd_minespot_radius"] = "milyen közel kell állniuk a játékosoknak (méter, alapból 6)",
+    ["minespot_added"] = "Sziklafal hozzáadva (%s). A játékosok bányászhatják.",
+    ["minespot_removed"] = "Sziklafal törölve.",
+    ["minespot_none"] = "10 m-en belül nincs játékban hozzáadott sziklafal.",
+    ["minespot_usage"] = "Használat: /minespot add <%s> [sugár]  vagy  /minespot remove",
 }

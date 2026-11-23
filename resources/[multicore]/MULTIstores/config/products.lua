@@ -112,6 +112,26 @@ Config.Products.general = {
     { name = 'herb_chanterelles',          buyPrice = 0.02, maxStock = 100 },
     { name = 'herb_parasol_mushroom',      buyPrice = 0.02, maxStock = 100 },
     { name = 'herb_rams_head',             buyPrice = 0.02, maxStock = 100 },
+    -- farming (MULTIfarming; 1899 catalogue: a packet of garden seed 5c, a hoe 40-60c, a watering can 60-90c)
+    { name = 'hoe',          price = 0.50, amount = 5,  category = 'tools' },
+    { name = 'wateringcan',  price = 0.75, amount = 5,  category = 'tools' },
+    { name = 'seed_corn',    price = 0.05, amount = 40, category = 'tools' },
+    { name = 'seed_potato',  price = 0.05, amount = 40, category = 'tools' },
+    { name = 'seed_tomato',  price = 0.05, amount = 40, category = 'tools' },
+    { name = 'seed_carrot',  price = 0.05, amount = 40, category = 'tools' },
+    { name = 'seed_onion',   price = 0.05, amount = 40, category = 'tools' },
+    { name = 'seed_wheat',   price = 0.05, amount = 40, category = 'tools' },
+    { name = 'seed_pumpkin', price = 0.08, amount = 20, category = 'tools' },
+    { name = 'seed_tobacco', price = 0.10, amount = 20, category = 'tools' },
+    -- crops bought back (MULTIfarming harvests; not sold by any store)
+    { name = 'corn',          buyPrice = 0.02, maxStock = 200 },
+    { name = 'potato',        buyPrice = 0.02, maxStock = 200 },
+    { name = 'tomato',        buyPrice = 0.02, maxStock = 200 },
+    { name = 'horsecarrot',   buyPrice = 0.01, maxStock = 200 },
+    { name = 'onion_vidalia', buyPrice = 0.01, maxStock = 200 },
+    { name = 'grain_wheat',   buyPrice = 0.02, maxStock = 200 },
+    { name = 'pumpkin',       buyPrice = 0.06, maxStock = 100 },
+    { name = 'tobacco_leaf',  buyPrice = 0.05, maxStock = 100 },
 }
 
 ---------------------------------

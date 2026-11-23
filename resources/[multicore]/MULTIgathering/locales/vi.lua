@@ -54,4 +54,15 @@ Locales['vi'] = {
     -- admin
     ['cmd_gatherspot'] = "In dòng điểm thu thập tại chỗ bạn đứng",
     ['spot_line'] = "Dòng điểm (cũng có trong F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Cây này đã bị đốn. Hãy tìm cây khác.",
+    ["mine_custom"] = "Mỏ",
+    ["cmd_minespot"] = "Thêm hoặc xóa vách đá tại chỗ bạn đứng",
+    ["cmd_minespot_action"] = "add hoặc remove",
+    ["cmd_minespot_rewards"] = "nó cho gì: một bảng trong config/mining.lua",
+    ["cmd_minespot_radius"] = "người chơi phải đứng gần bao nhiêu (mét, mặc định 6)",
+    ["minespot_added"] = "Đã thêm vách đá (%s). Người chơi có thể đào ngay.",
+    ["minespot_removed"] = "Đã xóa vách đá.",
+    ["minespot_none"] = "Không có vách đá thêm trong trò chơi trong vòng 10 m.",
+    ["minespot_usage"] = "Cách dùng: /minespot add <%s> [bán kính]  hoặc  /minespot remove",
 }

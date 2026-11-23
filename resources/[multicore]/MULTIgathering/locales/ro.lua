@@ -54,4 +54,15 @@ Locales['ro'] = {
     -- admin
     ['cmd_gatherspot'] = "Afișează o linie de loc de adunat pentru unde stai",
     ['spot_line'] = "Linie loc (și în F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Acest copac e tăiat. Găsește altul.",
+    ["mine_custom"] = "Mină",
+    ["cmd_minespot"] = "Adaugă sau scoate un perete de stâncă unde stai",
+    ["cmd_minespot_action"] = "add sau remove",
+    ["cmd_minespot_rewards"] = "ce dă: un tabel din config/mining.lua",
+    ["cmd_minespot_radius"] = "cât de aproape trebuie să stea jucătorii (metri, implicit 6)",
+    ["minespot_added"] = "Perete adăugat (%s). Jucătorii îl pot săpa acum.",
+    ["minespot_removed"] = "Perete scos.",
+    ["minespot_none"] = "Niciun perete adăugat în joc pe o rază de 10 m.",
+    ["minespot_usage"] = "Folosire: /minespot add <%s> [rază]  sau  /minespot remove",
 }

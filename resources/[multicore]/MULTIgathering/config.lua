@@ -110,6 +110,9 @@ Config.Lumber = {
     Interaction = 'auto',           -- default 'auto' ('target' = MULTItarget on tree models, 'prompt' = key prompt anywhere in a zone, 'auto' = target when MULTItarget runs)
     TargetIcon = 'fas fa-tree',     -- default 'fas fa-tree' (MULTItarget icon)
     TargetDistance = 2.0,           -- default 2.0 (MULTItarget reach to a tree)
+    ChopsPerTree = 3,               -- default 3 (chops one tree gives before it is felled; 0 = no limit per tree, only the zone charges)
+    TreeRegrowMinutes = 20,         -- default 20 (a felled tree can be chopped again after this many minutes)
+    TreeReach = 6.0,                -- default 6.0 (server: largest distance between the player and the tree being chopped)
     -- the chop animation and the axe in the hand (both as rsg-lumberjack plays them)
     Anim = { dict = 'amb_work@world_human_tree_chop_new@working@pre_swing@male_a@trans', clip = 'pre_swing_trans_after_swing', flag = 17 },
     Prop = { model = 'p_axe02x', bone = 7966, pos = vector3(0.03, 0.03, 0.02), rot = vector3(0.0, 0.0, -1.5) },

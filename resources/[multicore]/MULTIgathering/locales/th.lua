@@ -54,4 +54,15 @@ Locales['th'] = {
     -- admin
     ['cmd_gatherspot'] = "พิมพ์บรรทัดจุดเก็บของสำหรับที่ที่คุณยืน",
     ['spot_line'] = "บรรทัดจุด (ดูใน F8 ได้ด้วย): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "ต้นไม้นี้ถูกโค่นแล้ว ไปหาต้นอื่น",
+    ["mine_custom"] = "เหมือง",
+    ["cmd_minespot"] = "เพิ่มหรือลบผนังหินตรงที่คุณยืน",
+    ["cmd_minespot_action"] = "add หรือ remove",
+    ["cmd_minespot_rewards"] = "สิ่งที่ได้: ตารางใน config/mining.lua",
+    ["cmd_minespot_radius"] = "ผู้เล่นต้องยืนใกล้แค่ไหน (เมตร ค่าเริ่มต้น 6)",
+    ["minespot_added"] = "เพิ่มผนังหินแล้ว (%s) ผู้เล่นขุดได้เลย",
+    ["minespot_removed"] = "ลบผนังหินแล้ว",
+    ["minespot_none"] = "ไม่มีผนังหินที่เพิ่มในเกมภายใน 10 ม.",
+    ["minespot_usage"] = "วิธีใช้: /minespot add <%s> [รัศมี]  หรือ  /minespot remove",
 }

@@ -48,4 +48,15 @@ Locales['de'] = {
     ['zone_roanoke'] = "Waldgebiet Roanoke",
     ['cmd_gatherspot'] = "Gibt eine Zeile für einen Sammelplatz an deiner Stelle aus",
     ['spot_line'] = "Platz-Zeile (auch in F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Dieser Baum ist gefällt. Such dir einen anderen.",
+    ["mine_custom"] = "Mine",
+    ["cmd_minespot"] = "Felswand hinzufügen oder entfernen, wo du stehst",
+    ["cmd_minespot_action"] = "add oder remove",
+    ["cmd_minespot_rewards"] = "was sie gibt: eine Belohnungstabelle aus config/mining.lua",
+    ["cmd_minespot_radius"] = "wie nah Spieler stehen müssen (Meter, Standard 6)",
+    ["minespot_added"] = "Felswand hinzugefügt (%s). Spieler können sie jetzt abbauen.",
+    ["minespot_removed"] = "Felswand entfernt.",
+    ["minespot_none"] = "Keine im Spiel hinzugefügte Felswand im Umkreis von 10 m.",
+    ["minespot_usage"] = "Nutzung: /minespot add <%s> [Radius]  oder  /minespot remove",
 }

@@ -54,4 +54,15 @@ Locales['el'] = {
     -- admin
     ['cmd_gatherspot'] = "Γράψε μια γραμμή σημείου συλλογής για εκεί που στέκεσαι",
     ['spot_line'] = "Γραμμή σημείου (και στο F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Αυτό το δέντρο κόπηκε. Βρες άλλο.",
+    ["mine_custom"] = "Ορυχείο",
+    ["cmd_minespot"] = "Πρόσθεσε ή αφαίρεσε βραχώδες τοίχωμα εκεί που στέκεσαι",
+    ["cmd_minespot_action"] = "add ή remove",
+    ["cmd_minespot_rewards"] = "τι δίνει: πίνακας από το config/mining.lua",
+    ["cmd_minespot_radius"] = "πόσο κοντά πρέπει να στέκονται οι παίκτες (μέτρα, προεπιλογή 6)",
+    ["minespot_added"] = "Το τοίχωμα προστέθηκε (%s). Οι παίκτες μπορούν να σκάψουν.",
+    ["minespot_removed"] = "Το τοίχωμα αφαιρέθηκε.",
+    ["minespot_none"] = "Κανένα τοίχωμα που προστέθηκε στο παιχνίδι σε 10 μ.",
+    ["minespot_usage"] = "Χρήση: /minespot add <%s> [ακτίνα]  ή  /minespot remove",
 }

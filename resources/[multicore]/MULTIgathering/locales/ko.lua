@@ -54,4 +54,15 @@ Locales['ko'] = {
     -- admin
     ['cmd_gatherspot'] = "서 있는 곳의 채집 지점 줄을 출력",
     ['spot_line'] = "지점 줄 (F8에도 있음): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "이 나무는 베어졌습니다. 다른 나무를 찾으세요.",
+    ["mine_custom"] = "광산",
+    ["cmd_minespot"] = "서 있는 곳에 암벽을 추가하거나 제거",
+    ["cmd_minespot_action"] = "add 또는 remove",
+    ["cmd_minespot_rewards"] = "얻는 것: config/mining.lua의 보상 표",
+    ["cmd_minespot_radius"] = "플레이어가 얼마나 가까이 서야 하는지 (미터, 기본 6)",
+    ["minespot_added"] = "암벽을 추가했습니다 (%s). 바로 채굴할 수 있습니다.",
+    ["minespot_removed"] = "암벽을 제거했습니다.",
+    ["minespot_none"] = "10m 안에 게임에서 추가한 암벽이 없습니다.",
+    ["minespot_usage"] = "사용법: /minespot add <%s> [반경]  또는  /minespot remove",
 }

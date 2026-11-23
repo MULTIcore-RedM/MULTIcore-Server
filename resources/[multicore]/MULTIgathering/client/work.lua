@@ -22,37 +22,86 @@ local mineWork = { scenario = Config.Mining.Scenario, label = _L('work_mining') 
 local mineMode = nil     -- 'target' or 'prompt' once MCI.Run has decided
 local mineZones = {}
 
+local function addMineZone(s)
+    mineZones[#mineZones + 1] = MCI.AddZone({
+        coords = s.coords,
+        radius = s.radius,
+        options = { {
+            name = 'multigathering_mine_' .. s.id,
+            label = _L('prompt_mine'),
+            icon = Config.Mining.TargetIcon,
+            distance = Config.Mining.TargetDistance,
+            canInteract = function()
+                return MG.IsOn('mining') and not MG.depleted[s.id] and MG.FreeHands()
+                    and MG.Near(GetEntityCoords(MG.Ped()), s.coords, s.radius)
+            end,
+            onSelect = function() CreateThread(function() MG.RunJob('mining', s.id, mineWork) end) end,
+        } },
+    })
+end
+
+local function clearMineZones()
+    for _, id in ipairs(mineZones) do MCI.RemoveZone(id) end
+    mineZones = {}
+end
+
+--- (re)builds the "Mine" targets, e.g. after an admin added or removed a rock face
+local function rebuildMineZones()
+    if mineMode ~= 'target' then return end
+    clearMineZones()
+    for _, s in ipairs(Config.MiningSpots or {}) do addMineZone(s) end
+end
+
 if Config.Mining.Enabled then
     MCI.Run(Config.Mining.Interaction, function(mode)
         mineMode = mode
         if mode == 'target' then
-            for _, s in ipairs(Config.MiningSpots or {}) do
-                mineZones[#mineZones + 1] = MCI.AddZone({
-                    coords = s.coords,
-                    radius = s.radius,
-                    options = { {
-                        name = 'multigathering_mine_' .. s.id,
-                        label = _L('prompt_mine'),
-                        icon = Config.Mining.TargetIcon,
-                        distance = Config.Mining.TargetDistance,
-                        canInteract = function()
-                            return MG.IsOn('mining') and not MG.depleted[s.id] and MG.FreeHands()
-                                and MG.Near(GetEntityCoords(MG.Ped()), s.coords, s.radius)
-                        end,
-                        onSelect = function() CreateThread(function() MG.RunJob('mining', s.id, mineWork) end) end,
-                    } },
-                })
-            end
+            for _, s in ipairs(Config.MiningSpots or {}) do addMineZone(s) end
         else
             MCI.Count('prompts', 1)
         end
     end, function(mode)
-        for _, id in ipairs(mineZones) do MCI.RemoveZone(id) end
-        mineZones = {}
+        clearMineZones()
         if mode == 'prompt' then MCI.Count('prompts', -1) end
         mineMode = nil
     end)
 end
+
+---------------------------------
+-- rock faces added in game (/minespot): loaded after login, then kept up to date
+---------------------------------
+local function fromWire(e)
+    return { id = e.id, mine = e.mine, coords = vector3(e.x, e.y, e.z), radius = e.radius, charges = e.charges,
+        respawnMinutes = e.respawnMinutes, rewards = e.rewards }
+end
+
+local function addSpot(e)
+    if type(e) ~= 'table' or type(e.id) ~= 'string' or MG.Spots[e.id] then return end
+    local s = fromWire(e)
+    Config.MiningSpots[#Config.MiningSpots + 1] = s
+    MG.Spots[s.id] = { kind = 'mining', def = s }
+    if MG.AddMineBlip then MG.AddMineBlip(s) end
+end
+
+RegisterNetEvent('MULTIgathering:client:spotAdded', function(e)
+    addSpot(e)
+    rebuildMineZones()
+end)
+
+RegisterNetEvent('MULTIgathering:client:spotRemoved', function(id)
+    if type(id) ~= 'string' or not MG.Spots[id] then return end
+    for i, s in ipairs(Config.MiningSpots) do if s.id == id then table.remove(Config.MiningSpots, i) break end end
+    MG.Spots[id], MG.depleted[id] = nil, nil
+    rebuildMineZones()
+end)
+
+CreateThread(function()
+    if not Config.Mining.Enabled then return end
+    while not LocalPlayer.state.isLoggedIn do Wait(1000) end
+    local list = lib.callback.await('MULTIgathering:addedSpots', false)
+    for _, e in ipairs(type(list) == 'table' and list or {}) do addSpot(e) end
+    rebuildMineZones()
+end)
 
 CreateThread(function()
     while true do
@@ -104,7 +153,16 @@ if Config.Lumber.Enabled then
                 icon = Config.Lumber.TargetIcon,
                 distance = Config.Lumber.TargetDistance,
                 canInteract = function() return MG.IsOn('lumber') and not MG.busy end,
-                onSelect = function() CreateThread(function() MG.RunJob('lumber', nil, chopWork) end) end,
+                onSelect = function(data)
+                    -- the tree's position lets the server count chops per tree (Config.Lumber.ChopsPerTree)
+                    local tree
+                    local ent = type(data) == 'table' and data.entity or nil
+                    if ent and DoesEntityExist(ent) then
+                        local c = GetEntityCoords(ent)
+                        tree = ('%.1f,%.1f,%.1f'):format(c.x, c.y, c.z)
+                    end
+                    CreateThread(function() MG.RunJob('lumber', tree, chopWork) end)
+                end,
             } })
             MCI.Count('targets', 1)
         else

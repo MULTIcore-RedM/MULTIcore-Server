@@ -54,4 +54,15 @@ Locales['id'] = {
     -- admin
     ['cmd_gatherspot'] = "Cetak baris tempat pengumpulan untuk posisimu",
     ['spot_line'] = "Baris tempat (juga di F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Pohon ini sudah ditebang. Cari yang lain.",
+    ["mine_custom"] = "Tambang",
+    ["cmd_minespot"] = "Tambah atau hapus dinding batu di tempatmu berdiri",
+    ["cmd_minespot_action"] = "add atau remove",
+    ["cmd_minespot_rewards"] = "apa yang diberikan: tabel dari config/mining.lua",
+    ["cmd_minespot_radius"] = "seberapa dekat pemain harus berdiri (meter, bawaan 6)",
+    ["minespot_added"] = "Dinding batu ditambahkan (%s). Pemain bisa menambangnya.",
+    ["minespot_removed"] = "Dinding batu dihapus.",
+    ["minespot_none"] = "Tidak ada dinding batu tambahan dalam 10 m.",
+    ["minespot_usage"] = "Cara: /minespot add <%s> [radius]  atau  /minespot remove",
 }

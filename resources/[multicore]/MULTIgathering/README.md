@@ -35,6 +35,9 @@ Every reward is decided on the server. The client never names an item or an amou
 - **Lumber.** With an `axe`, MULTItarget "Chop wood" on a tree (or a prompt anywhere in the zone without MULTItarget, `Config.Lumber.Interaction = 'auto'`). `/mcinteract` (MULTIcore) prints the mining zones, tree target and prompts to the server console.
   The server checks the axe and that the player stands in a lumber zone (`config/lumber.lua`); each zone has a number
   of chops before it is cut out for a while. A chop gives 2-4 `wood` and sometimes `tree_seeds`.
+  With MULTItarget every tree also runs out on its own: after `ChopsPerTree` chops (default 3) the tree is felled
+  for `TreeRegrowMinutes` (default 20) and the player has to move on to another one. With no lumber zones in
+  `config/lumber.lua` players can chop any tree on the map.
 - **Herbs.** The game's own herb plants grow at about 6,000 spots (rsg-herbalist's list). Walk up to one and press the
   game's pick-up key. The server knows which plant grows at that spot, checks the distance, gives 1-2 of the herb and
   lets the plant regrow after `RegrowMinutes`.
@@ -48,9 +51,15 @@ near Tumbleweed) are approximate. Stand at a rock face and type `/gatherspot` (a
 `coords = vector3(...)` in F8 and the server console, ready to paste. Heights may be a few metres off
 (`Config.ZTolerance`).
 
+Easier: stand at the rock face and type `/minespot add coal` (or `desert`, or any table in `Config.MiningRewards`;
+an optional third word is the radius in metres). The face can be mined at once, no restart, and joins the nearest
+mine's blip. `/minespot remove` deletes the nearest face added this way within 10 m. Faces added in game are kept
+in `data/mining_spots.json` and load on every start next to `config/mining.lua`.
+
 ## Selling
-Out of the box only `wood` (general store) and seven herbs (doctor) are bought. Add the rest to MULTIstores'
-`config/products.lua` buy lists (for example the fish at the butcher, ores and nuggets at the general store).
+Everything gathered here already has a buyer in MULTIstores' default lists. Wood, rock, ores, coal, sulfur, nitrate,
+nuggets, berries and mushrooms go to the general store, and medicinal herbs go to the doctor. Change prices or add
+buyers in MULTIstores' `config/products.lua`.
 
 ## Config
 - `config.lua`: rules, stand-down lists, the gold pan item, and one block per activity (tool, work time, cooldown,
@@ -61,17 +70,19 @@ Out of the box only `wood` (general store) and seven herbs (doctor) are bought. 
   `config/herb_spots.lua`: where plants grow.
 - Reward tables: `{ item, chance (%), min, max }` per line, each rolled on its own; `fallback` is given when none hits.
 - Any item named in the config that MULTIinventory does not know is registered at start (with a console note).
-- Words: `locales/` (10 languages).
+- Words: `locales/` (32 languages).
 
 ## Commands
 | Command | Who | What |
 |---|---|---|
 | `/gatherspot` | admin | prints a `coords = vector3(...)` line for where you stand |
+| `/minespot add <rewards> [radius]` | admin | makes the rock face you stand at a mining spot (saved, live at once) |
+| `/minespot remove` | admin | removes the nearest rock face added in game (within 10 m) |
 
 ## Exports (server)
 | Export | Returns |
 |---|---|
-| `Start(src, activity, target?)` | `true, ms` / `false, err`. activity `mining` (target = spot id), `lumber`, `panning` |
+| `Start(src, activity, target?)` | `true, ms` / `false, err`. activity `mining` (target = spot id), `lumber` (target = optional tree position `"x,y,z"`), `panning` |
 | `Finish(src)` | `true, given` / `false, err`; `given` = `{ { name, amount } }` (may be empty for panning) |
 | `Cancel(src)` | drops the running job |
 | `Cast(src, bait)` | uses one bait: `true` / `false, err` |
@@ -83,7 +94,7 @@ Out of the box only `wood` (general store) and seven herbs (doctor) are bought. 
 
 Errors: `no_player`, `disabled`, `stand_down`, `busy`, `cooldown`, `need_tool`, `bad_spot`, `too_far`, `depleted`,
 `no_zone`, `no_job`, `too_soon`, `expired`, `bad_bait`, `no_bait`, `no_cast`, `unknown_fish`, `wrong_bait`,
-`picked`, `no_item`, `no_space`, `too_heavy`, `limit`, `failed`.
+`picked`, `tree_done`, `no_item`, `no_space`, `too_heavy`, `limit`, `failed`.
 
 Server event: `MULTIgathering:gathered (src, activity, place, given)` after each reward, for XP or quest scripts.
 

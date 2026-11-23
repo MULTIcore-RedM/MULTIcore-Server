@@ -54,4 +54,15 @@ Locales['fi'] = {
     -- admin
     ['cmd_gatherspot'] = "Tulosta keräyspaikan rivi sijainnistasi",
     ['spot_line'] = "Paikkarivi (myös F8:ssa): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Tämä puu on kaadettu. Etsi toinen.",
+    ["mine_custom"] = "Kaivos",
+    ["cmd_minespot"] = "Lisää tai poista kallioseinä siihen, missä seisot",
+    ["cmd_minespot_action"] = "add tai remove",
+    ["cmd_minespot_rewards"] = "mitä se antaa: taulukko tiedostosta config/mining.lua",
+    ["cmd_minespot_radius"] = "kuinka lähellä pelaajien pitää seistä (metriä, oletus 6)",
+    ["minespot_added"] = "Kallioseinä lisätty (%s). Pelaajat voivat louhia sitä.",
+    ["minespot_removed"] = "Kallioseinä poistettu.",
+    ["minespot_none"] = "10 m sisällä ei ole pelissä lisättyä kallioseinää.",
+    ["minespot_usage"] = "Käyttö: /minespot add <%s> [säde]  tai  /minespot remove",
 }

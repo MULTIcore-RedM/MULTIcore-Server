@@ -7,7 +7,7 @@ lua54 'yes'
 name 'MULTIgathering'
 author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore basic gathering: fishing, mining, gold panning, lumber and herb picking give items the stores buy. GPL v3.'
-version '0.1.0'
+version '0.2.0'
 
 -- No `provide` for rsg-fishing / rsg-goldclaim / rsg-lumberjack / rsg-herbalist: no RSG v2 or
 -- RINGO script calls their events or exports (see README "Compatibility"). If one of them (or
@@ -36,6 +36,7 @@ client_scripts {
 server_scripts {
     'server/main.lua',
     'server/work.lua',
+    'server/minespots.lua',     -- rock faces admins add in game (/minespot), kept in data/mining_spots.json
     'server/fishing.lua',
     'server/herbs.lua',
     'server/exports.lua',

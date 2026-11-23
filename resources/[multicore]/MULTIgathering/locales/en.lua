@@ -54,4 +54,15 @@ Locales['en'] = {
     -- admin
     ['cmd_gatherspot'] = "Print a gathering spot line for where you stand",
     ['spot_line'] = "Spot line (also in F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "This tree is felled. Find another one.",
+    ["mine_custom"] = "Mine",
+    ["cmd_minespot"] = "Add or remove a rock face where you stand",
+    ["cmd_minespot_action"] = "add or remove",
+    ["cmd_minespot_rewards"] = "what it gives: a reward table of config/mining.lua",
+    ["cmd_minespot_radius"] = "how close players must stand (metres, default 6)",
+    ["minespot_added"] = "Rock face added (%s). Players can mine it now.",
+    ["minespot_removed"] = "Rock face removed.",
+    ["minespot_none"] = "No rock face added in game within 10 m.",
+    ["minespot_usage"] = "Use: /minespot add <%s> [radius]  or  /minespot remove",
 }

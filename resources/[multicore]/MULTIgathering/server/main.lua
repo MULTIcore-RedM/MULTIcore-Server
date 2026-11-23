@@ -152,7 +152,7 @@ end
 local refusalKeys = {
     need_tool = 'need_tool', no_space = 'inventory_full', too_heavy = 'inventory_full', limit = 'inventory_full',
     depleted = 'depleted', too_far = 'too_far', cooldown = 'cooldown', no_zone = 'no_zone', busy = 'busy',
-    not_held = 'need_rod', no_cast = 'no_cast', no_bait = 'need_bait',
+    not_held = 'need_rod', no_cast = 'no_cast', no_bait = 'need_bait', tree_done = 'tree_done',
 }
 
 --- Tells the player why something was refused (when it is something they can fix).

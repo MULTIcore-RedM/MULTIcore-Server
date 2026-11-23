@@ -54,4 +54,15 @@ Locales['no'] = {
     -- admin
     ['cmd_gatherspot'] = "Skriv ut en sankeplass-linje for der du står",
     ['spot_line'] = "Plasslinje (også i F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Dette treet er felt. Finn et annet.",
+    ["mine_custom"] = "Gruve",
+    ["cmd_minespot"] = "Legg til eller fjern en fjellvegg der du står",
+    ["cmd_minespot_action"] = "add eller remove",
+    ["cmd_minespot_rewards"] = "hva den gir: en tabell i config/mining.lua",
+    ["cmd_minespot_radius"] = "hvor nær spillerne må stå (meter, standard 6)",
+    ["minespot_added"] = "Fjellvegg lagt til (%s). Spillere kan bryte den nå.",
+    ["minespot_removed"] = "Fjellvegg fjernet.",
+    ["minespot_none"] = "Ingen fjellvegg lagt til i spillet innen 10 m.",
+    ["minespot_usage"] = "Bruk: /minespot add <%s> [radius]  eller  /minespot remove",
 }

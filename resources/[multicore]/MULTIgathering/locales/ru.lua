@@ -48,4 +48,15 @@ Locales['ru'] = {
     ['zone_roanoke'] = "Лес Роанок",
     ['cmd_gatherspot'] = "Вывести строку места сбора для вашей позиции",
     ['spot_line'] = "Строка места (также в F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Это дерево срублено. Найдите другое.",
+    ["mine_custom"] = "Шахта",
+    ["cmd_minespot"] = "Добавить или убрать скальную стену там, где вы стоите",
+    ["cmd_minespot_action"] = "add или remove",
+    ["cmd_minespot_rewards"] = "что она даёт: таблица из config/mining.lua",
+    ["cmd_minespot_radius"] = "как близко должны стоять игроки (метры, по умолчанию 6)",
+    ["minespot_added"] = "Скальная стена добавлена (%s). Её уже можно копать.",
+    ["minespot_removed"] = "Скальная стена убрана.",
+    ["minespot_none"] = "В радиусе 10 м нет стен, добавленных в игре.",
+    ["minespot_usage"] = "Использование: /minespot add <%s> [радиус]  или  /minespot remove",
 }

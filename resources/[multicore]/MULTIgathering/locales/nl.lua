@@ -48,4 +48,15 @@ Locales['nl'] = {
     ['zone_roanoke'] = "Bosgebied Roanoke",
     ['cmd_gatherspot'] = "Toont een regel voor een verzamelplek waar je staat",
     ['spot_line'] = "Plekregel (ook in F8): %s",
+    -- felled trees and rock faces added in game
+    ["tree_done"] = "Deze boom is geveld. Zoek een andere.",
+    ["mine_custom"] = "Mijn",
+    ["cmd_minespot"] = "Rotswand toevoegen of verwijderen waar je staat",
+    ["cmd_minespot_action"] = "add of remove",
+    ["cmd_minespot_rewards"] = "wat hij geeft: een tabel uit config/mining.lua",
+    ["cmd_minespot_radius"] = "hoe dichtbij spelers moeten staan (meter, standaard 6)",
+    ["minespot_added"] = "Rotswand toegevoegd (%s). Spelers kunnen er nu mijnen.",
+    ["minespot_removed"] = "Rotswand verwijderd.",
+    ["minespot_none"] = "Geen in het spel toegevoegde rotswand binnen 10 m.",
+    ["minespot_usage"] = "Gebruik: /minespot add <%s> [straal]  of  /minespot remove",
 }

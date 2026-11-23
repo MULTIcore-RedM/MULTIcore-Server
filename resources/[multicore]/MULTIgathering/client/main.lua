@@ -151,17 +151,23 @@ local function addBlip(coords, sprite, label)
     blips[#blips + 1] = blip
 end
 
+local blipsReady = false
+local mineBlipSeen = {}   -- one blip per mine name
+
+--- a blip for a mine that has none yet (also called for rock faces added in game)
+function MG.AddMineBlip(s)
+    if not blipsReady or not (Config.Mining.Enabled and Config.Mining.Blips and MG.IsOn('mining')) then return end
+    if mineBlipSeen[s.mine] then return end
+    mineBlipSeen[s.mine] = true
+    addBlip(s.coords, Config.Mining.BlipSprite, _L('mine_' .. s.mine))
+end
+
 CreateThread(function()
     while not LocalPlayer.state.isLoggedIn do Wait(1000) end
     Wait(2000)
+    blipsReady = true
     if Config.Mining.Enabled and Config.Mining.Blips and MG.IsOn('mining') then
-        local seen = {}
-        for _, s in ipairs(Config.MiningSpots or {}) do
-            if not seen[s.mine] then
-                seen[s.mine] = true
-                addBlip(s.coords, Config.Mining.BlipSprite, _L('mine_' .. s.mine))
-            end
-        end
+        for _, s in ipairs(Config.MiningSpots or {}) do MG.AddMineBlip(s) end
     end
     if Config.Lumber.Enabled and Config.Lumber.Blips and MG.IsOn('lumber') then
         for _, z in ipairs(Config.LumberZones or {}) do addBlip(z.coords, Config.Lumber.BlipSprite, _L('zone_' .. z.zone)) end
