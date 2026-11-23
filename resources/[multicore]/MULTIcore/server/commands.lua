@@ -44,6 +44,8 @@ function RSGCore.Commands.Add(name, help, arguments, argsrequired, callback, per
         for i = 1, permission.n do
             if not RSGCore.Commands.IgnoreList[permission[i]] then -- only create aces for extra perm levels
                 ExecuteCommand(('add_ace rsgcore.%s command.%s allow'):format(permission[i], name))
+                -- staff set up in server.cfg (add_principal identifier.license:... group.mod) may use it too
+                ExecuteCommand(('add_ace group.%s command.%s allow'):format(permission[i], name))
             end
         end
         permission.n = nil
@@ -51,8 +53,10 @@ function RSGCore.Commands.Add(name, help, arguments, argsrequired, callback, per
         permission = tostring(permission:lower())
         if not RSGCore.Commands.IgnoreList[permission] then -- only create aces for extra perm levels
             ExecuteCommand(('add_ace rsgcore.%s command.%s allow'):format(permission, name))
+            ExecuteCommand(('add_ace group.%s command.%s allow'):format(permission, name))
         end
     end
+    RSGCore.Commands.QueueRefresh()
 
     RSGCore.Commands.List[name:lower()] = {
         name = name:lower(),
@@ -70,7 +74,7 @@ function RSGCore.Commands.Refresh(source)
     local suggestions = {}
     if Player then
         for command, info in pairs(RSGCore.Commands.List) do
-            local hasPerm = IsPlayerAceAllowed(tostring(src), 'command.' .. command)
+            local hasPerm = info.permission == 'user' or IsPlayerAceAllowed(tostring(src), 'command.' .. command)
             if hasPerm then
                 suggestions[#suggestions + 1] = {
                     name = '/' .. command,
@@ -84,6 +88,31 @@ function RSGCore.Commands.Refresh(source)
         TriggerClientEvent('chat:addSuggestions', src, suggestions)
     end
 end
+
+-- The chat box lists every command a player may use, with its help line and the
+-- arguments (name and an example of what to type) as they type. Sent when a character
+-- loads, and again shortly after any script adds a command (so commands of scripts that
+-- start later appear too).
+local refreshQueued = false
+function RSGCore.Commands.QueueRefresh()
+    if refreshQueued then return end
+    refreshQueued = true
+    SetTimeout(1500, function()
+        refreshQueued = false
+        for _, id in ipairs(GetPlayers()) do RSGCore.Commands.Refresh(tonumber(id)) end
+    end)
+end
+
+AddEventHandler('RSGCore:Server:PlayerLoaded', function(Player)
+    local src = Player and Player.PlayerData and Player.PlayerData.source
+    if src then SetTimeout(1000, function() RSGCore.Commands.Refresh(src) end) end
+end)
+
+-- the chat page asks again after it (re)loads
+RegisterNetEvent('chat:init', function()
+    local src = source
+    SetTimeout(1000, function() RSGCore.Commands.Refresh(src) end)
+end)
 
 -- Teleport
 RSGCore.Commands.Add('tp', Lang:t('command.tp.help'), { { name = Lang:t('command.tp.params.x.name'), help = Lang:t('command.tp.params.x.help') }, { name = Lang:t('command.tp.params.y.name'), help = Lang:t('command.tp.params.y.help') }, { name = Lang:t('command.tp.params.z.name'), help = Lang:t('command.tp.params.z.help') } }, false, function(source, args)

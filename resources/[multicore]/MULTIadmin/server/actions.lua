@@ -449,6 +449,22 @@ end
 -- entry point
 -- ---------------------------------------------------------------
 
+--- Runs one action with the same checks as the menu (chat commands use this). → { ok, msg, data }
+function Admin.Run(src, action, data)
+    if type(action) ~= 'string' or not H[action] then return { ok = false, msg = _L('err_unknown') } end
+    if not Admin.Allowed(src, action) then
+        Admin.Log(src, action .. ' (refused: no permission)')
+        return { ok = false, msg = _L('err_perm') }
+    end
+    if type(data) ~= 'table' then data = {} end
+    local ok, res, msg, extra = pcall(H[action], src, data)
+    if not ok then
+        print(('^1[MULTIadmin]^7 %s failed: %s'):format(action, tostring(res)))
+        return { ok = false, msg = _L('err_failed') }
+    end
+    return { ok = res == true, msg = msg, data = extra }
+end
+
 lib.callback.register('MULTIadmin:action', function(src, action, data)
     if type(action) ~= 'string' or not H[action] then return { ok = false, msg = _L('err_unknown') } end
     if not Admin.Allowed(src, action) then

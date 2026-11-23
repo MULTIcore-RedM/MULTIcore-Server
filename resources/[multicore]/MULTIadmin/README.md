@@ -64,6 +64,32 @@ Which level each action needs is in `Config.ActionLevel`. With `Config.ProtectHi
 | `/adminnoclip` (`Config.NoclipCommand`) | staff with noclip | toggle noclip without the menu |
 | `multiadmin_unban <id>` | console / ACE | remove a ban |
 
+### Chat commands
+The menu's actions also work as chat commands. As you type `/`, the chat box lists every command you may use with
+its arguments in `[brackets]`. While you type an argument, the box shows what goes there (for example
+`id: player ID, e.g. 5 (empty = yourself)`). Who may use each one is set by the same level as the menu
+(`Config.ActionLevel`: mod or admin). Rename or switch any off in `Config.ChatCommands`.
+
+| Command | Level | What |
+|---|---|---|
+| `/heal [id]` | mod | heal a player (no id = yourself) |
+| `/revive [id]` | mod | revive a player (no id = yourself) |
+| `/kill [id]` | admin | kill a player (no id = yourself) |
+| `/goto [id]` | mod | go to a player |
+| `/bring [id]` | mod | bring a player to you |
+| `/freeze [id]` | mod | freeze or unfreeze a player |
+| `/spectate [id]` | mod | watch a player; `/spectate` alone stops |
+| `/kick [id] [reason]` | mod | kick a player |
+| `/ban [id] [hours] [reason]` | admin | ban; hours must be one of `Config.BanDurations` (0 = for ever) |
+| `/warn [id] [reason]` | mod | warn a player |
+| `/kit [id] [kit]` | admin | give an item kit (`Config.ItemKits`, by number); `/kit 2` gives kit 2 to yourself |
+| `/announce [message]` | mod | a notice for everyone |
+| `/weather [type]` | admin | set the weather (`Config.WeatherTypes`) or `reset` |
+| `/time [hour] [minute] [freeze]` | admin | set the clock, `freeze` stops it; `/time reset` |
+
+MULTIcore's own commands (`/tp`, `/tpm`, `/setjob`, `/givemoney`, `/setmoney`, `/noclip`, `/dv` ...) and
+MULTIinventory's `/giveitem [id] [item] [amount]` show in the same list.
+
 Both client commands are also in the game's key settings (`RegisterKeyMapping`); they ship **unbound** (`Config.OpenKey = ''`, `Config.NoclipKey = ''`). PageDown is never bound.
 
 Noclip keys: W A S D move, Space up, Q down, mouse wheel speed step, Shift fast, Ctrl slow (all control hashes in `Config.Noclip.Controls`). Spectate: Backspace stops (`Config.Spectate.StopControl`).

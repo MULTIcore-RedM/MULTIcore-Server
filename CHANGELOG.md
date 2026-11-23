@@ -2,6 +2,21 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-23 (admin chat commands)
+
+### New
+- **Admin chat commands (MULTIadmin):** `/heal [id]`, `/revive [id]`, `/kill [id]`, `/goto [id]`, `/bring [id]`, `/freeze [id]`, `/spectate [id]`, `/kick [id] [reason]`, `/ban [id] [hours] [reason]`, `/warn [id] [reason]`, `/kit [id] [kit]`, `/announce [message]`, `/weather [type]`, `/time [hour] [minute] [freeze]`.
+  - Leave out the id to heal, revive or kill yourself.
+  - They use the same mod/admin levels, rank protection and logging as the admin menu.
+  - Rename any command, or switch it off, in `Config.ChatCommands`.
+
+### Changed
+- **Chat command list:** as you type `/`, the chat box lists every command you may use with its arguments in `[brackets]`. While you type an argument it shows what goes there, for example `id: player ID, e.g. 5 (empty = yourself)`. Before, the help and arguments only arrived after a permission change, so most players saw bare names. This covers MULTIcore's own commands too (`/tp`, `/setjob`, `/givemoney`, `/giveitem` ...).
+- **Mod commands for staff set in server.cfg:** players given `group.mod` in server.cfg can now use mod-level commands.
+
+### Updating
+Copy `MULTIadmin`, `MULTIchat/html/chat.js` and `MULTIcore/server/commands.lua` from `resources/[multicore]`. Keep a copy of your own `MULTIadmin/config.lua` changes first, and add the new `Config.ChatCommands` block to it.
+
 ## 2026-11-23 (farming, gathering 0.2.0, creator clothing)
 
 ### New

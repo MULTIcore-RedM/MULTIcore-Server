@@ -30,6 +30,7 @@ server_scripts {
     'server/main.lua',
     'server/bans.lua',
     'server/actions.lua',
+    'server/commands.lua',     -- /heal, /revive, /kick ... (Config.ChatCommands)
 }
 
 ui_page 'html/index.html'

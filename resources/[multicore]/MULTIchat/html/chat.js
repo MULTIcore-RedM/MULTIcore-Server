@@ -125,10 +125,14 @@
                     ps.textContent = '[' + strip(p && p.name || '') + ']';
                     row.appendChild(ps);
                 });
-                if (s.help) {
+                // while typing an argument, its own help (what to type there) replaces the command's help
+                var params = Array.isArray(s.params) ? s.params : [];
+                var cur = typedArgs ? params[typedArgs - 1] : null;
+                var helpText = (cur && cur.help) ? (strip(cur.name || '') + ': ' + strip(cur.help)) : s.help;
+                if (helpText) {
                     var h = document.createElement('span');
                     h.className = 'mch-help';
-                    h.textContent = strip(s.help);
+                    h.textContent = strip(helpText);
                     row.appendChild(h);
                 }
                 row.addEventListener('mousedown', function (e) { e.preventDefault(); complete(s); });

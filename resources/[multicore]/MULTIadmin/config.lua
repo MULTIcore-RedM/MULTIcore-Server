@@ -16,6 +16,26 @@ Config.OpenKey = ''               -- key-settings binding: '' = empty binding, f
 Config.NoclipCommand = 'adminnoclip'  -- command that toggles noclip without opening the menu
 Config.NoclipKey = ''             -- default key for that command ('' = unbound, false = no binding)
 
+-- Chat commands for the menu's actions. As you type one, the chat box shows its arguments
+-- and what to type for each (e.g. /heal [id], /ban [id] [hours] [reason]). They use the same
+-- permission levels as the menu (Config.ActionLevel). Rename one here, or false = no command.
+Config.ChatCommands = {
+    heal = 'heal',            -- /heal [id]          heal a player (no id = yourself)
+    revive = 'revive',        -- /revive [id]        revive a player (no id = yourself)
+    kill = 'kill',            -- /kill [id]          kill a player (no id = yourself)
+    ['goto'] = 'goto',        -- /goto [id]          go to a player
+    bring = 'bring',          -- /bring [id]         bring a player to you
+    freeze = 'freeze',        -- /freeze [id]        freeze or unfreeze a player
+    spectate = 'spectate',    -- /spectate [id]      watch a player (no id = stop)
+    kick = 'kick',            -- /kick [id] [reason]
+    ban = 'ban',              -- /ban [id] [hours] [reason]   hours from Config.BanDurations
+    warn = 'warn',            -- /warn [id] [reason]
+    kit = 'kit',              -- /kit [id] [kit]     give an item kit (Config.ItemKits)
+    announce = 'announce',    -- /announce [message] a notice for everyone
+    weather = 'weather',      -- /weather [type]     set the weather (Config.WeatherTypes, or reset)
+    time = 'time',            -- /time [hour] [minute] [freeze]   set the clock (or /time reset)
+}
+
 -- ---------------------------------------------------------------
 -- Permissions
 -- "admin" when ANY admin check passes, "mod" when any mod check passes (admins can do all mod things).
