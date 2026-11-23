@@ -2,6 +2,25 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-23 (farming, gathering 0.2.0, creator clothing)
+
+### New
+- **MULTIfarming (free).** Buy seeds, a hoe and a watering can at the general store. Use a seed outdoors with the hoe in your satchel to plant it. Planting isn't allowed in towns, indoors, in water, on roads or right next to another plant, and each player has a plant limit. Fill the can at a river or lake and water your crops: dry crops stop growing, and crops left dry or unharvested too long wither. Look at a crop with Left Alt to see its stage and water, and to water it, harvest it or dig it up.
+  - Crops: corn, potatoes, tomatoes, carrots, onions, wheat, pumpkins and tobacco. The general store buys the harvest.
+  - Growth is saved in the database (`multi_farming_plants`, made on start), so crops keep growing across restarts.
+  - Admin command: `/farmclear`.
+  - Settings are in `config.lua` and `config/crops.lua`. You can limit planting to farm zones with `Config.FarmZones`.
+
+### Changed
+- **MULTIgathering 0.2.0.**
+  - Every tree now gives a few chops (`ChopsPerTree`, default 3) and is then felled for a while (`TreeRegrowMinutes`, default 20), so players have to move from tree to tree.
+  - Admins can add a mining rock face where they stand with `/minespot add <coal|desert> [radius]`. It works at once with no restart, is saved in `data/mining_spots.json`, and `/minespot remove` deletes it again. Use this to fix the default mine positions on your map.
+  - All 32 languages are included.
+- **MULTIcreator:** the clothing tab now offers every piece the game has: spurs, chaps, belts, buckles, gunbelts, holsters, bandoliers, satchels, suspenders, neckties, glasses, masks, cloaks, ponchos, closed coats, gauntlets, rings, bracelets, hair accessories, spats, badges, armour and accessories.
+
+### Updating
+Copy `MULTIfarming`, `MULTIgathering`, `MULTIcreator` and `MULTIstores/config/products.lua` from `resources/[multicore]`. Keep a copy of your own config changes first. Add `ensure MULTIfarming` after `ensure MULTIgathering` in server.cfg.
+
 ## 2026-11-23 (UI presets)
 
 ### New
