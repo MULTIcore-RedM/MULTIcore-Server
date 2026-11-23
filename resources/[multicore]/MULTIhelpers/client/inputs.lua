@@ -95,3 +95,8 @@ end)
 AddEventHandler('vorpinputs:getInput', function(button, placeholder, cb)
     askAsync(simpleSpec(button, placeholder), GetInvokingResource(), cb)
 end)
+
+-- TriggerEvent('vorpinputs:getInputsWithInputType', button, placeholder, 'number', function(text) end)
+AddEventHandler('vorpinputs:getInputsWithInputType', function(button, placeholder, inputType, cb)
+    askAsync(simpleSpec(button, placeholder, inputType), GetInvokingResource(), cb)
+end)

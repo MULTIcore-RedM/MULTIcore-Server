@@ -281,6 +281,9 @@ closeMenu = function(m, showRadar, soundClose, fireEventClose, noCallbacks)
     if not noCallbacks then
         if fireEventClose ~= false then
             TriggerEvent('vorp:menu:closemenu', { type = m.type, namespace = m.namespace, name = m.name, title = m.data.title })
+            -- the older names many scripts still listen for
+            TriggerEvent('vorp_menu:closemenu')
+            TriggerEvent('menuapi:closemenu')
         end
         run(m.closeCb, cbData(m, m.data.elements[m.index]), m.public)
     end
@@ -311,6 +314,7 @@ function MenuData.Open(mtype, namespace, name, data, submit, cancel, change, clo
     show()
     if not data.skipOpenEvent then
         TriggerEvent('vorp:menu:openmenu', { type = mtype, namespace = namespace, name = name, title = data.title })
+        TriggerEvent('vorp_menu:openmenu')
     end
     Helpers.Debug('menu open', key(m), #data.elements .. ' elements')
     return m.public
@@ -504,5 +508,16 @@ Helpers.Export('GetMenuData', function() return MenuData end, { 'vorp_menu' })
 Helpers.Export('CloseAll', MenuData.CloseAll, { 'vorp_menu' })
 Helpers.Export('RegisterControls', MenuData.RegisterControls, { 'vorp_menu' })
 Helpers.Export('UnregisterControls', MenuData.UnregisterControls, { 'vorp_menu' })
+
+-- The older way to get the menu, still used by many scripts (syn_*, older VORP scripts):
+--   MenuData = {}
+--   TriggerEvent('menuapi:getData', function(call) MenuData = call end)
+-- It only works when MULTIhelpers starts before them (ensure it early in server.cfg).
+AddEventHandler('menuapi:getData', function(cb)
+    if type(cb) == 'function' or type(cb) == 'table' then cb(MenuData) end
+end)
+AddEventHandler('vorp_menu:getData', function(cb)
+    if type(cb) == 'function' or type(cb) == 'table' then return cb(MenuData) end
+end)
 
 Helpers.MenuData = MenuData

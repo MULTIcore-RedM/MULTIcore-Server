@@ -38,6 +38,10 @@ To restyle, use `html/custom.css`. It loads last.
 
 ## Menu: `vorp_menu`
 
+The older way works too (syn_* and many older scripts use it). MULTIhelpers must start before those scripts:
+`TriggerEvent('menuapi:getData', function(call) MenuData = call end)` (also `vorp_menu:getData`). The events
+`menuapi:closemenu`, `vorp_menu:closemenu` and `vorp_menu:openmenu` fire as in the original.
+
 ```lua
 local MenuData = exports.vorp_menu:GetMenuData()
 
