@@ -14,7 +14,7 @@ html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: trans
 .posters { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; align-content: start; padding: 2px 4px 2px 2px; }
 .poster { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 14px 14px 10px; background: var(--mc-paper-2); cursor: pointer; min-height: 220px; }
 .poster:hover { background: var(--mc-paper-3); }
-.poster.active { background: rgba(0, 0, 0, 0.75); }
+.poster.active { background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.75); }
 .poster.active::after { content: ''; position: absolute; inset: 0; border: 2px solid var(--mc-ink); pointer-events: none; }
 .p-head { font-family: var(--mc-font-title); font-size: calc(34px * var(--mc-scale)); text-transform: uppercase; text-align: center; letter-spacing: 0.04em; line-height: 1; }
 .p-name { font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-heading); text-align: center; text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 6px;

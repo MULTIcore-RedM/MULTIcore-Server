@@ -26,7 +26,7 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; w
 .mh-list { display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
 .mh-list .mc-row { min-height: 2.4em; background: transparent; padding: 8px 12px; }
 .mh-list .mc-row:hover { background: var(--mc-paper-3); }
-.mh-list .mc-row.active { background: rgba(255, 255, 255, 0.06); }
+.mh-list .mc-row.active { background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.06); }
 .mh-list.divider .mc-row:not(:last-child) { box-shadow: inset 0 -1px 0 var(--mc-line); }
 .mh-list.grid { display: grid; grid-template-columns: repeat(var(--mh-grid-cols, 4), 1fr); gap: 6px; }
 
@@ -56,13 +56,13 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; w
 .mh-val { min-width: 2.6em; text-align: center; font-family: var(--mc-font-ui); }
 
 /* thin white slider bar */
-.mh-bar { width: 6.5em; height: 3px; background: rgba(255, 255, 255, 0.25); border: 0; border-radius: 0; overflow: hidden; }
+.mh-bar { width: 6.5em; height: 3px; background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.25); border: 0; border-radius: 0; overflow: hidden; }
 .mh-bar > div { height: 100%; background: var(--mc-ink); }
 
 /* square white tick box */
 .mh-tick {
     width: 15px; height: 15px; border: 1px solid var(--mc-line-strong); border-radius: 0;
-    background: rgba(0, 0, 0, 0.4); display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.4); display: inline-flex; align-items: center; justify-content: center;
     font-size: 11px; color: var(--mc-ink); line-height: 1;
 }
 .mc-row.active .mh-tick { border-color: var(--mc-ink); }
@@ -72,11 +72,11 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; w
 .mh-tile {
     position: relative;
     display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 4px;
-    background: rgba(0, 0, 0, 0.35); border: 0; border-radius: 0; cursor: pointer;
+    background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.35); border: 0; border-radius: 0; cursor: pointer;
     font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-align: center;
 }
 .mh-tile img { width: 64px; height: 64px; object-fit: contain; }
-.mh-tile.active { background: rgba(255, 255, 255, 0.06); }
+.mh-tile.active { background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.06); }
 .mh-tile.active::after { content: ''; position: absolute; inset: 0; border: 2px solid var(--mc-ink); pointer-events: none; }
 .mh-tile.disabled { color: var(--mc-ink-faint); }
 
@@ -112,24 +112,24 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; w
     position: fixed; right: var(--mh-keys-right, 3vw); bottom: var(--mh-keys-bottom, 4vh);
     display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: flex-end; align-items: center;
     font-family: var(--mc-font-ui); font-size: var(--mc-size-small); color: var(--mc-ink); text-transform: uppercase; letter-spacing: 0.05em;
-    text-shadow: 0 1px 2px #000, 0 0 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 1px 2px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 1), 0 0 4px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 0.8);
 }
 .mh-keys > span { display: inline-flex; align-items: center; }
 .mh-key {
     display: inline-flex; align-items: center; justify-content: center;
     min-width: 24px; height: 24px; padding: 0 6px; margin-right: 7px;
-    border: 1px solid var(--mc-ink); border-radius: 3px; background: rgba(0, 0, 0, 0.55);
+    border: 1px solid var(--mc-ink); border-radius: 3px; background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.55);
     font-weight: 700; color: var(--mc-ink); letter-spacing: 0.02em; text-shadow: none;
 }
 
 /* ---------------------------------------------------------------- dialog (the game's on-screen keyboard box) */
-.mh-dialog-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.3); }
+.mh-dialog-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.3); }
 .mh-dialog { width: var(--mh-dialog-width, 26vw); min-width: 360px; max-width: 520px; padding: 22px 24px 18px; }
 .mh-dialog-title { text-align: center; font-size: calc(var(--mc-size-title) * 0.8); margin-bottom: 6px; }
 .mh-dialog .mc-note { text-align: center; margin-bottom: 14px; color: var(--mc-ink-dim); }
 .mh-dialog .mc-note:empty { display: none; }
 .mh-dialog .mc-input, .mh-dialog .mc-textarea {
-    width: 100%; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--mc-ink); color: var(--mc-ink);
+    width: 100%; background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.7); border: 1px solid var(--mc-ink); color: var(--mc-ink);
     font-size: var(--mc-size-ui); padding: 10px 12px;
 }
 .mh-dialog .mc-input:focus, .mh-dialog .mc-textarea:focus { box-shadow: inset 0 0 0 1px var(--mc-ink); }
@@ -142,10 +142,10 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; w
 .mh-linear { width: var(--mh-progress-width, 24vw); min-width: 260px; }
 .mh-linear-label {
     text-align: center; font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-ui); text-transform: uppercase;
-    letter-spacing: 0.08em; color: var(--mc-ink); text-shadow: 0 1px 2px #000, 0 0 4px rgba(0, 0, 0, 0.8); margin-bottom: 7px;
+    letter-spacing: 0.08em; color: var(--mc-ink); text-shadow: 0 1px 2px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 1), 0 0 4px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 0.8); margin-bottom: 7px;
 }
 .mh-linear-track {
-    height: 5px; padding: 0; background: var(--mh-progress-track, rgba(0, 0, 0, 0.6));
+    height: 5px; padding: 0; background: var(--mh-progress-track, rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.6));
     border: 0; outline: 0; border-radius: 0; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
 }
 .mh-linear-fill { height: 100%; width: 0; background: var(--mh-progress-color, var(--mc-ink)); border-radius: 0; }
@@ -154,16 +154,16 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; w
 .mh-ring {
     --p: 0; --c: var(--mh-progress-color, var(--mc-ink));
     width: var(--mh-circle-size, 84px); height: var(--mh-circle-size, 84px); border-radius: 50%; padding: 4px;
-    background: conic-gradient(var(--c) calc(var(--p) * 1%), var(--mh-progress-track, rgba(255, 255, 255, 0.22)) 0);
+    background: conic-gradient(var(--c) calc(var(--p) * 1%), var(--mh-progress-track, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.22)) 0);
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
 }
 .mh-ring-hole {
     width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    background: rgba(0, 0, 0, 0.7); box-shadow: none;
+    background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.7); box-shadow: none;
     font-family: var(--mc-font-ui); font-weight: 700; font-size: var(--mc-size-ui); color: var(--mc-ink);
 }
 /* inner circle: a soft white fill sweeping round inside a thin white frame */
-.mh-circle.inner .mh-ring { padding: 0; position: relative; background: rgba(0, 0, 0, 0.65); box-shadow: inset 0 0 0 2px var(--mc-ink), 0 0 0 1px rgba(0, 0, 0, 0.35); }
+.mh-circle.inner .mh-ring { padding: 0; position: relative; background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.65); box-shadow: inset 0 0 0 2px var(--mc-ink), 0 0 0 1px rgba(0, 0, 0, 0.35); }
 .mh-circle.inner .mh-ring::before {
     content: ''; position: absolute; inset: 6px; border-radius: 50%;
     background: conic-gradient(var(--c) calc(var(--p) * 1%), transparent 0);
@@ -172,7 +172,7 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; w
 .mh-circle.inner .mh-ring-hole { position: relative; background: transparent; }
 .mh-circle-label {
     font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-ui); text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--mc-ink); text-shadow: 0 1px 2px #000, 0 0 4px rgba(0, 0, 0, 0.8);
+    color: var(--mc-ink); text-shadow: 0 1px 2px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 1), 0 0 4px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 0.8);
 }
 
 /* keep tall menus on screen and clear of the key prompts: the description scrolls instead */
@@ -182,8 +182,8 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; w
 .mh-dialog .mc-field:empty { display: none; }
 .mh-dialog .mc-btn:focus { outline: 1px solid var(--mc-ink); outline-offset: 2px; }
 .mh-desc::-webkit-scrollbar { width: 3px; }
-.mh-desc::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.6); }
-.mh-desc::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.12); }
+.mh-desc::-webkit-scrollbar-thumb { background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.6); }
+.mh-desc::-webkit-scrollbar-track { background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.12); }
 
 /* MULTIcore brand mark sits in the panel's top-left corner (theme class mc-brand-corner) */
 /* (the menu is already absolutely placed); the title keeps clear of the mark */

@@ -44,7 +44,7 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
     padding: 10px; background: var(--mc-paper-2); cursor: pointer; position: relative;
 }
 .wagon-card:hover { background: var(--mc-paper-3); }
-.wagon-card.selected { background: rgba(0, 0, 0, 0.75); }
+.wagon-card.selected { background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.75); }
 .wagon-card.selected::after { content: ''; position: absolute; inset: 0; border: 2px solid var(--mc-ink); pointer-events: none; }
 .wagon-card img { width: 52px; height: 52px; margin: 0 auto; object-fit: contain; }
 .wagon-card .wagon-name { font-family: var(--mc-font-ui); font-weight: 500; font-size: var(--mc-size-ui); }
@@ -66,7 +66,7 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
     font-family: var(--mc-font-ui); font-size: var(--mc-size-small); text-transform: uppercase; letter-spacing: 0.06em;
     padding: 1px 8px; border: 1px solid var(--mc-line-strong); color: var(--mc-ink-dim); white-space: nowrap;
 }
-.mc-row.sell { color: #fff; }
+.mc-row.sell { color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); }
 .mc-row.sell .pill { border-color: var(--mc-red); }
 
 .customize-preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
@@ -83,7 +83,7 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
 
 /* name / confirm boxes */
 .modal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; }
-.modal-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.45); }
+.modal-backdrop { position: absolute; inset: 0; background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.45); }
 .modal-container { position: relative; width: 420px; }
 .modal-title { font-size: calc(30px * var(--mc-scale)); }
 .modal-footer { justify-content: flex-end; margin-top: 8px; }
@@ -91,7 +91,7 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
 /* messages, top right */
 .wg-toasts { position: fixed; top: 4vh; right: 4vw; width: 340px; display: flex; flex-direction: column; gap: 6px; pointer-events: none; z-index: 20; }
 .wg-toast {
-    padding: 10px 14px; background: rgba(0, 0, 0, 0.85);
+    padding: 10px 14px; background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.85);
     border-left: 3px solid var(--mc-ink);
     opacity: 0; transform: translateX(12px); transition: opacity 0.2s, transform 0.2s;
 }

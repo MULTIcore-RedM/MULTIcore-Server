@@ -225,7 +225,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.45);
     z-index: 10;
 }
 
@@ -265,7 +265,7 @@ body {
 .input-group input {
     width: 100%;
     padding: 8px 10px;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.6);
     border: 1px solid var(--mc-line);
     border-radius: 0;
     color: var(--mc-ink);

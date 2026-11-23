@@ -29,7 +29,7 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
     font-family: var(--mc-font-ui); font-size: var(--mc-size-small);
     text-transform: uppercase; letter-spacing: 0.06em; color: var(--mc-ink-dim);
 }
-.cr-track { height: 4px; margin-top: 5px; background: rgba(255, 255, 255, 0.18); }
+.cr-track { height: 4px; margin-top: 5px; background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.18); }
 .cr-fill { height: 100%; width: 0; background: var(--mc-ink); transition: width 0.2s ease-out; }
 
 .mc-input.cr-readonly { color: var(--mc-ink-dim); border-style: dashed; cursor: default; }
@@ -55,7 +55,7 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
 /* messages, top right */
 .cr-toasts { position: fixed; top: 4vh; right: 4vw; width: 340px; display: flex; flex-direction: column; gap: 6px; pointer-events: none; }
 .cr-toast {
-    padding: 10px 14px; background: rgba(0, 0, 0, 0.85);
+    padding: 10px 14px; background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.85);
     border-left: 3px solid var(--mc-ink);
     opacity: 0; transform: translateX(12px); transition: opacity 0.2s, transform 0.2s;
 }

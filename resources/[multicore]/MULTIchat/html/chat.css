@@ -8,12 +8,12 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
     --mch-scale: 1;
     --mch-width: calc(560px * var(--mch-scale));
 
-    --mch-me-text: #ffffff;   --mch-me-bg: rgba(0, 0, 0, 0.88);
-    --mch-do-text: #5fa8ff;   --mch-do-bg: rgba(0, 0, 0, 0.88);
-    --mch-try-text: #ffffff;  --mch-try-bg: rgba(0, 0, 0, 0.88);
+    --mch-me-text: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1);   --mch-me-bg: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.88);
+    --mch-do-text: #5fa8ff;   --mch-do-bg: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.88);
+    --mch-try-text: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1);  --mch-try-bg: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.88);
     --mch-try-good: #8fbf6a;  --mch-try-bad: #d04a3c;
-    --mch-say-text: #ffffff;  --mch-say-bg: rgba(0, 0, 0, 0.55);
-    --mch-system-text: #ffffff; --mch-system-bg: rgba(0, 0, 0, 0.55);
+    --mch-say-text: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1);  --mch-say-bg: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.55);
+    --mch-system-text: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); --mch-system-bg: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.55);
 
     position: fixed;
     top: calc(24px * var(--mch-scale));
@@ -60,7 +60,7 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
 .mch-me, .mch-do, .mch-try { font-style: italic; }
 
 /* ^0 - ^9 colour codes from other scripts */
-.mch-c0, .mch-c7 { color: #ffffff; }
+.mch-c0, .mch-c7 { color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); }
 .mch-c1 { color: #d04a3c; }
 .mch-c2 { color: #8fbf6a; }
 .mch-c3 { color: #e8c547; }
@@ -79,27 +79,27 @@ html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
     padding: 7px 10px;
     font: inherit;
     font-family: var(--mc-font-ui, serif);
-    color: #ffffff;
-    caret-color: #ffffff;
-    background: rgba(0, 0, 0, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.55);
+    color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1);
+    caret-color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1);
+    background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.9);
+    border: 1px solid rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.55);
     border-radius: 0;
     outline: none;
 }
-.mch-input::placeholder { color: rgba(255, 255, 255, 0.42); }
-.mch-input:focus { border-color: #ffffff; }
+.mch-input::placeholder { color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.42); }
+.mch-input:focus { border-color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); }
 
 /* ---------- command suggestions ---------- */
 .mch-suggest {
     margin-top: 2px;
-    background: rgba(0, 0, 0, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.9);
+    border: 1px solid rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.18);
     max-height: calc(220px * var(--mch-scale));
     overflow: hidden;
 }
-.mch-sug { padding: 4px 10px; color: rgba(255, 255, 255, 0.72); }
-.mch-sug.on { color: #ffffff; outline: 1px solid #ffffff; outline-offset: -1px; }
-.mch-sug .mch-name { color: #ffffff; font-weight: 700; }
-.mch-sug .mch-param { margin-left: 6px; color: rgba(255, 255, 255, 0.6); }
-.mch-sug .mch-param.on { color: #ffffff; text-decoration: underline; }
-.mch-sug .mch-help { display: block; font-size: 0.85em; color: rgba(255, 255, 255, 0.55); }
+.mch-sug { padding: 4px 10px; color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.72); }
+.mch-sug.on { color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); outline: 1px solid rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); outline-offset: -1px; }
+.mch-sug .mch-name { color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); font-weight: 700; }
+.mch-sug .mch-param { margin-left: 6px; color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.6); }
+.mch-sug .mch-param.on { color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); text-decoration: underline; }
+.mch-sug .mch-help { display: block; font-size: 0.85em; color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.55); }

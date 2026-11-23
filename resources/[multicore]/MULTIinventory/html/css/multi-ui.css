@@ -10,42 +10,42 @@
 
 :root {
   /* ---- palette: MULTIcore black / white ---- */
-  --multi-bg: #000000;
-  --multi-bg-raised: #0a0a0a;
-  --multi-panel: var(--mc-paper, rgba(0, 0, 0, 0.82));
-  --multi-panel-hover: rgba(255, 255, 255, 0.08);
-  --multi-ink-light: var(--mc-ink, #ffffff);
-  --multi-text: var(--mc-ink, #ffffff);
-  --multi-text-muted: var(--mc-ink-dim, rgba(255, 255, 255, 0.72));
-  --multi-text-faint: var(--mc-ink-faint, rgba(255, 255, 255, 0.42));
-  --multi-border: var(--mc-line-strong, rgba(255, 255, 255, 0.55));
-  --multi-border-subtle: var(--mc-line, rgba(255, 255, 255, 0.18));
+  --multi-bg: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 1);
+  --multi-bg-raised: rgba(calc(var(--mc-bg-r) + (var(--mc-fg-r) - var(--mc-bg-r)) * 0.039), calc(var(--mc-bg-g) + (var(--mc-fg-g) - var(--mc-bg-g)) * 0.039), calc(var(--mc-bg-b) + (var(--mc-fg-b) - var(--mc-bg-b)) * 0.039), 1);
+  --multi-panel: var(--mc-paper, rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.82));
+  --multi-panel-hover: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.08);
+  --multi-ink-light: var(--mc-ink, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1));
+  --multi-text: var(--mc-ink, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1));
+  --multi-text-muted: var(--mc-ink-dim, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.72));
+  --multi-text-faint: var(--mc-ink-faint, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.42));
+  --multi-border: var(--mc-line-strong, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.55));
+  --multi-border-subtle: var(--mc-line, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.18));
   --multi-red: var(--mc-red, #c0281e);
-  --multi-ink: #000000;                /* text on a white plate */
+  --multi-ink: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 1);                /* text on a white plate */
   --multi-success: var(--mc-good, #8fbf6a);
-  --multi-info: var(--mc-ink, #ffffff);
+  --multi-info: var(--mc-ink, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1));
   --multi-warning: var(--mc-gold, #d6b25e);
   --multi-danger: var(--mc-bad, #d04a3c);
-  --multi-focus: var(--mc-ink, #ffffff);
-  --multi-backdrop: rgba(0, 0, 0, 0.55);
+  --multi-focus: var(--mc-ink, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1));
+  --multi-backdrop: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.55);
 
   /* ---- older token names used across the inventory CSS ---- */
-  --multi-black: #000000;
-  --multi-panel-2: var(--mc-paper-2, rgba(0, 0, 0, 0.55));
-  --multi-steel: var(--mc-paper-3, rgba(255, 255, 255, 0.08));
-  --multi-line: var(--mc-line, rgba(255, 255, 255, 0.18));
-  --multi-line-bright: var(--mc-line-strong, rgba(255, 255, 255, 0.55));
-  --multi-muted: var(--mc-ink-dim, rgba(255, 255, 255, 0.72));
-  --multi-silver: var(--mc-ink, #ffffff);
-  --multi-silver-bright: #ffffff;
-  --multi-silver-dim: var(--mc-ink-dim, rgba(255, 255, 255, 0.72));
+  --multi-black: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 1);
+  --multi-panel-2: var(--mc-paper-2, rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.55));
+  --multi-steel: var(--mc-paper-3, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.08));
+  --multi-line: var(--mc-line, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.18));
+  --multi-line-bright: var(--mc-line-strong, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.55));
+  --multi-muted: var(--mc-ink-dim, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.72));
+  --multi-silver: var(--mc-ink, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1));
+  --multi-silver-bright: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1);
+  --multi-silver-dim: var(--mc-ink-dim, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.72));
   --multi-ok: var(--mc-good, #8fbf6a);
   --multi-warn: var(--mc-gold, #d6b25e);
   --multi-bad: var(--mc-bad, #d04a3c);
-  --multi-shadow: rgba(0, 0, 0, 0.7);
+  --multi-shadow: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.7);
 
   /* the white rule that fades at both ends (the theme's .mc-rule) */
-  --multi-rule: linear-gradient(90deg, transparent, var(--mc-line-strong, rgba(255, 255, 255, 0.55)) 15%, var(--mc-line-strong, rgba(255, 255, 255, 0.55)) 85%, transparent);
+  --multi-rule: linear-gradient(90deg, transparent, var(--mc-line-strong, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.55)) 15%, var(--mc-line-strong, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.55)) 85%, transparent);
 
   /* ---- type: MULTIcore's fonts (fonts.css maps these) ---- */
   --font-display: var(--mc-font-title, 'Oswald', 'Arial Narrow', sans-serif);
@@ -70,7 +70,7 @@ html, body {
   font-family: var(--font-body);
   font-size: 14px;
   color: var(--multi-text);
-  text-shadow: var(--mc-text-shadow, 0 1px 2px rgba(0, 0, 0, 0.9));
+  text-shadow: var(--mc-text-shadow, 0 1px 2px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 0.9));
   -webkit-font-smoothing: antialiased;
 }
 
@@ -105,7 +105,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 
 /* full-screen dim behind a big menu: add class="multi-world" to the overlay */
 .multi-world {
-  background: radial-gradient(ellipse 75% 70% at 50% 45%, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.9) 62%, rgba(0, 0, 0, 0.97) 100%);
+  background: radial-gradient(ellipse 75% 70% at 50% 45%, rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.72) 0%, rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.9) 62%, rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.97) 100%);
 }
 
 /* ---------- the panel: black, fading softly at the edges (the theme's .mc-panel) ---------- */
@@ -178,7 +178,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   justify-content: center;
   gap: 8px;
   padding: 10px 18px 9px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.6);
   color: var(--multi-ink-light);
   border: 0;
   border-radius: 0;
@@ -189,16 +189,16 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   cursor: pointer;
   transition: background-color 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
 }
-.rbtn:hover { background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 1px var(--multi-ink-light); }
-.rbtn:active { background: rgba(255, 255, 255, 0.16); }
-.rbtn.primary { background: var(--multi-ink-light); color: #000000; box-shadow: none; text-shadow: none; }
-.rbtn.primary:hover { background: rgba(255, 255, 255, 0.85); }
-.rbtn.danger:hover { background: var(--multi-red); color: #ffffff; box-shadow: inset 0 0 0 1px var(--multi-red); }
+.rbtn:hover { background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.1); box-shadow: inset 0 0 0 1px var(--multi-ink-light); }
+.rbtn:active { background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.16); }
+.rbtn.primary { background: var(--multi-ink-light); color: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 1); box-shadow: none; text-shadow: none; }
+.rbtn.primary:hover { background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.85); }
+.rbtn.danger:hover { background: var(--multi-red); color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); box-shadow: inset 0 0 0 1px var(--multi-red); }
 .rbtn.muted { color: var(--multi-text-muted); background: none; box-shadow: none; }
 .rbtn.muted:hover { color: var(--multi-ink-light); background: none; }
 .rbtn:disabled, .rbtn.disabled { opacity: 0.35; cursor: not-allowed; }
 .rbtn:disabled:hover, .rbtn.disabled:hover {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.6);
   color: var(--multi-ink-light);
   box-shadow: inset 0 0 0 1px var(--multi-border);
 }
@@ -207,7 +207,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 .rinput, .rselect, .rtextarea {
   width: 100%;
   padding: 8px 10px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.6);
   color: var(--multi-ink-light);
   border: 1px solid var(--multi-border-subtle);
   border-radius: 0;
@@ -219,11 +219,11 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 .rtextarea { padding: 8px 10px; }
 .rselect {
   -webkit-appearance: none; appearance: none; padding-right: 28px;
-  background-image: linear-gradient(45deg, transparent 50%, #fff 50%), linear-gradient(135deg, #fff 50%, transparent 50%);
+  background-image: linear-gradient(45deg, transparent 50%, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1) 50%), linear-gradient(135deg, rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1) 50%, transparent 50%);
   background-position: calc(100% - 15px) 55%, calc(100% - 10px) 55%;
   background-size: 5px 5px; background-repeat: no-repeat;
 }
-.rselect option { background: #000000; color: #ffffff; }
+.rselect option { background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 1); color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); }
 .rinput:focus, .rselect:focus, .rtextarea:focus { border-color: var(--multi-ink-light); box-shadow: none; }
 .rinput::placeholder, .rtextarea::placeholder { color: var(--multi-text-faint); }
 .rlabel {
@@ -251,7 +251,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 }
 .rrow::before { content: none; }
 .rrow:hover { background: var(--multi-steel); color: var(--multi-ink-light); }
-.rrow.active { color: var(--multi-ink-light); background: rgba(0, 0, 0, 0.75); }
+.rrow.active { color: var(--multi-ink-light); background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.75); }
 .rrow.active::after,
 .multi-selected::after {
   content: "";
@@ -299,7 +299,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   color: var(--multi-text-muted);
   font-variant-numeric: tabular-nums;
 }
-.rbar { height: 4px; background: rgba(255, 255, 255, 0.18); border-radius: 0; overflow: hidden; }
+.rbar { height: 4px; background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.18); border-radius: 0; overflow: hidden; }
 .rbar > i {
   display: block; height: 100%;
   background: var(--multi-ink-light);
@@ -317,7 +317,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   z-index: 50;
 }
 .rmodal { width: 380px; max-width: calc(100vw - 32px); }
-.rmodal .plate { background: rgba(0, 0, 0, 0.92); }
+.rmodal .plate { background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.92); }
 .rmodal .plate-body { padding: 20px 22px 20px; }
 .rmodal .kicker { display: block; margin-bottom: 6px; }
 .rmodal .multi-title { font-size: 26px; padding-bottom: 10px; margin-bottom: 14px; position: relative; }
@@ -336,7 +336,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   z-index: 100;
 }
 .rtoast { min-width: 260px; max-width: 440px; animation: multi-toast-in 0.25s ease 1 both; }
-.rtoast .plate { background: rgba(0, 0, 0, 0.92); }
+.rtoast .plate { background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.92); }
 .rtoast .plate-body { padding: 13px 18px 12px 22px; font-weight: 500; color: var(--multi-ink-light); }
 .rtoast .plate::after {
   content: ""; position: absolute; left: 8px; top: 10px; bottom: 10px; width: 2px;
@@ -364,16 +364,16 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   min-width: 24px; height: 24px; padding: 0 6px;
   border: 1px solid var(--multi-ink-light);
   border-radius: 3px;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.55);
   font: 700 10px/1 var(--font-ui);
   color: var(--multi-ink-light);
 }
 
 /* ---------- scrollbars: a thin white line ---------- */
 ::-webkit-scrollbar { width: 3px; height: 3px; }
-::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.12); }
-::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.6); border: 0; border-radius: 0; }
-::-webkit-scrollbar-thumb:hover { background: #ffffff; }
+::-webkit-scrollbar-track { background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.12); }
+::-webkit-scrollbar-thumb { background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.6); border: 0; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); }
 
 /* ---------- tables ---------- */
 .rtable { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }

@@ -148,13 +148,13 @@ NotifyConfig.Editor = {
 -- Sound names are game frontend sounds; keep to known pairs.
 -- ------------------------------------------------------------
 NotifyConfig.Types = {
-    info    = { color = '#ffffff', icon = 'i',      sound = false,                                    title = false },
+    info    = { color = 'var(--mc-ink)', icon = 'i',      sound = false,                                    title = false },
     success = { color = '#8fbf6a', icon = '\u{2714}', sound = { 'YES', 'HUD_DOMINOS_SOUNDSET' },        title = false },
     error   = { color = '#c0281e', icon = '\u{2716}', sound = { 'UNAFFORDABLE', 'Ledger_Sounds' },      title = false },
     warning = { color = '#d9a441', icon = '!',      sound = { 'INFO', 'HUD_SHOP_SOUNDSET' },          title = false },
     money   = { color = '#8fbf6a', icon = '$',      sound = { 'PURCHASE', 'HUD_SHOP_SOUNDSET' },      title = false },
     gold    = { color = '#d6b25e', icon = '\u{25C6}', sound = { 'SELL', 'HUD_SHOP_SOUNDSET' },          title = false },
-    job     = { color = '#cfcfcf', icon = '\u{2692}', sound = { 'READ', 'HUD_SHOP_SOUNDSET' },          title = false },
+    job     = { color = 'var(--mc-ink-dim)', icon = '\u{2692}', sound = { 'READ', 'HUD_SHOP_SOUNDSET' },          title = false },
     police  = { color = '#7f9fcc', icon = '\u{2605}', sound = { 'Whistle', 'Flex_Fight_Sounds' },       title = true  },
     medic   = { color = '#c0281e', icon = '\u{271A}', sound = { 'Core_Fill_Up', 'Consumption_Sounds' }, title = true  },
 }

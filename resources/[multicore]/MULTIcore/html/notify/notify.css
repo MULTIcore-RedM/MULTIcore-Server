@@ -16,7 +16,7 @@ html, body { margin: 0; padding: 0; height: 100%; background: transparent; overf
     position: fixed; inset: 0;
     pointer-events: none;
     --mn-fade: 300ms;
-    --mn-bg: rgba(0, 0, 0, 0.8);
+    --mn-bg: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.8);
     --mn-gap: 6px;
     --mn-edge: 2px;
     --mn-radius: 0px;
@@ -57,7 +57,7 @@ html, body { margin: 0; padding: 0; height: 100%; background: transparent; overf
     background: none;
     font-family: var(--mc-font-ui), 'Segoe UI Symbol', sans-serif;
     font-size: calc(var(--mn-icon-size) * 0.7 * var(--mc-scale)); line-height: 1; font-weight: 700;
-    text-shadow: 0 1px 2px #000;
+    text-shadow: 0 1px 2px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 1);
 }
 .mn-icon:empty, .mn-noicons .mn-icon { display: none; }
 .mn-icon img { width: var(--mn-icon-size); height: var(--mn-icon-size); object-fit: contain; }
@@ -158,18 +158,18 @@ html, body { margin: 0; padding: 0; height: 100%; background: transparent; overf
 .mn-objective {
     max-width: 760px;
     padding: var(--mn-pad, 8px 60px 10px);
-    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.12) 45%, transparent 68%);
+    background: radial-gradient(ellipse at center, rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.3) 0%, rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.12) 45%, transparent 68%);
     transform: translateY(-8px);
 }
 .mn-objective .mn-title {
     font-size: var(--mc-size-small); font-weight: 500; color: var(--mn-dim, var(--mc-ink-dim)); letter-spacing: 0.16em;
-    text-shadow: 0 1px 2px #000;
+    text-shadow: 0 1px 2px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 1);
 }
 .mn-objective .mn-title + .mn-text { color: var(--mn-ink, var(--mc-ink)); }
 .mn-objective .mn-text {
     font-family: var(--mc-font-body); font-style: normal;
     font-size: var(--mn-text-size, calc(21px * var(--mc-scale)));
-    text-shadow: var(--mn-shadow, 0 1px 2px #000, 0 0 6px rgba(0, 0, 0, 0.8));
+    text-shadow: var(--mn-shadow, 0 1px 2px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 1), 0 0 6px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 0.8));
 }
 .mn-objective .mn-rule {
     height: 1px; width: 60%; margin: 7px auto 0;
@@ -180,7 +180,7 @@ html, body { margin: 0; padding: 0; height: 100%; background: transparent; overf
 .mn-banner {
     width: 100%;
     padding: var(--mn-pad, 16px 0 18px);
-    background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.6) 25%, rgba(0, 0, 0, 0.6) 75%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.6) 25%, rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.6) 75%, transparent 100%);
     transform: scale(0.97);
 }
 .mn-banner .mn-rule {
@@ -191,13 +191,13 @@ html, body { margin: 0; padding: 0; height: 100%; background: transparent; overf
 .mn-banner .mn-title {
     font-family: var(--mc-font-title); font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em;
     font-size: calc(58px * var(--mc-scale)); line-height: 1.05;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 2px 4px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 0.8);
     margin: 12px 0 2px;
 }
 .mn-banner .mn-text {
     font-family: var(--mc-font-ui); font-style: normal; text-transform: uppercase; letter-spacing: 0.14em;
     font-size: calc(17px * var(--mc-scale));
-    text-shadow: 0 1px 2px #000;
+    text-shadow: 0 1px 2px rgba(var(--mc-sh-r), var(--mc-sh-g), var(--mc-sh-b), 1);
     margin: 0 auto 12px; max-width: 760px;
 }
 .mn-banner .mn-title + .mn-text { color: var(--mn-dim, var(--mc-ink-dim)); }
@@ -213,28 +213,41 @@ html, body { margin: 0; padding: 0; height: 100%; background: transparent; overf
 /* ---------- /notifylayout editor ---------- */
 .mn-editing .mn-stack {
     pointer-events: auto; cursor: grab;
-    outline: 1px dashed rgba(255, 255, 255, 0.55); outline-offset: 4px;
+    outline: 1px dashed rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.55); outline-offset: 4px;
     min-width: 120px; min-height: 30px;
 }
-.mn-editing .mn-stack.mn-dragging { cursor: grabbing; outline-color: #ffffff; transition: none; }
+.mn-editing .mn-stack.mn-dragging { cursor: grabbing; outline-color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); transition: none; }
 .mn-edit-tag {
     align-self: flex-start;
     font-family: var(--mc-font-ui); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: #000; background: #fff; padding: 2px 6px; pointer-events: none;
+    color: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 1); background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); padding: 2px 6px; pointer-events: none;
 }
 .mn-edit-bar {
     position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
     pointer-events: auto; z-index: 10;
     display: flex; align-items: center; gap: 18px;
-    padding: 10px 16px; background: rgba(0, 0, 0, 0.9); border: 1px solid rgba(255, 255, 255, 0.35);
-    color: #fff; font-family: var(--mc-font-body); font-size: 14px;
+    padding: 10px 16px; background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.9); border: 1px solid rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.35);
+    color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); font-family: var(--mc-font-body); font-size: 14px;
 }
 .mn-edit-bar { width: max-content; max-width: 92vw; }
 .mn-edit-help { flex: 1 1 auto; min-width: 320px; max-width: 560px; line-height: 1.35; }
 .mn-edit-btns { display: flex; gap: 8px; }
 .mn-edit-btn {
     font-family: var(--mc-font-ui); font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em;
-    background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.5); padding: 6px 12px; cursor: pointer;
+    background: transparent; color: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); border: 1px solid rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.5); padding: 6px 12px; cursor: pointer;
 }
-.mn-edit-btn:hover, .mn-edit-save { background: #fff; color: #000; }
-.mn-edit-save:hover { background: #ddd; }
+.mn-edit-btn:hover, .mn-edit-save { background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); color: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 1); }
+.mn-edit-save:hover { background: rgba(calc(var(--mc-bg-r) + (var(--mc-fg-r) - var(--mc-bg-r)) * 0.867), calc(var(--mc-bg-g) + (var(--mc-fg-g) - var(--mc-bg-g)) * 0.867), calc(var(--mc-bg-b) + (var(--mc-fg-b) - var(--mc-bg-b)) * 0.867), 1); }
+
+/* ---------- MULTIConfig.UIPreset (classic is everything above; config_notify.lua values still win) ---------- */
+html.mc-preset-parchment #mn-root {
+    --mn-bg: rgba(230, 213, 170, 0.95);
+    --mn-border: 1px solid rgba(60, 40, 20, 0.55);
+    --mn-radius: 2px;
+}
+html.mc-preset-parchment .mn-toast, html.mc-preset-parchment .mn-tip { box-shadow: inset 0 0 22px rgba(110, 70, 25, 0.45), 0 4px 14px rgba(0, 0, 0, 0.4); }
+html.mc-preset-modern #mn-root {
+    --mn-bg: rgba(18, 18, 18, 0.95);
+    --mn-border: 1px solid rgba(225, 225, 225, 0.45);
+    --mn-radius: 8px;
+}

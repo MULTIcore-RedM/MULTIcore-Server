@@ -10,9 +10,9 @@ body { user-select: none; }
     --mr-tip: 13px;          /* how far the pointed ends reach in */
     --mr-gap: 9px;           /* space between buttons */
     --mr-hub: 128px;         /* crest circle size */
-    --mr-edge: rgba(255, 255, 255, 0.55);
-    --mr-plate: rgba(0, 0, 0, 0.88);
-    --mr-lit: #ffffff;
+    --mr-edge: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.55);
+    --mr-plate: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.88);
+    --mr-lit: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1);
     position: fixed; left: 50%; top: 50%;
     transform: translate(-50%, -50%) scale(var(--mr-scale));
     display: flex; flex-direction: column; align-items: center; gap: 14px;
@@ -59,15 +59,15 @@ body { user-select: none; }
 }
 .mr-in b { flex: 1 1 auto; min-width: 0; text-align: left; }
 .mr-btn.mr-sub .mr-in::after { content: '\f054'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 11px; opacity: 0.6; flex: none; }
-.mr-btn:hover, .mr-btn:focus-visible { background: #fff; }
-.mr-btn:hover .mr-in, .mr-btn:focus-visible .mr-in { background: var(--mr-lit); color: #111; text-shadow: none; }
+.mr-btn:hover, .mr-btn:focus-visible { background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 1); }
+.mr-btn:hover .mr-in, .mr-btn:focus-visible .mr-in { background: var(--mr-lit); color: rgba(calc(var(--mc-bg-r) + (var(--mc-fg-r) - var(--mc-bg-r)) * 0.067), calc(var(--mc-bg-g) + (var(--mc-fg-g) - var(--mc-bg-g)) * 0.067), calc(var(--mc-bg-b) + (var(--mc-fg-b) - var(--mc-bg-b)) * 0.067), 1); text-shadow: none; }
 .mr-btn:active { transform: scale(0.98); }
 
 /* crest in the middle: a dark disc with a double ring and thin spikes above and below */
 .mr-hub { position: relative; width: calc(var(--mr-hub) + 24px); display: flex; flex-direction: column; align-items: center; z-index: 1; }
 .mr-ring {
     width: var(--mr-hub); height: var(--mr-hub); border-radius: 50%;
-    background: rgba(0, 0, 0, 0.88);
+    background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.88);
     box-shadow: 0 0 0 1px var(--mr-edge), 0 0 0 6px rgba(0, 0, 0, 0.75), 0 0 0 7px rgba(255, 255, 255, 0.3), 0 0 18px rgba(0, 0, 0, 0.6);
     display: flex; align-items: center; justify-content: center;
 }

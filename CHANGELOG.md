@@ -13,7 +13,7 @@
   - `parchment`: old paper with dark ink and a brush stroke under the picked row.
   - `modern`: a dark card with a silver frame and rounded corners.
   
-  Every MULTI page follows it (menus, dialogs, notifications, stores, inventory ...). `''` uses `setr multicore_ui_preset <name>` in server.cfg instead. Pages of your own can follow it too: link `nui://MULTIcore/html/theme/multi.css` and add `<script src="nui://MULTIcore/html/theme/preset.js"></script>`.
+  Every MULTI menu follows it: the target (eye and options card), notifications, menus and dialogs, inventory, stores, bank, chat, radial menu, tailor, stables, wagons, housing, hotel, jobs, admin, character select and creator. Only the HUD gauges and the loading screen keep their own look. In `classic` everything looks exactly as before. Notification colours set in `config_notify.lua` still win over the preset. `''` uses `setr multicore_ui_preset <name>` in server.cfg instead. Pages of your own can follow it too: link `nui://MULTIcore/html/theme/multi.css` and add `<script src="nui://MULTIcore/html/theme/preset.js"></script>`.
 
 ### Updating
 Copy the updated `MULTIcore` folder and the other MULTI folders from `resources/[multicore]` (their pages load the new preset script; keep a copy of your own config changes first), then set `MULTIConfig.UIPreset` if you want a different look.

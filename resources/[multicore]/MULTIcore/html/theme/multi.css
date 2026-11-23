@@ -75,6 +75,12 @@
     --mc-btn-primary-ink: #000;
     --mc-btn-radius: 0;
     --mc-brand-filter: none;                    /* colour of the MC mark */
+
+    /* colour channels the presets swap; page CSS mixes greys between them:
+       background colour (black in classic), lettering colour (white in classic), text halo */
+    --mc-bg-r: 0; --mc-bg-g: 0; --mc-bg-b: 0;
+    --mc-fg-r: 255; --mc-fg-g: 255; --mc-fg-b: 255;
+    --mc-sh-r: 0; --mc-sh-g: 0; --mc-sh-b: 0;
 }
 
 /* ---------- base ---------- */
@@ -298,6 +304,9 @@
 
 /* ---------- parchment ---------- */
 html.mc-preset-parchment {
+    --mc-bg-r: 230; --mc-bg-g: 213; --mc-bg-b: 170;
+    --mc-fg-r: 43; --mc-fg-g: 29; --mc-fg-b: 18;
+    --mc-sh-r: 255; --mc-sh-g: 248; --mc-sh-b: 225;
     --mc-ink: #2b1d12;
     --mc-ink-dim: rgba(43, 29, 18, 0.78);
     --mc-ink-faint: rgba(43, 29, 18, 0.5);
@@ -351,6 +360,8 @@ html.mc-preset-parchment ::-webkit-scrollbar-track { background: rgba(43, 29, 18
 
 /* ---------- modern ---------- */
 html.mc-preset-modern {
+    --mc-bg-r: 16; --mc-bg-g: 16; --mc-bg-b: 16;
+    --mc-fg-r: 236; --mc-fg-g: 236; --mc-fg-b: 236;
     --mc-ink: #ececec;
     --mc-ink-dim: rgba(236, 236, 236, 0.7);
     --mc-ink-faint: rgba(236, 236, 236, 0.4);

@@ -26,7 +26,7 @@
 .mu-row.mu-read { cursor: default; }
 .mu-row.disabled .mu-t, .mu-row.disabled i { color: var(--mc-ink-faint); }
 .mu-row.mu-back .mu-t { color: var(--mc-ink-dim); text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--mc-size-small); }
-.mu-bar { grid-column: 1 / -1; height: 3px; background: rgba(255, 255, 255, 0.15); margin-top: 4px; }
+.mu-bar { grid-column: 1 / -1; height: 3px; background: rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.15); margin-top: 4px; }
 .mu-bar > span { display: block; height: 100%; background: var(--mc-ink); }
 .mu-img { grid-column: 1 / -1; max-width: 100%; max-height: calc(120px * var(--mc-scale)); object-fit: contain; margin-top: 4px; }
 
@@ -54,9 +54,9 @@
 .mu-fields .mc-field label .mu-req { margin-left: 4px; }
 .mu-fields .mu-desc { font-size: var(--mc-size-small); color: var(--mc-ink-dim); }
 .mu-check { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; cursor: pointer; font-family: var(--mc-font-ui); }
-.mu-check input { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; margin: 0; border: 1px solid var(--mc-line-strong); background: rgba(0, 0, 0, 0.6); cursor: pointer; position: relative; }
+.mu-check input { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; margin: 0; border: 1px solid var(--mc-line-strong); background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.6); cursor: pointer; position: relative; }
 .mu-check input:checked { background: var(--mc-ink); border-color: var(--mc-ink); }
-.mu-check input:checked::after { content: ''; position: absolute; left: 5px; top: 1px; width: 5px; height: 10px; border: solid #000; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.mu-check input:checked::after { content: ''; position: absolute; left: 5px; top: 1px; width: 5px; height: 10px; border: solid rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 1); border-width: 0 2px 2px 0; transform: rotate(45deg); }
 .mu-multi { display: flex; flex-direction: column; gap: 2px; }
 .mu-content { white-space: pre-line; line-height: 1.45; margin-bottom: 14px; }
 .mu-err { color: var(--mc-red); font-size: var(--mc-size-small); min-height: 1.2em; margin: 4px 0 6px; }
@@ -70,7 +70,7 @@
     pointer-events: none;
 }
 .mu-prog .mu-pl { font-family: var(--mc-font-ui); text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--mc-size-small); margin-bottom: 6px; }
-.mu-prog .mu-track { height: 4px; background: rgba(0, 0, 0, 0.7); outline: 1px solid rgba(255, 255, 255, 0.35); }
+.mu-prog .mu-track { height: 4px; background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.7); outline: 1px solid rgba(var(--mc-fg-r), var(--mc-fg-g), var(--mc-fg-b), 0.35); }
 .mu-prog .mu-fill { height: 100%; width: 0; background: var(--mc-ink); }
 .mu-prog .mc-prompts { justify-content: center; margin-top: 8px; }
 
@@ -79,7 +79,7 @@
     position: absolute; left: 50%; bottom: 6vh; transform: translateX(-50%);
     max-width: 60vw;
     padding: 8px 16px;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(var(--mc-bg-r), var(--mc-bg-g), var(--mc-bg-b), 0.75);
     font-family: var(--mc-font-ui); font-size: var(--mc-size-ui);
     white-space: pre-line; text-align: center;
     pointer-events: none;
