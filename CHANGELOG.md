@@ -2,10 +2,17 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
-## 2026-11-23 (last location fix)
+## 2026-11-23 (hotels, bath houses, last location fix)
+
+### New
+- **MULTIhotel: hotels** in Valentine, Strawberry, Rhodes, Saint Denis, Blackwater, Tumbleweed and Annesburg. Hold **Left Alt** at the front desk to rent a room (`Config.StartCredit`, $10, becomes the room credit) and check in. Every room is its own private copy. The room menu has add / take out credit, a room locker (MULTIinventory), guests (invite players close to you, take invitations back), throw guests out, and telegrams. Rent comes out of the credit every hour; a telegram warns when it runs low and the room is given up when it runs out. Every action is checked on the server.
+- **MULTIbathing: bath houses** in Saint Denis, Valentine, Annesburg, Strawberry, Blackwater, Van Horn and Rhodes with the game's own bathing scene. Hold **Left Alt** at the counter to take a bath ($1), scrub, or order the luxury service ($5). You get out clean (cleanliness 100 in MULTIhud) with your clothes back on.
 
 ### Fixed
 - **Last location spawn:** your game now sends your real position to the server every few seconds, so "last location" puts you back where you logged out. Loading a character no longer overwrites the saved spot with the character select spot. How often it sends is `MULTIConfig.PositionSyncMs` in `MULTIcore/config_multi.lua` (default 5000 ms).
+
+### Updating
+- Copy `resources/[multicore]/MULTIhotel`, `resources/[multicore]/MULTIbathing` and the updated `MULTIcore` into your server and add `ensure MULTIhotel` and `ensure MULTIbathing` after `ensure MULTIhouses` in `server.cfg`. MULTIhotel makes its tables on the first start.
 
 ## 2026-11-22 (32 languages)
 

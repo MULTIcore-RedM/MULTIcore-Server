@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MULTIhotel</title>
+    <!-- Same shared theme as every MULTI script: colours, fonts, rules, rows, buttons. -->
+    <link rel="stylesheet" href="nui://MULTIcore/html/theme/multi.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+<div id="hotel" class="mc-root">
+    <!-- ============================ MAIN MENU ============================ -->
+    <section id="hotel-menu" class="sheet mc-panel mc-fade mc-hidden">
+        <img class="mc-brand mc-brand-corner" src="nui://MULTIcore/html/theme/img/mc-mark.png" alt="">
+        <button class="mc-btn small nav back mc-hidden" id="backBtn">
+            <span class="chevron">&#8249;</span> <span data-l="ui_back"></span>
+        </button>
+
+        <header class="head">
+            <h1 class="mc-title" id="title"></h1>
+            <div class="mc-subtitle" id="subtitle" data-l="ui_subtitle"></div>
+            <span class="pill solid mc-hidden" id="badge"></span>
+        </header>
+        <hr class="mc-rule">
+
+        <div class="list-head" id="listHead"></div>
+        <div class="mc-list mc-scroll" id="options"></div>
+
+        <div class="msg" id="menuMsg"></div>
+        <footer class="foot">
+            <span class="mc-note"><span class="mc-key">Esc</span><span data-l="ui_close"></span></span>
+            <button class="mc-btn small" id="closeBtn" data-l="ui_close"></button>
+        </footer>
+    </section>
+
+    <!-- ============================ INPUT DIALOG ============================ -->
+    <section id="input-dialog" class="sheet dialog mc-panel mc-fade mc-hidden">
+        <img class="mc-brand mc-brand-corner" src="nui://MULTIcore/html/theme/img/mc-mark.png" alt="">
+        <header class="head">
+            <h1 class="mc-title" id="inputTitle"></h1>
+            <div class="mc-subtitle" data-l="ui_amount"></div>
+        </header>
+        <hr class="mc-rule">
+
+        <div class="mc-field">
+            <label for="inputField" id="inputLabel"></label>
+            <input class="mc-input" id="inputField" type="number" inputmode="numeric" min="1" max="999999" placeholder="0">
+        </div>
+        <div class="mc-btn-row quick" id="quick"></div>
+
+        <div class="msg" id="inputMsg"></div>
+        <footer class="foot">
+            <button class="mc-btn small" id="inputCancel" data-l="ui_cancel"></button>
+            <button class="mc-btn small primary" id="inputSubmit" data-l="ui_confirm"></button>
+        </footer>
+    </section>
+
+    <!-- ============================ CONFIRM DIALOG ============================ -->
+    <section id="confirm-dialog" class="sheet dialog mc-panel mc-fade mc-hidden">
+        <img class="mc-brand mc-brand-corner" src="nui://MULTIcore/html/theme/img/mc-mark.png" alt="">
+        <header class="head">
+            <h1 class="mc-title" id="confirmTitle"></h1>
+            <div class="mc-subtitle" data-l="ui_confirm"></div>
+        </header>
+        <hr class="mc-rule">
+
+        <p class="confirm-msg" id="confirmMessage"></p>
+
+        <div class="msg" id="confirmMsg"></div>
+        <footer class="foot">
+            <button class="mc-btn small" id="confirmCancel" data-l="ui_cancel"></button>
+            <button class="mc-btn small danger" id="confirmAccept" data-l="ui_confirm"></button>
+        </footer>
+    </section>
+
+    <!-- ============================ NOTIFICATIONS ============================ -->
+    <div class="toasts" id="toasts"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
