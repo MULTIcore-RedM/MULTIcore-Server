@@ -132,15 +132,30 @@ local function run(src, name, itemTable, c, invId)
 end
 
 ---RedEM:RP scripts listen for 'RegisterUsableItem:<name>' (items marked usable, no other handler).
-local function redemFallback(src, name, itemTable)
-    if Config.Redem and Config.Redem.UsableEvents == false then return false end
+local function redemFallback(src, name, itemTable, force)
+    if not force and Config.Redem and Config.Redem.UsableEvents == false then return false end
     local def = Registry.get(name)
-    if not def or not def.usable then return false end
+    if not def or (not def.usable and not force) then return false end
     local data = { name = name, amount = itemTable.count, meta = Util.deepcopy(itemTable.metadata or {}),
                    label = itemTable.label, slot = itemTable.slot }
     TriggerEvent('RegisterUsableItem:' .. name, src, data)
     if name ~= name:upper() then TriggerEvent('RegisterUsableItem:' .. name:upper(), src, data) end
     return true
+end
+
+---Config.Redem.ScriptItems: a RedEM:RP script handles this item, so its event goes first and MULTIcore's own use is skipped.
+local scriptItems, scriptItemsFrom
+local function redemOwns(name)
+    local list = Config.Redem and Config.Redem.ScriptItems
+    if type(list) ~= 'table' or next(list) == nil then return false end
+    if scriptItemsFrom ~= list then
+        scriptItems, scriptItemsFrom = {}, list
+        for k, v in pairs(list) do
+            if type(v) == 'string' then scriptItems[v:lower()] = true
+            elseif v == true and type(k) == 'string' then scriptItems[k:lower()] = true end
+        end
+    end
+    return scriptItems[tostring(name):lower()] == true
 end
 
 local function finish(src, itemTable, ctx)
@@ -168,6 +183,10 @@ function Usables.use(src, containerId, slot, ctx)
         if src then lastUse[src] = t end
     end
     local itemTable = Sync.itemTable(e, c)
+    if redemOwns(e.item) and redemFallback(src, e.item, itemTable, true) then
+        finish(src, itemTable, ctx)
+        return true
+    end
     local ok, err = run(src, e.item, itemTable, c, c.id)
     if not ok then
         if err == 'not_usable' and redemFallback(src, e.item, itemTable) then
@@ -202,6 +221,10 @@ function Usables.useByName(src, name, stack, ctx)
         itemTable = { name = name, item = name, label = stack.label or d.label or name, count = n, amount = n,
                       metadata = Util.deepcopy(stack.info or stack.metadata or {}), slot = slot,
                       container = c and c.id or nil, weight = d.weight, type = d.type }
+    end
+    if redemOwns(name) and redemFallback(src, name, itemTable, true) then
+        finish(src, itemTable, ctx)
+        return true
     end
     local ok, err = run(src, name, itemTable, c, c and c.id or nil)
     if not ok then

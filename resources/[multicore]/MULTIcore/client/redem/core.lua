@@ -126,6 +126,11 @@ for name, fn in pairs(events) do RegisterNetEvent(name, fn) end
 MULTI.ExportAs('redem_roleplay', 'RedEM', function() return RedEM end)
 MULTI.ExportAs('redem_roleplay', 'GetPlayerData', function() return RedEM.PlayerData end)
 MULTI.ExportAs('redem_roleplay', 'ShowTooltip', tip)
+-- the older line's DisplayTip(0, text, ms); called with a dot, the 0 is taken as "self", so (text, ms) arrive
+MULTI.ExportAs('redem_roleplay', 'DisplayTip', function(a, b, c)
+    if type(a) == 'string' then return tip(a, b) end
+    return tip(b, c)
+end)
 MULTI.ExportAs('redem_roleplay', 'ShowAdvancedNotification', left)
 MULTI.ExportAs('redem_roleplay', 'ShowSimpleRightText', tip)
 MULTI.ExportAs('redem_roleplay', 'ShowObjective', objective)

@@ -150,6 +150,14 @@ end)
 MA.Export('GetBodyCurrentComponentHash', function(name)
     return skinPartHash(name)
 end)
+-- RedEM:RP's creator answers the same call (redemrp_clothes_store asks it for the body under the clothes)
+MA.ExportAs('rdr_creator', 'GetBodyCurrentComponentHash', function(name) return skinPartHash(name) end)
+MA.ExportAs('redemrp_creator', 'GetBodyCurrentComponentHash', function(name) return skinPartHash(name) end)
+
+-- RedEM:RP scripts ask for the saved look to be put back on (client side)
+RegisterNetEvent('redemrp_skin:LoadSkinClient', function()
+    TriggerEvent('MULTIappearance:client:reload')
+end)
 
 -- GetComponentsMax(name) -> how many pieces exist for that part / category
 MA.Export('GetComponentsMax', function(name)

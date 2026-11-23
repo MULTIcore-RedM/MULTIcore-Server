@@ -2,6 +2,28 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-23 (more RedEM:RP scripts work)
+
+Tested with the official RedEM:RP scripts on MULTIcore: redemrp_shops, redemrp_banking, redemrp_clothes_store, redemrp_blueberry, redemrp_farmerjob, redemrp_infection, redemrp_properties, redemrp_propplacer, redemrp_witness, redemrp_dialog and redemrp_quests all start without errors.
+
+### New
+- **XP:** `addXP`, `removeXP` and `getXp` on the RedEM:RP player (the farmer job and quests pay XP). It is kept with the character.
+- **Older RedEM:RP calls:** the server export `getPlayerFromId` and the client export `DisplayTip` (used by redemrp_properties).
+- **Your RedEM:RP script's own use of an item:** list the item in `Config.Redem.ScriptItems` in `MULTIinventory/config.lua` (e.g. `{ 'blueberry' }` with redemrp_blueberry) and the script's `RegisterUsableItem:<name>` runs instead of MULTIcore's own use.
+- **Items:** `stick` and `planks`.
+- **playerSpawned** is fired when your character is in the world, for scripts that wait for it (redemrp_propplacer). Skipped when spawnmanager runs, because it fires it itself.
+- **Creator calls from RedEM:RP scripts:** `GetBodyCurrentComponentHash` answers as `rdr_creator` / `redemrp_creator`, and `RedEM:server:LoadSkin` / `redemrp_skin:LoadSkinClient` put your saved look back on.
+
+### Changed
+- `GetSessionVar(name)` also returns the player's own field when nothing was set under that name, as RedEM:RP does (`GetSessionVar('charid')`).
+
+### Good to know
+- redemrp_clothes_store keeps clothes in its own table and MULTIcore does not put them back on after a relog. Use MULTItailor's clothes stores instead.
+- Some of these older scripts trust the player's game too much: redemrp_farmerjob and redemrp_quests let a player pick their own pay or job. Only run them on a server you trust.
+
+### Updating
+Copy `MULTIcore`, `MULTIinventory/config.lua`, `MULTIinventory/server/core/usables.lua` and `MULTIappearance` from `resources/[multicore]`. Keep a copy of your own config changes first and add the new `ScriptItems` line to `Config.Redem`.
+
 ## 2026-11-23 (clothes stores: the full catalogue)
 
 ### Changed

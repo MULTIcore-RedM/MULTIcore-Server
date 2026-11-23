@@ -20,6 +20,13 @@ local function fireLoaded()
     firedForLogin = true
     TriggerEvent('RSGCore:Client:OnPlayerLoaded')
     TriggerServerEvent('RSGCore:Server:OnPlayerLoaded')
+    -- cfx spawnmanager's 'playerSpawned', which older RedEM:RP and standalone scripts wait for
+    -- (redemrp_propplacer); spawnmanager fires it itself when it runs
+    if GetResourceState('spawnmanager') ~= 'started' then
+        local ped = PlayerPedId()
+        local c = GetEntityCoords(ped)
+        TriggerEvent('playerSpawned', { x = c.x, y = c.y, z = c.z, heading = GetEntityHeading(ped) })
+    end
 end
 
 -- a new character was selected: arm for one firing

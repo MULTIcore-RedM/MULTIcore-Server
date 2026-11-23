@@ -26,6 +26,9 @@ Config.ItemBox = { enabled = true, time = 3000 }
 Config.Redem = {
     UsableEvents = true,   -- a usable item nothing else handles fires RedEM:RP's 'RegisterUsableItem:<name>'
     StashSlots = 50,       -- slots of a stash opened with redemrp_inventory:OpenStash
+    -- Items a RedEM:RP script of yours handles itself, although MULTIcore has its own use for them too:
+    -- using one fires 'RegisterUsableItem:<name>' and skips MULTIcore's own use. e.g. { 'blueberry' } with redemrp_blueberry
+    ScriptItems = {},
 }
 
 -- ------------------------------------------------------------

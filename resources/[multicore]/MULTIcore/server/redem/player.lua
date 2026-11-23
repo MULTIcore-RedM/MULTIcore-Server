@@ -177,7 +177,17 @@ function R.BuildPlayer(src)
     obj.getGold = with(function(P) return P.PlayerData.money.gold or 0 end)
     obj.addGold = with(function(P, n) money(P, 'gold', 'add', n) end)
     obj.removeGold = with(function(P, n) money(P, 'gold', 'remove', n) end)
-    obj.getXp = function() return 0 end
+    -- xp: stock RedEM:RP has a getXp stub only, but older scripts (farmer job, quests) call addXP after paying
+    -- out; kept in the character's metadata so it is saved and never throws
+    local function xpOf(P) return tonumber(P.PlayerData.metadata.xp) or 0 end
+    local function addXp(P, n) P.Functions.SetMetaData('xp', math.max(0, xpOf(P) + (tonumber(n) or 0))) end
+    obj.getXp = with(xpOf)
+    obj.GetXp = obj.getXp
+    obj.addXP = with(addXp)
+    obj.addXp = obj.addXP
+    obj.AddXp = obj.addXP
+    obj.removeXP = with(function(P, n) addXp(P, -(tonumber(n) or 0)) end)
+    obj.removeXp = obj.removeXP
     obj.getLevel = function() return 0 end
 
     -- job and gang
@@ -215,7 +225,12 @@ function R.BuildPlayer(src)
         session[src] = session[src] or {}
         session[src][k] = v
     end
-    obj.GetSessionVar = function(k) return session[src] and session[src][k] end
+    -- stock RedEM:RP keeps session values on the player itself, so GetSessionVar('charid') gives the player's field
+    obj.GetSessionVar = function(k)
+        local s = session[src]
+        if s and s[k] ~= nil then return s[k] end
+        return obj[k]
+    end
 
     obj.kick = function(reason) DropPlayer(src, tostring(reason or '')) end
     obj.SendPlayerDataToClient = function() R.Push(src) end

@@ -103,6 +103,8 @@ RedEM.NotifyRight = RedEM.Functions.NotifyRight
 
 R.Core = RedEM
 MULTI.ExportAs('redem_roleplay', 'RedEM', snapshot)
+-- the older RedEM:RP line's server export, still used by some scripts (redemrp_properties)
+MULTI.ExportAs('redem_roleplay', 'getPlayerFromId', function(src) return R.BuildPlayer(src) end)
 
 AddEventHandler('redemrp:getPlayerFromId', function(src, cb) if cb then cb(R.BuildPlayer(src)) end end)
 AddEventHandler('redem:getPlayerFromId', function(src, cb) if cb then cb(R.BuildPlayer(src)) end end)

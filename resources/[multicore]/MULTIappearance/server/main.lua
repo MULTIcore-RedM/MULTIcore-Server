@@ -116,8 +116,7 @@ end)
 -- (rsg-barbers fires it after the chair, rsg-multicharacter after select)
 -- ---------------------------------------------------------------
 
-RegisterNetEvent('rsg-appearance:server:LoadSkin', function()
-    local src = source
+local function loadSkin(src)
     local P = player(src)
     if not P then return end
     if not lookOf(P) then
@@ -126,7 +125,10 @@ RegisterNetEvent('rsg-appearance:server:LoadSkin', function()
         return
     end
     TriggerClientEvent('MULTIappearance:client:reload', src)
-end)
+end
+RegisterNetEvent('rsg-appearance:server:LoadSkin', function() loadSkin(source) end)
+-- RedEM:RP's name for the same (redemrp_respawn, redemrp_clothes_store)
+RegisterNetEvent('RedEM:server:LoadSkin', function() loadSkin(source) end)
 
 -- rsg-multicharacter fires this name as a plain event (it is a callback in rsg-appearance); nothing to do,
 -- LoadSkin already put the whole look on
