@@ -31,6 +31,12 @@ Inv = Inv or {}
 
 local function ctxOf(ctx) return ctx or { reason = 'api' } end
 
+--- Another developer's spelling of an item name -> the item this server knows (weapons unchanged).
+function Inv.canonical(item)
+    if type(item) ~= 'string' or Util.isWeaponName(item) then return item end
+    return Registry.resolve and Registry.resolve(item) or item
+end
+
 function Inv.def(item)
     return Registry.get(item) or { name = item, label = item, weight = 0.0, limit = 0, canRemove = true,
                                    degradation = 0, groupId = 1, group = 'default', _missing = true }
@@ -96,6 +102,7 @@ local function checkAdd(c, item, count, meta, ctx, opts)
 end
 
 function Inv.canAdd(target, item, count, meta, ctx)
+    item = Inv.canonical(item)
     local c, err = Inv.resolve(target)
     if not c then return false, err end
     local plan, e2 = checkAdd(c, item, count, Meta.normalize(meta), ctxOf(ctx))
@@ -104,6 +111,7 @@ function Inv.canAdd(target, item, count, meta, ctx)
 end
 
 function Inv.add(target, item, count, meta, ctx, opts)
+    item = Inv.canonical(item)
     ctx = ctxOf(ctx)
     local c, err = Inv.resolve(target)
     if not c then return false, err end
@@ -116,6 +124,7 @@ function Inv.add(target, item, count, meta, ctx, opts)
 end
 
 function Inv.remove(target, item, count, meta, ctx)
+    item = Inv.canonical(item)
     ctx = ctxOf(ctx)
     local c, err = Inv.resolve(target)
     if not c then return false, err end
@@ -169,6 +178,7 @@ function Inv.removeStack(target, stackId, count, ctx)
 end
 
 function Inv.count(target, item, meta)
+    item = Inv.canonical(item)
     local c = Inv.resolve(target)
     if not c then return 0 end
     if meta ~= nil then meta = Meta.normalize(meta) end

@@ -2,6 +2,20 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-23 (other developers' item, weapon and ammo names)
+
+### New
+- **MULTIinventory understands other developers' names.** Scripts spell items, weapons and ammo their own way. MULTIinventory now turns those names into the item your server has, so giving, taking, counting, finding and using all land on the same item:
+  - any capitalisation: `AMMO_BOX_REVOLVER` → `ammo_box_revolver`
+  - `_`, `-`, `.` and spaces are ignored: `ammo-box-revolver` → `ammo_box_revolver`
+  - common spellings: `ammo_revolver_normal` → `ammo_revolver`, `ammo_varmint` → `ammo_22`, `ammo_box_rifle_highvelocity` → `ammo_box_rifle_velocity`, `splitpoint` / `split_point`
+  - ammo types: `AMMO_REVOLVER_NORMAL` → `AMMO_REVOLVER`, `AMMO_VARMINT` → `AMMO_22`
+- VORP ammo item names (`ammorevolvernormal` ...) and the loose-round names RSG v1 scripts use (`ammo_revolver` ...) already worked and still do.
+- **Your own aliases:** for a script that uses a name none of these catch, add a line to `MULTIinventory/config/aliases.lua` (`Config.ItemAliases`, `Config.WeaponAliases`, `Config.AmmoAliases`). With `Config.Debug = true` the console shows each name it turned into another.
+
+### Updating
+Copy `MULTIinventory` from `resources/[multicore]`. Keep a copy of your own config changes first. `config/aliases.lua` is a new file.
+
 ## 2026-11-23 (drop-in scripts: menu, input, progress, notification and minigame stand-ins)
 
 ### New

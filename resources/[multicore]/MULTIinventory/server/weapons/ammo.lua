@@ -27,7 +27,8 @@ local belts = {}       -- [charId] = { [type] = n }
 local dirtyChars = {}  -- [charId] = { [type] = true }
 local offlineAt = {}   -- [charId] = unix time the character went offline
 
-local function up(t) return type(t) == 'string' and t:upper() or nil end
+-- upper case, and another developer's name for an ammo type turned into the game's type (AmmoDefs.canonical)
+local function up(t) return type(t) == 'string' and AmmoDefs.canonical(t) or nil end
 
 function Ammo.charOf(target)
     if type(target) == 'string' then

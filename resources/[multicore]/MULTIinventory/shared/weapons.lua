@@ -195,15 +195,26 @@ end
 
 local function cfg() return (Config and Config.Weapons) or {} end
 
+--- Another developer's name for a weapon -> the game name (upper case). Config.WeaponAliases
+--- (config/aliases.lua) first, then the name in upper case. Unknown names come back in upper case.
+function WeaponDefs.canonical(name)
+    if type(name) ~= 'string' then return name end
+    local up = name:upper()
+    local aliases = Config and Config.WeaponAliases or {}
+    local a = aliases[up] or aliases[name]
+    if type(a) == 'string' then return a:upper() end
+    return up
+end
+
 function WeaponDefs.isKnown(name)
     if type(name) ~= 'string' then return false end
-    local up = name:upper()
+    local up = WeaponDefs.canonical(name)
     return defs[up] ~= nil or (cfg().extraDefs or {})[up] ~= nil
 end
 
 function WeaponDefs.get(name)
     if type(name) ~= 'string' then return nil end
-    local up = name:upper()
+    local up = WeaponDefs.canonical(name)
     if up:sub(1, 7) ~= 'WEAPON_' then return nil end
     local d = defs[up]
     local extra = (cfg().extraDefs or {})[up]
@@ -331,9 +342,24 @@ function WeaponDefs.usesAmmo(def, ammoType)
     return false
 end
 
+--- Another developer's name for an ammo type -> the game's type: Config.AmmoAliases first, then
+--- AMMO_X_NORMAL -> AMMO_X and VARMINT -> 22 (the game calls varmint rounds AMMO_22).
+function AmmoDefs.canonical(t)
+    if type(t) ~= 'string' then return t end
+    local up = t:upper()
+    local aliases = Config and Config.AmmoAliases or {}
+    local a = aliases[up] or aliases[t]
+    if type(a) == 'string' then return a:upper() end
+    if ammoDefs[up] then return up end
+    local v = up:gsub('_NORMAL$', ''):gsub('VARMINT', '22'):gsub('_TRANQ$', '_TRANQUILIZER')
+    if not v:find('^AMMO_') then v = 'AMMO_' .. v end
+    if ammoDefs[v] then return v end
+    return up
+end
+
 function AmmoDefs.get(t)
     if type(t) ~= 'string' then return nil end
-    local d = ammoDefs[t:upper()]
+    local d = ammoDefs[AmmoDefs.canonical(t)]
     if not d then return nil end
     local mx = (cfg().ammoMax or {})[d.type]
     if mx then return { type = d.type, label = d.label, max = mx } end

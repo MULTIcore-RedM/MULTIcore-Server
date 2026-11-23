@@ -33,6 +33,8 @@ local BRIDGE_OWNER = GetCurrentResourceName() .. ':rsg'   -- rsg_api's generic d
 function Usables.register(name, fn, owner, opts)
     if type(name) ~= 'string' or name == '' then return false end
     if fn == nil then return false end
+    -- another developer's spelling of an item we have: the use lands on that item
+    if Registry and Registry.resolve then name = Registry.resolve(name) end
     opts = type(opts) == 'table' and opts or {}
     local builtin = opts.builtin == true
     local list = handlers[name] or {}
@@ -45,6 +47,7 @@ function Usables.register(name, fn, owner, opts)
 end
 
 function Usables.unregister(name, owner)
+    if type(name) == 'string' and Registry and Registry.resolve then name = Registry.resolve(name) end
     local list = handlers[name]
     if not list then return true end
     for i = #list, 1, -1 do

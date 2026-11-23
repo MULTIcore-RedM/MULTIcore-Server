@@ -149,6 +149,9 @@ local function defOf(name)
     if all[name] then return all[name], name end
     local low = name:lower()
     if all[low] then return all[low], low end
+    -- another developer's spelling of an item we have (config/aliases.lua)
+    local r = Registry.resolve and Registry.resolve(name)
+    if r and r ~= name and all[r] then return all[r], r end
     return nil, low
 end
 RsgInv.defOf = defOf

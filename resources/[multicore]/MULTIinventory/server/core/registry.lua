@@ -103,7 +103,7 @@ function Registry.reload()
     end
     -- keep injected defs (Registry.put) that the table does not have
     for k, d in pairs(defs) do if d._injected and not fresh[k] then fresh[k] = d end end
-    defs = fresh
+    defs = fresh; Registry._bump()
     missAt = {}
     print(('[MULTIinventory] item registry: %d items, %d groups'):format(n, #groups))
     return n
@@ -113,6 +113,11 @@ function Registry.get(name)
     if type(name) ~= 'string' or name == '' then return nil end
     local d = defs[name]
     if d then return d end
+    -- another developer's name for an item we have (see Registry.resolve below)
+    if Registry.resolve then
+        local r = Registry.resolve(name)
+        if r ~= name and defs[r] then return defs[r] end
+    end
     -- unknown: maybe RINGObridge inserted it after our load. One lookup per MISS_RETRY s.
     local now = Util.now()
     if missAt[name] and now - missAt[name] < MISS_RETRY then return nil end
@@ -121,11 +126,99 @@ function Registry.get(name)
     if rows[1] then
         local extRows = InvDB.query('SELECT * FROM `multiinv_item_ext` WHERE `item` = ?', { name })
         d = buildDef(rows[1], extRows[1])
-        defs[name] = d
+        defs[name] = d; Registry._bump()
         missAt[name] = nil
         return d
     end
     return nil
+end
+
+-- ------------------------------------------------------------
+-- Other names for the same item. Scripts from other developers spell items their own way
+-- (AMMO_BOX_REVOLVER, ammo_revolver_normal, ammo_varmint, ammo_box_rifle_highvelocity ...).
+-- Registry.resolve(name) turns such a name into the item this server knows, so giving,
+-- taking, counting and using it all land on the one item:
+--   1. the exact name;  2. Config.ItemAliases (owner list, see config/aliases.lua);
+--   3. the name in lower case;  4. common spelling rules (Config.AliasRules);
+--   5. the same letters and digits ignoring _ - . and spaces (only when that match is unique).
+-- An unknown name comes back unchanged.
+-- ------------------------------------------------------------
+local normIndex, normCount = nil, -1
+local defsVersion = 0
+function Registry._bump() defsVersion = defsVersion + 1 end
+
+local function normKey(s) return (s:lower():gsub('[^%w]', '')) end
+
+local function buildNormIndex()
+    local n = defsVersion
+    if normIndex and n == normCount then return normIndex end
+    local idx = {}
+    for k in pairs(defs) do
+        local key = normKey(k)
+        if idx[key] == nil then idx[key] = k else idx[key] = false end   -- false = two items share it
+    end
+    normIndex, normCount = idx, n
+    return idx
+end
+
+-- name variants from the spelling rules (each rule once, and every pair of rules)
+local function variants(low)
+    local rules = (Config.AliasRules or {})
+    local out, seen = {}, { [low] = true }
+    local function add(v)
+        if v and not seen[v] then seen[v] = true; out[#out + 1] = v end
+    end
+    local firsts = {}
+    for _, r in ipairs(rules) do
+        local v, n = low:gsub(r[1], r[2])
+        if n > 0 then add(v); firsts[#firsts + 1] = v end
+    end
+    for _, v1 in ipairs(firsts) do
+        for _, r in ipairs(rules) do
+            local v2, n = v1:gsub(r[1], r[2])
+            if n > 0 then add(v2) end
+        end
+    end
+    return out
+end
+
+local resolved = {}   -- cache: [asked name] = item name (cleared when the item list changes)
+local resolvedCount = -1
+
+function Registry.resolve(name)
+    if type(name) ~= 'string' or name == '' then return name end
+    if defs[name] then return name end
+    local n = defsVersion
+    if n ~= resolvedCount then resolved, resolvedCount = {}, n end
+    local hit = resolved[name]
+    if hit ~= nil then return hit or name end
+
+    local function known(k) return k and defs[k] ~= nil end
+    local found
+    local aliases = Config.ItemAliases or {}
+    local a = aliases[name] or aliases[name:lower()]
+    if a and (known(a) or Registry.get(a)) then found = a end
+    local low = name:lower()
+    if not found and known(low) then found = low end
+    if not found then
+        for _, v in ipairs(variants(low)) do
+            if known(v) then found = v break end
+        end
+    end
+    if not found then
+        local idx = buildNormIndex()
+        local k = idx[normKey(name)]
+        if k then found = k end
+        if not found then
+            for _, v in ipairs(variants(low)) do
+                k = idx[normKey(v)]
+                if k then found = k break end
+            end
+        end
+    end
+    resolved[name] = found or false
+    if found and Config.Debug then print(('[MULTIinventory] item name %s -> %s'):format(name, found)) end
+    return found or name
 end
 
 function Registry.all() return defs end
@@ -139,7 +232,7 @@ function Registry.put(def)
         metadata = def.metadata, desc = def.desc, degradation = def.degradation, durability = def.durability },
         { image = def.image, category = def.category, clothing_key = def.clothingKey })
     d._injected = true
-    defs[def.name] = d
+    defs[def.name] = d; Registry._bump()
     return d
 end
 
@@ -152,16 +245,16 @@ function Registry.refresh(name)
     if rows[1] then
         local extRows = InvDB.query('SELECT * FROM `multiinv_item_ext` WHERE `item` = ?', { name })
         local d = buildDef(rows[1], extRows[1])
-        defs[name] = d
+        defs[name] = d; Registry._bump()
         return d
     end
-    if defs[name] and not defs[name]._injected then defs[name] = nil end
+    if defs[name] and not defs[name]._injected then defs[name] = nil end; Registry._bump()
     return defs[name]
 end
 
 function Registry.forget(name)
     if type(name) ~= 'string' or not defs[name] or defs[name]._injected then return false end
-    defs[name] = nil
+    defs[name] = nil; Registry._bump()
     missAt[name] = nil
     return true
 end

@@ -37,7 +37,13 @@ local function ready() InvDB.awaitReady() end
 local function G(kg) return RsgInv.toG(kg) end
 local function KG(g) return RsgInv.toKg(g) end
 
-local function sameName(a, b) return tostring(a):lower() == tostring(b):lower() end
+-- names match in any case, and another developer's spelling matches the item it stands for (config/aliases.lua)
+local function sameName(a, b)
+    a, b = tostring(a), tostring(b)
+    if a:lower() == b:lower() then return true end
+    local r = Registry.resolve and Registry.resolve(b)
+    return r ~= nil and r ~= b and a:lower() == r:lower()
+end
 
 local function validAmount(n)
     return type(n) == 'number' and n >= 1 and n == math.floor(n) and n < 2 ^ 31
