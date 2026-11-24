@@ -53,6 +53,7 @@ local function toSpec(input)
         minLength = a.minlength or a.minLength,
         maxLength = a.maxlength or a.maxLength,
         value = a.value,
+        required = a.required ~= nil and a.required ~= false or nil,
         style = Cfg.AllowCustomStyle and a.style or nil,
     }
 end

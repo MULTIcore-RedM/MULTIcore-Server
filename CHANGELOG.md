@@ -2,6 +2,27 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-24 (VORP menus work exactly like vorp_menu)
+
+MULTIhelpers' menu was checked against vorp_menu behaviour by behaviour, and every difference a script could notice is fixed.
+
+### Fixed
+- **Sliders:** moving a slider left or right now calls the script's submit, as vorp_menu does (gunsmith and clothing scripts apply the choice there; before, nothing happened until Enter). Text sliders update `value` and `currentTextLabel`. Sliders with `options` show the option text; a slider with no `max` does not move right.
+- **Menu buttons:** both the confirm and cancel buttons go to submit with `{ buttonType, buttonValue, selectedElement, selectedIndex, value }`; the cancel button no longer counts as the player leaving.
+- **Removing rows:** `removeElementByValue(v, stop)` removes every match unless `stop`; `removeElementByIndex(i)` removes one row.
+- **Closing:** `MenuData.Close` takes `showRadar, closeSound, triggerCloseEvent`; the close sound plays only when asked for.
+- **Enter on a tick box** calls submit only. Backspace back to `lastmenu` also passes `elements`. Every row carries `selected`.
+- **Yes/No boxes** (`menu.displayInput`): "No" calls `onSubmit(false)`.
+- **Held keys** (`MenuData.RegisterControls`): `onPress` runs every frame while the key is held, so rotate / zoom feel smooth.
+- **Game input:** the game keeps keyboard input while a menu is open (`Config.Menu.KeepGameInput = true`), so scripts' own key loops keep working.
+- **Text boxes:** an empty answer skips the pattern check; `required` is honoured.
+
+### New
+- `menu.update(query, data)`, `menu.setElements(t)`, `menu.removeElement(query)`, `menu.isInputActive()`, `MenuData.IsInputActive()`, `MenuData.Opened`, `MenuData.LastSelectedIndex`; `MenuData.ReOpen(oldMenu)` opens a closed menu again.
+
+### What to do
+- Update `MULTIhelpers`, then restart the server. If you copy your old `config.lua` over it, set `KeepGameInput = true` in `Config.Menu`.
+
 ## 2026-11-24 (syn_weapons customising works)
 
 ### Fixed

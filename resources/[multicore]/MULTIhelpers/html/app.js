@@ -97,7 +97,13 @@
         var d = Math.max(decimals(hop), decimals(min));
         return Number(v.toFixed(d));
     }
-    function sliderRange(e) { return { min: num(e.min, 0), max: num(e.max, 100), hop: num(e.hop, 1) }; }
+    // as vorp_menu: options = [labels] -> 0 .. #options-1; no max -> it does not move right
+    function sliderRange(e) {
+        if (Array.isArray(e.options)) return { min: num(e.min, 0), max: Math.max(0, e.options.length - 1), hop: 1 };
+        var min = num(e.min, 0);
+        return { min: min, max: num(e.max, Math.max(min, num(e.value, min))), hop: num(e.hop, 1) };
+    }
+    function sliderText(e, v) { return Array.isArray(e.options) && e.options[v] !== undefined ? e.options[v] : v; }
 
     function menuShow(view) {
         var same = M && M.id === view.id;
@@ -138,7 +144,7 @@
         if (t === 'slider') {
             var r = sliderRange(e), v = num(e.value, r.min);
             html = '<span class="mh-arrow' + (v <= r.min ? ' off' : '') + '" data-dir="-1">&#8249;</span>' +
-                   '<span class="mh-val">' + esc(v) + '</span>' +
+                   '<span class="mh-val">' + esc(sliderText(e, v)) + '</span>' +
                    '<span class="mh-arrow' + (v >= r.max ? ' off' : '') + '" data-dir="1">&#8250;</span>';
         } else if (t === 'label-slider') {
             var r2 = sliderRange(e), v2 = num(e.value, r2.min);
@@ -382,6 +388,7 @@
             var list = e.textList || [], ti = num(e.textIndex, 1) + dir;
             if (ti < 1 || ti > list.length) return;
             e.textIndex = ti; msg.textIndex = ti;
+            if (list[ti - 1]) { e.value = list[ti - 1].value; e.currentTextLabel = list[ti - 1].label; }
         } else if (t === 'desc-slider') {
             var si = num(e.sliderIndex, 1), s = (e.sliders || [])[si - 1];
             if (!s) return;
@@ -414,11 +421,15 @@
         post('menu', msg);
     }
 
-    function control(name) {
+    // state: 'press' (held: Lua calls onPress every frame until 'release', as vorp_menu does) or 'tap' (once)
+    function control(name, state) {
         if (controls.indexOf(name) >= 0 || (name.indexOf('mousepress') === 0 && controls.indexOf('mousepress') >= 0)) {
-            post('menu', { ev: 'control', name: name });
+            post('menu', { ev: 'control', name: name, state: state || 'tap' });
         }
     }
+    window.addEventListener('keyup', function (ev) {
+        if (M && controls.indexOf(ev.key) >= 0) post('menu', { ev: 'control', name: ev.key, state: 'release' });
+    });
 
     // ================================================================ dialog
     var D = null;
@@ -469,6 +480,7 @@
             if (spec.minLength) inp.minLength = Number(spec.minLength);
             if (spec.maxLength) inp.maxLength = Number(spec.maxLength);
             if (spec.value !== undefined && spec.value !== null) inp.value = String(spec.value);
+            inp.required = spec.required === true;
             if (spec.style) inp.setAttribute('style', String(spec.style));
             field.appendChild(inp);
         }
@@ -491,8 +503,10 @@
         var inp = $('dialog-input'), v = inp.value;
         var err = '';
         var preset = PRESETS[D.preset] || PRESETS[D.pattern];
+        // as vorp_menu: an empty answer skips the pattern check (required still applies)
+        if (v === '') preset = null;
         if (preset && !preset.re.test(v)) err = D.title || T(preset.msg);
-        else if (D.preset && !PRESETS[D.preset]) {
+        else if (v !== '' && D.preset && !PRESETS[D.preset]) {
             try { if (!new RegExp('^(?:' + D.preset + ')$').test(v)) err = D.title || T('err_not_allowed'); } catch (x) { /* bad pattern: ignore */ }
         }
         if (!err && inp.validity && inp.validity.badInput) err = D.title || T('err_numbers');
@@ -611,7 +625,7 @@
         }
         if (!M) return;
         var k = RESERVED[ev.key];
-        if (!k) { control(ev.key); return; }
+        if (!k) { if (!ev.repeat) control(ev.key, 'press'); return; }
         ev.preventDefault();
         if (M.isGrid) {
             if (k === 'Left') return moveGrid(-1);

@@ -19,7 +19,8 @@ Config.Menu = {
     GridColumns = 4,                -- tiles per row in grid menus (isGrid = true)
     ShowKeyHints = true,            -- show the key hints (Move / Select / Back) under the menu
     CursorByDefault = false,        -- show the mouse cursor on every menu, not only menus with enableCursor = true
-    KeepGameInput = false,          -- let the game keep keyboard input while a menu is open (player can walk)
+    KeepGameInput = true,           -- the game keeps keyboard input while a menu is open, as with vorp_menu: scripts'
+                                    -- own key loops (rotate / zoom a preview) keep working; false = the menu takes the keyboard
 
     -- Navigation keys (browser KeyboardEvent.key names). The VORP docs reserve these while a menu is open.
     Keys = {

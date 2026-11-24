@@ -11,8 +11,9 @@
 -- The menu object handed to callbacks (and returned by Open):
 --   menu.close(showRadar, soundClose, fireEventClose)  menu.refresh()
 --   menu.addNewElement(el)  menu.getElementByValue(v)  menu.getElementByIndex(i)
---   menu.setElement(i, field, value)  menu.removeElementByValue(v, all)
---   menu.removeElementByIndex(i, all)  menu.setTitle(t)  menu.setSubtext(t)
+--   menu.setElement(i, field, value)  menu.removeElementByValue(v, stop)
+--   menu.removeElementByIndex(i)  menu.setTitle(t)  menu.setSubtext(t)  menu.update(query, data)
+--   menu.setElements(t)  menu.removeElement(query)  menu.isInputActive()
 --   menu.displayInput(options, onSubmit, onCancel)
 --
 -- Written from VORP's public docs (docs.vorp-core.com/api-reference/menu)
@@ -26,8 +27,16 @@ local positions = {}   -- [namespace..'/'..name] = last selected index (reopen w
 local seq = 0
 local radarHiddenByUs = false
 local controls = nil   -- { list = {...}, onPress = fn, owner = res }
+local inputActive = 0  -- menu.displayInput boxes open
+local held = {}        -- [control] = true while a registered key is held
+local closedById = {}  -- recently closed menus, for MenuData.ReOpen(oldMenu)
 
 local MenuData = {}
+-- vorp_menu's tables. Opened is kept in step with the open menus; a script that copied MenuData
+-- (getData events) holds the list as it was then.
+MenuData.Opened = {}
+MenuData.LastSelectedIndex = positions
+MenuData.RegisteredTypes = {}
 
 -- ------------------------------------------------------------ helpers
 local function key(m) return tostring(m.namespace) .. '/' .. tostring(m.name) end
@@ -102,6 +111,8 @@ local function syncFocus()
 end
 
 local function show()
+    for i = #MenuData.Opened, 1, -1 do MenuData.Opened[i] = nil end
+    for i, x in ipairs(stack) do MenuData.Opened[i] = x.public end
     local m = top()
     if m then
         m.dirty = false
@@ -144,7 +155,11 @@ local function restoreRadar(showRadar)
     end
 end
 -- data passed to submit / change / cancel / close: { current, elements }
+-- every element carries selected = true/false (the row in focus), as in vorp_menu
 local function cbData(m, el)
+    for _, e in ipairs(m.data.elements) do
+        if type(e) == 'table' then e.selected = (e == el) end
+    end
     return { current = el, elements = m.data.elements }
 end
 
@@ -160,7 +175,8 @@ local closeMenu
 local function makePublic(m)
     local pub = {
         type = m.type, namespace = m.namespace, name = m.name,
-        data = m.data,
+        data = m.data, _id = m.id,
+        submit = m.submit, cancel = m.cancel, change = m.change,
     }
 
     function pub.close(showRadar, soundClose, fireEventClose)
@@ -196,34 +212,68 @@ local function makePublic(m)
         markDirty(m)
     end
 
-    function pub.removeElementByValue(value, all)
+    -- as vorp_menu: every row with that value goes, unless stop is true (then only the first)
+    function pub.removeElementByValue(value, stop)
         local els = m.data.elements
-        for i = #els, 1, -1 do
-            if els[i].value == value then
+        local i = 1
+        while i <= #els do
+            if type(els[i]) == 'table' and els[i].value == value then
                 table.remove(els, i)
-                if not all then break end
+                if stop then break end
+            else
+                i = i + 1
             end
         end
         m.index = clampIndex(m, m.index)
         markDirty(m)
     end
 
-    function pub.removeElementByIndex(index, all)
+    -- as vorp_menu: the one row at index
+    function pub.removeElementByIndex(index)
         local els = m.data.elements
         index = tonumber(index)
         if not index or not els[index] then return end
-        if all then
-            -- remove every element with the same value as the one at index
-            local v = els[index].value
-            for i = #els, 1, -1 do
-                if els[i].value == v then table.remove(els, i) end
+        table.remove(els, index)
+        m.index = clampIndex(m, m.index)
+        markDirty(m)
+    end
+
+    -- menu.update({ value = 'x' }, { label = 'New' }): every row whose fields match query gets newData
+    function pub.update(query, newData)
+        if type(query) ~= 'table' or type(newData) ~= 'table' then return end
+        for _, el in ipairs(m.data.elements) do
+            if type(el) == 'table' then
+                local match = true
+                for k, v in pairs(query) do if el[k] ~= v then match = false break end end
+                if match then for k, v in pairs(newData) do el[k] = v end end
             end
-        else
-            table.remove(els, index)
+        end
+        markDirty(m)
+    end
+
+    function pub.setElements(newElements)
+        m.data.elements = type(newElements) == 'table' and newElements or {}
+        m.index = clampIndex(m, m.index)
+        markDirty(m)
+    end
+
+    -- menu.removeElement({ value = 'x' }): every row matching any field of query goes (as vorp_menu)
+    function pub.removeElement(query)
+        if type(query) ~= 'table' then return end
+        local els = m.data.elements
+        local i = 1
+        while i <= #els do
+            local el, hit = els[i], false
+            if type(el) == 'table' then
+                for k, v in pairs(query) do if el[k] == v then hit = true break end end
+            end
+            if hit then table.remove(els, i) else i = i + 1 end
         end
         m.index = clampIndex(m, m.index)
         markDirty(m)
     end
+
+    function pub.isInputActive() return MenuData.IsInputActive() end
 
     function pub.setTitle(title)
         m.data.title = title
@@ -254,8 +304,15 @@ local function makePublic(m)
             maxLength = options.maxLength,
         }
         local p = (onSubmit == nil and onCancel == nil) and promise.new() or nil
+        inputActive = inputActive + 1
         Helpers.OpenDialog(spec, function(result)
-            if yesno and result ~= nil then result = true end
+            inputActive = math.max(0, inputActive - 1)
+            if yesno then
+                -- as vorp_menu: Yes -> onSubmit(true), No -> onSubmit(false)
+                result = result ~= nil
+                if p then p:resolve(result) elseif onSubmit then Helpers.SafeCall(onSubmit, result) end
+                return
+            end
             if p then
                 p:resolve(result)
             elseif result ~= nil then
@@ -277,7 +334,10 @@ closeMenu = function(m, showRadar, soundClose, fireEventClose, noCallbacks)
     table.remove(stack, i)
     positions[key(m)] = m.index
     restoreRadar(showRadar)
-    if soundClose ~= false then Helpers.Sound('close') end
+    -- as vorp_menu: the close sound plays only when asked for (menu.close(nil, true))
+    if soundClose then Helpers.Sound('close') end
+    closedById[m.id] = m
+    closedById[m.id - 50] = nil
     if not noCallbacks then
         if fireEventClose ~= false then
             TriggerEvent('vorp:menu:closemenu', { type = m.type, namespace = m.namespace, name = m.name, title = m.data.title })
@@ -322,9 +382,9 @@ function MenuData.Open(mtype, namespace, name, data, submit, cancel, change, clo
     return m.public
 end
 
-function MenuData.Close(mtype, namespace, name)
+function MenuData.Close(mtype, namespace, name, showRadar, soundClose, fireEventClose)
     local m = findMenu(mtype, namespace, name)
-    if m then closeMenu(m) end
+    if m then closeMenu(m, showRadar, soundClose, fireEventClose) end
 end
 
 function MenuData.CloseAll(showRadar, soundClose, fireEventClose)
@@ -332,7 +392,7 @@ function MenuData.CloseAll(showRadar, soundClose, fireEventClose)
     for i = #stack, 1, -1 do list[#list + 1] = stack[i] end
     for n, m in ipairs(list) do
         -- one close sound for the lot
-        closeMenu(m, showRadar, n == 1 and soundClose ~= false, fireEventClose)
+        closeMenu(m, showRadar, n == 1 and soundClose, fireEventClose)
     end
     -- tpz_menu_base scripts listen for this when their menus are shut from outside
     if #list > 0 then TriggerEvent('tpz_menu_base:onForcedClosed') end
@@ -355,16 +415,29 @@ end
 
 --- Bring an open (covered) menu back to the front. Accepts (type, namespace, name) or a menu object.
 function MenuData.ReOpen(mtype, namespace, name)
-    if type(mtype) == 'table' then
-        mtype, namespace, name = mtype.type, mtype.namespace, mtype.name
-    end
+    local old = type(mtype) == 'table' and mtype or nil
+    if old then mtype, namespace, name = old.type, old.namespace, old.name end
     local m, i = findMenu(mtype, namespace, name)
-    if not m then return false end
+    if not m then
+        -- as vorp_menu: a menu that was closed opens again with its data and callbacks
+        local gone = old and old._id and closedById[old._id]
+        if gone then
+            MenuData.Open(gone.type, gone.namespace, gone.name, gone.data, gone.submit, gone.cancel, gone.change, gone.closeCb)
+            return true
+        end
+        if old and type(old.data) == 'table' then
+            MenuData.Open(old.type, old.namespace, old.name, old.data, old.submit, old.cancel, old.change)
+            return true
+        end
+        return false
+    end
     table.remove(stack, i)
     stack[#stack + 1] = m
     show()
     return true
 end
+
+function MenuData.IsInputActive() return inputActive > 0 end
 
 --- Extra keys (KeyboardEvent.key names, 'scrollup', 'scrolldown', 'mousepress') reported to onPress
 --- while a menu is open. Calling it again replaces the set.
@@ -386,6 +459,9 @@ local function sliderChange(m, el, d)
         el.value = tonumber(d.value) or el.value
     elseif t == 'text-slider' then
         el.textIndex = tonumber(d.textIndex) or el.textIndex
+        -- as vorp_menu: value and currentTextLabel follow the picked text
+        local pick = type(el.textList) == 'table' and el.textList[tonumber(el.textIndex) or 0]
+        if type(pick) == 'table' then el.value, el.currentTextLabel = pick.value, pick.label end
     elseif t == 'desc-slider' then
         local si = tonumber(d.sliderIndex)
         if si and type(el.sliders) == 'table' and el.sliders[si] then
@@ -427,7 +503,24 @@ RegisterNUICallback('menu', function(d, reply)
     if type(d) ~= 'table' then return end
 
     if d.ev == 'control' then
-        if controls and controls.onPress and d.name then run(controls.onPress, tostring(d.name)) end
+        if not (controls and controls.onPress and d.name) then return end
+        local name, onPress = tostring(d.name), controls.onPress
+        if d.state == 'release' then
+            held[name] = nil
+        elseif d.state == 'press' then
+            -- as vorp_menu: onPress every frame while the key is held, until it is let go
+            if held[name] then return end
+            held[name] = true
+            CreateThread(function()
+                while held[name] and controls and controls.onPress == onPress and #stack > 0 do
+                    Helpers.SafeCall(onPress, name)
+                    Wait(0)
+                end
+                held[name] = nil
+            end)
+        else
+            run(onPress, name)
+        end
         return
     end
 
@@ -449,7 +542,20 @@ RegisterNUICallback('menu', function(d, reply)
         m.index = clampIndex(m, d.index)
         sliderChange(m, el, d)
         Helpers.Sound(d.dir == 'left' and 'left' or 'right')
-        run(m.change, cbData(m, el), m.public)
+        -- as vorp_menu: moving a slider also submits (scripts apply the choice in submit).
+        -- slider: change + submit both ways; label-/desc-slider: change + submit left, submit right;
+        -- text-slider: submit only; tick-box: change only
+        local t, left = el.type, d.dir == 'left'
+        local doChange = t == 'slider' or t == 'tick-box' or ((t == 'label-slider' or t == 'desc-slider') and left)
+        local doSubmit = t == 'slider' or t == 'label-slider' or t == 'desc-slider' or t == 'text-slider'
+        local data = cbData(m, el)
+        if doChange or doSubmit then
+            local change, submit, pub = m.change, m.submit, m.public
+            CreateThread(function()
+                if doChange and change then Helpers.SafeCall(change, data, pub) end
+                if doSubmit and submit then Helpers.SafeCall(submit, data, pub) end
+            end)
+        end
 
     elseif d.ev == 'submit' then
         local idx = tonumber(d.index) or m.index
@@ -457,10 +563,8 @@ RegisterNUICallback('menu', function(d, reply)
         if not el or el.isDisabled or el.isNotSelectable then return end
         m.index = idx
         if d.tickBoxIndex then el.tickBoxIndex = tonumber(d.tickBoxIndex) end
-        if toggleTick(el) then
-            markDirty(m)
-            run(m.change, cbData(m, el), m.public)
-        end
+        -- as vorp_menu: Enter on a tick box toggles it, then submit only (no change)
+        if toggleTick(el) then markDirty(m) end
         Helpers.Sound('select')
         run(m.submit, cbData(m, el), m.public)
 
@@ -468,7 +572,7 @@ RegisterNUICallback('menu', function(d, reply)
         if m.data.lastmenu then
             -- VORP style: submit is called with current = 'backup' and trigger = lastmenu
             Helpers.Sound('back')
-            run(m.submit, { current = 'backup', trigger = m.data.lastmenu }, m.public)
+            run(m.submit, { current = 'backup', trigger = m.data.lastmenu, elements = els }, m.public)
         else
             cancelMenu(m)
         end
@@ -477,15 +581,16 @@ RegisterNUICallback('menu', function(d, reply)
         cancelMenu(m)
 
     elseif d.ev == 'button' then
-        if d.which == 'cancel' then
-            cancelMenu(m)
-        elseif type(m.data.confirmButton) == 'table' then
-            Helpers.Sound('select')
-            local btn = {}
-            for k, v in pairs(m.data.confirmButton) do btn[k] = v end
-            btn.isButton = true
-            run(m.submit, { current = btn, elements = els, button = 'confirm' }, m.public)
-        end
+        -- as vorp_menu: both buttons go to submit with current = { buttonType, buttonValue,
+        -- selectedElement, selectedIndex, value }; the cancel button is not a player close
+        local which = d.which == 'cancel' and 'cancel' or 'confirm'
+        local cfg = which == 'cancel' and m.data.cancelButton or m.data.confirmButton
+        local bv = type(cfg) == 'table' and (cfg.value ~= nil and cfg.value or cfg.label) or cfg
+        local btn = { buttonType = which, buttonValue = bv, value = bv, selectedElement = els[m.index],
+                      selectedIndex = m.index, isButton = true }
+        if type(cfg) == 'table' then for k, v in pairs(cfg) do if btn[k] == nil then btn[k] = v end end end
+        Helpers.Sound(which == 'cancel' and 'back' or 'select')
+        run(m.submit, { current = btn, elements = els, button = which }, m.public)
     end
 end)
 

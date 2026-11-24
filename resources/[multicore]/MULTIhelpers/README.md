@@ -102,7 +102,7 @@ function(data, menu) end)             -- close
 `exports.vorp_menu:CloseAll(...)`, `RegisterControls(...)` and `UnregisterControls()` also work directly on the export.
 
 ### Menu object (`menu` in callbacks)
-`menu.close(showRadar, soundClose, fireEventClose)`, `menu.refresh()`, `menu.addNewElement(el)`, `menu.getElementByValue(v)`, `menu.getElementByIndex(i)`, `menu.setElement(i, field, value)`, `menu.removeElementByValue(v, all)`, `menu.removeElementByIndex(i, all)`, `menu.setTitle(t)`, `menu.setSubtext(t)`, `menu.displayInput(options, onSubmit, onCancel)`.
+`menu.close(showRadar, soundClose, fireEventClose)`, `menu.refresh()`, `menu.addNewElement(el)`, `menu.getElementByValue(v)`, `menu.getElementByIndex(i)`, `menu.setElement(i, field, value)`, `menu.removeElementByValue(v, stop)` (every match unless stop), `menu.removeElementByIndex(i)`, `menu.update(query, data)`, `menu.setElements(t)`, `menu.removeElement(query)`, `menu.isInputActive()`, `menu.setTitle(t)`, `menu.setSubtext(t)`, `menu.displayInput(options, onSubmit, onCancel)`.
 Changes made through these calls are drawn on the next tick. `refresh()` draws them at once.
 
 `displayInput` options: `inputType` (`text`, `number`, `password`, `date` or `yesno`), `header`, `placeholder`, `description`, `buttons = { confirm, cancel }`, `maxLength`, `pattern` and `patternMessage`. `pattern` can be a preset (`letters`, `numbers`, `alphanumeric`, `no-symbols`, `username`, `phone`, `email`, `money`, `no-special`) or a regex. Pass callbacks and the call returns at once. Leave them out and the call waits, then returns the value (nil when cancelled). A yes/no box submits `true`.
