@@ -86,6 +86,7 @@ server_scripts {
     'server/workshop/book.lua',
     'server/workshop/sharpen.lua',
     'server/compat/vorp_api.lua',  -- vorp_inventory-shaped API
+    'server/compat/vorp_loadout.lua', -- keeps VORP's `loadout` table filled for scripts that read it with SQL
     'server/rsg/items_reader.lua', -- rsg-core item list reader
     'server/rsg/rsg_api.lua',      -- rsg-inventory-shaped API (MULTIcore's player data)
     'server/exports.lua',

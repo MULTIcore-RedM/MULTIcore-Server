@@ -262,6 +262,11 @@ Config.Compat = {
     emitVorpEvents = true,
     -- Show the saddlebag button and send vorp_inventory:Server:SaddleOpen (stable scripts).
     saddleButton = true,
+    -- Keep VORP's `loadout` table filled with the guns of every online character, for scripts that
+    -- read it with SQL (gunsmith / weapon customisation scripts such as syn_weapons). A script's
+    -- change to a row's comps, custom_label or custom_desc is applied to the weapon.
+    vorpLoadout = true,
+    vorpLoadoutSeconds = 2,   -- how often the table is checked
 }
 
 -- ------------------------------------------------------------

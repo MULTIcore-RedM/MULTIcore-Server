@@ -889,6 +889,21 @@ function Weapons.subComponents(id, t)
     return true
 end
 
+---Replace the whole customisation set: t = { [category] = component } (a VORP `loadout.comps` map).
+function Weapons.setComps(id, t)
+    local r = Weapons.get(id)
+    if not r then return false, 'no_weapon' end
+    if type(t) ~= 'table' then return false, 'bad_components' end
+    local comps = {}
+    for k, v in pairs(t) do
+        if (type(k) == 'string' or type(k) == 'number') and (type(v) == 'string' or type(v) == 'number') then comps[tostring(k)] = v end
+    end
+    r.comps = comps
+    markDirty(r)
+    pushComponents(r)
+    return true
+end
+
 -- ------------------------------------------------------------
 -- equip / holster / draw
 -- ------------------------------------------------------------

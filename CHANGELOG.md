@@ -2,6 +2,16 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-24 (gunsmith scripts see your guns)
+
+### Fixed
+- **Empty weapon list at gunsmiths:** VORP gunsmith and weapon customisation scripts (such as syn_weapons) that read a player's guns straight from VORP's `loadout` table showed an empty list, because MULTIcore keeps weapons in MULTIinventory. MULTIinventory now keeps `loadout` filled with the guns of every online character.
+- A script's change to a gun's `comps`, `custom_label` or `custom_desc` in `loadout` is applied to the gun, so bought customisations stay on it.
+- New settings in MULTIinventory `config.lua` (`Config.Compat`): `vorpLoadout` (on by default) and `vorpLoadoutSeconds`.
+
+### What to do
+- Update `MULTIinventory`, then restart the server.
+
 ## 2026-11-24 (new characters keep their clothes)
 
 ### Fixed
