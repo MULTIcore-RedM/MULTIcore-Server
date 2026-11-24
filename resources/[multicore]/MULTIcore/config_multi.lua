@@ -21,6 +21,10 @@ MULTIConfig.Language = 'en'
 -- '' = use server.cfg  setr multicore_ui_preset <name>  instead.
 MULTIConfig.UIPreset = 'classic'
 
+-- Hide the base game's award / challenge cards on the left of the screen
+-- ("Survivalist Award - Hold F1 for details"). false = let the game show them.
+MULTIConfig.HideGameAwards = true
+
 MULTIConfig.Vorp = {
     -- Which player identifier VORP scripts see as user / character "identifier".
     -- 'steam' is what most VORP servers use; players without Steam fall back to 'license'.
