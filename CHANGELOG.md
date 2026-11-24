@@ -2,11 +2,11 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
-
 ## 2026-11-24 (no more game award cards)
 
 ### Changed
 - **MULTIcore:** the base game's award and challenge cards on the left of the screen ("Survivalist Award - Hold F1 for details") are cleared the moment they appear. `MULTIConfig.HideGameAwards = false` in `config_multi.lua` brings them back.
+
 ## 2026-11-24 (VORP menus work exactly like vorp_menu)
 
 MULTIhelpers' menu was checked against vorp_menu behaviour by behaviour, and every difference a script could notice is fixed.
