@@ -202,8 +202,13 @@ lib.callback.register('multitailor:store:buyPiece', function(src, data)
         })
         if not okG then
             TA.giveMoney(src, price)
-            TU.debug('store give failed: %s', tostring(gerr))
-            res = { ok = false, error = (gerr == 'inventory_missing') and L('err_inventory_missing') or L('err_no_room') }
+            local full = gerr == 'slots' or gerr == 'weight' or gerr == 'no_room' or gerr == 'stack_full'
+            if not full and gerr ~= 'inventory_missing' then
+                -- not a full satchel: say why in the console (e.g. the clothing_* items are not in the item list)
+                print(('^3[MULTItailor] store: the clothing item could not be created (%s) - money returned^0'):format(tostring(gerr)))
+            end
+            res = { ok = false, error = (gerr == 'inventory_missing') and L('err_inventory_missing')
+                or (full and L('err_no_room')) or L('err_generic') }
             return
         end
         TriggerEvent('MULTItailor:storePurchase', src, { storeId = s.id, cat = c.id, m = m, colour = v, price = price })
@@ -246,8 +251,13 @@ lib.callback.register('multitailor:store:buy', function(src, data)
         if not okG then
             TA.giveMoney(src, price)
             putBack()
-            TU.debug('store give failed: %s', tostring(gerr))
-            res = { ok = false, error = (gerr == 'inventory_missing') and L('err_inventory_missing') or L('err_no_room') }
+            local full = gerr == 'slots' or gerr == 'weight' or gerr == 'no_room' or gerr == 'stack_full'
+            if not full and gerr ~= 'inventory_missing' then
+                -- not a full satchel: say why in the console (e.g. the clothing_* items are not in the item list)
+                print(('^3[MULTItailor] store: the clothing item could not be created (%s) - money returned^0'):format(tostring(gerr)))
+            end
+            res = { ok = false, error = (gerr == 'inventory_missing') and L('err_inventory_missing')
+                or (full and L('err_no_room')) or L('err_generic') }
             return
         end
         TriggerEvent('MULTItailor:storePurchase', src, { storeId = s.id, line = l.id, colour = colour.n, price = price })
