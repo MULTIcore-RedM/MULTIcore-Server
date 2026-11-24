@@ -19,6 +19,7 @@
 ]]
 
 local active = false
+local hasCharacters = false   -- VORP-shaped `characters` table (MULTIcore creates it)
 local running, again = false, false
 local MIRROR_SQL = [[
 CREATE TABLE IF NOT EXISTS `multiinv_loadout_mirror` (
@@ -165,6 +166,14 @@ local function sync()
     local mirror = {}
     for _, m in ipairs(rows) do mirror[tonumber(m.id)] = m end
 
+    -- the identifier VORP scripts get from Character.identifier (MULTIcore keeps `characters` in step;
+    -- it is the steam id when the player has one, not the licence the inventory knows)
+    local ident = {}
+    for _, c in ipairs(not hasCharacters and {} or InvDB.query(('SELECT `charidentifier`, `identifier` FROM `characters` WHERE `charidentifier` IN (%s)')
+            :format(table.concat(marks, ',')), ids)) do
+        if c.identifier and c.identifier ~= '' then ident[tonumber(c.charidentifier)] = c.identifier end
+    end
+
     -- 1. changes scripts wrote into `loadout`
     for id, m in pairs(mirror) do
         local r = Weapons.get(id)
@@ -178,7 +187,7 @@ local function sync()
     for charId, st in pairs(online) do
         for _, r in ipairs(Weapons.recordsIn('player:' .. charId)) do
             keep[r.id] = true
-            local row = rowOf(r, charId, st.identifier)
+            local row = rowOf(r, charId, ident[charId] or st.identifier)
             local sig = sigOf(row)
             local m = mirror[r.id]
             if not m or m.sig ~= sig or m.lid == nil then
@@ -227,6 +236,8 @@ CreateThread(function()
     local has = InvDB.scalar([[SELECT COUNT(*) FROM information_schema.tables
         WHERE table_schema = DATABASE() AND table_name = 'loadout']])
     if (tonumber(has) or 0) == 0 then return end   -- no VORP-shaped tables (MULTIcore creates them)
+    hasCharacters = (tonumber(InvDB.scalar([[SELECT COUNT(*) FROM information_schema.tables
+        WHERE table_schema = DATABASE() AND table_name = 'characters']])) or 0) > 0
     InvDB.update(MIRROR_SQL)
     active = true
     local wait = math.max(1, tonumber(compatCfg().vorpLoadoutSeconds) or 2) * 1000
