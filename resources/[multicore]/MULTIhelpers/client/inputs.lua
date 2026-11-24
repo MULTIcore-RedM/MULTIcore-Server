@@ -113,6 +113,16 @@ Helpers.On('gum_inputs', 'guminputs:getInput', function(button, placeholder, cb)
     end, GetInvokingResource())
 end)
 
+-- ------------------------------------------------------------ syn_inputs
+--   TriggerEvent('syn_inputs:sendinputs', buttonText, placeholder, function(text) end)
+-- The callback gets the typed text. It is not called when the player cancels: scripts feed the text
+-- straight into tonumber / math (amounts) and would throw on an empty answer.
+Helpers.On('syn_inputs', 'syn_inputs:sendinputs', function(button, placeholder, cb)
+    Helpers.OpenDialog(simpleSpec(button, placeholder), function(result)
+        if result ~= nil and Helpers.Callable(cb) then Helpers.SafeCall(cb, result) end
+    end, GetInvokingResource())
+end)
+
 Helpers.On('gum_inputs', 'guminputs:getAnswer', function(question, yesText, noText, cb)
     Helpers.OpenDialog({
         kind = 'yesno', header = question, button = yesText, cancelButton = noText,

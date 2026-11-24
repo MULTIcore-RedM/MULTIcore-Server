@@ -178,6 +178,15 @@ for _, name in ipairs({ 'closeInventory', 'getInventoryItems', 'getInventoryItem
     end)
 end
 
+-- exports.vorp_inventory:useWeapon({ id = weaponId, ... }) - equips (and draws) that gun, as using it
+-- from the inventory would. Gunsmith scripts call it to put a customised gun back in the hand.
+alias('vorp_inventory', 'useWeapon', function(data)
+    local id = type(data) == 'table' and tonumber(data.id or data.weaponId) or tonumber(data)
+    if not id then return false end
+    CreateThread(function() InvClient.request('weaponEquip', { weaponId = id, draw = true }) end)
+    return true
+end)
+
 -- ------------------------------------------------------------
 -- redemrp_inventory (client)
 -- ------------------------------------------------------------

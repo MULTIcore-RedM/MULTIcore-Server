@@ -281,9 +281,11 @@ closeMenu = function(m, showRadar, soundClose, fireEventClose, noCallbacks)
     if not noCallbacks then
         if fireEventClose ~= false then
             TriggerEvent('vorp:menu:closemenu', { type = m.type, namespace = m.namespace, name = m.name, title = m.data.title })
-            -- the older names many scripts still listen for
+            -- the older name many scripts still listen for. menuapi:closemenu is NOT sent here: vorp_menu
+            -- sends it only when the player closes the menu (cancelMenu). Scripts read it as "the player
+            -- left" - syn_weapons ends its whole session on it - and they close menus themselves all the
+            -- time (CloseAll before opening the next one).
             TriggerEvent('vorp_menu:closemenu')
-            TriggerEvent('menuapi:closemenu')
         end
         run(m.closeCb, cbData(m, m.data.elements[m.index]), m.public)
     end
@@ -407,13 +409,17 @@ local function toggleTick(el)
     return false
 end
 
+-- the player closed the menu (Backspace / Esc / the close button). As in vorp_menu: the menu's cancel
+-- callback first, then menuapi:closemenu and vorp_menu:closemenu ("closeui").
 local function cancelMenu(m)
     Helpers.Sound('back')
-    if m.cancel then
-        run(m.cancel, cbData(m, m.data.elements[m.index]), m.public)
-    else
-        closeMenu(m)
-    end
+    local cancel, data, pub = m.cancel, cbData(m, m.data.elements[m.index]), m.public
+    if not cancel then closeMenu(m) end
+    CreateThread(function()
+        if cancel then Helpers.SafeCall(cancel, data, pub) end
+        TriggerEvent('menuapi:closemenu')
+        TriggerEvent('vorp_menu:closemenu')
+    end)
 end
 
 RegisterNUICallback('menu', function(d, reply)

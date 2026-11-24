@@ -2,6 +2,19 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-24 (syn_weapons customising works)
+
+### Fixed
+- **Menus closed by a script no longer count as the player leaving:** `menuapi:closemenu` now fires only when the player closes a menu (Backspace / Esc), as in vorp_menu. Before, it also fired when a script swapped one menu for the next, and scripts such as syn_weapons ended the whole session there: the gun preview vanished and the customise menu came up empty.
+- **The gun's identifier in `loadout`** is now the one VORP scripts get (the Steam id when the player has one), so gunsmith scripts find the player's guns.
+
+### New
+- **syn_inputs:** `syn_inputs:sendinputs` opens the MULTI text box (amounts, custom names and serials in syn scripts).
+- **vorp_inventory `useWeapon` (client):** equips a gun by its id, as gunsmith scripts do after customising it.
+
+### What to do
+- Update `MULTIhelpers` and `MULTIinventory`, then restart the server.
+
 ## 2026-11-24 (gunsmith scripts see your guns)
 
 ### Fixed

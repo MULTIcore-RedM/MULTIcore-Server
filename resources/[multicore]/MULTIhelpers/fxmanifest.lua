@@ -24,6 +24,7 @@ provide 'redemrp_notification'
 provide 'gum_menu'
 provide 'gum_notify'
 provide 'gum_inputs'
+provide 'syn_inputs'
 -- TPZ
 provide 'tpz_menu_base'
 -- RSG v1 / QBR / QB ports

@@ -25,6 +25,7 @@ Part of MULTIcore (GPL v3). One resource that stands in for the small menu, inpu
 | `pNotify` | pNotify notifications | `client/notify.lua` |
 | `bln_notify` | BLN notifications (a subset), client and server | `client/notify.lua`, `server/notify.lua` |
 | `syn_minigame`, `fx-minigame` | the skill bar (`taskBar`) | `client/minigame.lua` |
+| `syn_inputs` | the text box (`syn_inputs:sendinputs`) | `client/inputs.lua` |
 | `feather-menu` | Feather's page menu (v1) that BCC scripts open | `client/feather_menu.lua` |
 | `bcc-minigames` | skill check, lockpick, rock-paper-scissors, hammertime, cow milker, dice | `client/bcc_minigames.lua` |
 | `uiprompt` | the prompt library (`@uiprompt/uiprompt.lua`) | its own resource `uiprompt` in `[multicore]` |
@@ -64,7 +65,8 @@ To restyle, use `html/custom.css`. It loads last.
 
 The older way works too (syn_* and many older scripts use it). MULTIhelpers must start before those scripts:
 `TriggerEvent('menuapi:getData', function(call) MenuData = call end)` (also `vorp_menu:getData`). The events
-`menuapi:closemenu`, `vorp_menu:closemenu` and `vorp_menu:openmenu` fire as in the original.
+`menuapi:closemenu`, `vorp_menu:closemenu` and `vorp_menu:openmenu` fire as in the original: `vorp_menu:closemenu` on every close,
+`menuapi:closemenu` only when the player closes the menu (a script closing it with `menu.close()` or `CloseAll()` does not send it).
 
 ```lua
 local MenuData = exports.vorp_menu:GetMenuData()
