@@ -6,6 +6,7 @@
 
 ### Changed
 - **MULTIcore:** the base game's award and challenge cards on the left of the screen ("Survivalist Award - Hold F1 for details") are cleared the moment they appear. `MULTIConfig.HideGameAwards = false` in `config_multi.lua` brings them back.
+- **MULTIcore:** pressing Left Alt (the target key) no longer flashes the base game HUD; the game's own "reveal HUD" on that key is switched off. `MULTIConfig.BlockHudReveal = false` brings it back.
 
 ## 2026-11-24 (VORP menus work exactly like vorp_menu)
 

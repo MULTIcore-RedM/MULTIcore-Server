@@ -25,6 +25,10 @@ MULTIConfig.UIPreset = 'classic'
 -- ("Survivalist Award - Hold F1 for details"). false = let the game show them.
 MULTIConfig.HideGameAwards = true
 
+-- Stop the base game HUD flashing up when Left Alt (the target key, also the game's
+-- "reveal HUD") is pressed. false = let the game reveal its HUD on that key.
+MULTIConfig.BlockHudReveal = true
+
 MULTIConfig.Vorp = {
     -- Which player identifier VORP scripts see as user / character "identifier".
     -- 'steam' is what most VORP servers use; players without Steam fall back to 'license'.
