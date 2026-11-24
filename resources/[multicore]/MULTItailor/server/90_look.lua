@@ -165,11 +165,18 @@ function TLookS.seed(src)
         elseif where == 'satchel' then bag_n = bag_n + 1
         else lost = lost + 1 end
     end
-    markSeeded(citizenid)
     if #specs > 0 then
         print(('[MULTItailor] %s: %d piece(s) of the saved look became clothing items (%d worn, %d in the satchel%s)')
             :format(citizenid, worn_n + bag_n, worn_n, bag_n, lost > 0 and (', ^3' .. lost .. ' not created^0') or ''))
     end
+    if lost > 0 and worn_n + bag_n == 0 then
+        -- nothing could be created (the clothing_* items are missing from the item list): leave the
+        -- saved look alone and try again on the next load, so the character keeps their clothes
+        print(('^3[MULTItailor] %s: the clothing items (clothing_hat ...) are not in the item list - the saved look is kept^0')
+            :format(citizenid))
+        return false
+    end
+    markSeeded(citizenid)
     return true
 end
 

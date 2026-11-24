@@ -2,6 +2,16 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-24 (new characters keep their clothes)
+
+### Fixed
+- **Naked after relog:** a new character's clothes from the creator did not become clothing items (the clothing items were missing from the item list), and after a relog the character was naked. The 36 clothing items (`clothing_hat` ... `clothing_outfit`) are now in MULTIcore's item list, so the creator clothes go straight into the equipment slots and stay on.
+- **MULTItailor:** when no clothing item can be created, the saved look is kept and tried again on the next load instead of being emptied.
+
+### What to do
+- Update `MULTIcore` and `MULTItailor`, then restart the server.
+- A character made before this update that is already naked lost its creator clothes: delete it and make it again, or buy clothes at a clothes store.
+
 ## 2026-11-23 (more RedEM:RP scripts work)
 
 Tested with the official RedEM:RP scripts on MULTIcore: redemrp_shops, redemrp_banking, redemrp_clothes_store, redemrp_blueberry, redemrp_farmerjob, redemrp_infection, redemrp_properties, redemrp_propplacer, redemrp_witness, redemrp_dialog and redemrp_quests all start without errors.
