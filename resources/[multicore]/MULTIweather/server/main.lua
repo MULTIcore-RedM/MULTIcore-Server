@@ -78,11 +78,25 @@ local function scheduleNext()
     state.nextChange = GetGameTimer() + math.random(low, high) * 60000
 end
 
+--- The season (Config.Weather.Season) when today's real date is inside it, else nil.
+local function activeSeason()
+    local S = Config.Weather.Season
+    if type(S) ~= 'table' or S.Enabled == false or type(S.Pattern) ~= 'table' then return nil end
+    local today = os.date('%Y-%m-%d')
+    if type(S.From) == 'string' and today < S.From then return nil end
+    if type(S.Until) == 'string' and today > S.Until then return nil end
+    return S
+end
+
 local function pickNext(from)
-    local options = Config.Weather.Pattern[from]
+    local season = activeSeason()
+    local pattern = season and season.Pattern or Config.Weather.Pattern
+    local start = season and season.Start or Config.Weather.Start
+    local options = pattern[from]
     if not options then
-        -- a weather with no pattern line (set by an admin): carry on from the start weather's line
-        options = Config.Weather.Pattern[Config.Weather.Start] or { sunny = 1 }
+        -- a weather with no pattern line (set by an admin, or the season began / ended):
+        -- carry on from the start weather's line
+        options = pattern[start] or { [start or 'sunny'] = 1 }
     end
     -- pairs order is not fixed, so walk a sorted list
     local names, total = {}, 0
@@ -180,6 +194,17 @@ CreateThread(function()
                 state.second = (state.second + dt * 60.0 / rate(state.second)) % DAY
             end
         end
+
+        -- the season began or ended: change over now instead of waiting for the next change
+        local season = activeSeason()
+        local inSeason = season ~= nil
+        if state.wasSeason == nil then state.wasSeason = inSeason end
+        if inSeason ~= state.wasSeason then
+            state.wasSeason = inSeason
+            state.nextChange = now
+            log(inSeason and 'season starts' or 'season is over: normal weather again')
+        end
+        if season and not state.hold and not season.Pattern[state.weather] then state.nextChange = now end
 
         if Config.Weather.Auto and not state.hold and now >= state.nextChange then
             state.weather = pickNext(state.weather)

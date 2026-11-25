@@ -2,6 +2,18 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-25 (winter weather)
+
+### New
+- **MULTIweather:** a winter season. From 21 November to 31 January the weather changes by itself only between light snow, snow and the odd blizzard, then the normal pattern takes over again. Admins can still set any weather. Dates and the pattern are in `config.lua` (`Config.Weather.Season`); `Enabled = false` switches it off.
+- **MULTIcore:** `GetRegisteredJobs()` on the VORP side lists every job with its grades, for VORP scripts that show a job board or job menu.
+
+### Fixed
+- **MULTIcore:** a character's face no longer turns black when several scripts reload their look at the same moment; if the face texture can't load, the plain head stays instead.
+
+### Changed
+- **MULTIinventory:** code comments no longer name other scripts.
+
 ## 2026-11-25 (starting cash setting)
 
 ### New

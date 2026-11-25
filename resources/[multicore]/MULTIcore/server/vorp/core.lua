@@ -60,6 +60,27 @@ function Core.RegisterJobs(jobs, _resource)
     return true
 end
 
+--- Every job MULTIcore knows, in VORP's REGISTERED_JOBS shape:
+--- { [name] = { JOB_LABEL, TYPE, RESOURCE, GRADES = { [level] = { LABEL, PAYMENT, IS_BOSS } } } }.
+--- Scripts read it to list jobs (RINGOtownhall's job board, job menus).
+function Core.GetRegisteredJobs()
+    local out = {}
+    for name, job in pairs(RSGCore.Shared.Jobs or {}) do
+        if type(name) == 'string' and type(job) == 'table' then
+            local grades = {}
+            for k, g in pairs(job.grades or {}) do
+                local level = tonumber(k)
+                if level and type(g) == 'table' then
+                    grades[level] = { LABEL = g.name or g.label or ('Grade ' .. level),
+                        PAYMENT = tonumber(g.payment) or 0, IS_BOSS = g.isboss == true }
+                end
+            end
+            out[name] = { JOB_LABEL = job.label or name, TYPE = job.type, RESOURCE = 'MULTIcore', GRADES = grades }
+        end
+    end
+    return out
+end
+
 --- Puts a player in a routing bucket (0 = the shared world).
 function Core.instancePlayers(src, bucket)
     return RSGCore.Functions.SetPlayerBucket(src, tonumber(bucket) or 0)

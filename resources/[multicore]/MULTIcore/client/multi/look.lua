@@ -359,14 +359,23 @@ local function ApplyOverlays(ped, skin)
         end
     end
 
+    -- only the newest call for this ped may finish (several scripts can ask at once)
+    local token = (rec.ovToken or 0) + 1
+    rec.ovToken = token
+
     -- the old texture goes first, so the head shows its own texture again before it is read
     if rec.tex then
         releaseTexture(rec.tex)
         rec.tex = nil
         local head = pieceHash(sex, 'heads', (bodyIndexes(sex, skin)))
-        if head then applyItem(ped, head) end
+        if head then
+            applyItem(ped, head)
+            local readyBy = GetGameTimer() + 1000 -- let the head swap finish before its texture is read
+            while not InvokeNative(N.READY_TO_RENDER, ped) and GetGameTimer() < readyBy do Wait(0) end
+        end
     end
     if #layers == 0 then return true end
+    if rec.ovToken ~= token then return false end
 
     local albedo, normal, material = headTexture(ped, sex)
     local tex = InvokeNative(N.REQUEST_TEXTURE, albedo, normal, material, AsInt())
@@ -387,6 +396,12 @@ local function ApplyOverlays(ped, skin)
 
     local untilTime = GetGameTimer() + T.textureMs
     while not InvokeNative(N.TEXTURE_VALID, tex) and GetGameTimer() < untilTime do Wait(0) end
+    -- a texture that never loaded draws as a black face: keep the plain head instead.
+    -- A newer call that started meanwhile wins: give this texture back.
+    if not InvokeNative(N.TEXTURE_VALID, tex) or rec.ovToken ~= token or not DoesEntityExist(ped) then
+        releaseTexture(tex)
+        return false
+    end
 
     InvokeNative(N.UPDATE_TEXTURE, tex)
     InvokeNative(N.RESET_TEXTURE, tex)

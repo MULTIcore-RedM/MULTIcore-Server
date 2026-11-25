@@ -24,12 +24,12 @@ Config.Secondary = {
     minSlots = 1,
     maxSlots = 1000,
 
-    -- `useWeight = true, weight = <kg>` (RINGOstables, RINGOitemplacer, RINGOwagons) gives the
+    -- `useWeight = true, weight = <kg>` (RINGOstables, RINGOitemplacer) gives the
     -- inventory a weight limit in kg on top of its slots.
     honourUseWeight = true,
 
     -- deleteCustomInventory removes the registration AND everything stored in it
-    -- (public documentation; RINGOwagons relies on it for sold/expired wagons).
+    -- (public documentation; wagon scripts rely on it for sold/expired wagons).
     deletePurges = true,
 
     -- Viewers. Inventories registered with shared = true can be open for several players at
@@ -77,7 +77,7 @@ Config.Secondary = {
         lastMountRadius = 4.0,
     },
 
-    -- Wagon trunks (RINGOwagons) and business storages (RINGOjobsandcrafting)
+    -- Wagon trunks and business storages (RINGOjobsandcrafting)
     -- are ordinary registered inventories; the owning resource registers them.
 
     -- Player search / robbery (openPlayerInventory-style)

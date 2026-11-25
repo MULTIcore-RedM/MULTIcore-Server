@@ -49,6 +49,21 @@ Config.Weather = {
         thunderstorm = { rain = 3, overcastdark = 2 },
     },
 
+    -- A season: from `From` until the end of `Until` (real dates on the server's clock, 'YYYY-MM-DD'),
+    -- the weather changes by itself only within this pattern. Admins can still set any weather.
+    -- Afterwards the normal pattern above takes over again by itself. Enabled = false switches it off.
+    Season = {
+        Enabled = true,
+        From = '2026-11-21',
+        Until = '2027-01-31',
+        Start = 'snow',           -- weather the season begins with
+        Pattern = {
+            snowlight      = { snowlight = 2, snow = 3 },
+            snow           = { snow = 3, snowlight = 2, blizzard = 1 },
+            blizzard       = { snow = 3, snowlight = 1 },
+        },
+    },
+
     -- Every weather an admin may set (RDR2 weather type names).
     Types = {
         'sunny', 'clouds', 'overcast', 'overcastdark', 'highpressure', 'misty', 'fog',
