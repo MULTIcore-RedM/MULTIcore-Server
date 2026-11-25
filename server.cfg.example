@@ -23,6 +23,9 @@ sv_lan 0
 # This line is only used when that setting is ''.
 setr multicore_locale en
 
+# Cash a new character starts with (default 50)
+setr multicore_startcash 50
+
 # ox_lib menus and dialogs: grey highlights instead of blue (closest to the black-and-white look)
 setr ox:primaryColor gray
 setr ox:primaryShade 6

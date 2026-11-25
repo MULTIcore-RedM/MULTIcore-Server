@@ -703,7 +703,7 @@ end
 
 ---addWeaponsToCustomInventory(invId, { { name, serial_number?, custom_label?, custom_desc?, components? } },
 ---charId?, cb?) -> bool
----A `components` MAP ({ [category] = component }) is the customisation set: RINGOhousingV2's
+---A `components` MAP ({ [category] = component }) is the customisation set: a property script's
 ---handover passes loadout.comps under `components`. It is moved to `comps`; an array stays
 ---`components` (attachments).
 function S.addWeaponsToCustomInventory(invId, weapons, charId, cb)

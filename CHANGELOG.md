@@ -2,6 +2,14 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-25 (starting cash setting)
+
+### New
+- **MULTIcore:** set how much cash a new character starts with in `server.cfg`: `setr multicore_startcash 5000`. Without it a new character gets 50, as before.
+
+### Changed
+- **MULTIinventory:** a code comment no longer names another script.
+
 ## 2026-11-24 (no more game award cards)
 
 ### Changed
