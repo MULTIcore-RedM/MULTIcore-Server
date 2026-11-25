@@ -91,6 +91,37 @@ Config.Outfits = {
     undress = false,           -- true = wearing an outfit also takes off worn pieces that are not part of it
 }
 
+-- ---------------------------------------------------------------- sharing outfits
+-- In the outfit list, an outfit's "Give a copy" offers it to a player standing next to you. If they accept,
+-- it is added to their own saved outfits. Wearing it puts on the pieces they own that match (same garment,
+-- same colours); no clothes are given or made.
+Config.Share = {
+    enabled = true,            -- default true
+    distance = 3.0,            -- default 3.0 (metres between the two players, checked on the server)
+    answerSeconds = 30,        -- default 30 (time the other player has to accept)
+}
+
+-- ---------------------------------------------------------------- tobacco from the clothes menu
+-- /clothes gets a "Tobacco" page listing the tobacco you carry. Picking one uses it exactly as using it
+-- from the satchel would (the item's own script plays it and applies its effects).
+Config.Tobacco = {
+    enabled = true,                  -- default true
+    resource = 'MULTIconsumables',   -- default 'MULTIconsumables' (the script that owns these items, with a Consume(src, item) export)
+    items = { 'cigarettes', 'cigar', 'pipe_tobacco', 'chewing_tobacco' },   -- item names, shown in this order
+}
+
+-- ---------------------------------------------------------------- how clothes sit
+-- Many garments can be worn more than one way (a bandana up over the face, an open collar, rolled
+-- sleeves, an open coat ...). The game itself lists the ways each piece allows; /clothes -> "How it sits"
+-- steps through them. The choice is kept per character and put back after every reload and outfit change.
+Config.Styles = {
+    enabled = true,            -- default true
+    -- equipment slots offered on the page (a piece with only one way to sit is left out)
+    keys = { 'NeckWear', 'Shirt', 'Vest', 'Coat', 'CoatClosed', 'Glove', 'Hat' },
+    command = 'bandana',       -- default 'bandana' (switches the worn neckwear between its first two ways; '' = off)
+    reapplyDelayMs = 250,      -- default 250 (after the clothes are put back on, set the chosen ways again after this)
+}
+
 -- Licences (optional). A licence office resource that has a CanUseJobFeature export can require a valid
 -- tailor licence for counter sales. Nothing changes when it is not installed.
 Config.Licence = {
@@ -151,6 +182,9 @@ Config.RateLimits = {
     preview = { count = 14, window = 3000 },   -- NPC piece previews at the designer
     admin   = { count = 10, window = 5000 },
     outfit  = { count = 6, window = 4000 },
+    share   = { count = 3, window = 5000 },    -- outfit copies offered and answered
+    tobacco = { count = 2, window = 3000 },
+    style   = { count = 8, window = 4000 },
 }
 
 -- Placement from other resources: MULTItailor has a dynamic-location API (server/10_points.lua), so a

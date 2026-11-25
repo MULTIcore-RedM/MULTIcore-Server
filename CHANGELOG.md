@@ -2,6 +2,17 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-25 (MULTItailor 1.3.0: share outfits, how clothes sit, tobacco)
+
+### New
+- **MULTItailor:** **Give a copy** of one of your saved outfits to a player standing next to you. If they accept, it joins their saved outfits; wearing it puts on the matching clothes they own. No clothes change hands. Settings: `Config.Share`.
+- **MULTItailor:** `/clothes` -> **How it sits** steps a worn piece through the ways the game lets it be worn: bandana up over the face, open collar, rolled sleeves, an open coat and more. Only the ways the game lists for that piece are offered, and the choice stays with the character. `/bandana` pulls the worn bandana up or down. Settings: `Config.Styles`.
+- **MULTItailor:** `/clothes` -> **Tobacco** lists the cigarettes, cigars, pipe tobacco and chewing tobacco you carry; picking one uses it the same way as from the satchel. Settings: `Config.Tobacco`.
+- **MULTIinventory:** `ImportOutfit(src, name, pieces)` adds a copy of another player's outfit to a player's saved outfits.
+
+### Changed
+- **MULTItailor:** notices go through MULTIcore's own notifications.
+
 ## 2026-11-25 (winter weather)
 
 ### New

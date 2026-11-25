@@ -110,7 +110,7 @@ or a stash id such as `stash:<name>`, `trunk:<plate>`, `custom:horse_<id>`, `cus
 | `Save(id?, await?)`, `Weight(id)` | bool / grams |
 | `GetAmmo(src)`, `AddAmmo(src, type, n)`, `RemoveAmmo(src, type, n)` | gunbelt `{ [AMMO_X] = n }` / `ok, count` |
 | `GetCharId(src)` | MULTIcore numeric character id |
-| clothing: `CreateClothingItem`, `CreateOutfitBundle`, `EquipClothing`, `UnequipClothing`, `GetWorn`, `ReapplyClothing`, `GetOutfits`, `SaveOutfit`, `WearOutfit`, `RenameOutfit`, `DeleteOutfit` | |
+| clothing: `CreateClothingItem`, `CreateOutfitBundle`, `EquipClothing`, `UnequipClothing`, `GetWorn`, `ReapplyClothing`, `GetOutfits`, `SaveOutfit`, `WearOutfit`, `RenameOutfit`, `DeleteOutfit`, `ImportOutfit` (a copy of another player's outfit) | |
 
 Stack shape: `{ name, amount, info, label, description, weight (grams per unit), type, unique, useable, image, slot, id }`;
 a weapon has `info.serie` (serial), `info.components`, `info.quality`.

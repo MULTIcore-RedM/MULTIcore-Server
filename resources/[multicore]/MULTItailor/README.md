@@ -15,6 +15,14 @@ MULTItailor sells, makes and manages those items and keeps the character's MULTI
   the items you wear; wearing it puts on the pieces you still own. Rename and delete too.
 - **Quick toggles:** `/clothes` takes your hat, mask, coat, vest, gloves, neckwear, spectacles, gunbelt or satchel off
   for the moment and puts it back. The item stays in its slot. The radial menu's clothing buttons do the same.
+- **Give a copy of an outfit** (`Config.Share`): in the outfit list, offer one of your outfits to a player standing next
+  to you. If they accept it goes into their saved outfits; wearing it puts on the matching clothes they own. No clothes
+  change hands.
+- **How it sits** (`Config.Styles`): `/clothes` -> "How it sits" steps a worn piece through the ways the game lets it be
+  worn: bandana up over the face, open collar, rolled sleeves, an open coat and so on. Only the ways the game itself lists
+  for that piece are offered. The choice is kept per character. `/bandana` pulls the worn bandana up or down.
+- **Tobacco** (`Config.Tobacco`): `/clothes` -> "Tobacco" lists the cigarettes, cigars, pipe tobacco and chewing tobacco
+  you carry; picking one uses it as the satchel would (MULTIconsumables plays it and applies its effects).
 - **The tailor job:** a player-run tailor shop in each town. Outfit Designer with the full game catalogue on a fitting
   dummy, sewing of cloth and notions (a short needlework minigame sets the quality), a pattern book, the counter
   shelf with written customer orders, a till and a stockroom. A cut outfit is a `clothing_outfit` bundle.
@@ -66,7 +74,8 @@ Store, shop and wardrobe positions are default positions: check them in game and
 ## Commands
 | Command | Who | What |
 |---|---|---|
-| `/clothes` | everyone | quick toggles (`Config.Toggles.command`) |
+| `/clothes` | everyone | quick toggles (`Config.Toggles.command`), "How it sits" and "Tobacco" |
+| `/bandana` | everyone | pull the worn bandana up over the face or back down (`Config.Styles.command`) |
 | `/outfits` | off | not there by default. Setting `Config.Outfits.command = 'outfits'` opens the outfit list anywhere |
 | `/tailorstores` | admin (ACE `multitailor.admin`, or group admin / god) | add a store where you stand, move the clerk, rename, open / close, map blip, price level, clerk model, remove / restore. Saved in `multitailor_stores`, live for everyone |
 

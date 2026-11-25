@@ -7,7 +7,7 @@ lua54 'yes'
 name 'MULTItailor'
 author 'RINGO (RINGOscripting)'    -- founder of MULTIcore
 description 'MULTIcore clothing: clothes as inventory items, clothes stores, wardrobes, saved outfits, quick toggles and the tailor job (Outfit Designer, sewing, counter, till). Answers as rsg-wardrobe. GPL v3.'
-version '1.2.0'
+version '1.3.0'
 license 'GPL-3.0'
 
 -- RSG v2 scripts call exports['rsg-wardrobe']:X(); MULTItailor answers them (do not run rsg-wardrobe too)
@@ -45,6 +45,7 @@ client_scripts {
     'client/80_admin.lua',
     'client/90_look.lua',             -- worn items back on after MULTIcore applies the look
     'client/95_wardrobe.lua',         -- toggles, outfits, wardrobe points, rsg-wardrobe client API
+    'client/96_extras.lua',           -- give a copy of an outfit, tobacco page, how clothes sit
 }
 
 server_scripts {
@@ -63,6 +64,7 @@ server_scripts {
     'server/80_api.lua',
     'server/90_look.lua',             -- worn items <-> MULTIcore look, first-load import
     'server/95_wardrobe.lua',         -- saved outfits, rsg-wardrobe server API
+    'server/96_extras.lua',           -- outfit copies, tobacco, how clothes sit (kept per character)
 }
 
 files {

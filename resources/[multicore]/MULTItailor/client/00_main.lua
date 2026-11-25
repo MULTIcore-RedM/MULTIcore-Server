@@ -65,7 +65,14 @@ end)
 
 function TC.notify(text, ntype)
     ntype = ntype or 'inform'
-    -- @MULTIcore/lib/ui.lua sends lib.notify to MULTIcore's notifications while MULTIcore runs
+    if (Config.Notify or 'auto') == 'auto' and GetResourceState('MULTIcore') == 'started' then
+        local ok = pcall(function()
+            exports.MULTIcore:Notify({ title = L('title'), text = tostring(text or ''),
+                type = (ntype == 'inform' and 'info') or ntype, duration = 5000 })
+        end)
+        if ok then return end
+    end
+    -- fallback: @MULTIcore/lib/ui.lua sends lib.notify to MULTIcore's notifications while MULTIcore runs
     lib.notify({ title = L('title'), description = tostring(text or ''), type = ntype, duration = 5000, position = 'top-right' })
 end
 

@@ -17,12 +17,14 @@
 --   Outfits.wear(src, id, opts) -> ok, { equipped, missing = { key... }, failed = { key = err } }
 --        opts.undress = true: also take off worn pieces that are not part of the outfit
 --   Outfits.delete(src, id) -> ok, err          Outfits.rename(src, id, name) -> ok, err
+--   Outfits.import(src, name, pieces) -> ok, id|err   a copy of another player's outfit (pieces matched by item + look)
 --   Outfits.buildBundle(spec, opts) -> ok, meta|err       spec = { label, description?, pieces = { spec... } }
 --   Outfits.unpack(src, stackId) -> ok, err
 --   Outfits.pack(src, slots, label) -> ok, err|stackId     slots = player grid slots
 -- Actions: outfitList {} | outfitSave { name } | outfitWear { id, undress? } | outfitDelete { id }
 --          | outfitPack { slots, label }
 -- Exports: GetOutfits(src) SaveOutfit(src, name) WearOutfit(src, id, undress?) DeleteOutfit(src, id) RenameOutfit(src, id, name)
+--          ImportOutfit(src, name, pieces)
 --          BuildOutfitMetadata(spec) CreateOutfitBundle(target, spec)
 -- ============================================================
 
@@ -88,6 +90,38 @@ function Outfits.save(src, name)
     id = ok and math.tointeger(tonumber(id)) or nil
     if not id or id < 1 then return false, 'sql_error' end
     list[id] = { id = id, name = name, pieces = pieces, createdAt = now }
+    return true, id
+end
+
+---A copy of another player's saved outfit (MULTItailor's "give a copy"). Only the piece list is kept, with no
+---stack ids, so wearing it puts on the garments this player owns that match (same item, identical look). -> ok, id|err
+function Outfits.import(src, name, pieces)
+    local st = State.get(src)
+    if not st then return false, 'player_not_loaded' end
+    name = cleanName(name)
+    if not name then return false, 'bad_name' end
+    if type(pieces) ~= 'table' then return false, 'no_pieces' end
+    local list = loadChar(st.charId)
+    local n = 0
+    for _ in pairs(list) do n = n + 1 end
+    if n >= (CC().maxOutfits or 20) then return false, 'outfit_limit' end
+    local clean, seen = {}, {}
+    for _, p in ipairs(pieces) do
+        local cat = type(p) == 'table' and ClothingCategoriesByKey[p.key] or nil
+        if cat and not seen[cat.key] and p.item == cat.item and (type(p.hash) == 'string' or type(p.hash) == 'number') then
+            seen[cat.key] = true
+            clean[#clean + 1] = { key = cat.key, hash = p.hash, item = cat.item,
+                                  label = type(p.label) == 'string' and p.label:sub(1, 64) or cat.label,
+                                  look = type(p.look) == 'table' and Util.deepcopy(p.look) or nil }
+        end
+    end
+    if #clean == 0 then return false, 'no_pieces' end
+    local now = Util.now()
+    local ok, id = pcall(MySQL.insert.await, 'INSERT INTO `multiinv_outfits` (`charid`,`name`,`pieces`,`created_at`) VALUES (?,?,?,?)',
+        { st.charId, name, json.encode(clean), now })
+    id = ok and math.tointeger(tonumber(id)) or nil
+    if not id or id < 1 then return false, 'sql_error' end
+    list[id] = { id = id, name = name, pieces = clean, createdAt = now }
     return true, id
 end
 
@@ -343,6 +377,7 @@ function API.SaveOutfit(src, name) InvDB.awaitReady() return Outfits.save(tonumb
 function API.WearOutfit(src, id, undress) InvDB.awaitReady() return Outfits.wear(tonumber(src), id, { undress = undress == true }) end
 function API.DeleteOutfit(src, id) InvDB.awaitReady() return Outfits.delete(tonumber(src), id) end
 function API.RenameOutfit(src, id, name) InvDB.awaitReady() return Outfits.rename(tonumber(src), id, name) end
+function API.ImportOutfit(src, name, pieces) InvDB.awaitReady() return Outfits.import(tonumber(src), name, pieces) end
 function API.BuildOutfitMetadata(spec) return Outfits.buildBundle(spec) end
 function API.CreateOutfitBundle(target, spec)
     InvDB.awaitReady()

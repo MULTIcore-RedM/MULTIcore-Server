@@ -153,6 +153,10 @@ local function toggleMenu()
         title = L('toggle_all'), icon = 'rotate-left', disabled = not next(hidden),
         onSelect = function() dressPlayer() Wait(150) toggleMenu() end,
     }
+    -- how clothes sit, tobacco (client/96_extras.lua)
+    if TExtras and TExtras.clothesOptions then
+        for _, opt in ipairs(TExtras.clothesOptions(toggleMenu)) do options[#options + 1] = opt end
+    end
     lib.registerContext({ id = 'multitailor_toggles', title = L('toggles_title'), options = options })
     lib.showContext('multitailor_toggles')
 end
@@ -230,14 +234,16 @@ openOutfits = function()
     if #list == 0 then options[#options + 1] = { title = L('outfit_none'), disabled = true } end
     for _, o in ipairs(list) do
         local sub = 'multitailor_outfit_' .. tostring(o.id)
-        lib.registerContext({
-            id = sub, title = o.name, menu = 'multitailor_outfits',
-            options = {
-                { title = L('outfit_wear'), icon = 'shirt', onSelect = function() wear(o) end },
-                { title = L('outfit_rename'), icon = 'pen', onSelect = function() rename(o) end },
-                { title = L('outfit_delete'), icon = 'trash', onSelect = function() delete(o) end },
-            },
-        })
+        local subOptions = {
+            { title = L('outfit_wear'), icon = 'shirt', onSelect = function() wear(o) end },
+            { title = L('outfit_rename'), icon = 'pen', onSelect = function() rename(o) end },
+            { title = L('outfit_delete'), icon = 'trash', onSelect = function() delete(o) end },
+        }
+        -- give a copy to a player next to you (client/96_extras.lua)
+        if TExtras and TExtras.outfitOptions then
+            for _, opt in ipairs(TExtras.outfitOptions(o, openOutfits)) do subOptions[#subOptions + 1] = opt end
+        end
+        lib.registerContext({ id = sub, title = o.name, menu = 'multitailor_outfits', options = subOptions })
         options[#options + 1] = { title = o.name, description = L('outfit_pieces', o.pieces or 0), icon = 'shirt', menu = sub, arrow = true }
     end
     lib.registerContext({ id = 'multitailor_outfits', title = L('outfits_title'), options = options })
