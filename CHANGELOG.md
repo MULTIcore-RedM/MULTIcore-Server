@@ -2,6 +2,24 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-25 (new: MULTIrobberies - store tills, bank vaults, lockpick and safe dial)
+
+### New
+- **MULTIrobberies** (new resource): rob the store tills and the banks.
+  - **Tills:** pick the cash register in any store and empty it. Every town pays its own amount: Saint Denis pays the most, then Blackwater, Rhodes, Valentine and the smaller towns.
+  - **Banks:** pick the bank gate, set a **pipe charge** on the vault door, get clear, and the blast swings the vault open. Crack the safes inside for cash, gold bars, silver bars, bank bonds, jewellery boxes and jewellery. Saint Denis pays the most, then Blackwater, Rhodes and Valentine. The vault is fixed and locked again after a while.
+  - **Lockpick minigame:** a pin lock seen from the side. Slide the pick under the pins with the mouse and lift them; one pin binds at a time and sets with a click at the shear line. Force it too far and the pick snaps.
+  - **Safe dial minigame:** turn left to the heavy click, back right to the next, then left again. Every number ticks; the right one clicks hard. Turn back in the wrong place and the tumblers fall.
+  - Both minigames are drawn as real metal and follow the classic, parchment and modern looks. Other scripts can use them: `exports.MULTIrobberies:Lockpick(level, label)`, `exports.MULTIrobberies:SafeCrack(level, label)`.
+  - New items (added to the item list automatically): `pipe_charge`, `bank_bond`, `jewelry_box` (open it from the satchel), `gold_ring`, `pearl_necklace`, `gold_watch`, `diamond_brooch`.
+  - Admin: `/robsafe` sets a safe spot on the safe you face, `/robreset` locks a vault again. No lawmen need to be online by default (`minLaw` per bank and for tills).
+
+### Changed
+- **MULTIdoors:** lockpickable doors (bank gates too) use the new pin lock when MULTIrobberies runs. `Config.Lockpick.Minigame = 'skillcheck'` keeps the old check.
+
+### Fixed
+- **MULTIadmin:** healing a dead player left them lying on the ground with a full health bar. Heal now revives a downed player first.
+
 ## 2026-11-25 (MULTItailor 1.3.0: share outfits, how clothes sit, tobacco)
 
 ### New

@@ -42,8 +42,10 @@ end
 -- health (used by self heal and by the target events)
 -- ---------------------------------------------------------------
 
-function Admin.LocalHeal()
+function Admin.LocalHeal(noRevive)
     local ped = PlayerPedId()
+    -- a dead body cannot be healed back up: bring it back first (LocalRevive heals afterwards)
+    if not noRevive and IsEntityDead(ped) then return Admin.LocalRevive() end
     SetEntityHealth(ped, GetEntityMaxHealth(ped, false), 0)
     Citizen.InvokeNative(N.SET_ATTRIBUTE_CORE_VALUE, ped, CORE_HEALTH, Config.HealCoreValue)
     Citizen.InvokeNative(N.SET_ATTRIBUTE_CORE_VALUE, ped, CORE_STAMINA, Config.HealCoreValue)
@@ -59,7 +61,7 @@ function Admin.LocalRevive()
         ped = PlayerPedId()
         ClearPedTasksImmediately(ped, false, true)
     end
-    Admin.LocalHeal()
+    Admin.LocalHeal(true)
     if state.god then SetEntityInvincible(ped, true) end
     if state.invisible then SetEntityVisible(ped, false) end
 end

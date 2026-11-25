@@ -198,7 +198,13 @@ function MDC.Pick(id)
     if A.Enabled and loadDict(A.Dict) then
         TaskPlayAnim(cache.ped, A.Dict, A.Clip, 8.0, -8.0, -1, L.AnimLoopFlag, 0, true, 0, false, 0, false)
     end
-    local ok = lib.skillCheck(L.Difficulty, L.Inputs)
+    -- MULTIrobberies' pin lock when it runs (Config.Lockpick.Minigame), else the ox_lib skill check
+    local ok
+    if L.Minigame ~= 'skillcheck' and GetResourceState('MULTIrobberies') == 'started' then
+        ok = exports.MULTIrobberies:Lockpick(L.MinigameLevel or 'medium', r.label)
+    else
+        ok = lib.skillCheck(L.Difficulty, L.Inputs)
+    end
     local wait = L.MinMs - (GetGameTimer() - t0)
     if ok and wait > 0 then Wait(wait) end
     ClearPedTasks(cache.ped)

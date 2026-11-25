@@ -118,14 +118,25 @@ H.spectate = function(src, data)
     return true
 end
 
-local function heal(t)
-    exports.vorp_core:GetCore().Player.Heal(t)
-    if Config.LocalHealthFallback then TriggerClientEvent('MULTIadmin:client:heal', t) end
-end
-
 local function revive(t)
     exports.vorp_core:GetCore().Player.Revive(t)
     if Config.LocalHealthFallback then TriggerClientEvent('MULTIadmin:client:revive', t) end
+end
+
+--- Down (dead or bleeding out): the core's metadata says so, or the body has no health left.
+local function isDown(t)
+    local P = RSGCore.Functions.GetPlayer(t)
+    local md = P and P.PlayerData and P.PlayerData.metadata
+    if md and (md.isdead == true or md.inlaststand == true) then return true end
+    local ped = GetPlayerPed(t)
+    return ped ~= 0 and GetEntityMaxHealth(ped) > 0 and GetEntityHealth(ped) <= 0
+end
+
+-- healing a dead body only fills its health bar and leaves it lying there: a heal on a downed player revives
+local function heal(t)
+    if isDown(t) then return revive(t) end
+    exports.vorp_core:GetCore().Player.Heal(t)
+    if Config.LocalHealthFallback then TriggerClientEvent('MULTIadmin:client:heal', t) end
 end
 
 H.heal = function(src, data)

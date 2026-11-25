@@ -74,6 +74,8 @@ Config.Lockpick = {
     CooldownSeconds = 8,            -- wait between two attempts by one player
     AnimLoopFlag = 1,               -- TASK_PLAY_ANIM flag while picking (1 = loop)
     Key = 'G',                      -- hold-key for picking (prompt mode), name from MULTIcore's keybinds
+    Minigame = 'auto',              -- 'auto' = MULTIrobberies' pin lock (move the pick with the mouse) when it runs; 'skillcheck' = always the ox_lib check
+    MinigameLevel = 'medium',       -- pin lock level from MULTIrobberies Config.Minigames.Lockpick ('easy', 'medium', 'hard')
 }
 
 ---------------------------------

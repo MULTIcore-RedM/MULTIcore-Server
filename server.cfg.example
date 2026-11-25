@@ -48,6 +48,7 @@ add_principal group.admin group.mod
 add_ace group.admin multiadmin.admin allow
 add_ace group.mod multiadmin.mod allow
 add_ace group.admin multidoors.admin allow
+add_ace group.admin multirobberies.admin allow
 add_ace group.admin multiserver.whitelist allow
 add_ace group.admin multiserver.whitelist.bypass allow
 
@@ -98,5 +99,6 @@ ensure MULTIvendor     # vendor NPCs who buy goods from your satchel
 ensure MULTIwagons
 ensure MULTIvoice       # proximity voice (N to talk, U for range); answers pma-voice
 ensure MULTIweather     # one clock and one sky for everyone; weather changes by itself
+ensure MULTIrobberies  # store tills and bank vaults: lockpick, pipe charge, safes (after MULTIdoors)
 
 # Your own scripts go below this line. RSG v2, VORP and RedEM:RP scripts work side by side.
