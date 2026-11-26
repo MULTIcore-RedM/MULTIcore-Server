@@ -2,6 +2,15 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-26 (item pictures in every framework's scripts)
+
+### New
+- **Stand-ins `vorp_inventory`, `rsg-inventory`, `redemrp_inventory` and `RINGOinventory`** (in `resources/[multicore]`). Scripts made for VORP, RSG, RedEM:RP or RINGOinventory show item pictures from their own inventory's folder (`nui://vorp_inventory/html/img/items/`, `nui://rsg-inventory/html/images/`, `nui://redemrp_inventory/html/items/`, `nui://RINGOinventory/html/img/items/`). Those addresses only reach a resource with exactly that name, so these small resources carry the names and show the MULTIimages pictures there. Each copies `MULTIimages/images/` into itself when it starts. You still add pictures in `MULTIimages/images/` only.
+  - **server.cfg:** add the four lines right after `ensure MULTIinventory` (see `server.cfg.example`).
+
+### Changed
+- **MULTIinventory:** no longer uses `provide` for the inventory names. The stand-ins hold the names, and MULTIinventory still answers every export and event under them, as before.
+
 ## 2026-11-25 (install: download the server by hand)
 
 ### Changed

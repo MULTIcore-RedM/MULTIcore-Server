@@ -70,6 +70,10 @@ ensure MULTIcreator
 ensure MULTIappearance
 ensure MULTIcharacter
 ensure MULTIinventory
+ensure vorp_inventory     # MULTIcore stand-ins (not the real ones): hold the inventory names for other frameworks' scripts
+ensure rsg-inventory      # and show the MULTIimages pictures at their own picture paths
+ensure redemrp_inventory
+ensure RINGOinventory
 ensure MULTIstores
 ensure MULTItailor
 ensure MULTIvorpchar

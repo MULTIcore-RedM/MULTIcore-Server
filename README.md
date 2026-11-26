@@ -71,7 +71,7 @@ Every key can be changed in the script's `config.lua`. The voice range key is al
 
 ## Adding your own scripts
 
-Put them in `resources/` and `ensure` them **below** the MULTI scripts in `server.cfg`. RSG v2, VORP and RedEM:RP scripts work without edits. Do not also start `rsg-core`, `vorp_core`, `redem_roleplay`, `redemrp_inventory`, `ox_target`, `rsg-target`, `chat`, `rsg-inventory`, `vorp_inventory`, `rsg-wardrobe`, `RINGOinventory`, `RINGOtailor`, `pma-voice`, `weathersync` or a second IPL script: MULTIcore and its scripts already answer as those (or do the same job).
+Put them in `resources/` and `ensure` them **below** the MULTI scripts in `server.cfg`. RSG v2, VORP and RedEM:RP scripts work without edits. Do not also start the real `rsg-core`, `vorp_core`, `redem_roleplay`, `redemrp_inventory`, `ox_target`, `rsg-target`, `chat`, `rsg-inventory`, `vorp_inventory`, `rsg-wardrobe`, `RINGOinventory`, `RINGOtailor`, `pma-voice`, `weathersync` or a second IPL script: MULTIcore and its scripts already answer as those (or do the same job). The `vorp_inventory`, `rsg-inventory`, `redemrp_inventory` and `RINGOinventory` folders in `resources/[multicore]` are MULTIcore's own small stand-ins. Keep them: they carry those names for other scripts and show the item pictures there.
 
 ## Making MULTI scripts
 

@@ -2,26 +2,34 @@
 
 The inventory of MULTIcore: a slot and weight satchel with stashes, worn clothing slots, weapons
 with a gunbelt for spare ammo, ground drops, hand crafting and a crafting journal. It answers as
-**rsg-inventory**, **vorp_inventory** and **redemrp_inventory** at the same time (`provide`), so
-scripts written for RSG, VORP and RedEM:RP give, take, check and use the same items from the same
-satchel.
+**rsg-inventory**, **vorp_inventory**, **redemrp_inventory** and **RINGOinventory** at the same time,
+so scripts written for RSG, VORP and RedEM:RP give, take, check and use the same items from the same
+satchel. Four small stand-in resources next to it carry those names and serve the item pictures at
+each framework's own path; MULTIinventory answers every export and event under them.
 
 Part of MULTIcore by RINGO (RINGOscripting). Licence: GPL-3.0-or-later (see `LICENSE`).
 
 ## Install
 
-1. Remove `rsg-inventory`, `vorp_inventory` and `redemrp_inventory` if you have them.
+1. Remove the real `rsg-inventory`, `vorp_inventory` and `redemrp_inventory` if you have them
+   (MULTIcore's stand-ins of the same names replace them).
 2. `server.cfg`, after MULTIcore and MULTItarget:
    ```
    ensure MULTItarget
    ensure MULTIimages
    ensure MULTIinventory
+   ensure vorp_inventory      # MULTIcore stand-ins: they hold the names and serve the pictures
+   ensure rsg-inventory
+   ensure redemrp_inventory
+   ensure RINGOinventory
    ```
    (MULTIstores, MULTItailor and the other MULTI scripts come after it.)
 3. The tables are made on start (`sql/install.sql`, applied automatically): `multiinv_*` plus an
    empty VORP-style `items` table, so VORP item install SQL works on a MULTIcore server.
 4. Item pictures: put your `.png` files in `MULTIimages/images/`, named as each item's `image`
-   field (`bread.png`). None are shipped.
+   field (`bread.png`). The stand-ins copy them when they start, so scripts written for other
+   frameworks show them too (`nui://vorp_inventory/html/img/items/`, `nui://rsg-inventory/html/images/`,
+   `nui://redemrp_inventory/html/items/`, `nui://RINGOinventory/html/img/items/`).
 
 ## Moving from the old inventory
 

@@ -20,4 +20,8 @@ Not every item has a picture yet (most guns, canteens, backpacks, some herbs and
 
 Put a `.png` (or `.webp`) in `images/`, named exactly as the item's `image` field. A file with the same name replaces the included one.
 
+## Pictures in scripts made for other frameworks
+
+Scripts written for VORP, RSG-Core, RedEM:RP or RINGOinventory load item pictures from their own inventory's folder, for example `nui://vorp_inventory/html/img/items/bread.png`. MULTIcore's stand-ins `vorp_inventory`, `rsg-inventory`, `redemrp_inventory` and `RINGOinventory` serve the same pictures at those addresses. Each one copies `images/` into itself when it starts (`server/standin.lua` here), so you still add pictures in this folder only. After adding pictures, restart the server, or restart the stand-ins.
+
 GPL-3.0-or-later, part of MULTIcore by RINGO (RINGOscripting). The pictures are under their own terms: the included ones are by Tankie (The Icon Library Project, free to use), and the ones you add are yours.

@@ -9,11 +9,12 @@ description 'Slot and weight inventory for MULTIcore: satchel, stashes, clothing
 version '1.0.0'
 license 'GPL-3.0'
 
--- answers to every inventory name, so scripts written for any framework find it
-provide 'rsg-inventory'
-provide 'vorp_inventory'
-provide 'redemrp_inventory'
-provide 'RINGOinventory'      -- scripts written for RINGOinventory use MULTIinventory (do not run both)
+-- Answers to every inventory name (rsg-inventory, vorp_inventory, redemrp_inventory, RINGOinventory):
+-- the exports and events under those names are registered by this resource itself. The names are
+-- held by the small stand-in resources of the same name next to this one (ensure them right after
+-- MULTIinventory). They also serve the item pictures at each framework's own nui:// path, which
+-- `provide` cannot do. No `provide` here: with it, `ensure vorp_inventory` would start this
+-- resource instead of the stand-in. Do not run the real inventories next to MULTIinventory.
 
 shared_scripts {
     '@ox_lib/init.lua',

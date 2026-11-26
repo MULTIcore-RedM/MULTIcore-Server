@@ -103,22 +103,12 @@ local function getPlayer(src)
 end
 RsgInv.getPlayer = getPlayer
 
----This resource answers as rsg-inventory itself (fxmanifest `provide 'rsg-inventory'`).
-local function providesRsgInventory()
-    local n = GetNumResourceMetadata and GetNumResourceMetadata(RES, 'provide') or 0
-    for i = 0, n - 1 do
-        if GetResourceMetadata(RES, 'provide', i) == 'rsg-inventory' then return true end
-    end
-    return false
-end
-local PROVIDES_RSG = providesRsgInventory()
-
----The real rsg-inventory is running next to MULTIinventory (never true while this resource
----provides the name: the runtime would not start both).
+---The real rsg-inventory is running next to MULTIinventory. MULTIcore's own rsg-inventory
+---stand-in (it holds the name and serves pictures, marked `multicore_pictures`) does not count.
 local function realRsgInventory()
-    if PROVIDES_RSG then return false end
     local s = GetResourceState('rsg-inventory')
     if s ~= 'started' and s ~= 'starting' then return false end
+    if GetResourceMetadata('rsg-inventory', 'multicore_pictures', 0) then return false end
     local author = GetResourceMetadata and GetResourceMetadata('rsg-inventory', 'author', 0) or nil
     return author ~= 'RINGO'
 end

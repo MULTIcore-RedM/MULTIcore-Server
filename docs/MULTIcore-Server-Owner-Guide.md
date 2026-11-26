@@ -21,6 +21,8 @@ No pictures are included (the game's item art belongs to its owners), so items s
 
 The inventory, the stores, trading and drops all use the same pictures.
 
+**Scripts made for VORP, RSG, RedEM:RP or RINGOinventory** show item pictures from their own inventory's folder, for example `nui://vorp_inventory/html/img/items/bread.png`. MULTIcore's stand-ins `vorp_inventory`, `rsg-inventory`, `redemrp_inventory` and `RINGOinventory` (in `resources/[multicore]`, started in `server.cfg.example` right after MULTIinventory) show the same pictures there. Each copies `MULTIimages/images/` into itself when it starts, so you still only add pictures in `MULTIimages/images/`. After adding pictures, restart the server.
+
 **Already have a picture folder in another script?** Add its address to `Config.ImagePaths` in `MULTIinventory/config.lua`. The folders are tried in order:
 
 ```lua
@@ -30,7 +32,7 @@ Config.ImagePaths = {
 }
 ```
 
-Many servers already have a set of RDR2 item pictures from an older inventory script. Copy those `.png` files into `MULTIimages/images/`. Do not start rsg-inventory or vorp_inventory just to use their pictures: MULTIinventory replaces both.
+Many servers already have a set of RDR2 item pictures from an older inventory script. Copy those `.png` files into `MULTIimages/images/`. Do not start the real rsg-inventory or vorp_inventory just to use their pictures: MULTIinventory replaces both, and MULTIcore's stand-ins of the same names already show your pictures to scripts made for them.
 
 ---
 
@@ -271,7 +273,7 @@ How it is saved:
 
 Put them in `resources/` and `ensure` them **below** the MULTI scripts.
 
-Do not start these: MULTIcore and its scripts already answer as them (or do the same job).
+Do not start the real versions of these: MULTIcore and its scripts already answer as them (or do the same job). The `vorp_inventory`, `rsg-inventory`, `redemrp_inventory` and `RINGOinventory` folders in `resources/[multicore]` are MULTIcore's own stand-ins: keep them started.
 
 | Framework | Do not start |
 |---|---|
