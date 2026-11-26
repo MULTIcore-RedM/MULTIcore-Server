@@ -19,22 +19,36 @@ You need:
 - a free licence key from [portal.cfx.re](https://portal.cfx.re);
 - MariaDB or MySQL. The scripts create their own tables on first start, so there is no SQL to run.
 
-### With txAdmin (easiest)
+The server is downloaded by hand. txAdmin's "Remote URL Template" install is not used: it has only 3 minutes to download the whole server, which slow connections can't do.
 
+#### 1. Download
+
+Download **[MULTIcore-Server.zip](https://github.com/MULTIcore-RedM/MULTIcore-Server/releases/latest/download/MULTIcore-Server.zip)** (always the newest version, about 25 MB).
+
+Unzip it. The `MULTIcore-Server` folder inside is your **server-data folder**: put it wherever you keep your server, for example `C:\RedM\MULTIcore-Server`.
+
+#### 2. Fill in server.cfg
+
+In that folder, copy `server.cfg.example` to `server.cfg`. Open it and fill in the three lines marked `CHANGE`:
+- `sv_licenseKey`: your licence key from portal.cfx.re;
+- `mysql_connection_string`: your database (an empty database is fine);
+- the `add_principal` line at the bottom: remove the `#` and put in your own licence, so you are admin (txAdmin shows it on your player page).
+
+#### 3. Start it
+
+**With txAdmin:**
 1. Start FXServer and open txAdmin's setup page.
-2. At "Deployment Type" choose **Remote URL Template** and paste:
-   ```
-   https://raw.githubusercontent.com/MULTIcore-RedM/MULTIcore-Server/main/recipe/multicore.yaml
-   ```
-3. Give it your licence key and database details when it asks. txAdmin downloads everything, makes the database and writes `server.cfg` with your key, your database and you as admin.
-4. Start the server, join, make a character, and play.
+2. At "Deployment Type" choose **Existing Server Data** and pick the `MULTIcore-Server` folder.
+3. When it asks for the CFG file, pick the `server.cfg` you filled in.
+4. In txAdmin's settings turn **OneSync on**, and remove the `set onesync on` line from `server.cfg`.
 
-### By hand
+**Without txAdmin:** start the server from the folder with `FXServer +exec server.cfg`.
 
-1. Download this repository (Code → Download ZIP, or `git clone`) and use it as your server-data folder.
-2. Copy `server.cfg.example` to `server.cfg` and fill in the three lines marked `CHANGE`: your licence key, your database, and your own licence as admin.
-3. Start the server from this folder: `FXServer +exec server.cfg`. With txAdmin, point it at this folder and this `server.cfg`, and turn OneSync on in txAdmin's settings.
-4. Join, make a character, and play.
+#### 4. Play
+
+Join, make a character, and play.
+
+Git works too: `git clone https://github.com/MULTIcore-RedM/MULTIcore-Server` gives the same folder, and `git pull` updates it.
 
 **Then read [`docs/MULTIcore-Server-Owner-Guide.md`](docs/MULTIcore-Server-Owner-Guide.md):** item pictures, adding items, jobs, gangs, stores, staff and money, step by step.
 
