@@ -2,6 +2,11 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-25 (install: download the server by hand)
+
+### Changed
+- **Install:** the server is now downloaded by hand as **MULTIcore-Server.zip** from the Releases page (link in the README), then started with txAdmin's **Existing Server Data** or with `FXServer +exec server.cfg`. The txAdmin **Remote URL Template** recipe is gone: txAdmin gives it only 3 minutes to download the whole server, and on slower connections it stopped with "timed out after 180s".
+
 ## 2026-11-25 (new: MULTIrobberies - store tills, bank vaults, lockpick and safe dial)
 
 ### New
