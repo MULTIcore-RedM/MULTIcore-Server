@@ -15,9 +15,7 @@ if MULTIConfig and MULTIConfig.BlockHudReveal == false then return end
 
 local REVEAL_HUD = 0xCF8A4ECA
 
-CreateThread(function()
-    while true do
-        DisableControlAction(0, REVEAL_HUD, true)
-        Wait(0)
-    end
+-- runs in MULTIcore's one frame thread (client/prompts.lua)
+MULTIFrame.add(function()
+    DisableControlAction(0, REVEAL_HUD, true)
 end)

@@ -29,6 +29,19 @@ MULTIConfig.HideGameAwards = true
 -- "reveal HUD") is pressed. false = let the game reveal its HUD on that key.
 MULTIConfig.BlockHudReveal = true
 
+-- How busy the world is: how many people, animals, wagons and coaches the game puts around
+-- each player. 1.0 = the game's own amount, 0.5 = half, 0.0 = none (0.0 to 1.0).
+-- Fewer can also help slower PCs. Left at 1.0, nothing runs.
+-- Other scripts can change them while the server runs: exports.MULTIcore:SetDensity('Peds', 0.3)
+MULTIConfig.Density = {
+    Peds           = 1.0, -- people walking about in towns and on the roads
+    ScenarioPeds   = 1.0, -- people sitting, working, leaning and standing around
+    Animals        = 1.0, -- wildlife and town animals (lower values also mean less to hunt)
+    Vehicles       = 1.0, -- all wagon and coach traffic (the overall amount)
+    RandomVehicles = 1.0, -- wagons and coaches driving the roads
+    ParkedVehicles = 1.0, -- wagons standing parked
+}
+
 MULTIConfig.Vorp = {
     -- Which player identifier VORP scripts see as user / character "identifier".
     -- 'steam' is what most VORP servers use; players without Steam fall back to 'license'.

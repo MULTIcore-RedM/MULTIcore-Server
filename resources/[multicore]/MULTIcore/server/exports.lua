@@ -123,6 +123,39 @@ end
 RSGCore.Functions.UpdateJob = UpdateJob
 exports('UpdateJob', UpdateJob)
 
+-- Item changes: RSGCore.Shared.Items is updated at once, but telling the clients and firing
+-- RSGCore:Server:UpdateObject is held to the next tick, so a burst of AddItem calls at startup
+-- (hundreds of items from other resources) sends one client update and one UpdateObject instead of
+-- one per item.
+local pendingItems, flushQueued, objQueued = nil, false, false
+
+local function flushShared()
+    flushQueued = false
+    local items = pendingItems
+    pendingItems = nil
+    if items and next(items) then
+        TriggerClientEvent('RSGCore:Client:OnSharedUpdateMultiple', -1, 'Items', items)
+    end
+    if objQueued then
+        objQueued = false
+        TriggerEvent('RSGCore:Server:UpdateObject')
+    end
+end
+
+local function queueFlush()
+    objQueued = true
+    if not flushQueued then
+        flushQueued = true
+        SetTimeout(0, flushShared)
+    end
+end
+
+local function queueItem(itemName, item)
+    pendingItems = pendingItems or {}
+    pendingItems[itemName] = item
+    queueFlush()
+end
+
 -- Single add item
 local function AddItem(itemName, item)
     if type(itemName) ~= 'string' then
@@ -135,8 +168,7 @@ local function AddItem(itemName, item)
 
     RSGCore.Shared.Items[itemName] = item
 
-    TriggerClientEvent('RSGCore:Client:OnSharedUpdate', -1, 'Items', itemName, item)
-    TriggerEvent('RSGCore:Server:UpdateObject')
+    queueItem(itemName, item)
     return true, 'success'
 end
 
@@ -152,8 +184,7 @@ local function UpdateItem(itemName, item)
         return false, 'item_not_exists'
     end
     RSGCore.Shared.Items[itemName] = item
-    TriggerClientEvent('RSGCore:Client:OnSharedUpdate', -1, 'Items', itemName, item)
-    TriggerEvent('RSGCore:Server:UpdateObject')
+    queueItem(itemName, item)
     return true, 'success'
 end
 
@@ -185,8 +216,7 @@ local function AddItems(items)
     end
 
     if not shouldContinue then return false, message, errorItem end
-    TriggerClientEvent('RSGCore:Client:OnSharedUpdateMultiple', -1, 'Items', items)
-    TriggerEvent('RSGCore:Server:UpdateObject')
+    for key, value in pairs(items) do queueItem(key, value) end
     return true, message, nil
 end
 
@@ -205,8 +235,10 @@ local function RemoveItem(itemName)
 
     RSGCore.Shared.Items[itemName] = nil
 
+    -- an add / update of this item still waiting for the next tick must not reach the clients after the removal
+    if pendingItems then pendingItems[itemName] = nil end
     TriggerClientEvent('RSGCore:Client:OnSharedUpdate', -1, 'Items', itemName, nil)
-    TriggerEvent('RSGCore:Server:UpdateObject')
+    queueFlush()
     return true, 'success'
 end
 

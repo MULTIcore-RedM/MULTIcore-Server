@@ -2,6 +2,20 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-27 (MULTIcore: traffic and crowd density, smoother frames)
+
+### New
+- **How busy the world is** (`MULTIConfig.Density` in `MULTIcore/config_multi.lua`): how many people, animals, wagons and coaches the game puts around each player. Separate values for `Peds` (people walking about), `ScenarioPeds` (people sitting, working, standing around), `Animals`, `Vehicles` (all wagon and coach traffic), `RandomVehicles` (driving the roads) and `ParkedVehicles`. 1.0 is the game's own amount, 0.5 half, 0.0 none. Left at 1.0, nothing runs. Suggested by Bula.
+  - Other scripts can change them while the server runs: `exports.MULTIcore:SetDensity('Peds', 0.3)`, `ResetDensity()`, `GetDensity()` (client).
+
+### Changed
+- **Smoother frames:** the prompt check only looks at prompts near you (rebuilt every half second), and MULTIcore's per-frame jobs (hiding award cards, blocking the HUD reveal on Left Alt, PVP) share one frame loop. PVP settings are only sent to the game when they change.
+- **Items added by other scripts:** many items added at once (`AddItem`, `AddItems`) are sent to players in one update instead of one per item.
+- New server export `UsableItemNames()`: the names of every usable item.
+
+### Update
+Copy `MULTIcore` over yours, then add the `MULTIConfig.Density` block from the new `config_multi.lua` to yours if you keep your own. Restart the server.
+
 ## 2026-11-27 (txAdmin recipe is back: the server comes in two parts)
 
 ### Changed

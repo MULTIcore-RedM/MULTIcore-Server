@@ -17,11 +17,12 @@ if MULTIConfig and MULTIConfig.HideGameAwards == false then return end
 
 local TOAST_CHANNEL = 6
 
-CreateThread(function()
-    while true do
-        if Citizen.InvokeNative(0xC17F69E1418CD11F, TOAST_CHANNEL, Citizen.ResultAsInteger()) ~= 0 then
-            Citizen.InvokeNative(0xDD1232B332CBB9E7, TOAST_CHANNEL, true, true)
-        end
-        Wait(0)
+-- runs in MULTIcore's one frame thread (client/prompts.lua): a single native read per frame
+local GET_CURRENT, CLEAR_CHANNEL = 0xC17F69E1418CD11F, 0xDD1232B332CBB9E7
+local INT = Citizen.ResultAsInteger()
+local InvokeNative = Citizen.InvokeNative
+MULTIFrame.add(function()
+    if InvokeNative(GET_CURRENT, TOAST_CHANNEL, INT) ~= 0 then
+        InvokeNative(CLEAR_CHANNEL, TOAST_CHANNEL, true, true)
     end
 end)

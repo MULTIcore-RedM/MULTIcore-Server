@@ -450,7 +450,16 @@ end
 ---@param data function
 function RSGCore.Functions.CreateUseableItem(item, data)
     RSGCore.UsableItems[item] = data
+    -- server-local: lets the inventory keep its own "is it usable" list instead of asking the core each time
+    TriggerEvent('MULTIcore:usableItemCreated', item)
 end
+
+-- names of every usable item (plain strings, cheap to pass to another resource)
+exports('UsableItemNames', function()
+    local out = {}
+    for name in pairs(RSGCore.UsableItems) do out[#out + 1] = name end
+    return out
+end)
 
 ---Checks if the given item is usable
 ---@param item string

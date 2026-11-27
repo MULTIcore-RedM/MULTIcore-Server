@@ -100,6 +100,8 @@ These are for display only. Always check again on the server before changing mon
 | `MC.CountItem(name)`, `MC.HasItem(name, amount)` | from the local inventory |
 | `MC.OnCharacterLoaded(function(isNew) end)`, `MC.OnCharacterUnloaded(fn)`, `MC.OnJobChanged(function(job) end)` | events |
 | `exports.MULTIcore:Notify({ text, title, type })` | notification |
+| `exports.MULTIcore:SetDensity('Peds', 0.3)` or `SetDensity({ Vehicles = 0.0, Animals = 0.5 })` | changes how busy the world is for this player, 0.0 to 1.0. Keys: `Peds`, `ScenarioPeds`, `Animals`, `Vehicles`, `RandomVehicles`, `ParkedVehicles` (the server's starting values are `MULTIConfig.Density`) |
+| `exports.MULTIcore:ResetDensity()`, `exports.MULTIcore:GetDensity()` | back to `MULTIConfig.Density`; the values in use |
 
 ### World interaction (`@MULTIcore/lib/interact.lua`)
 ```lua
