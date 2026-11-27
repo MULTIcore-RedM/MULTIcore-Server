@@ -7,7 +7,11 @@ A ready-to-run RedM base server on **MULTIcore**: one core that runs **RSG v2, V
 ## What you get
 
 - **MULTIcore**: the core. It answers to `rsg-core`, `vorp_core` and `redem_roleplay`, so scripts written for any of the three frameworks find their core and share the same players, money, jobs and items.
-- **37 MULTI scripts** (`resources/[multicore]`): login and character select, character creator, inventory, stores, clothing as items with a tailor job, HUD, food and drink, bank, jobs, medic, coroner inquests, admin, camps, crafting, doors, emotes, gathering, horses, houses, hunting, law, store and bank robberies, telegrams, wagons, vendors who buy your goods, a radial menu, Discord logs and whitelist, its own **target system** (MULTItarget), its own **chat** (MULTIchat), **proximity voice** (MULTIvoice), **one clock and weather for everyone** (MULTIweather) and a picture folder for items (MULTIimages).
+- **37 MULTI scripts**, in two folders:
+  - **`resources/[multicore]`**: the base (core, login, character, inventory, HUD, target, chat, voice, weather, admin), in this repository;
+  - **`resources/[multicore-resources]`**: the other MULTI scripts and the item pictures, from **[MULTIcore-Resources](https://github.com/MULTIcore-RedM/MULTIcore-Resources)**.
+
+  The recipe and the zip install both. Together they give you: login and character select, character creator, inventory, stores, clothing as items with a tailor job, HUD, food and drink, bank, jobs, medic, coroner inquests, admin, camps, crafting, doors, emotes, gathering, horses, houses, hunting, law, store and bank robberies, telegrams, wagons, vendors who buy your goods, a radial menu, Discord logs and whitelist, its own **target system** (MULTItarget), its own **chat** (MULTIchat), **proximity voice** (MULTIvoice), **one clock and weather for everyone** (MULTIweather) and a picture folder for items (MULTIimages).
 - **ox_lib**, **oxmysql** and **redm-ipls** (`resources/[standalone]`), unchanged, with their own licences. redm-ipls loads the base-game map pieces RedM leaves out: buildings, interiors and their furniture.
 - 32 languages, chosen with one line in `MULTIcore/config_multi.lua`: English, German, French, Spanish, Portuguese (Brazil and Portugal), Italian, Polish, Russian, Dutch, Turkish, Romanian, Czech, Hungarian, Ukrainian, Bulgarian, Greek, Swedish, Danish, Norwegian, Finnish, Slovak, Croatian, Serbian, Slovenian, Chinese, Japanese, Korean, Arabic, Indonesian, Vietnamese and Thai.
 - 1899 prices.
@@ -19,36 +23,38 @@ You need:
 - a free licence key from [portal.cfx.re](https://portal.cfx.re);
 - MariaDB or MySQL. The scripts create their own tables on first start, so there is no SQL to run.
 
-The server is downloaded by hand. txAdmin's "Remote URL Template" install is not used: it has only 3 minutes to download the whole server, which slow connections can't do.
+There are two ways to install. Both give the same server.
 
-#### 1. Download
+### A. txAdmin recipe (easiest)
 
-Download **[MULTIcore-Server.zip](https://github.com/MULTIcore-RedM/MULTIcore-Server/releases/latest/download/MULTIcore-Server.zip)** (always the newest version, about 25 MB).
-
-Unzip it. The `MULTIcore-Server` folder inside is your **server-data folder**: put it wherever you keep your server, for example `C:\RedM\MULTIcore-Server`.
-
-#### 2. Fill in server.cfg
-
-In that folder, copy `server.cfg.example` to `server.cfg`. Open it and fill in the three lines marked `CHANGE`:
-- `sv_licenseKey`: your licence key from portal.cfx.re;
-- `mysql_connection_string`: your database (an empty database is fine);
-- the `add_principal` line at the bottom: remove the `#` and put in your own licence, so you are admin (txAdmin shows it on your player page).
-
-#### 3. Start it
-
-**With txAdmin:**
 1. Start FXServer and open txAdmin's setup page.
-2. At "Deployment Type" choose **Existing Server Data** and pick the `MULTIcore-Server` folder.
-3. When it asks for the CFG file, pick the `server.cfg` you filled in.
-4. In txAdmin's settings turn **OneSync on**, and remove the `set onesync on` line from `server.cfg`.
+2. At "Deployment Type" choose **Remote URL Template** and paste:
+   ```
+   https://raw.githubusercontent.com/MULTIcore-RedM/MULTIcore-Server/main/recipe/multicore.yaml
+   ```
+3. Follow the steps: txAdmin asks for your licence key and database and makes `server.cfg` itself, with you as admin.
+4. Join, make a character, and play.
 
-**Without txAdmin:** start the server from the folder with `FXServer +exec server.cfg`.
+The recipe downloads the server in two parts, about 7 MB and 18 MB, so it also works on slower connections. If a download still stops with "timed out", use way B.
 
-#### 4. Play
+### B. Download by hand
 
-Join, make a character, and play.
+1. Download **[MULTIcore-Server.zip](https://github.com/MULTIcore-RedM/MULTIcore-Server/releases/latest/download/MULTIcore-Server.zip)**. It is always the newest version and has both parts, about 25 MB. Unzip it. The `MULTIcore-Server` folder inside is your **server-data folder**; put it wherever you keep your server, for example `C:\RedM\MULTIcore-Server`.
+2. In that folder, copy `server.cfg.example` to `server.cfg`. Open it and fill in the three lines marked `CHANGE`:
+   - `sv_licenseKey`: your licence key from portal.cfx.re;
+   - `mysql_connection_string`: your database (an empty database is fine);
+   - the `add_principal` line at the bottom: remove the `#` and put in your own licence, so you are admin (txAdmin shows it on your player page).
+3. Start it.
+   - **With txAdmin:**
+     - at "Deployment Type" choose **Existing Server Data**, pick the `MULTIcore-Server` folder, then the `server.cfg` you filled in;
+     - in txAdmin's settings turn **OneSync on**, and remove the `set onesync on` line from `server.cfg`.
+   - **Without txAdmin:** start the server from the folder with `FXServer +exec server.cfg`.
+4. Join, make a character, and play.
 
-Git works too: `git clone https://github.com/MULTIcore-RedM/MULTIcore-Server` gives the same folder, and `git pull` updates it.
+**With git:**
+1. `git clone https://github.com/MULTIcore-RedM/MULTIcore-Server` gives the base.
+2. Clone https://github.com/MULTIcore-RedM/MULTIcore-Resources next to it.
+3. Copy its `resources/[multicore-resources]` folder into the server's `resources` folder.
 
 **Then read [`docs/MULTIcore-Server-Owner-Guide.md`](docs/MULTIcore-Server-Owner-Guide.md):** item pictures, adding items, jobs, gangs, stores, staff and money, step by step.
 
@@ -71,7 +77,7 @@ Every key can be changed in the script's `config.lua`. The voice range key is al
 
 ## Adding your own scripts
 
-Put them in `resources/` and `ensure` them **below** the MULTI scripts in `server.cfg`. RSG v2, VORP and RedEM:RP scripts work without edits. Do not also start the real `rsg-core`, `vorp_core`, `redem_roleplay`, `redemrp_inventory`, `ox_target`, `rsg-target`, `chat`, `rsg-inventory`, `vorp_inventory`, `rsg-wardrobe`, `RINGOinventory`, `RINGOtailor`, `pma-voice`, `weathersync` or a second IPL script: MULTIcore and its scripts already answer as those (or do the same job). The `vorp_inventory`, `rsg-inventory`, `redemrp_inventory` and `RINGOinventory` folders in `resources/[multicore]` are MULTIcore's own small stand-ins. Keep them: they carry those names for other scripts and show the item pictures there.
+Put them in `resources/` and `ensure` them **below** the MULTI scripts in `server.cfg`. Optional MULTI add-ons (such as MULTIbelt) are in MULTIcore-Resources under `resources/[multicore-addons]`. RSG v2, VORP and RedEM:RP scripts work without edits. Do not also start the real `rsg-core`, `vorp_core`, `redem_roleplay`, `redemrp_inventory`, `ox_target`, `rsg-target`, `chat`, `rsg-inventory`, `vorp_inventory`, `rsg-wardrobe`, `RINGOinventory`, `RINGOtailor`, `pma-voice`, `weathersync` or a second IPL script: MULTIcore and its scripts already answer as those (or do the same job). The `vorp_inventory`, `rsg-inventory`, `redemrp_inventory` and `RINGOinventory` folders in `resources/[multicore]` are MULTIcore's own small stand-ins. Keep them: they carry those names for other scripts and show the item pictures there.
 
 ## Making MULTI scripts
 
@@ -88,7 +94,11 @@ Everything a script writer needs is in [`docs/`](docs):
 
 ## Item pictures
 
-None are included. Put your own `.png` files in `resources/[multicore]/MULTIimages/images/`, named as each item's `image` field (`bread.png` ...). Until then, items show a plain icon. See the server owner guide.
+MULTIimages comes with 1,033 item pictures by Tankie. To add your own:
+- put the `.png` files in `resources/[multicore-resources]/MULTIimages/images/`;
+- name each one as the item's `image` field (`bread.png` ...).
+
+An item without a picture shows a plain icon. See the server owner guide.
 
 ## Game fonts (optional)
 

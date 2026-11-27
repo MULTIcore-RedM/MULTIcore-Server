@@ -6,13 +6,15 @@ How to set up the everyday things on a MULTIcore server: item pictures, items, j
 
 **After editing a file in `MULTIcore/shared/` (items, jobs, gangs), do a full server restart.** Every script reads those lists when it starts, so restarting one script on its own is not enough.
 
-All paths below are inside `resources/[multicore]/`.
+All paths below start at a script's own folder:
+- the base scripts (MULTIcore, MULTIinventory, MULTIcharacter, MULTIcreator, MULTIhud, MULTItarget, MULTIchat, MULTIvoice, MULTIweather, MULTIadmin, MULTIserver and the inventory stand-ins) are in `resources/[multicore]/`;
+- the other MULTI scripts and MULTIimages (from MULTIcore-Resources) are in `resources/[multicore-resources]/`.
 
 ---
 
 ## 1. Item pictures
 
-No pictures are included (the game's item art belongs to its owners), so items show a plain icon until you add your own.
+MULTIimages (in `resources/[multicore-resources]`) comes with 1,033 item pictures by Tankie (The Icon Library Project). An item without a picture shows a plain icon. To add your own:
 
 1. Put one picture per item in **`MULTIimages/images/`**.
 2. Name each file exactly as the item's `image` field: bread is `image = 'bread.png'`, so the file is `bread.png`. Weapons use their item name, e.g. `weapon_revolver_cattleman.png`.

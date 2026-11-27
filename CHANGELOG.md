@@ -2,6 +2,23 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-27 (txAdmin recipe is back: the server comes in two parts)
+
+### Changed
+- **Two repositories.** This repository now holds the base server: MULTIcore, MULTIinventory and its four stand-ins, uiprompt, MULTIloading, MULTIcharacter, MULTIcreator, MULTIappearance, MULTIvorpchar, MULTIhud, MULTItarget, MULTIchat, MULTIvoice, MULTIweather, MULTIadmin, MULTIserver, ox_lib, oxmysql and redm-ipls.
+  - The other 25 MULTI scripts and the item pictures (MULTIimages) moved, unchanged, to **[MULTIcore-Resources](https://github.com/MULTIcore-RedM/MULTIcore-Resources)**.
+  - On a server they go in `resources/[multicore-resources]`.
+- **txAdmin recipe is back** ("Remote URL Template", link in the README). It downloads the two parts one after the other, about 7 MB and 18 MB, instead of 25 MB at once, so slower connections finish within txAdmin's time limit. Each download may also take up to 15 minutes in total, so txAdmin can retry a dropped one.
+- **MULTIcore-Server.zip** (Releases) still has everything in one download.
+
+### Updating a server you already have
+- **If you installed from the zip or the recipe:** nothing to do. The scripts are only in a different folder in the repositories.
+- **If you use `git pull`:**
+  - the 26 moved folders disappear from `resources/[multicore]`;
+  - clone MULTIcore-Resources and copy its `resources/[multicore-resources]` folder into your `resources` folder.
+  - Your `server.cfg` does not change: the `ensure` lines use the script names, not the folders.
+- **Item pictures:** the folder is now `resources/[multicore-resources]/MULTIimages/images/`. If you added your own pictures, copy them there.
+
 ## 2026-11-26 (item pictures in every framework's scripts)
 
 ### New

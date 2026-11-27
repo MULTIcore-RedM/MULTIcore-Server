@@ -56,13 +56,15 @@ add_ace group.admin multiserver.whitelist.bypass allow
 # set multiserver_webhook "https://discord.com/api/webhooks/..."
 
 # ---------- resources (keep this order) ----------
+# The base scripts are in resources/[multicore], the other MULTI scripts and the item pictures in
+# resources/[multicore-resources] (from MULTIcore-Resources). Both folders are needed.
 ensure oxmysql
 ensure ox_lib
 ensure redm-ipls      # base-game map: loads the missing buildings, interiors and their furniture
 ensure MULTIcore
 ensure MULTItarget      # target system (hold Left Alt); answers ox_target, rsg-target and qb-target
 ensure MULTIchat        # chat (T); answers every standard chat call
-ensure MULTIimages      # item pictures: put your .png files in resources/[multicore]/MULTIimages/images
+ensure MULTIimages      # item pictures: put your .png files in resources/[multicore-resources]/MULTIimages/images
 ensure MULTIhelpers
 ensure uiprompt
 ensure MULTIloading
