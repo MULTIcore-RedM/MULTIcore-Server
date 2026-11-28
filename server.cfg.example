@@ -102,7 +102,6 @@ ensure MULTIlaw
 ensure MULTIserver
 ensure MULTIradial
 ensure MULTItelegram
-ensure MULTIcatalog    # mail-order catalog at the post office counters (after MULTIstores and MULTItelegram)
 ensure MULTIhouses     # houses: buy, pay off, land tax, guest keys, stash, wardrobe, door locks
 ensure MULTIhotel      # hotels: rent a room, check in, room credit, locker, guests
 ensure MULTIbathing    # bath houses: the game bathing scene, luxury service, cleanliness
