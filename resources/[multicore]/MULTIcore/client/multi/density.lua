@@ -18,10 +18,15 @@
 --   SET_RANDOM_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME   0x1F91D44490E1EA0C (float)
 --   SET_PARKED_VEHICLE_DENSITY_MULTIPLIER_THIS_FRAME   0xFEDFA97638D61D4A (float)
 --
--- Other scripts can change the values while the server runs (for this player only):
+-- An admin can change them for everyone in game (MULTIadmin, Settings page): the server
+-- value (GlobalState mcset:MULTIcore.Density.<Key>, server/multi/settings.lua) wins over
+-- config_multi.lua and is followed live.
+--
+-- Other scripts can change the values while the server runs (for this player only,
+-- until the next change from the server):
 --   exports.MULTIcore:SetDensity('Peds', 0.3)      -- one value
 --   exports.MULTIcore:SetDensity({ Vehicles = 0 }) -- several
---   exports.MULTIcore:ResetDensity()              -- back to config_multi.lua
+--   exports.MULTIcore:ResetDensity()              -- back to the server's value (config_multi.lua or set in game)
 --   exports.MULTIcore:GetDensity()                -- the values in use
 -- ============================================================
 
@@ -45,12 +50,30 @@ local function refresh()
     end
 end
 
+local function serverValue(k)
+    return GlobalState['mcset:MULTIcore.Density.' .. k]
+end
+
+-- the server's value (changed in game) first, else config_multi.lua
 local function fromConfig()
     local cfg = (MULTIConfig and MULTIConfig.Density) or {}
-    for _, k in ipairs(KEYS) do cur[k] = clamp(cfg[k] == nil and 1.0 or cfg[k]) end
+    for _, k in ipairs(KEYS) do
+        local v = serverValue(k)
+        if v == nil then v = cfg[k] end
+        cur[k] = clamp(v == nil and 1.0 or v)
+    end
     refresh()
 end
 fromConfig()
+
+-- an admin changed a value in game: every player follows it at once
+for _, k in ipairs(KEYS) do
+    AddStateBagChangeHandler('mcset:MULTIcore.Density.' .. k, 'global', function(_, _, value)
+        if value == nil then return end
+        cur[k] = clamp(value)
+        refresh()
+    end)
+end
 
 local InvokeNative = Citizen.InvokeNative
 MULTIFrame.add(function()

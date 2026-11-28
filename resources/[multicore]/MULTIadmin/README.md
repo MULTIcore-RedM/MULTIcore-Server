@@ -52,7 +52,21 @@ add_ace group.admin command.multiadmin_unban allow
 
 # optional Discord log (never put the URL in config.lua)
 set multiadmin_webhook "https://discord.com/api/webhooks/..."
+
+# Performance page, server side: MULTIadmin runs FXServer's profiler (each sub-command is checked)
+add_ace resource.MULTIadmin command.profiler allow
+add_ace resource.MULTIadmin command.record allow
+add_ace resource.MULTIadmin command.saveJSON allow
 ```
+
+## Settings page
+
+Every MULTI script that registered in-game settings with MULTIcore (`MCSettings.Register`, see MULTIcore `docs/API.md`) is listed, grouped by script and category: the value in use, the value from the script's config file, Save and "Back to file". A saved value is kept in the table `multicore_settings`, applied at once (to every player when the setting is marked "Players") and wins over the file on every start until it is put back. Admins only (`settings`, `settings_set`, `settings_reset` in `Config.ActionLevel`); MULTIcore checks every value against the setting's limits again, and every change is logged (console and the Discord webhook).
+
+## Performance page
+
+- **Server:** records the server for `Config.Perf.ServerFrames` ticks with FXServer's own profiler (needs the three `add_ace` lines above) and lists every resource with its time in milliseconds: average per tick, its slowest tick, total, share of the recorded time, and how often it ran (ticks) or handled an event. Time a resource spends calling another resource counts for the other one. Rows over `Config.Perf.ServerWarnMs` are marked, over `ServerHeavyMs` marked heavy.
+- **A player's PC:** scripts cannot read the game's time per resource on a player's PC (the game only shows it in the F8 console with `resmon 1`). The player's game measures its own frame times for `Config.Perf.ClientSeconds` seconds: frames per second, average frame, slowest 1 percent, slowest frame, slow frames, and the resources running there. This tells a slow PC or heavy graphics apart from a busy server; it does not name the resource.
 
 Which level each action needs is in `Config.ActionLevel`. With `Config.ProtectHigherRank` a mod can't act on an admin.
 

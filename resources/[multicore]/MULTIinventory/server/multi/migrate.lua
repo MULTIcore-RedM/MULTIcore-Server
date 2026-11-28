@@ -396,6 +396,10 @@ function M.beforeReady()
     Migrate.auto()
 end
 
+-- the same filling rules for the switch-over import (server/multi/import.lua, MULTIcore's mcimport)
+Migrate.fill, Migrate.hasItemsHere = fill, hasItemsHere
+Migrate.STASH_SLOTS, Migrate.STASH_GRAMS = STASH_SLOTS, STASH_GRAMS
+
 -- ---------------- test hook (setr multicore_selftest true only) ----------------
 if SELFTEST then
     ---_TestMigrate({ force, citizenids = {..}, identifiers = {..} }) -> summary | { status = reason }

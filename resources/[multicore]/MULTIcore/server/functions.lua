@@ -381,6 +381,8 @@ function PaycheckInterval()
         -- guard against jobs/grades removed from shared/jobs.lua (previously errored and killed the paycheck loop)
         local gradeInfo = jobInfo and jobInfo.grades and jobInfo.grades[tostring(job.grade and job.grade.level)]
         local payment = (gradeInfo and gradeInfo.payment) or (job and job.payment) or 0
+        -- MULTIcore: MULTIConfig.WageMultiplier (config_multi.lua, or changed in game) scales every paycheck
+        payment = math.floor((tonumber(payment) or 0) * (tonumber(MULTIConfig.WageMultiplier) or 1.0) * 100 + 0.5) / 100
         local src = Player.PlayerData.source
 
         if jobInfo and payment > 0 and (jobInfo.offDutyPay or job.onduty) then

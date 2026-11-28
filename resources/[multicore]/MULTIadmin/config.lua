@@ -61,6 +61,9 @@ Config.ActionLevel = {
     selfheal = 'mod', spawn = 'admin', weather = 'admin', time = 'admin',
     -- server tab
     announce = 'mod', bans = 'admin', unban = 'admin',
+    -- settings tab (in-game settings of every MULTI script) and performance tab
+    settings = 'admin', settings_set = 'admin', settings_reset = 'admin',
+    perf = 'admin',
 }
 
 Config.ProtectHigherRank = true   -- a mod can't kick/ban/kill/freeze/warn/bring/spectate an admin
@@ -186,4 +189,27 @@ Config.WeatherTypes = {               -- weather choices (RDR2 weather type name
 Config.Ui = {
     ConfirmMs = 3000,         -- how long a "Sure?" button waits for the second click
     RefreshDelayMs = 300,     -- wait before reloading the list after an action
+}
+
+-- ---------------------------------------------------------------
+-- Performance page
+-- Server: FXServer's profiler. MULTIadmin runs the console command "profiler", which
+-- needs these three lines in server.cfg (once; the profiler checks each sub-command):
+--   add_ace resource.MULTIadmin command.profiler allow
+--   add_ace resource.MULTIadmin command.record allow
+--   add_ace resource.MULTIadmin command.saveJSON allow
+-- A player's PC: that player's game measures its own frame times (scripts cannot read
+-- per-resource times on a PC; the player can see them with "resmon 1" in the F8 console).
+-- ---------------------------------------------------------------
+Config.Perf = {
+    ServerFrames = 100,           -- server ticks recorded per measurement (10-1000)
+    ProfileFile = 'profile.json', -- temporary file in MULTIadmin's folder (removed after reading)
+    TimeoutSeconds = 30,          -- give up recording / reading the file after this long
+    ServerWarnMs = 0.5,           -- a resource above this many ms per tick (average) is marked
+    ServerHeavyMs = 2.0,          -- ... and above this it is marked heavy
+    ClientSeconds = 5,            -- seconds a player's PC is measured
+    ClientExtraWaitSeconds = 10,  -- extra wait for the answer
+    ClientSlowFrameMs = 33.4,     -- a frame slower than this counts as slow (under 30 frames per second)
+    ClientWarnMs = 25.0,          -- average frame time above this is marked (under 40 fps)
+    ClientHeavyMs = 40.0,         -- ... and above this it is marked heavy (under 25 fps)
 }

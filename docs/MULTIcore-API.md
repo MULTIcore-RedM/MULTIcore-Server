@@ -101,7 +101,8 @@ These are for display only. Always check again on the server before changing mon
 | `MC.OnCharacterLoaded(function(isNew) end)`, `MC.OnCharacterUnloaded(fn)`, `MC.OnJobChanged(function(job) end)` | events |
 | `exports.MULTIcore:Notify({ text, title, type })` | notification |
 | `exports.MULTIcore:SetDensity('Peds', 0.3)` or `SetDensity({ Vehicles = 0.0, Animals = 0.5 })` | changes how busy the world is for this player, 0.0 to 1.0. Keys: `Peds`, `ScenarioPeds`, `Animals`, `Vehicles`, `RandomVehicles`, `ParkedVehicles` (the server's starting values are `MULTIConfig.Density`) |
-| `exports.MULTIcore:ResetDensity()`, `exports.MULTIcore:GetDensity()` | back to `MULTIConfig.Density`; the values in use |
+| `exports.MULTIcore:ResetDensity()`, `exports.MULTIcore:GetDensity()` | back to the server's value (`MULTIConfig.Density`, or what an admin set in game); the values in use |
+| `exports.MULTIcore:GetSetting('MULTIcore.Density.Peds')` | the value in use of an in-game setting registered with `client = true` (see below) |
 
 ### World interaction (`@MULTIcore/lib/interact.lua`)
 ```lua
@@ -117,8 +118,48 @@ end, function() if zone then MCI.RemoveZone(zone) end MCI.RemovePrompt('my_count
 ## Text and settings
 - **No text in code.** Every line goes in `locales/en.lua` (the master) as `['key'] = 'Sold %s nuggets'`, then `_L('key', 3)`. Ship `de, fr, es, pt-br, it, pl, ru, nl, tr` with the same keys; a missing line falls back to English.
 - **Language:** `Config.Locale = 'de'` for one script, or `MULTIConfig.Language = 'de'` in `MULTIcore/config_multi.lua` for all (32 languages, codes listed there). `_LPlainFont()` says whether NUI should use the plain font preset.
-- **Settings:** everything a server owner might change goes in a commented `config.lua`, one line each.
+- **Settings:** everything a server owner might change goes in a commented `config.lua`, one line each. Values an owner may want to change while the server runs (prices, wages, timers) can also be registered as in-game settings (below).
 - **Look:** for your own NUI page, link `nui://MULTIcore/html/theme/multi.css` first and an empty `custom.css` last. For small menus use ox_lib (`lib.registerContext`, `lib.inputDialog`).
+
+## In-game settings (`@MULTIcore/lib/settings.lua`)
+An admin changes these in MULTIadmin (Settings page) while the server runs: no file edit, no restart. The value in your `config.lua` stays the default ("file value"); a value changed in game is saved in the table `multicore_settings` (made by MULTIcore), wins on every start, and can be put back to the file value.
+
+```lua
+-- fxmanifest.lua
+shared_scripts { '@MULTIcore/shared/i18n.lua', 'config.lua', 'locales/*.lua', '@MULTIcore/lib/settings.lua', 'settings.lua' }
+
+-- settings.lua (runs on the server and on the client)
+MCSettings.Register({
+    { key = 'MyScript.PriceMultiplier', type = 'number', default = Config.PriceMultiplier, min = 0.1, max = 10, step = 0.05, unit = 'x',
+      label = 'set_price_multiplier', category = 'setcat_prices',
+      apply = function(v) Config.PriceMultiplier = v end },
+    { key = 'MyScript.OpenAtNight', type = 'bool', default = Config.OpenAtNight, client = true,
+      label = 'set_open_at_night', category = 'setcat_hours',
+      apply = function(v) Config.OpenAtNight = v end },
+})
+```
+| Field | Meaning |
+|---|---|
+| `key` | unique on the server: start it with your resource name |
+| `type` | `'number'` (`min`, `max`, `step`, `integer = true`), `'bool'`, `'string'` (`maxLength`), `'choice'` (`choices = { { value = 'a', label = 'locale_key' } }`) |
+| `default` | the config file value (it must fit its own limits, or the setting is skipped) |
+| `label`, `category`, `help`, `unit` | locale keys of your script (the helper translates them with `_L`) |
+| `client = true` | the value also reaches every player (also those who join later); `apply` then runs on the client too |
+| `apply(value)` | runs at once with the value in use, then on every change and reset. Read `Config.X` where you use it (not once at start), so a change works live |
+
+Server exports (any script may use them; the helper calls them for you):
+
+| Call | What it does |
+|---|---|
+| `exports.MULTIcore:RegisterSettings(defs)` | registers (labels as plain text); returns `{ [key] = value in use }` |
+| `exports.MULTIcore:GetSetting(key)` | value in use |
+| `exports.MULTIcore:SetSetting(key, value, by)` | `true` or `false, error` (`unknown`, `not_allowed`, `not_number`, `too_low`, `too_high`, `not_bool`, `not_text`, `too_short`, `not_choice`, `db`). `by` = a player source (must be a MULTIcore admin or have ace `multicore.settings`) or a text naming who changed it when your script checked the permission itself |
+| `exports.MULTIcore:ResetSetting(key, by)` | back to the file value (the saved row is deleted) |
+| `exports.MULTIcore:GetSettings()` | every registered setting with `value`, `default`, `changed`, `changedBy`, `changedAt`, limits and labels (what MULTIadmin shows) |
+| `exports.MULTIcore:CanChangeSettings(src)` | the permission check above |
+| `AddEventHandler('MULTIcore:settings:changed', function(key, value, by) end)` | server event on every change and reset (the helper uses it) |
+
+Clients read `GlobalState['mcset:<key>']` (the helper follows it with a state bag handler). Settings of a script that stops leave the list; their saved values stay. MULTIcore registers its own: `MULTIcore.Density.*` (all players follow them live), `MULTIcore.PayCheckMinutes`, `MULTIcore.WageMultiplier`, `MULTIcore.PayCheckSociety`.
 
 ## Rules that keep servers safe
 1. **The server decides.** Never let the client say how much money or how many items. Check distance (`GetEntityCoords(GetPlayerPed(src))`), job, amount and a cooldown on the server.

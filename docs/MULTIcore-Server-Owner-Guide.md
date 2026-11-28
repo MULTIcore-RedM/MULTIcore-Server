@@ -297,3 +297,74 @@ If a script needs items:
 **RedEM:RP scripts that read or write the `characters` table with their own SQL will not work.** That table belongs to VORP's layout on MULTIcore. Scripts that use the RedEM:RP functions (`RedEM.GetPlayer`, the inventory API, the events) work.
 
 Pictures go in `MULTIimages/images/`.
+
+---
+
+## 8. Moving from a VORP or RSG-Core server
+
+Your players can keep their characters. One command in the server console brings them over.
+
+### Before you start
+
+1. **Back up your database.** Make a full copy (for example with HeidiSQL: Tools, Export database as SQL). Keep it safe.
+2. Install MULTIcore and the MULTI scripts. Start the server once, so every script makes its tables.
+3. Make sure nobody is on the server. The command will not run while players are connected.
+
+The old tables are only read. Nothing in them is changed or deleted.
+
+### Where the old data is
+
+- **Same database (the usual case).** You pointed MULTIcore at your old database. Nothing more to do.
+- **Another database on the same MySQL server.** Add `from=` with its name to the command, for example `from=old_vorp`. MULTIcore's database user must be allowed to read it.
+
+### The command
+
+Type it in the server console (txAdmin's Live Console works too), not in game.
+
+| Step | Command |
+|---|---|
+| 1. Dry run: count and report, write nothing | `mcimport vorp dry` or `mcimport rsg dry` |
+| 2. Import | `mcimport vorp` or `mcimport rsg` |
+| Old tables in another database | add `from=<name>`, e.g. `mcimport vorp from=old_vorp` |
+
+Read the dry run report first. Each line says what was found, what will move, what is already here and what will not move. Every thing that cannot move gets its own line.
+
+You can run the import again at any time. It never adds anything twice: `multicore_import_map` remembers every row it brought over. If it stopped half way, just run it again.
+
+Everything that could not be moved is also saved in the table `multicore_import_log`.
+
+### What moves
+
+| | From VORP | From RSG-Core |
+|---|---|---|
+| Characters | `characters` (name, gender, age, nickname, description, xp, group, last position, dead or alive) | `players` (already MULTIcore's own table in the same database) |
+| Character number | kept (`charidentifier` stays the same number) | kept (citizen id stays the same) |
+| Money | cash, gold and rol with cents; all `bank_users` accounts of a character are added into one bank balance; bank gold goes to gold | cash, bank, gold and the other money types as they are |
+| Job and grade | yes; a job this server does not know yet is added and kept after restarts | yes, the same |
+| Look | kept in VORP's format (`skinPlayer`, `compPlayer`, `compTints`) | `playerskins` stays as it is |
+| Items | `character_inventories` with `items_crafted` metadata | the `players.inventory` list |
+| Weapons | `loadout` (serial, custom name and description, components, loaded ammo); dropped weapons are left out | weapons in the inventory list (serial, condition) |
+| Gunbelt ammo | `characters.ammo` | (none in RSG) |
+| Script storages | VORP custom inventories keep their id | `inventories` (stashes, trunks and others) |
+| Horses | `stables` (name, model, gender, xp, which one is chosen) and their saddlebag items | `player_horses` (MULTIhorses uses this table as it is) |
+| Wagons | carts in `stables` and the `wagons` table, with their storage items | `player_wagons` (name, colour) |
+| Houses | not moved, see below | `player_houses` and `player_housekeys` |
+| Accounts | `users` (group, warnings, character slots) | (none in RSG) |
+
+Item names: a VORP or RSG name that this server spells differently (for example `BREAD` and `bread`) is moved under this server's name, and the report says so. An item this server does not know is kept under its old name and listed. Add it to your item list and players can use it again.
+
+### What does not move, and why
+
+- **VORP houses** (`housing`, `rooms`). MULTIhouses has its own houses in other places. Give those players a house by hand.
+- **VORP owned tack** (`horse_complements`) and the tack a horse wore. MULTIhorses keeps tack on each horse; players fit it again at the stable.
+- **VORP bank boxes** (items in `bank_users.items`). MULTIbank boxes are rented again in game. The items stay in the old table; give them back by hand if you want.
+- **RSG wagon cargo** (`player_wagons.cargo`). MULTIwagons has no cargo list.
+- **Town bank accounts of the newer rsg-banking** (`rsg_bank_accounts`). The report shows how many and the total. Check whether your old bank script also kept that money in `players.money.bank` before you move any of it by hand.
+
+### After the import
+
+- **VORP players with Steam.** VORP saved accounts by Steam id. A character whose owner was never seen with a licence belongs to that Steam id at first. The first time the player joins with Steam open, the character moves to them by itself. The report says how many characters wait for this.
+- **A number or citizen id was already taken** (only when MULTIcore already had characters). That character gets a new one, and the report says which. Other scripts' rows that use the old number will not find it.
+- **Keep running VORP or RSG scripts?** Their own tables (keyed by character number or citizen id) keep working, because the numbers stay the same.
+- **Same database, VORP:** once you have checked everything, you may empty the old `loadout`, `character_inventories` and `items_crafted` tables. Their contents now live in MULTIinventory, and old rows there can confuse VORP gun scripts. Keep your backup. Never do this before the import.
+- Run the import before anyone plays. A character made on MULTIcore before the import may take a number an old character needs.

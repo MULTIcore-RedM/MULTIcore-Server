@@ -93,6 +93,8 @@
         $$('.mc-tab').forEach(x => x.classList.toggle('active', x === t));
         $$('.ma-tab').forEach(s => s.classList.toggle('mc-hidden', s.id !== 'tab-' + t.dataset.tab));
         if (t.dataset.tab === 'self' && S.allowed.coords) selfTool('coords');
+        if (t.dataset.tab === 'settings') loadSettings();
+        if (t.dataset.tab === 'perf') fillPerfTargets();
     }));
 
     // ---------------------------------------------------------- player list
@@ -120,6 +122,7 @@
             renderDetail();
         }));
         fillNotifyTargets();
+        if (S.allowed.perf) fillPerfTargets();
     }
 
     $('#search').addEventListener('input', e => { S.filter = e.target.value; renderList(); });
@@ -332,6 +335,176 @@
     }
     $('#load-bans').addEventListener('click', () => post('action', { action: 'bans' }).then(res => { if (res && res.ok) renderBans(res.data); }));
 
+    // ---------------------------------------------------------- settings tab
+    // Every setting MULTI scripts registered with MULTIcore; the server checks rank and value.
+    S.settings = [];
+    function loadSettings() {
+        return post('action', { action: 'settings' }).then(res => {
+            if (res && res.ok && Array.isArray(res.data)) S.settings = res.data;
+            renderSettings();
+        });
+    }
+
+    function shownValue(r, v) {
+        if (r.type === 'bool') return T(v ? 'set_on' : 'set_off');
+        if (r.type === 'choice') {
+            const c = (r.choices || []).find(x => String(x.value) === String(v));
+            return c ? c.label : String(v);
+        }
+        if (v == null || v === '') return '-';
+        return String(v) + (r.unit ? ' ' + r.unit : '');
+    }
+    function when(at) {
+        if (!at) return '';
+        const d = new Date(Number(at) * 1000);
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+    const ctlId = key => 'set-' + String(key).replace(/[^\w-]/g, '_');
+
+    function control(r) {
+        const id = ctlId(r.key);
+        if (r.type === 'bool') {
+            return `<select class="mc-select" id="${id}"><option value="true" ${r.value ? 'selected' : ''}>${esc(T('set_on'))}</option><option value="false" ${!r.value ? 'selected' : ''}>${esc(T('set_off'))}</option></select>`;
+        }
+        if (r.type === 'choice') {
+            return `<select class="mc-select" id="${id}">${(r.choices || []).map(c =>
+                `<option value="${esc(c.value)}" ${String(c.value) === String(r.value) ? 'selected' : ''}>${esc(c.label)}</option>`).join('')}</select>`;
+        }
+        if (r.type === 'number') {
+            const attr = (r.min != null ? ` min="${Number(r.min)}"` : '') + (r.max != null ? ` max="${Number(r.max)}"` : '') +
+                ` step="${r.step != null ? Number(r.step) : (r.integer ? 1 : 'any')}"`;
+            return `<input class="mc-input ma-num" type="number" id="${id}" value="${esc(r.value)}"${attr}>${r.unit ? `<span class="ma-unit">${esc(r.unit)}</span>` : ''}`;
+        }
+        return `<input class="mc-input" id="${id}" value="${esc(r.value)}" maxlength="${Number(r.maxLength || 200)}">`;
+    }
+
+    function readControl(r) {
+        const el = $('#' + ctlId(r.key));
+        if (!el) return null;
+        if (r.type === 'bool') return el.value === 'true';
+        if (r.type === 'number') return el.value === '' ? '' : Number(el.value);
+        if (r.type === 'choice') {
+            const c = (r.choices || []).find(x => String(x.value) === el.value);
+            return c ? c.value : el.value;
+        }
+        return el.value;
+    }
+
+    function confirmFirst(b) {
+        if (b.classList.contains('confirm')) return true;
+        b.classList.add('confirm');
+        b.dataset.label = b.textContent;
+        b.textContent = T('btn_sure');
+        setTimeout(() => { if (b.isConnected) { b.classList.remove('confirm'); b.textContent = b.dataset.label; } }, S.ui.ConfirmMs);
+        return false;
+    }
+
+    function renderSettings() {
+        const f = $('#set-search').value.trim().toLowerCase();
+        const onlyChanged = $('#set-changed').checked;
+        const rows = S.settings.filter(r => (!onlyChanged || r.changed) &&
+            (!f || [r.label, r.key, r.resource, r.category].some(v => v && String(v).toLowerCase().includes(f))));
+        let html = '', res = null, cat = null;
+        rows.forEach(r => {
+            if (r.resource !== res) { res = r.resource; cat = null; html += `<h2 class="mc-heading ma-set-res">${esc(res)}</h2>`; }
+            if (r.category !== cat) { cat = r.category; if (cat) html += `<h3 class="ma-set-cat">${esc(cat)}</h3>`; }
+            const range = r.type === 'number' && (r.min != null || r.max != null)
+                ? T('set_range', shownValue(r, r.min != null ? r.min : ''), shownValue(r, r.max != null ? r.max : '')) : '';
+            html += `
+                <div class="ma-set ${r.changed ? 'changed' : ''}">
+                    <div class="ma-set-name">
+                        <div>${esc(r.label)}${r.client ? ` <span class="ma-tag">${esc(T('set_tag_players'))}</span>` : ''}</div>
+                        <div class="mc-sub">${esc(r.key)}${range ? ' &middot; ' + esc(range) : ''}</div>
+                        ${r.help ? `<div class="mc-sub">${esc(r.help)}</div>` : ''}
+                    </div>
+                    <div class="ma-set-edit ma-inline">${control(r)}</div>
+                    <div class="ma-set-file"><label>${esc(T('set_file_value'))}</label><span>${esc(shownValue(r, r.default))}</span></div>
+                    <div class="ma-set-btns">
+                        <button class="mc-btn small primary" data-setsave="${esc(r.key)}">${esc(T('btn_save'))}</button>
+                        <button class="mc-btn small" data-setreset="${esc(r.key)}" ${r.changed ? '' : 'disabled'}>${esc(T('btn_reset_file'))}</button>
+                    </div>
+                    ${r.changed && r.changedBy ? `<div class="mc-sub ma-set-by">${esc(T('set_changed_by', r.changedBy, when(r.changedAt)))}</div>` : ''}
+                </div>`;
+        });
+        $('#set-list').innerHTML = html || `<p class="mc-note ma-empty">${esc(T(S.settings.length ? 'set_none_match' : 'set_none'))}</p>`;
+        const after = res => { if (res && res.ok && Array.isArray(res.data)) { S.settings = res.data; renderSettings(); } };
+        $$('[data-setsave]').forEach(b => b.addEventListener('click', () => {
+            const r = S.settings.find(x => x.key === b.dataset.setsave);
+            if (r) post('action', { action: 'settings_set', data: { key: r.key, value: readControl(r) } }).then(after);
+        }));
+        $$('[data-setreset]').forEach(b => b.addEventListener('click', () => {
+            if (confirmFirst(b)) post('action', { action: 'settings_reset', data: { key: b.dataset.setreset } }).then(after);
+        }));
+    }
+    $('#set-search').addEventListener('input', renderSettings);
+    $('#set-changed').addEventListener('change', renderSettings);
+    $('#set-reload').addEventListener('click', loadSettings);
+
+    // ---------------------------------------------------------- performance tab
+    function fillPerfTargets() {
+        const sel = $('#perf-target');
+        const keep = sel.value;
+        sel.innerHTML = `<option value="server">${esc(T('perf_server'))}</option>` +
+            S.players.map(p => `<option value="${Number(p.id)}">${esc(T('perf_player', p.id, p.charName || p.name))}</option>`).join('');
+        if (keep && $$('option', sel).some(o => o.value === keep)) sel.value = keep;
+        perfHelp();
+    }
+    function perfHelp() {
+        $('#perf-help').textContent = T($('#perf-target').value === 'server' ? 'perf_help_server' : 'perf_help_client');
+    }
+    $('#perf-target').addEventListener('change', perfHelp);
+
+    const level = (v, warn, heavy) => (v >= heavy ? 'heavy' : (v >= warn ? 'warn' : ''));
+    const ms = v => Number(v || 0).toFixed(2);
+
+    function renderServerPerf(d) {
+        const rows = d.rows || [];
+        if (!rows.length) { $('#perf-out').innerHTML = `<p class="mc-note ma-empty">${esc(T('perf_empty'))}</p>`; return; }
+        $('#perf-out').innerHTML = `
+            <p class="mc-note">${esc(T('perf_server_summary', d.frames, (Number(d.wallMs || 0) / 1000).toFixed(1), rows.length))}</p>
+            <div class="ma-legend"><span class="ma-lv warn">${esc(T('perf_warn', ms(d.warnMs)))}</span><span class="ma-lv heavy">${esc(T('perf_heavy', ms(d.heavyMs)))}</span></div>
+            <table class="ma-table ma-perf-table">
+                <thead><tr><th>#</th><th>${esc(T('col_resource'))}</th><th>${esc(T('col_avg_tick'))}</th><th>${esc(T('col_max_tick'))}</th>
+                    <th>${esc(T('col_total'))}</th><th>${esc(T('col_share'))}</th><th>${esc(T('col_ticks'))}</th><th>${esc(T('col_events'))}</th></tr></thead>
+                <tbody>${rows.map((r, i) => `
+                    <tr class="ma-lv-row ${level(r.avgMs, d.warnMs, d.heavyMs)}">
+                        <td>${i + 1}</td><td>${esc(r.name)}</td><td class="num">${ms(r.avgMs)}</td><td class="num">${ms(r.maxMs)}</td>
+                        <td class="num">${ms(r.totalMs)}</td><td class="num">${Number(r.share || 0).toFixed(2)}%</td>
+                        <td class="num">${Number(r.ticks || 0)}</td><td class="num">${Number(r.events || 0)}</td></tr>`).join('')}
+                </tbody>
+            </table>`;
+    }
+
+    function renderClientPerf(d) {
+        const tile = (key, value, cls) => `<div class="ma-tile ${cls || ''}"><label>${esc(T(key))}</label><span>${esc(value)}</span></div>`;
+        const lv = level(d.avgMs, d.warnMs, d.heavyMs);
+        $('#perf-out').innerHTML = `
+            <p class="mc-note">${esc(T('perf_client_summary', d.playerName || d.player, d.frames, Number(d.seconds || 0).toFixed(1)))}</p>
+            <div class="ma-tiles">
+                ${tile('perf_fps', Number(d.fps || 0).toFixed(1), lv)}
+                ${tile('perf_avg_frame', ms(d.avgMs) + ' ms', lv)}
+                ${tile('perf_worst_frames', ms(d.worstMs) + ' ms', level(d.worstMs, d.heavyMs, d.heavyMs * 2))}
+                ${tile('perf_max_frame', ms(d.maxMs) + ' ms')}
+                ${tile('perf_slow_frames', `${Number(d.slowFrames || 0)} / ${Number(d.frames || 0)}`)}
+            </div>
+            <p class="mc-note">${esc(T('perf_client_note'))}</p>
+            <h3 class="ma-set-cat">${esc(T('perf_client_resources', (d.resources || []).length))}</h3>
+            <div class="ma-chips">${(d.resources || []).map(n => `<span class="ma-chip">${esc(n)}</span>`).join('')}</div>`;
+    }
+
+    $('#perf-run').addEventListener('click', () => {
+        const target = $('#perf-target').value;
+        const runBtn = $('#perf-run');
+        runBtn.disabled = true;
+        $('#perf-status').textContent = T(target === 'server' ? 'perf_measuring_server' : 'perf_measuring_client');
+        post('action', { action: 'perf', data: { target: target === 'server' ? 'server' : Number(target) } }).then(res => {
+            runBtn.disabled = false;
+            $('#perf-status').textContent = '';
+            if (!res || !res.ok || !res.data) return;
+            if (res.data.kind === 'server') renderServerPerf(res.data); else renderClientPerf(res.data);
+        });
+    });
+
     // ---------------------------------------------------------- messages from Lua
     window.addEventListener('message', e => {
         const m = e.data || {};
@@ -348,5 +521,5 @@
     $('#close').addEventListener('click', () => post('close'));
     document.addEventListener('keydown', e => { if (e.key === 'Escape') post('close'); });
 
-    window.__ma = { open, renderBans, S }; // used by the preview mock
+    window.__ma = { open, renderBans, renderSettings, renderServerPerf, renderClientPerf, S }; // used by the preview mock
 })();

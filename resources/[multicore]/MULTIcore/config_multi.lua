@@ -105,6 +105,9 @@ MULTIConfig.ServerPaid = {
     Types = { leo = true, medic = true, doj = true },
     Jobs = {},          -- extra job names, e.g. { telegraph = true }
 }
+-- Every paycheck is multiplied by this (1.0 = the pay in shared/jobs.lua, 0.5 = half, 2.0 = double).
+-- Can also be changed in game (MULTIadmin, Settings page).
+MULTIConfig.WageMultiplier = 1.0
 
 -- How often the owning client reports its real coordinates to the server, so "last location"
 -- keeps advancing even when the server cannot read the remote ped at save time.

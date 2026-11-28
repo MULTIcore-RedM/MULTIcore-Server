@@ -7,6 +7,7 @@
 
 local Bans = Admin.Bans
 local H = {}            -- action handlers: H[name](src, data) -> ok, message, data
+Admin.Handlers = H      -- server/settings.lua and server/perf.lua add theirs
 local spectating = {}   -- admin src -> { target, bucket }
 local LIM = Config.TextLimits
 

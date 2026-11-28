@@ -22,6 +22,8 @@
             <button class="mc-tab active" data-tab="players" data-l="tab_players"></button>
             <button class="mc-tab" data-tab="self" data-l="tab_self"></button>
             <button class="mc-tab" data-tab="server" data-l="tab_server"></button>
+            <button class="mc-tab" data-tab="settings" data-l="tab_settings" data-perm="settings"></button>
+            <button class="mc-tab" data-tab="perf" data-l="tab_perf" data-perm="perf"></button>
         </nav>
 
         <!-- ================= PLAYERS ================= -->
@@ -142,6 +144,28 @@
                     </table>
                 </div>
             </div>
+        </section>
+
+        <!-- ================= SETTINGS ================= -->
+        <section class="ma-tab mc-hidden" id="tab-settings">
+            <div class="ma-bar">
+                <input class="mc-input" id="set-search" data-lp="ph_set_search">
+                <label class="ma-check"><input type="checkbox" id="set-changed"> <span data-l="lbl_set_changed_only"></span></label>
+                <button class="mc-btn small" id="set-reload" data-lt="ui_refresh">&#8635;</button>
+            </div>
+            <p class="mc-note ma-help" data-l="set_help"></p>
+            <div class="mc-scroll ma-setlist" id="set-list"></div>
+        </section>
+
+        <!-- ================= PERFORMANCE ================= -->
+        <section class="ma-tab mc-hidden" id="tab-perf">
+            <div class="ma-bar">
+                <select class="mc-select" id="perf-target"></select>
+                <button class="mc-btn small primary" id="perf-run" data-l="btn_measure"></button>
+                <span class="mc-note" id="perf-status"></span>
+            </div>
+            <p class="mc-note ma-help" id="perf-help"></p>
+            <div class="mc-scroll ma-perf" id="perf-out"></div>
         </section>
     </div>
 </div>

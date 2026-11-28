@@ -2,6 +2,31 @@
 
 *MULTIcore was founded and created by RINGO (RINGOscripting).*
 
+## 2026-11-28 (in-game settings, performance page, switch-over import, mail-order catalog)
+
+### New
+- **Change settings in game** (MULTIadmin, Settings page, admins only). No file edits and no restart. A value changed in game is saved and stays after restarts; "Back to file" puts the config file value back. Every change is logged with who made it.
+  - World density (all six values; every player follows a change at once), minutes between paychecks, a new wage multiplier (`MULTIConfig.WageMultiplier`), business-paid wages.
+  - Store price and pay-out multipliers, selling on/off, most per purchase, restock minutes, opening hours (MULTIstores); boss pay limits and idle off-duty minutes (MULTIjobs); bank fees (MULTIbank); respawn timer (MULTImedic).
+  - Script makers can add their own settings: `@MULTIcore/lib/settings.lua` (see `docs/MULTIcore-API.md`, "In-game settings").
+- **Performance page** (MULTIadmin). Server: milliseconds per script per tick from the server's own profiler, slowest first, heavy ones marked. A player's PC: frames per second, average and slowest frames, measured by that player's game.
+- **Moving from a VORP or RSG-Core server:** the server console command `mcimport vorp` or `mcimport rsg` (add `dry` to only count first) brings players over: characters, money with cents, job and grade, looks, items, weapons, gunbelt ammo, storages, horses, wagons and RSG houses. The old tables are only read, running it twice adds nothing twice, and anything that could not be moved is listed. See the owner guide, section 8.
+- **MULTIcatalog** (in MULTIcore-Resources): a mail-order catalog at every post office counter.
+
+### Fixed
+- MULTIadmin: heal on a dead or downed player revives them first.
+
+### Update
+1. Copy `MULTIcore`, `MULTIadmin` and `MULTIinventory` over yours (and MULTIstores, MULTIjobs, MULTIbank, MULTImedic and the new MULTIcatalog from MULTIcore-Resources).
+2. Add to `server.cfg` (the performance page needs them):
+   ```
+   add_ace resource.MULTIadmin command.profiler allow
+   add_ace resource.MULTIadmin command.record allow
+   add_ace resource.MULTIadmin command.saveJSON allow
+   ```
+   and `ensure MULTIcatalog` after `ensure MULTItelegram`.
+3. Restart the server. The new tables are made by themselves.
+
 ## 2026-11-27 (MULTIcore: traffic and crowd density, smoother frames)
 
 ### New

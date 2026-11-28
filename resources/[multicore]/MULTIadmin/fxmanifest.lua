@@ -23,6 +23,7 @@ client_scripts {
     'client/self.lua',
     'client/target.lua',
     'client/world.lua',
+    'client/perf.lua',         -- Performance page: frame-time sample when the server asks
 }
 
 server_scripts {
@@ -30,6 +31,8 @@ server_scripts {
     'server/main.lua',
     'server/bans.lua',
     'server/actions.lua',
+    'server/settings.lua',     -- Settings page: in-game settings of every MULTI script (MULTIcore registry)
+    'server/perf.lua',         -- Performance page: server profiler, a player's frame times
     'server/commands.lua',     -- /heal, /revive, /kick ... (Config.ChatCommands)
 }
 

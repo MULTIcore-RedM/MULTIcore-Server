@@ -80,7 +80,9 @@ server_scripts {
     'server/multi/compat_characters.lua',  -- VORP characters table + RSG playerskins kept in step
     'server/multi/compat_vorp.lua',        -- getUserByCharId export, vorp:setjob
     'server/multi/api.lua',        -- MULTIcore's own API (docs/API.md)
+    'server/multi/settings.lua',   -- in-game settings registry (multicore_settings table, docs/API.md)
     'server/multi/interact.lua',   -- /mcinteract: one line per MULTI script in the server console
+    'server/multi/import.lua',     -- mcimport vorp | rsg: switch-over import from an old server's database
     'server/multi/testhooks.lua',  -- inert unless the test convar is set
 }
 
@@ -89,6 +91,7 @@ files {
     'lib/api.lua',             -- MC.* shortcut for MULTIcore's own API (@MULTIcore/lib/api.lua)
     'lib/ui.lua',              -- ox_lib menus in the MULTI look every MULTI script with menus includes (@MULTIcore/lib/ui.lua)
     'lib/interact.lua',        -- MULTItarget / prompt helper every MULTI script with world points includes (@MULTIcore/lib/interact.lua)
+    'lib/settings.lua',        -- in-game settings helper (@MULTIcore/lib/settings.lua, MCSettings.Register)
     'sql/*.sql',
     'html/theme/*',
     'html/theme/fonts/*',      -- game fonts when present (see html/theme/fonts/README.md)

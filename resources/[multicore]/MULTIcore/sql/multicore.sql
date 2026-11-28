@@ -24,3 +24,38 @@ CREATE TABLE IF NOT EXISTS `multicore_appearance` (
   `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`citizenid`, `format`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Switch-over import (mcimport vorp | rsg, server/multi/import.lua). The old tables are only read.
+-- What was brought over from which old row: a second run skips everything listed here.
+-- source = 'vorp' or 'rsg', with '@<database>' when the old tables were read from another database.
+CREATE TABLE IF NOT EXISTS `multicore_import_map` (
+  `source` VARCHAR(80) NOT NULL,
+  `kind` VARCHAR(24) NOT NULL,
+  `source_key` VARCHAR(150) NOT NULL,
+  `target_key` VARCHAR(150) DEFAULT NULL,
+  `status` VARCHAR(10) NOT NULL DEFAULT 'done',
+  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`source`, `kind`, `source_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Everything an import run could not bring over, one line each (run = the time the run started)
+CREATE TABLE IF NOT EXISTS `multicore_import_log` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `run` BIGINT NOT NULL,
+  `source` VARCHAR(80) NOT NULL,
+  `step` VARCHAR(24) NOT NULL,
+  `source_key` VARCHAR(150) DEFAULT NULL,
+  `message` TEXT DEFAULT NULL,
+  `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `run` (`run`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Jobs and grades imported characters hold that no job list here knew. Added again on every start,
+-- so those characters keep their job after a restart.
+CREATE TABLE IF NOT EXISTS `multicore_import_jobs` (
+  `name` VARCHAR(50) NOT NULL,
+  `grade` INT NOT NULL DEFAULT 0,
+  `label` VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY (`name`, `grade`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
